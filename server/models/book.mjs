@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const memoBookSchema = new Schema({
+const bookSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -27,4 +27,4 @@ const memoBookSchema = new Schema({
   ],
 });
 
-export const Book = model("memoBook", memoBookSchema);
+export const Book = model("Book", bookSchema);
