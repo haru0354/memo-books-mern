@@ -1,0 +1,29 @@
+[{
+  "_id": {
+    "$oid": "6334634881d8ae4ba04fbc8e"
+  },
+  "title": "react",
+  "chapters": [
+    {
+      "chapter_title": "db",
+      "contents": [
+        {
+          "heading_title": "aa",
+          "content": "bb"
+        }
+      ]
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1664377672489"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1665755227492"
+    }
+  },
+  "__v": 0
+}
+]

@@ -25,6 +25,6 @@ const bookSchema = new Schema({
       ],
     },
   ],
-});
+}, { timestamps: true });
 
 export const Book = model("Book", bookSchema);
