@@ -39,3 +39,5 @@ scss,pandaCSS,Bootstrap,materialUIのまだ使用していないのを使う
 - metaデータの作成
 - robot.txtとsitemap.xmlの作成
 
+コメントは英語話者のいる環境でなければ日本語を使う
+⇒とりあえずこのアプリは全て日本語を使うようにする。
