@@ -16,12 +16,24 @@ export const getBook = async (req, res) => {
     const book = await Book.findById(bookId);
 
     if (!book) {
-      return res.status(404).json({message: "本が見つかりませんでした。"})
+      return res.status(404).json({ message: "本が見つかりませんでした。" });
     }
 
     res.json(book);
   } catch (err) {
     console.error("本の取得に失敗しました", err);
     res.status(500).json({ message: "本の取得に失敗しました。" });
+  }
+};
+
+export const addBook = async (req, res) => {
+  try {
+    const book = new Book(req.body);
+    const newBook = await book.save();
+  
+    res.status(201).json(newBook);
+  } catch (err) {
+    console.log("本の追加に失敗しました。", err);
+    res.status(500).json({ message: "本の追加に失敗しました。" });
   }
 };

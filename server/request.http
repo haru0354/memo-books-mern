@@ -4,3 +4,36 @@ GET http://localhost:8080/api/book
 ###
 
 GET http://localhost:8080/api/book/6334634881d8ae4ba04fbc8e
+
+###
+
+POST http://localhost:8080/api/book
+Content-Type: application/json
+
+{
+    "title": "testBooks",
+    "chapters": [
+        {
+            "chapter_title": "testChapter",
+            "contents": [
+                {
+                    "heading_title": "見出し1",
+                    "content": "メモするコンテンツ1"
+                },
+                {
+                    "heading_title": "見出し2",
+                    "content": "メモするコンテンツ2"
+                }
+            ]
+        },
+        {
+            "chapter_title": "testChapter2",
+            "contents": [
+                {
+                    "heading_title": "見出し3",
+                    "content": "メモするコンテンツ3"
+                }
+            ]
+        }
+    ]
+}
