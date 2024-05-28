@@ -9,3 +9,19 @@ export const getAllBooks = async (req, res) => {
     res.status(500).json({ message: "本の一覧の取得に失敗しました。" });
   }
 };
+
+export const getBook = async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const book = await Book.findById(bookId);
+
+    if (!book) {
+      return res.status(404).json({message: "本が見つかりませんでした。"})
+    }
+
+    res.json(book);
+  } catch (err) {
+    console.error("本の取得に失敗しました", err);
+    res.status(500).json({ message: "本の取得に失敗しました。" });
+  }
+};

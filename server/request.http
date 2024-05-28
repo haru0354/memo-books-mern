@@ -1,3 +1,6 @@
 
 GET http://localhost:8080/api/book
 
+###
+
+GET http://localhost:8080/api/book/6334634881d8ae4ba04fbc8e
