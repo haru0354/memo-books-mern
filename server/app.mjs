@@ -13,5 +13,5 @@ app.use(express.json());
 app.use('/api', apiRoutes)
 
 app.listen(port, () => {
-  console.log(`Server start: http://localhost:${port}`);
+  console.log(`サーバーが起動しました: http://localhost:${port}`);
 });
