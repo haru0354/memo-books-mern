@@ -22,3 +22,7 @@ Content-Type: application/json
 {
     "title": "updateTest"
 }
+
+### 
+
+DELETE http://localhost:8080/api/book/665636a54e3832579a40db91

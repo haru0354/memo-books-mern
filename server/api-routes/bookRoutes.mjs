@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addBook,
+  deleteBook,
   getAllBooks,
   getBook,
   updateBook,
@@ -12,6 +13,7 @@ bookRouter.get("/", getAllBooks);
 bookRouter.get("/:id", getBook);
 bookRouter.post("/", addBook);
 bookRouter.patch("/:id", updateBook);
+bookRouter.delete("/:id", deleteBook);
 
 
 export default bookRouter;
