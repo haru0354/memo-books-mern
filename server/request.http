@@ -11,29 +11,14 @@ POST http://localhost:8080/api/book
 Content-Type: application/json
 
 {
-    "title": "testBooks",
-    "chapters": [
-        {
-            "chapter_title": "testChapter",
-            "contents": [
-                {
-                    "heading_title": "見出し1",
-                    "content": "メモするコンテンツ1"
-                },
-                {
-                    "heading_title": "見出し2",
-                    "content": "メモするコンテンツ2"
-                }
-            ]
-        },
-        {
-            "chapter_title": "testChapter2",
-            "contents": [
-                {
-                    "heading_title": "見出し3",
-                    "content": "メモするコンテンツ3"
-                }
-            ]
-        }
-    ]
+    "title": "testBooks000"
+}
+
+###
+
+PATCH  http://localhost:8080/api/book/665636584e3832579a40db7f
+Content-Type: application/json
+
+{
+    "title": "updateTest"
 }
