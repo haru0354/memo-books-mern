@@ -30,5 +30,29 @@ const bookSchema = new Schema(
   { timestamps: true }
 );
 
+const chapterSchema = new Schema(
+  {
+    chapter_title: {
+      type: String,
+      required: true,
+    },
+    contents: [
+      {
+        heading_title: {
+          type: String,
+          required: true,
+        },
+        content: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+  },
+  { timestamps: true }
+);
+
 const Book = model("Book", bookSchema);
-export default Book;
+const Chapter = model("Chapter", chapterSchema);
+
+export { Book, Chapter } ;
