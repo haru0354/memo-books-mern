@@ -55,7 +55,7 @@ export const addChapter = async (req, res) => {
         .json({ message: "指定したIDの本が見つかりませんでした。" });
     }
 
-    const chapter = new Chapter({ chapter_title: req.body.chapter_title }); 
+    const chapter = new Chapter({ chapter_title: req.body.chapter_title });
     const newChapter = await chapter.save();
     book.chapters.push(newChapter);
     await book.save();
@@ -98,5 +98,39 @@ export const updateChapter = async (req, res) => {
   } catch (err) {
     console.error("チャプターの取得に失敗しました", err);
     res.status(500).json({ message: "チャプターの取得に失敗しました" });
+  }
+};
+
+export const deleteChapter = async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const book = await Book.findById(bookId);
+
+    if (!book) {
+      res
+        .status(404)
+        .json({ message: "指定したIDの本が見つかりませんでした。" });
+    }
+
+    const chapterId = req.params.chapterId;
+    const chapter = book.chapters.find(
+      (chapter) => String(chapter._id) === chapterId
+    );
+
+    if (!chapter) {
+      return res
+        .status(404)
+        .json({ message: "チャプターが見つかりませんでした。" });
+    }
+
+    book.chapters = book.chapters.filter(
+      (chapter) => String(chapter._id) !== chapterId
+    );
+
+    await book.save();
+    res.json({ message: "チャプターを削除しました。" });
+  } catch (err) {
+    console.error("チャプターの削除に失敗しました。", err);
+    res.status(500).json({ message: "チャプターの削除に失敗しました。" });
   }
 };

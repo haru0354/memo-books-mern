@@ -5,7 +5,7 @@ GET http://localhost:8080/api/chapter/6656ac07cc3bb5de5a1f9aee
 GET http://localhost:8080/api/chapter/6656ac07cc3bb5de5a1f9aee/6656ac07cc3bb5de5a1f9af2
 
 ###
-POST  http://localhost:8080/api/chapter/6656ac07cc3bb5de5a1f9aee/
+POST  http://localhost:8080/api/chapter/66574cbd11f8d2b00dadd27f/
 Content-Type: application/json
 
 {
@@ -19,3 +19,6 @@ Content-Type: application/json
 {
     "chapter_title": "updateChapterTest"
 }
+
+### 
+DELETE http://localhost:8080/api/chapter/66574cbd11f8d2b00dadd27f/66574cef11f8d2b00dadd288
