@@ -1,3 +1,4 @@
+import { findChapterById } from "../helpers/findChapterById.mjs";
 import Book from "../models/book.mjs";
 
 export const getAllChapters = async (req, res) => {
@@ -20,21 +21,14 @@ export const getAllChapters = async (req, res) => {
 export const getChapter = async (req, res) => {
   try {
     const bookId = req.params.id;
-    const book = await Book.findById(bookId);
-
-    if (!book) {
-      res.status(404).json({ message: "指定した本が見つかりませんでした" });
-    }
-
     const chapterId = req.params.chapterId;
-    const chapter = book.chapters.find(
-      (chapter) => String(chapter._id) === chapterId
-    );
 
-    if (!chapter) {
+    const { chapter, error } = await findChapterById(bookId, chapterId)
+
+    if (error) {
       return res
         .status(404)
-        .json({ message: "指定したチャプターが見つかりませんでした" });
+        .json({ message: error });
     }
 
     res.json(chapter);
@@ -69,21 +63,14 @@ export const addChapter = async (req, res) => {
 export const updateChapter = async (req, res) => {
   try {
     const bookId = req.params.id;
-    const book = await Book.findById(bookId);
-
-    if (!book) {
-      res.status(404).json({ message: "指定した本が見つかりませんでした" });
-    }
-
     const chapterId = req.params.chapterId;
-    const chapter = book.chapters.find(
-      (chapter) => String(chapter._id) === chapterId
-    );
 
-    if (!chapter) {
+    const { chapter, book, error } = await findChapterById(bookId, chapterId)
+
+    if (error) {
       return res
         .status(404)
-        .json({ message: "指定したチャプターが見つかりませんでした" });
+        .json({ message: error });
     }
 
     const newChapterTitle = req.body.chapter_title;
@@ -103,24 +90,9 @@ export const updateChapter = async (req, res) => {
 export const deleteChapter = async (req, res) => {
   try {
     const bookId = req.params.id;
-    const book = await Book.findById(bookId);
-
-    if (!book) {
-      res
-        .status(404)
-        .json({ message: "指定したIDの本が見つかりませんでした。" });
-    }
-
     const chapterId = req.params.chapterId;
-    const chapter = book.chapters.find(
-      (chapter) => String(chapter._id) === chapterId
-    );
 
-    if (!chapter) {
-      return res
-        .status(404)
-        .json({ message: "チャプターが見つかりませんでした。" });
-    }
+    const book = await Book.findById(bookId);
 
     book.chapters = book.chapters.filter(
       (chapter) => String(chapter._id) !== chapterId
