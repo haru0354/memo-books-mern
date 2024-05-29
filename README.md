@@ -38,4 +38,7 @@ scss,pandaCSS,Bootstrap,materialUIのまだ使用していないのを使う
 - 認証はfirebaseまたはsupabaseを使用する(予定)
 - metaデータの作成
 - robot.txtとsitemap.xmlの作成
+- 画像をメモにアップロード
 
+コメントは英語話者のいる環境でなければ日本語を使うことが多いみたい
+⇒とりあえずこのアプリは全て日本語を使うようにする。

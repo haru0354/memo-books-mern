@@ -1,3 +1,28 @@
 
-GET http://localhost:8080/api/books
+GET http://localhost:8080/api/book
 
+###
+
+GET http://localhost:8080/api/book/6334634881d8ae4ba04fbc8e
+
+###
+
+POST http://localhost:8080/api/book
+Content-Type: application/json
+
+{
+    "title": "testBooks000"
+}
+
+###
+
+PATCH  http://localhost:8080/api/book/665636584e3832579a40db7f
+Content-Type: application/json
+
+{
+    "title": "updateTest"
+}
+
+### 
+
+DELETE http://localhost:8080/api/book/665636a54e3832579a40db91
