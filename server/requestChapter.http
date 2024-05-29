@@ -3,3 +3,12 @@ GET http://localhost:8080/api/chapter/6656ac07cc3bb5de5a1f9aee
 
 ###
 GET http://localhost:8080/api/chapter/6656ac07cc3bb5de5a1f9aee/6656ac07cc3bb5de5a1f9af2
+
+###
+
+PATCH  http://localhost:8080/api/chapter/6656ac07cc3bb5de5a1f9aee/6656ac07cc3bb5de5a1f9af2
+Content-Type: application/json
+
+{
+    "chapter_title": "updateChapterTest"
+}
