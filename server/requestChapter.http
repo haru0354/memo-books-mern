@@ -1,0 +1,24 @@
+
+GET http://localhost:8080/api/chapter/66574cbd11f8d2b00dadd27f
+
+###
+GET http://localhost:8080/api/chapter/66574cbd11f8d2b00dadd27f/665753735425b013ec41f9fe
+
+###
+POST  http://localhost:8080/api/chapter/66574cbd11f8d2b00dadd27f/
+Content-Type: application/json
+
+{
+    "chapter_title": "addChapterTest"
+}
+
+###
+PATCH  http://localhost:8080/api/chapter/66574cbd11f8d2b00dadd27f/665753c46ce9ddff0f43f893
+Content-Type: application/json
+
+{
+    "chapter_title": "updateChapterTest"
+}
+
+### 
+DELETE http://localhost:8080/api/chapter/66574cbd11f8d2b00dadd27f/665760deb662c6a23acd56c7

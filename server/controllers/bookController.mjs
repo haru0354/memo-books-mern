@@ -1,4 +1,4 @@
-import { Book } from "../models/book.mjs";
+import Book from "../models/book.mjs";
 
 export const getAllBooks = async (req, res) => {
   try {
@@ -46,7 +46,7 @@ export const updateBook = async (req, res) => {
     if (!book) {
       return res.status(404).json({ message: "本が見つかりませんでした。" });
     }
-    7;
+    
     if (req.body.title) {
       book.title = req.body.title;
     }
