@@ -1,4 +1,4 @@
-import { Chapter, Book } from "../models/book.mjs";
+import Book from "../models/book.mjs";
 
 export const getAllChapters = async (req, res) => {
   try {
@@ -55,8 +55,7 @@ export const addChapter = async (req, res) => {
         .json({ message: "指定したIDの本が見つかりませんでした。" });
     }
 
-    const chapter = new Chapter({ chapter_title: req.body.chapter_title });
-    const newChapter = await chapter.save();
+    const newChapter = { chapter_title: req.body.chapter_title };
     book.chapters.push(newChapter);
     await book.save();
 
