@@ -10,3 +10,12 @@ Content-Type: application/json
     "heading_title": "addTitle",
     "content": "addContent"
 }
+
+###
+PATCH http://localhost:8080/api/contents/6334634881d8ae4ba04fbc8e/6657ed099fe1b131479929e3/6657f885b40eb5c5b6829796
+Content-Type: application/json
+
+{
+    "heading_title": "updateTitle0",
+    "content": "updateContent"
+}
