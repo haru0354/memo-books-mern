@@ -1,2 +1,12 @@
 
 GET http://localhost:8080/api/contents/6334634881d8ae4ba04fbc8e/6657ed099fe1b131479929e3
+
+###
+
+POST http://localhost:8080/api/contents/6334634881d8ae4ba04fbc8e/6657ed099fe1b131479929e3
+Content-Type: application/json
+
+{
+    "heading_title": "addTitle",
+    "content": "addContent"
+}
