@@ -1,5 +1,6 @@
 import { findChapterById } from "../helpers/findChapterById.mjs";
 import { findContentsById } from "../helpers/findContentsById.mjs";
+import { validationResult } from "express-validator";
 
 export const getAllContents = async (req, res) => {
   try {
@@ -45,6 +46,13 @@ export const getContents = async (req, res) => {
 
 export const addContents = async (req, res) => {
   try {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+      const errs = errors.array()
+      return res.status(400).json(errs)
+    }
+
     const bookId = req.params.id;
     const chapterId = req.params.chapterId;
 
@@ -78,6 +86,13 @@ export const addContents = async (req, res) => {
 
 export const updateContents = async (req, res) => {
   try {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+      const errs = errors.array()
+      return res.status(400).json(errs)
+    }
+    
     const bookId = req.params.id;
     const chapterId = req.params.chapterId;
     const contentsId = req.params.contentsId;
