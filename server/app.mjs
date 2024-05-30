@@ -17,6 +17,13 @@ app.use(cors({
   origin: "http://localhost:5173/",
 }))
 
+app.use(function(err, req, res, next) {
+  if(res.headersSent) {
+    return next(err)
+  }
+  res.status(500).json({ message: "不正なエラーが発生しました。"})
+}) 
+
 app.listen(port, () => {
   console.log(`サーバーが起動しました: http://localhost:${port}`);
 });

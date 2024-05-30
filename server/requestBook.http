@@ -16,13 +16,13 @@ Content-Type: application/json
 
 ###
 
-PATCH  http://localhost:8080/api/book/66583dd0c8326802c181ef12
+PATCH  http://localhost:8080/api/book/6658b43f6ed3149724e31993
 Content-Type: application/json
 
 {
-    "title": "バリデーションテスト"
+    "title": "バリデーションテスト0"
 }
 
 ### 
 
-DELETE http://localhost:8080/api/book/6656ac07cc3bb5de5a1f9aee
+DELETE http://localhost:8080/api/book/6658b48e2bfb288a0863e80a
