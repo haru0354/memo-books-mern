@@ -19,6 +19,33 @@ export const getAllContents = async (req, res) => {
   }
 };
 
+export const getContents = async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const chapterId = req.params.chapterId;
+
+    const { chapter, error } = await findChapterById(bookId, chapterId);
+
+    if (error) {
+      return res.status(404).json({ message: error });
+    }
+
+    const contentsId = req.params.contentsId;
+    const contents = chapter.contents.find(
+      (content) => String(content._id) === contentsId
+    );
+
+    if (!contents) {
+      return res.status(404).json({ message: "コンテンツが見つかりません。" });
+    }
+
+    res.json(contents);
+  } catch (err) {
+    console.error("コンテンツの取得に失敗しました", err);
+    res.status(500).json({ message: "コンテンツの取得に失敗しました" });
+  }
+};
+
 export const addContents = async (req, res) => {
   try {
     const bookId = req.params.id;
@@ -98,12 +125,12 @@ export const deleteContents = async (req, res) => {
     const { chapter, book, error } = await findChapterById(bookId, chapterId);
 
     if (error) {
-        return res.status(404).json({ message: error });
+      return res.status(404).json({ message: error });
     }
     const contentsId = req.params.contentsId;
 
-    chapter.contents = chapter.contents.filter((content) => 
-      String(content._id) !== contentsId
+    chapter.contents = chapter.contents.filter(
+      (content) => String(content._id) !== contentsId
     );
 
     await book.save();
