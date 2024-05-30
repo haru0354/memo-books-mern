@@ -19,3 +19,6 @@ Content-Type: application/json
     "heading_title": "updateTitle0",
     "content": "updateContent"
 }
+
+###
+DELETE http://localhost:8080/api/contents/6334634881d8ae4ba04fbc8e/6657ed099fe1b131479929e3/6657f89bb40eb5c5b68297a7

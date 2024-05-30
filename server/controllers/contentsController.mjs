@@ -89,3 +89,27 @@ export const updateContents = async (req, res) => {
     res.status(500).json({ message: "コンテンツの編集に失敗しました。" });
   }
 };
+
+export const deleteContents = async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const chapterId = req.params.chapterId;
+
+    const { chapter, book, error } = await findChapterById(bookId, chapterId);
+
+    if (error) {
+        return res.status(404).json({ message: error });
+    }
+    const contentsId = req.params.contentsId;
+
+    chapter.contents = chapter.contents.filter((content) => 
+      String(content._id) !== contentsId
+    );
+
+    await book.save();
+    res.json({ message: "コンテンツの削除に成功しました。" });
+  } catch (err) {
+    console.error("コンテンツの削除に失敗しました。", err);
+    res.status(500).json({ message: "コンテンツの削除に失敗しました。" });
+  }
+};
