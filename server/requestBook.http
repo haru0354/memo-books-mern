@@ -11,16 +11,16 @@ POST http://localhost:8080/api/book
 Content-Type: application/json
 
 {
-    "title": "testBooks000"
+    "title": "バリデーション"
 }
 
 ###
 
-PATCH  http://localhost:8080/api/book/665636584e3832579a40db7f
+PATCH  http://localhost:8080/api/book/66583dd0c8326802c181ef12
 Content-Type: application/json
 
 {
-    "title": "updateTest"
+    "title": "バリデーションテスト"
 }
 
 ### 

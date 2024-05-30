@@ -1,4 +1,5 @@
 import Book from "../models/book.mjs";
+import { validationResult } from "express-validator";
 
 export const getAllBooks = async (req, res) => {
   try {
@@ -28,6 +29,13 @@ export const getBook = async (req, res) => {
 
 export const addBook = async (req, res) => {
   try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const errs = errors.array();
+      return res.status(400).json(errs);
+    }
+
     const book = new Book({ title: req.body.title });
     const newBook = await book.save();
 
@@ -40,13 +48,20 @@ export const addBook = async (req, res) => {
 
 export const updateBook = async (req, res) => {
   try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const errs = errors.array();
+      return res.status(400).json(errs);
+    }
+
     const bookId = req.params.id;
     const book = await Book.findById(bookId);
 
     if (!book) {
       return res.status(404).json({ message: "本が見つかりませんでした。" });
     }
-    
+
     if (req.body.title) {
       book.title = req.body.title;
     }
@@ -62,15 +77,15 @@ export const updateBook = async (req, res) => {
 export const deleteBook = async (req, res) => {
   try {
     const bookId = req.params.id;
-    const result = await Book.deleteOne({ _id: bookId })
-  
+    const result = await Book.deleteOne({ _id: bookId });
+
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: "本が見つかりませんでした" });
     }
-  
+
     res.json({ message: "本の削除に成功しました。" });
   } catch (err) {
     console.error("本の削除に失敗しました", err);
-    res.status(500).json({ message: "本の削除に失敗しました。"})
+    res.status(500).json({ message: "本の削除に失敗しました。" });
   }
 };
