@@ -1,5 +1,6 @@
 import { findChapterById } from "../helpers/findChapterById.mjs";
 import Book from "../models/book.mjs";
+import { validationResult } from "express-validator";
 
 export const getAllChapters = async (req, res) => {
   try {
@@ -23,12 +24,10 @@ export const getChapter = async (req, res) => {
     const bookId = req.params.id;
     const chapterId = req.params.chapterId;
 
-    const { chapter, error } = await findChapterById(bookId, chapterId)
+    const { chapter, error } = await findChapterById(bookId, chapterId);
 
     if (error) {
-      return res
-        .status(404)
-        .json({ message: error });
+      return res.status(404).json({ message: error });
     }
 
     res.json(chapter);
@@ -40,6 +39,13 @@ export const getChapter = async (req, res) => {
 
 export const addChapter = async (req, res) => {
   try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const errs = errors.array();
+      return res.status(400).json(errs);
+    }
+
     const bookId = req.params.id;
     const book = await Book.findById(bookId);
 
@@ -62,15 +68,20 @@ export const addChapter = async (req, res) => {
 
 export const updateChapter = async (req, res) => {
   try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const errs = errors.array();
+      return res.status(400).json(errs);
+    }
+
     const bookId = req.params.id;
     const chapterId = req.params.chapterId;
 
-    const { chapter, book, error } = await findChapterById(bookId, chapterId)
+    const { chapter, book, error } = await findChapterById(bookId, chapterId);
 
     if (error) {
-      return res
-        .status(404)
-        .json({ message: error });
+      return res.status(404).json({ message: error });
     }
 
     const newChapterTitle = req.body.chapter_title;
