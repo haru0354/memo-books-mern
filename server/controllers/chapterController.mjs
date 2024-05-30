@@ -82,7 +82,10 @@ export const deleteChapter = async (req, res) => {
   const bookId = req.params.id;
   const chapterId = req.params.chapterId;
 
-  const { chapter, book, error } = await findChapterById(bookId, chapterId);
+  const { book, error } = await findChapterById(
+    bookId,
+    chapterId,
+  );
 
   if (error) {
     return res.status(404).json({ message: error });

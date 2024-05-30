@@ -7,23 +7,28 @@ import {
   updateContents,
 } from "../controllers/contentsController.mjs";
 import { body } from "express-validator";
+import { requestErrorHandler } from "../helpers/requestErrorHandler.mjs";
 
 const contentsRouter = express.Router();
 
-contentsRouter.get("/:id/:chapterId", getAllContents);
-contentsRouter.get("/:id/:chapterId/:contentsId", getContents);
+contentsRouter.get("/:id/:chapterId", requestErrorHandler(getAllContents));
+
+contentsRouter.get("/:id/:chapterId/:contentsId", requestErrorHandler(getContents));
+
 contentsRouter.post(
   "/:id/:chapterId",
   body("heading_title").notEmpty().withMessage("タイトルを入力してください。"),
   body("content").notEmpty().withMessage("記載するコンテンツを入力してください。"),
-  addContents
+  requestErrorHandler(addContents)
 );
+
 contentsRouter.patch(
   "/:id/:chapterId/:contentsId",
   body("heading_title").optional().notEmpty(),
   body("content").optional().notEmpty(),
-  updateContents
+  requestErrorHandler(updateContents)
 );
-contentsRouter.delete("/:id/:chapterId/:contentsId", deleteContents);
+
+contentsRouter.delete("/:id/:chapterId/:contentsId", requestErrorHandler(deleteContents));
 
 export default contentsRouter;
