@@ -20,7 +20,7 @@ PATCH http://localhost:8080/api/contents/6334634881d8ae4ba04fbc8e/6657ed099fe1b1
 Content-Type: application/json
 
 {
-    "heading_title": "updateTitle0",
+    "heading_title": "updateTitle00",
     "content": "updateContent"
 }
 

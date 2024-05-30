@@ -1,4 +1,5 @@
 import { findChapterById } from "../helpers/findChapterById.mjs";
+import { findContentsById } from "../helpers/findContentsById.mjs";
 
 export const getAllContents = async (req, res) => {
   try {
@@ -8,7 +9,7 @@ export const getAllContents = async (req, res) => {
     const { chapter, error } = await findChapterById(bookId, chapterId);
 
     if (error) {
-      res.status(404).json({ message: error });
+      return res.status(404).json({ message: error });
     }
 
     const contents = chapter.contents;
@@ -23,20 +24,16 @@ export const getContents = async (req, res) => {
   try {
     const bookId = req.params.id;
     const chapterId = req.params.chapterId;
+    const contentsId = req.params.contentsId;
 
-    const { chapter, error } = await findChapterById(bookId, chapterId);
+    const { contents, error } = await findContentsById(
+      bookId,
+      chapterId,
+      contentsId
+    );
 
     if (error) {
       return res.status(404).json({ message: error });
-    }
-
-    const contentsId = req.params.contentsId;
-    const contents = chapter.contents.find(
-      (content) => String(content._id) === contentsId
-    );
-
-    if (!contents) {
-      return res.status(404).json({ message: "コンテンツが見つかりません。" });
     }
 
     res.json(contents);
@@ -83,20 +80,16 @@ export const updateContents = async (req, res) => {
   try {
     const bookId = req.params.id;
     const chapterId = req.params.chapterId;
-
-    const { chapter, book, error } = await findChapterById(bookId, chapterId);
-
-    if (error) {
-      res.status(404).json({ message: error });
-    }
-
     const contentsId = req.params.contentsId;
-    const contents = chapter.contents.find(
-      (content) => String(content._id) === contentsId
+
+    const { contents, book, error } = await findContentsById(
+      bookId,
+      chapterId,
+      contentsId
     );
 
-    if (!contents) {
-      return res.status(404).json({ message: "コンテンツが見つかりません。" });
+    if (error) {
+      return res.status(404).json({ message: error });
     }
 
     const { heading_title, content } = req.body;
@@ -127,6 +120,7 @@ export const deleteContents = async (req, res) => {
     if (error) {
       return res.status(404).json({ message: error });
     }
+
     const contentsId = req.params.contentsId;
 
     chapter.contents = chapter.contents.filter(
