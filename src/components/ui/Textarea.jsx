@@ -1,6 +1,6 @@
 import TextareaAutosize from "react-textarea-autosize";
 
-const Textarea = ({ label, name, placeholder = "テキストを入力してください" }) => {
+const Textarea = ({ label, name, placeholder }) => {
   return (
     <>
       <label htmlFor={label}>{label}</label>
