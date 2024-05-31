@@ -3,6 +3,7 @@ import './App.css'
 import Button from './components/ui/Button'
 import TextInput from './components/ui/TextInput'
 import Textarea from './components/ui/Textarea'
+import Footer from './components/Footer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,6 +26,7 @@ function App() {
 <Button>ボタン</Button>
 <TextInput label="aa" placeholder="as"/>
 <Textarea  label="aa" placeholder="aas"/>
+<Footer />
 </>
   )
 }
