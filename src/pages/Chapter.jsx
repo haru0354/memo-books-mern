@@ -5,7 +5,7 @@ import ContentsArea from "../components/ContentsArea";
 import ChapterList from "../components/ChapterList";
 
 const Chapter = () => {
-  const [chapter, setChapter] = useState();
+  const [ chapter, setChapter ] = useState();
   const { chapterId } = useParams();
   const { bookId } = useParams();
 
@@ -27,7 +27,7 @@ const Chapter = () => {
 
   return (
     <>
-      <ChapterList chapters={chapter.bookChapters} />
+      <ChapterList chapters={chapter.bookChapters} bookId={bookId} />
       <ContentsArea chapter={chapter.chapter} />
     </>
   );
