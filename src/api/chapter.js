@@ -3,24 +3,24 @@ import axios from "axios";
 const ENDPOINT_URL = "http://localhost:8080/api/chapter";
 
 const chapterApi = {
-  async getAll() {
-    const result = await axios.get(ENDPOINT_URL);
+  async getAll(bookId) {
+    const result = await axios.get(`${ENDPOINT_URL}/${bookId}`);
     return result.data;
   },
-  async get(id) {
-    const result = await axios.get(ENDPOINT_URL + "/" + id);
+  async get(bookId, chapterId) {
+    const result = await axios.get(`${ENDPOINT_URL}/${bookId}/${chapterId}`);
     return result.data;
   },
-  async post(chapter) {
-    const result = await axios.post(ENDPOINT_URL, chapter);
+  async post(bookId, chapter) {
+    const result = await axios.post(`${ENDPOINT_URL}/${bookId}`, chapter);
     return result.data;
   },
-  async patch(chapter) {
-    const result = await axios.patch(ENDPOINT_URL + "/" + chapter._id, chapter);
+  async patch(bookId, chapterId, chapter) {
+    const result = await axios.patch(`${ENDPOINT_URL}/${bookId}/${chapterId}`, chapter);
     return result.data;
   },
-  async delete(chapter) {
-    const result = await axios.delete(ENDPOINT_URL + "/" + chapter._id);
+  async delete(bookId, chapterId) {
+    const result = await axios.delete(`${ENDPOINT_URL}/${bookId}/${chapterId}`);
   },
 };
 
