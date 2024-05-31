@@ -8,14 +8,15 @@ import cors from "cors"
 const port = process.env.PORT || 8080;
 const app = express();
 
+app.use(cors({
+  origin: "http://localhost:5173",
+}))
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 app.use('/api', apiRoutes)
 
-app.use(cors({
-  origin: "http://localhost:5173/",
-}))
 
 app.use(function(err, req, res, next) {
   if(res.headersSent) {

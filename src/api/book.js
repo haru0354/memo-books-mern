@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ENDPOINT_URL = "/api/book";
+const ENDPOINT_URL = "http://localhost:8080/api/book";
 
 const bookApi = {
   async getAll() {
@@ -21,6 +21,7 @@ const bookApi = {
   },
   async delete(book) {
     const result = await axios.delete(ENDPOINT_URL + "/" +  book._id)
+    return result.data
   }
 };
 
