@@ -7,9 +7,28 @@ import Footer from "./components/Footer";
 import DeleteModal from "./components/DeleteModal";
 import AddModal from "./components/AddModal";
 import ChapterList from "./components/ChapterList";
+import ContentsArea from "./components/ContentsArea";
 
 function App() {
   const [count, setCount] = useState(0);
+
+  const chapter = {
+    chapter_title: "チャプタータイトル",
+    contents: [
+      {
+        heading_title: "aa",
+        content: "00",
+      },
+      {
+        heading_title: "bb",
+        content: "11",
+      },
+      {
+        heading_title: "cc",
+        content: "22",
+      },
+    ],
+  };
 
   const chapters = [
     {
@@ -25,24 +44,9 @@ function App() {
   return (
     <>
       <h1>Vite00 + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-
-      <Button>ボタン</Button>
-      <TextInput label="aa" placeholder="as" />
-      <Textarea label="aa" placeholder="aas" />
+      <ChapterList chapters={chapters} />
+      <ContentsArea chapter={chapter} />
       <DeleteModal title="b" />
-      <AddModal isContents={true} />
-      <ChapterList chapters={chapters}/>
       <Footer />
     </>
   );
