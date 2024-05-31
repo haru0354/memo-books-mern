@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Button from './components/ui/Button'
 import TextInput from './components/ui/TextInput'
+import Textarea from './components/ui/Textarea'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,6 +24,7 @@ function App() {
 
 <Button>ボタン</Button>
 <TextInput label="aa" placeholder="aas"/>
+<Textarea  label="aa" placeholder="aas"/>
 </>
   )
 }
