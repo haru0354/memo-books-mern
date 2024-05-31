@@ -3,6 +3,7 @@ import chapterApi from "../api/chapter";
 import { useParams } from "react-router-dom";
 import ContentsArea from "../components/ContentsArea";
 import ChapterList from "../components/ChapterList";
+import TableOfContents from "../components/TableOfContents";
 
 const Chapter = () => {
   const [ chapter, setChapter ] = useState();
@@ -28,6 +29,8 @@ const Chapter = () => {
   return (
     <>
       <ChapterList chapters={chapter.bookChapters} bookId={bookId} />
+      <h1>{chapter.chapter.chapter_title}</h1>
+      <TableOfContents chapter={chapter.chapter} />
       <ContentsArea chapter={chapter.chapter} />
     </>
   );
