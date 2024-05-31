@@ -1,3 +1,5 @@
+import AddModal from "./AddModal";
+
 const ChapterList = ({ chapters }) => {
   return (
     <div className="chapter">
@@ -6,6 +8,7 @@ const ChapterList = ({ chapters }) => {
           return <li key={chapter.id}>{chapter.chapter_title}</li>;
         })}
       </ul>
+      <AddModal />
     </div>
   );
 };
