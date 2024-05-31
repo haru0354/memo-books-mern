@@ -18,16 +18,22 @@ const Books = () => {
     fetchBooks();
   }, []);
 
+  if (!books) {
+    <p>Loading...</p>;
+  }
+
   return (
     <>
-    <h2>本の一覧</h2>
-    <div>
-      {books.map((book) => (
+      <h2>本の一覧</h2>
+      <div>
+        {books.map((book) => (
           <div key={book._id}>
-            <h2><Link to={`/books/${book._id}`}>{book.title}</Link></h2>
+            <h2>
+              <Link to={`/books/${book._id}`}>{book.title}</Link>
+            </h2>
           </div>
-      ))}
-    </div>
+        ))}
+      </div>
     </>
   );
 };

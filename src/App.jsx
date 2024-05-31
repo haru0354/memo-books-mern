@@ -5,6 +5,7 @@ import Footer from "./components/Footer"
 import Page404 from "./pages/Page404";
 import Books from "./pages/Books";
 import Chapter from "./pages/Chapter";
+import Book from "./pages/Book";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/books" element={<Books />} />
+        <Route path="/books/:bookId" element={<Book />} />
         <Route path="/:bookId/:chapterId" element={<Chapter />} />
         <Route path="/*" element={<Page404 />} />
       </Routes>
