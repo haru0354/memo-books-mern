@@ -1,8 +1,10 @@
-const Textarea = ({ label, name }) => {
+import TextareaAutosize from "react-textarea-autosize";
+
+const Textarea = ({ label, name, placeholder = "テキストを入力してください" }) => {
   return (
     <>
       <label htmlFor={label}>{label}</label>
-      <textarea name={name} />
+      <TextareaAutosize name={name} placeholder={placeholder} minRows={6} />
     </>
   );
 };

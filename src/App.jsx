@@ -23,7 +23,7 @@ function App() {
       </p>
 
 <Button>ボタン</Button>
-<TextInput label="aa" placeholder="aas"/>
+<TextInput label="aa" placeholder="as"/>
 <Textarea  label="aa" placeholder="aas"/>
 </>
   )
