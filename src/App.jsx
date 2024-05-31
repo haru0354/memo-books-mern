@@ -4,6 +4,7 @@ import Button from './components/ui/Button'
 import TextInput from './components/ui/TextInput'
 import Textarea from './components/ui/Textarea'
 import Footer from './components/Footer'
+import DeleteModal from './components/DeleteModal'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -26,6 +27,7 @@ function App() {
 <Button>ボタン</Button>
 <TextInput label="aa" placeholder="as"/>
 <Textarea  label="aa" placeholder="aas"/>
+<DeleteModal title="b"/>
 <Footer />
 </>
   )
