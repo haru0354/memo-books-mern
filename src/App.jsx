@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import Button from './components/ui/Button'
+import TextInput from './components/ui/TextInput'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,6 +22,7 @@ function App() {
       </p>
 
 <Button>ボタン</Button>
+<TextInput label="aa" placeholder="aas"/>
 </>
   )
 }
