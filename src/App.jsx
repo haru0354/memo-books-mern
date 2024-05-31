@@ -6,9 +6,21 @@ import Textarea from "./components/ui/Textarea";
 import Footer from "./components/Footer";
 import DeleteModal from "./components/DeleteModal";
 import AddModal from "./components/AddModal";
+import ChapterList from "./components/ChapterList";
 
 function App() {
   const [count, setCount] = useState(0);
+
+  const chapters = [
+    {
+      id: "0",
+      chapter_title: "aaa",
+    },
+    {
+      id: "1",
+      chapter_title: "bbb",
+    },
+  ];
 
   return (
     <>
@@ -30,6 +42,7 @@ function App() {
       <Textarea label="aa" placeholder="aas" />
       <DeleteModal title="b" />
       <AddModal isContents={true} />
+      <ChapterList chapters={chapters}/>
       <Footer />
     </>
   );
