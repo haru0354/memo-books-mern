@@ -15,5 +15,10 @@ export const findChapterById = async (bookId, chapterId) => {
       return { error: "指定したIDのチャプターが見つかりませんでした。" };
     }
 
-    return { chapter, book };
+    const bookChapters = book.chapters.map(chapter => ({
+      _id: chapter._id,
+      chapter_title: chapter.chapter_title
+    }));
+    
+    return { bookChapters, chapter, book, };
 };
