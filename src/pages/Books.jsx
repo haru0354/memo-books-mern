@@ -1,6 +1,68 @@
 import { useEffect, useState } from "react";
 import bookApi from "../api/book";
 import { Link } from "react-router-dom";
+import { css } from "@emotion/react";
+
+const mainStyle = css`
+  width: 1080px;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    padding-top: 2rem;
+    padding-left: 2rem;
+    font-size: 1.2rem;
+  }
+`;
+
+const divStyle = css`
+  display: flex;
+  padding: 4rem;
+`;
+
+const bookStyle = css`
+  width: 180px;
+  height: 240px;
+  border: none;
+  background: #f8f9fa;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 18px 23px rgba(0, 0, 0, 0.2);
+  border-end-end-radius: 10px;
+  margin-right: 4rem;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    right: 10px;
+    left: 0;
+    width: 9%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), transparent);
+    transition: all 0.3s ease;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: auto;
+    left: 0;
+    bottom: 8px;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.1));
+    transition: all 0.3s ease;
+  }
+`;
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -19,22 +81,29 @@ const Books = () => {
   }, []);
 
   if (!books) {
-    <p>Loading...</p>;
+    return <p>Loading...</p>;
   }
 
   return (
-    <>
-      <h2>本の一覧</h2>
-      <div>
+    <div css={mainStyle}>
+      <h1>メモブックの一覧</h1>
+      <div css={divStyle}>
         {books.map((book) => (
-          <div key={book._id}>
-            <h2>
-              <Link to={`/books/${book._id}`}>{book.title}</Link>
-            </h2>
-          </div>
+          <Link
+            to={
+              book.chapters[0]
+                ? `/${book._id}/${book.chapters[0]._id}`
+                : `/books/${book._id}`
+            }
+            key={book._id}
+          >
+            <div css={bookStyle}>
+              <h2>{book.title}</h2>
+            </div>
+          </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

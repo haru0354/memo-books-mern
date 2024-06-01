@@ -3,7 +3,6 @@ import { Global, css } from "@emotion/react";
 
 import Home from "./pages/Home";
 import Page404 from "./pages/Page404";
-import Footer from "./components/Footer";
 import Books from "./pages/Books";
 import Book from "./pages/Book";
 import Chapter from "./pages/Chapter";
@@ -41,7 +40,6 @@ function App() {
         <Route path="/:bookId/:chapterId" element={<Chapter />} />
         <Route path="/*" element={<Page404 />} />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }
