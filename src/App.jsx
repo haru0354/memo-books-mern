@@ -19,10 +19,6 @@ const globalStyles = css`
       list-style-type: none;
       padding: 0;
     }
-
-    li {
-      margin-bottom: 10px;
-    }
   }
 
   body {
