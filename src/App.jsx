@@ -24,16 +24,6 @@ const globalStyles = css`
   body {
     margin: 0;
   }
-
-  a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
-
-    &:hover {
-      color: #fc5897;
-    }
-  }
 `;
 
 function App() {
