@@ -40,8 +40,8 @@ const ChapterList = ({ chapters, bookId }) => {
         </Link>
         {chapters.map((chapter) => {
           return (
-            <Link to={`/${bookId}/${chapter._id}`}>
-              <li key={chapter._id}>{chapter.chapter_title}</li>
+            <Link to={`/${bookId}/${chapter._id}`} key={chapter._id}>
+              <li>{chapter.chapter_title}</li>
             </Link>
           );
         })}
