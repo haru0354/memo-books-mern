@@ -18,12 +18,12 @@ const AddModal = ({ isContents = false }) => {
 
   return (
     <>
-      <Button className="blue" onClick={toggleAddModal}>
+      <Button onClick={toggleAddModal}>
         +
       </Button>
       {isAddModal && (
-        <div className="modal-container" onClick={closeModal}>
-          <div className="modal">
+        <div onClick={closeModal}>
+          <div>
             <form>
               <TextInput
                 label="タイトル"
@@ -35,9 +35,9 @@ const AddModal = ({ isContents = false }) => {
                   placeholder="コンテンツを入力してください。"
                 />
               )}
-              <Button className="blue">追加する</Button>
+              <Button>追加する</Button>
             </form>
-            <Button className="gray" onClick={toggleAddModal}>
+            <Button onClick={toggleAddModal}>
               キャンセル
             </Button>
           </div>

@@ -15,7 +15,7 @@ const DeleteModal = ({ guidance, title }) => {
 
   return (
     <>
-      <Button className="red" onClick={toggleDeleteModal}>
+      <Button onClick={toggleDeleteModal}>
         削除
       </Button>
       {isDeleteModalOpen && (
@@ -24,8 +24,8 @@ const DeleteModal = ({ guidance, title }) => {
             <p>「{title}」を削除しますか？</p>
             {guidance && <p>「{guidance}」の中見も全て削除されます。</p>}
             <p>削除すると復元することはできません。</p>
-            <Button className="red">削除</Button>
-            <Button className="gray" onClick={toggleDeleteModal}>キャンセル</Button>
+            <Button>削除</Button>
+            <Button onClick={toggleDeleteModal}>キャンセル</Button>
           </div>
         </div>
       )}

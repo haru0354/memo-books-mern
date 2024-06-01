@@ -14,7 +14,6 @@ const globalStyles = css`
     line-height: 2;
     max-width: 1280px;
     min-width: 320px;
-    padding: 2rem;
   }
 
   body {
