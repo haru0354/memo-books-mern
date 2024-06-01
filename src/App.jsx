@@ -11,15 +11,22 @@ import Chapter from "./pages/Chapter";
 const globalStyles = css`
   #root {
     font-family: Inter, sans-serif;
-    line-height: 2;
-    max-width: 1280px;
-    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
   }
 
   body {
     margin: 0;
-    display: flex;
-    place-items: center;
   }
 
   a {
