@@ -3,12 +3,7 @@ import chapterApi from "../api/chapter";
 import { useParams } from "react-router-dom";
 import ContentsArea from "../components/ContentsArea";
 import ChapterList from "../components/ChapterList";
-import { css } from "@emotion/react";
-
-const mainStyle = css`
-  display: flex;
-  flex: 1;
-`;
+import { main2ColumnStyle } from "../styles/styles";
 
 const Chapter = () => {
   const [chapter, setChapter] = useState();
@@ -32,7 +27,7 @@ const Chapter = () => {
   }
 
   return (
-    <main css={mainStyle}>
+    <main css={main2ColumnStyle}>
       <ChapterList chapters={chapter.bookChapters} bookId={bookId} />
       <ContentsArea chapter={chapter.chapter} />
     </main>

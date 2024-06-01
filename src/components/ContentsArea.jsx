@@ -1,26 +1,8 @@
 import AddModal from "./AddModal";
 import { css } from "@emotion/react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-
-const containerStyles = css`
-  flex: 1;
-  max-width: 1000px;
-  margin-left: 80px;
-  padding: 20px;
-  background-color: #ffffff;
-
-  h1 {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  h2 {
-    font-size: 1.4rem;
-    margin-bottom: 2rem;
-  }
-`;
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { RightContent } from "../styles/styles";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
@@ -46,7 +28,7 @@ const tableOfContentsStyle = css`
     }
 
     svg {
-      margin-right: 16px; 
+      margin-right: 16px;
     }
   }
 `;
@@ -55,6 +37,11 @@ const contentAreaStyle = css`
   padding-top: 1rem;
   padding-bottom: 2rem;
   border-bottom: 1px dotted gray;
+`;
+
+const h2Styles = css`
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
 `;
 
 const ContentsArea = ({ chapter }) => {
@@ -73,17 +60,14 @@ const ContentsArea = ({ chapter }) => {
   };
 
   return (
-    <div css={containerStyles}>
+    <div css={RightContent}>
       <h1>{chapter.chapter_title}</h1>
       <div css={tableOfContentsStyle}>
         <p>目次</p>
         <ul>
           {chapter.contents.map((content) => {
             return (
-              <li
-                key={content._id}
-                onClick={() => scrollToTitle(content._id)}
-              >
+              <li key={content._id} onClick={() => scrollToTitle(content._id)}>
                 <FontAwesomeIcon icon={faChevronDown} />
                 {content.heading_title}
               </li>
@@ -94,7 +78,7 @@ const ContentsArea = ({ chapter }) => {
       {chapter.contents.map((content) => {
         return (
           <div css={contentAreaStyle} id={content._id} key={content._id}>
-            <h2>{content.heading_title}</h2>
+            <h2 css={h2Styles}>{content.heading_title}</h2>
             {content.content}
           </div>
         );
