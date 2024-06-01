@@ -51,9 +51,7 @@ scss,pandaCSS,Bootstrap,materialUIのまだ使用していないのを使う
 
 
 デザイン
-追加ボタン　⇒　blue
-削除ボタン　⇒　red
-キャンセルボタン⇒　gray
+CSS In JS　のemotionを採用。
 
 モーダル
 modal　モーダルのエリア

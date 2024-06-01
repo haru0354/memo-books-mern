@@ -1,30 +1,43 @@
-import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Global, css } from "@emotion/react";
+
 import Home from "./pages/Home";
-import Footer from "./components/Footer"
 import Page404 from "./pages/Page404";
+import Footer from "./components/Footer";
 import Books from "./pages/Books";
-import Chapter from "./pages/Chapter";
 import Book from "./pages/Book";
-import { Global, css } from '@emotion/react';
+import Chapter from "./pages/Chapter";
 
 const globalStyles = css`
-  h2 {
-    color: #333;
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 20px 0;
-    padding: 0;
-    text-align: center;
+  #root {
+    font-family: Inter, sans-serif;
+    line-height: 2;
+    max-width: 1280px;
+    min-width: 320px;
+    padding: 2rem;
+  }
+
+  body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+  }
+
+  a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
+
+    &:hover {
+      color: #fc5897;
+    }
   }
 `;
-
 
 function App() {
   return (
     <BrowserRouter>
-          <Global styles={globalStyles} />
-
+      <Global styles={globalStyles} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/books" element={<Books />} />
