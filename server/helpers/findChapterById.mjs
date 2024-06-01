@@ -1,7 +1,6 @@
 import Book from "../models/book.mjs";
 
 export const findChapterById = async (bookId, chapterId) => {
-  try {
     const book = await Book.findById(bookId);
 
     if (!book) {
@@ -17,8 +16,4 @@ export const findChapterById = async (bookId, chapterId) => {
     }
 
     return { chapter, book };
-  } catch (err) {
-    console.error("チャプターの検索に失敗しました。", err);
-    return { error: "チャプターの検索に失敗しました。" };
-  }
 };
