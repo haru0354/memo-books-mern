@@ -46,7 +46,7 @@ const ChapterList = ({ chapters, bookId }) => {
           );
         })}
       </ul>
-      <AddModal />
+      <AddModal formTitle="チャプター" />
     </div>
   );
 };

@@ -83,7 +83,7 @@ const ContentsArea = ({ chapter }) => {
           </div>
         );
       })}
-      <AddModal isContents={true} />
+      <AddModal isContents={true} formTitle="コンテンツ" />
     </div>
   );
 };
