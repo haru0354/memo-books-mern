@@ -13,15 +13,15 @@ const chaptersSlice = createSlice({
       state.chapters.push(action.payload);
     },
     deleteChapter(state, action) {
-      state.chapters = state.chapters.filter((chapter) => {
-        chapter._id !== action.payload._id;
-      });
+      state.chapters = state.chapters.filter(
+        (chapter) => chapter._id !== action.payload._id
+      );
     },
     updateChapter(state, action) {
-      const [_id, chapter_title] = action.payload;
-      const updateChapter = state.chapters.find((chapter) => {
-        chapter._id === _id;
-      });
+      const { _id, chapter_title } = action.payload;
+      const updateChapter = state.chapters.find(
+        (chapter) => chapter._id === _id
+      );
       if (updateChapter) {
         updateChapter.chapter_title = chapter_title;
       }
@@ -32,29 +32,31 @@ const chaptersSlice = createSlice({
       .addCase(fetchChapters.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchChapters.fulfilled, (state) => {
+      .addCase(fetchChapters.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.chapters = action.payload;
       })
-      .addCase(fetchChapters.rejected, (state) => {
+      .addCase(fetchChapters.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
   },
 });
 
-export const [addChapter, deleteChapter, updateChapter] = chaptersSlice.actions;
+export const { addChapter, deleteChapter, updateChapter } =
+  chaptersSlice.actions;
 
 export const fetchChapters = createAsyncThunk(
   "chapters/fetchChapters",
-  async () => {
+  async (bookId) => {
     try {
-      const data = await chapterApi.getAll();
+      const data = await chapterApi.getAll(bookId);
       return data;
     } catch (error) {
-      console.error("チャプターのフェッチに失敗しました。");
+      console.error("チャプターのデータの取得に失敗しました。");
+      throw error; 
     }
   }
 );
 
-export default chaptersSlice;
+export default chaptersSlice.reducer;
