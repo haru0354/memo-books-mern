@@ -6,6 +6,7 @@ import Page404 from "./pages/Page404";
 import Books from "./pages/Books";
 import Book from "./pages/Book";
 import Chapter from "./pages/Chapter";
+import EditBook from "./pages/EditBook";
 
 const globalStyles = css`
   #root {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/books" element={<Books />} />
         <Route path="/books/:bookId" element={<Book />} />
+        <Route path="/edit/:bookId" element={<EditBook />} />
         <Route path="/:bookId/:chapterId" element={<Chapter />} />
         <Route path="/*" element={<Page404 />} />
       </Routes>
