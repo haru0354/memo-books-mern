@@ -1,9 +1,13 @@
 import AddModal from "./AddModal";
 import { css } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faAreaChart, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { RightContent } from "../styles/styles";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import Button from "./ui/Button";
+import TextInput from "./ui/TextInput";
+import Textarea from "./ui/Textarea";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
@@ -36,16 +40,32 @@ const tableOfContentsStyle = css`
 
 const contentAreaStyle = css`
   padding-top: 1rem;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
   border-bottom: 1px dotted gray;
 `;
 
 const h2Styles = css`
   font-size: 1.4rem;
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
+`;
+
+const editContainerStyle = css`
+  display: flex;
+  flex-direction: column;
+`;
+
+const editButtonContainerStyle = css`
+display: flex;
+  justify-content: space-between;
 `;
 
 const ContentsArea = ({ chapter, bookId }) => {
+  const [editingContentId, setEditingContentId] = useState(null);
+
+  const toggleEditContents = (contentId) => {
+    setEditingContentId(editingContentId === contentId ? null : contentId);
+  };
+
   if (!chapter) {
     return <p>Loading...</p>;
   }
@@ -78,10 +98,36 @@ const ContentsArea = ({ chapter, bookId }) => {
       </div>
       <Link to={`/edit/${bookId}/${chapter._id}`}>チャプターの編集</Link>
       {chapter.contents.map((content) => {
+        const isEditing = editingContentId === content._id;
+
         return (
           <div css={contentAreaStyle} id={content._id} key={content._id}>
-            <h2 css={h2Styles}>{content.heading_title}</h2>
-            {content.content}
+            {isEditing ? (
+              <div css={editContainerStyle}>
+                <TextInput label="タイトル" />
+                <Textarea label="コンテンツ " />
+                <Button color="blue">追加する</Button>
+                <Button
+                  color="gray"
+                  onClick={() => toggleEditContents(content._id)}
+                >
+                  キャンセル
+                </Button>
+              </div>
+            ) : (
+              <>
+                <div css={editButtonContainerStyle}>
+                  <h2 css={h2Styles}>{content.heading_title}</h2>
+                  <Button
+                    color="blue"
+                    onClick={() => toggleEditContents(content._id)}
+                  >
+                    編集
+                  </Button>
+                </div>
+                {content.content}
+              </>
+            )}
           </div>
         );
       })}
