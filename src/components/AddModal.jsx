@@ -80,8 +80,8 @@ const AddModal = ({ isContents = false, formTitle }) => {
                 />
               )}
               <div css={buttonContainerStyle}>
-                <Button>追加する</Button>
-                <Button onClick={toggleAddModal}>キャンセル</Button>
+                <Button color="blue">追加する</Button>
+                <Button color="gray" onClick={toggleAddModal}>キャンセル</Button>
               </div>
             </form>
           </div>
