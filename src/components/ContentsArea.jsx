@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { RightContent } from "../styles/styles";
+import { Link } from "react-router-dom";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
@@ -44,7 +45,7 @@ const h2Styles = css`
   margin-bottom: 2rem;
 `;
 
-const ContentsArea = ({ chapter }) => {
+const ContentsArea = ({ chapter, bookId }) => {
   if (!chapter) {
     return <p>Loading...</p>;
   }
@@ -75,6 +76,7 @@ const ContentsArea = ({ chapter }) => {
           })}
         </ul>
       </div>
+      <Link to={`/edit/${bookId}/${chapter._id}`}>チャプターの編集</Link>
       {chapter.contents.map((content) => {
         return (
           <div css={contentAreaStyle} id={content._id} key={content._id}>

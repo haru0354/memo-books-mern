@@ -7,6 +7,7 @@ import Books from "./pages/Books";
 import Book from "./pages/Book";
 import Chapter from "./pages/Chapter";
 import EditBook from "./pages/EditBook";
+import EditChapter from "./pages/EditChapter";
 
 const globalStyles = css`
   #root {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/books/:bookId" element={<Book />} />
         <Route path="/edit/:bookId" element={<EditBook />} />
         <Route path="/:bookId/:chapterId" element={<Chapter />} />
+        <Route path="/edit/:bookId/:chapterId" element={<EditChapter />} />
         <Route path="/*" element={<Page404 />} />
       </Routes>
     </BrowserRouter>

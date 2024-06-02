@@ -1,10 +1,12 @@
 import { css } from "@emotion/react";
 
+// 2カラム時のmainタグデザイン
 export const main2ColumnStyle = css`
   display: flex;
   flex: 1;
 `;
 
+// 2カラム時のライトカラムレイアウト
 export const RightContent = css`
   flex: 1;
   max-width: 1000px;
@@ -18,6 +20,8 @@ export const RightContent = css`
     margin-bottom: 2rem;
   }
 `;
+
+// モーダルのスタイル
 export const modalBackStyle = css`
   position: absolute;
   display: flex;
@@ -41,3 +45,18 @@ export const modalContainerStyle = css`
   background-color: white;
   margin: 0 auto;
 `;
+
+// フォームのスタイル
+export const formStyle = css`
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid gray;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
+  border-radius: 4px;
+`;
+
+

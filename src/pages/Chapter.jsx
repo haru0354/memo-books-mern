@@ -29,7 +29,7 @@ const Chapter = () => {
   return (
     <main css={main2ColumnStyle}>
       <ChapterList chapters={chapter.bookChapters} bookId={bookId} />
-      <ContentsArea chapter={chapter.chapter} />
+      <ContentsArea chapter={chapter.chapter} bookId={bookId}/>
     </main>
   );
 };
