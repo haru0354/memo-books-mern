@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import bookApi from "../../api/book";
 
 const bookSlice = createSlice({
   name: "books",
@@ -24,21 +25,33 @@ const bookSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchBooks.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchBooks.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.books = action.payload;
+      })
+      .addCase(fetchBooks.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+  },
 });
 
 export const { addBook, deleteBook, updateBook } = bookSlice.actions;
 
 export const fetchBooks = createAsyncThunk("books/fetchBooks", async () => {
-  const response = await bookApi.getAll();
-  return response.data;
+  try {
+    const data = await bookApi.getAll();
+    return data;
+  } catch (error) {
+    console.error("DBからのデータの取得に失敗しました。");
+  }
 });
 
-export const fetchBookById = createAsyncThunk(
-  "books/fetchBookById",
-  async () => {
-    const response = await bookApi.get(bookId);
-    return response.data;
-  }
-);
+
 
 export default bookSlice.reducer;
