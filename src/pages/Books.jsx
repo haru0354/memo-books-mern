@@ -6,6 +6,8 @@ import Button from "../components/ui/Button";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../store/slice/booksSlice";
+import BookButton from "../components/ui/BookButton";
+import AddModal from "../components/AddModal";
 
 const mainStyle = css`
   width: 1080px;
@@ -68,9 +70,13 @@ const bookStyle = css`
   }
 `;
 
-const aStyle = css`
+const editButtonContainerStyle = css`
   display: flex;
   flex-direction: column;
+`;
+
+const addBookContainerStyle = css`
+  text-align: center;
 `;
 
 const Books = () => {
@@ -78,10 +84,10 @@ const Books = () => {
   const books = useSelector((state) => state.books.books);
 
   useEffect(() => {
-    dispatch(fetchBooks()); 
+    dispatch(fetchBooks());
   }, [dispatch]);
 
-  if (!books) { 
+  if (!books) {
     return <p>Loading...</p>;
   }
 
@@ -102,13 +108,16 @@ const Books = () => {
                 <h2>{book.title}</h2>
               </div>
             </Link>
-            <div css={aStyle}>
+            <div css={editButtonContainerStyle}>
               <Link to={`/edit/${book._id}`}>
                 <Button color="blue">編集</Button>
               </Link>
             </div>
           </div>
         ))}
+      </div>
+      <div css={addBookContainerStyle}>
+        <AddModal isBook={true} formTitle="本" />
       </div>
     </div>
   );
