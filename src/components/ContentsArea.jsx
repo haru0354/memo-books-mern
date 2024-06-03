@@ -54,18 +54,18 @@ const editContainerStyle = css`
 `;
 
 const editButtonContainerStyle = css`
-display: flex;
+  display: flex;
   justify-content: space-between;
 `;
 
-const ContentsArea = ({ chapter, bookId, chapterId }) => {
+const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
   const [editingContentId, setEditingContentId] = useState(null);
 
   const toggleEditContents = (contentId) => {
     setEditingContentId(editingContentId === contentId ? null : contentId);
   };
 
-  if (!chapter) {
+  if (!contents) {
     return <p>Loading...</p>;
   }
 
@@ -81,11 +81,11 @@ const ContentsArea = ({ chapter, bookId, chapterId }) => {
 
   return (
     <div css={RightContent}>
-      <h1>{chapter.chapter_title}</h1>
+      <h1>{chapterTitle}</h1>
       <div css={tableOfContentsStyle}>
         <p>目次</p>
         <ul>
-          {chapter.contents.map((content) => {
+          {contents.map((content) => {
             return (
               <li key={content._id} onClick={() => scrollToTitle(content._id)}>
                 <FontAwesomeIcon icon={faChevronDown} />
@@ -95,10 +95,10 @@ const ContentsArea = ({ chapter, bookId, chapterId }) => {
           })}
         </ul>
       </div>
-      <Link to={`/edit/${bookId}/${chapter._id}`}>チャプターの編集</Link>
-      {chapter.contents.map((content) => {
+      <Link to={`/edit/${bookId}/${chapterId}`}>チャプターの編集</Link>
+      {contents.map((content) => {
         const isEditing = editingContentId === content._id;
-
+        
         return (
           <div css={contentAreaStyle} id={content._id} key={content._id}>
             {isEditing ? (

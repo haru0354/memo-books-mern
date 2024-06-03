@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import contentApi from "../../api/content";
 
 const contentsSlice = createSlice({
   name: "contents",
@@ -32,24 +33,26 @@ const contentsSlice = createSlice({
       .addCase(fetchContents.pending, (state) => {
         state.status = "Loading";
       })
-      .addCase(fetchContents.fulfilled, (state) => {
+      .addCase(fetchContents.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.contents = action.payload;
       })
-      .addCase(fetchContents.rejected, (state) => {
+      .addCase(fetchContents.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
   },
 });
 
-export const { addContents, deleteContent, updateContents } = contents.action;
+export const { addContents, deleteContent, updateContents } =
+  contentsSlice.actions;
 
 export const fetchContents = createAsyncThunk(
   "contents/fetchContents",
-  async (bookId, chapterId) => {
+  async ({ bookId, chapterId }) => {
     try {
       const data = await contentApi.getAll(bookId, chapterId);
+      console.log(data);
       return data;
     } catch (error) {
       console.error("コンテンツのフェッチに失敗しました");
@@ -58,4 +61,4 @@ export const fetchContents = createAsyncThunk(
   }
 );
 
-export default contentsSlice;
+export default contentsSlice.reducer;
