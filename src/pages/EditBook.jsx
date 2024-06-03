@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBookById, updateBook } from "../store/slice/booksSlice";
 import bookApi from "../api/book";
+import DeleteBookModal from "../components/book/DeleteBookModal"
 
 const mainStyle = css`
   max-width: 1080px;
@@ -123,7 +124,9 @@ const EditBook = () => {
           </div>
         </form>
       </div>
-      <div css={aStyle}></div>
+      <div css={aStyle}>
+        <DeleteBookModal title={book.title} guidance="本" bookId={bookId}/>
+      </div>
     </main>
   );
 };

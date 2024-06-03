@@ -65,7 +65,7 @@ const AddChapterModal = ({ bookId }) => {
       {isAddModal && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
-            <p>チャプターの追加</p>
+            <h3>チャプターの追加</h3>
             <form onSubmit={handleSubmit} css={formStyle}>
               <TextInput
                 label="チャプター名"

@@ -8,7 +8,6 @@ import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
 import TextInput from "../components/ui/TextInput";
 import Textarea from "../components/ui/Textarea";
-import DeleteModal from "../components/DeleteModal";
 
 const divStyle = css`
   margin: 0 auto;
@@ -79,10 +78,7 @@ const EditChapter = () => {
           </form>
         </div>
         <div css={deleteButtonAreaStyle}>
-          <DeleteModal
-            guidance="チャプター"
-            title={chapter.chapter.chapter_title}
-          />
+
         </div>
       </div>
     </main>

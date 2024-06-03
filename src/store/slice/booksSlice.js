@@ -13,6 +13,7 @@ const bookSlice = createSlice({
       state.books.push(action.payload);
     },
     deleteBook(state, action) {
+      const deletedBookId = action.payload;
       state.books = state.books.filter(
         (book) => book._id !== action.payload._id
       );
@@ -84,5 +85,8 @@ export const fetchBookById = createAsyncThunk(
     }
   }
 );
+
+
+
 
 export default bookSlice.reducer;

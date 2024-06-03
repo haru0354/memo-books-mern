@@ -43,7 +43,7 @@ export const modalContainerStyle = css`
   border-radius: 4px;
   background-color: white;
 
-  p {
+  h3 {
     font-weight: 600;
     text-align: center;
     padding-bottom: 8px;

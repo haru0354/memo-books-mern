@@ -67,7 +67,7 @@ const AddContentModal = ({ bookId, chapterId }) => {
       {isAddModal && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
-            <p>コンテンツの追加</p>
+            <h3>コンテンツの追加</h3>
             <form onSubmit={handleSubmit} css={formStyle}>
               <TextInput
                 label="タイトル"

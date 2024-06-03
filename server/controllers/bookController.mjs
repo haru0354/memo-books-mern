@@ -79,5 +79,5 @@ export const deleteBook = async (req, res) => {
     return res.status(404).json({ message: "本が見つかりませんでした" });
   }
 
-  res.json({ message: "本の削除に成功しました。" });
+  res.json({ message: "本の削除に成功しました。", deletedBookId: bookId });
 };

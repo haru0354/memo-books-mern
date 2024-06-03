@@ -61,7 +61,7 @@ const AddBookModal = () => {
       {isAddModal && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
-            <p>本のフォーム</p>
+            <h3>本のフォーム</h3>
             <form onSubmit={handleSubmit} css={formStyle}>
               <TextInput
                 label="本のタイトル"

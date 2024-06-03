@@ -7,8 +7,8 @@ const bookApi = {
     const result = await axios.get(ENDPOINT_URL);
     return result.data;
   },
-  async get(id) {
-    const result = await axios.get(ENDPOINT_URL + "/" + id);
+  async get(bookId) {
+    const result = await axios.get(ENDPOINT_URL + "/" + bookId);
     return result.data;
   },
   async post(book) {
@@ -19,8 +19,8 @@ const bookApi = {
     const result = await axios.patch(ENDPOINT_URL + "/" + bookId, book)
     return result.data
   },
-  async delete(book) {
-    const result = await axios.delete(ENDPOINT_URL + "/" +  book._id)
+  async delete(bookId) {
+    const result = await axios.delete(ENDPOINT_URL + "/" +  bookId)
     return result.data
   }
 };
