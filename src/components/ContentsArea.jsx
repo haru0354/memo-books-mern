@@ -8,6 +8,7 @@ import Button from "./ui/Button";
 import TextInput from "./ui/TextInput";
 import Textarea from "./ui/Textarea";
 import AddContentModal from "./content/AddContentModal";
+import EditChapterModal from "./chapter/EditChapterModal";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
@@ -96,7 +97,7 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
           })}
         </ul>
       </div>
-      <Link to={`/edit/${bookId}/${chapterId}`}>チャプターの編集</Link>
+      <EditChapterModal bookId={bookId} chapterId={chapterId} chapterTitle={chapterTitle}/>
       {contents.map((content) => {
         const isEditing = editingContentId === content._id;
 
