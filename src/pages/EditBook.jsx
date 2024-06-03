@@ -1,10 +1,11 @@
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
-import bookApi from "../api/book";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
-import { Link, useParams } from "react-router-dom";
-import DeleteModal from "../components/DeleteModal";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBookById, updateBook } from "../store/slice/booksSlice";
+import bookApi from "../api/book";
 
 const mainStyle = css`
   max-width: 1080px;
@@ -56,35 +57,63 @@ const aStyle = css`
 `;
 
 const EditBook = () => {
-  const [book, setBook] = useState();
   const { bookId } = useParams();
+  const dispatch = useDispatch();
+  const book = useSelector((state) => state.books.books.find((book) => book._id === bookId));
+  const status = useSelector((state) => state.chapters.status);
+  const [title, setTitle] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBook = async () => {
-      try {
-        const data = await bookApi.get(bookId);
-        setBook(data);
-      } catch (error) {
-        console.error("DBから本の取得に失敗しました。");
-      }
-    };
+    if (book) {
+      setTitle(book.title || "");
+    }
+  }, [book]);
 
-    fetchBook();
-  }, [bookId]);
+  useEffect(() => {
+    dispatch(fetchBookById(bookId));
+  }, [dispatch, bookId]);
 
   if (!book) {
-    return <p>Loading...</p>;
+    return <p>本が見つかりませんでした。</p>;
   }
+
+  if (status === "loading") {
+    return <p>Loading ...</p>;
+  }
+
+  const formSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      title,
+    };
+
+    try {
+      const response = await bookApi.patch(bookId, formData);
+
+      if (response._id !== bookId) {
+        throw new Error("編集に失敗しました。");
+      }
+
+      dispatch(updateBook(response));
+      navigate("/books");
+    } catch (error) {
+      console.error("編集に失敗しました", error);
+    }
+  };
 
   return (
     <main css={mainStyle}>
       <h1>本の編集</h1>
       <div css={divStyle}>
-        <form css={formStyle}>
+        <form onSubmit={formSubmit} css={formStyle}>
           <p>本の編集フォーム</p>
           <TextInput
             label="タイトル"
             placeholder="タイトルを入力してください。"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
           <div css={buttonContainerStyle}>
             <Button color="blue">保存する</Button>
@@ -94,9 +123,7 @@ const EditBook = () => {
           </div>
         </form>
       </div>
-      <div css={aStyle}>
-        <DeleteModal guidance="本" title={book.title} />
-      </div>
+      <div css={aStyle}></div>
     </main>
   );
 };

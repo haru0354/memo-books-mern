@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
@@ -79,6 +79,7 @@ const addBookContainerStyle = css`
 const Books = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
+  const status = useSelector((state) => state.books.status);
 
   useEffect(() => {
     dispatch(fetchBooks());
@@ -86,6 +87,13 @@ const Books = () => {
 
   if (!books) {
     return <p>Loading...</p>;
+  }
+  if (status === 'loading') {
+    return <p>Loading...</p>;
+  }
+
+  if (status === 'failed') {
+    return <p>Failed to fetch books.</p>;
   }
 
   return (

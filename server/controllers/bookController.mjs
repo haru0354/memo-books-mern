@@ -22,7 +22,12 @@ export const getBook = async (req, res) => {
     return res.status(404).json({ message: "本が見つかりませんでした。" });
   }
 
-  res.json(book);
+  const resData = {
+    title: book.title,
+    _id: book._id
+  }
+
+  res.json(resData);
 };
 
 export const addBook = async (req, res) => {

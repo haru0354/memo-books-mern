@@ -38,6 +38,25 @@ const bookSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
+      .addCase(fetchBookById.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchBookById.fulfilled, (state, action) => {
+        const updatedBook = action.payload;
+        const existingBook = state.books.findIndex(
+          (book) => book._id === updatedBook._id
+        );
+        if (existingBook !== -1) {
+          state.books[existingBook] = updatedBook;
+        } else {
+          state.books.push(updatedBook);
+        }
+        state.status = "succeeded";
+      })
+      .addCase(fetchBookById.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
   },
 });
 
@@ -49,10 +68,21 @@ export const fetchBooks = createAsyncThunk("books/fetchBooks", async () => {
     return data;
   } catch (error) {
     console.error("本のデータの取得に失敗しました。");
-    throw error; 
+    throw error;
   }
 });
 
-
+export const fetchBookById = createAsyncThunk(
+  "books/fetchBookById",
+  async (bookId) => {
+    try {
+      const data = await bookApi.get(bookId);
+      return data;
+    } catch (error) {
+      console.error("本のデータの取得に失敗しました。");
+      throw error;
+    }
+  }
+);
 
 export default bookSlice.reducer;
