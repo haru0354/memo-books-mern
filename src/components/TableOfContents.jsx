@@ -10,7 +10,7 @@ const TableOfContents = ({ chapter }) => {
   };
 
   return (
-    <div className="table-of-contents">
+    <div>
       <p>目次</p>
       <ul>
         {chapter.contents.map((content) => {
