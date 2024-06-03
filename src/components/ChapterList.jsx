@@ -1,9 +1,10 @@
-import AddModal from "./AddModal";
+import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
-import { useState } from "react";
 import Button from "./ui/Button";
 import TextInput from "./ui/TextInput";
+import AddChapterModal from "./chapter/AddChapterModal";
 
 const sidebarStyles = css`
   width: 200px;
@@ -49,7 +50,7 @@ const ChapterList = ({ chapters, bookId }) => {
         </Link>
         {chapters.map((chapter) => {
           return (
-            <>
+            <React.Fragment key={chapter._id}>
               {isEditing ? (
                 <TextInput />
               ) : (
@@ -57,7 +58,7 @@ const ChapterList = ({ chapters, bookId }) => {
                   <li>{chapter.chapter_title}</li>
                 </Link>
               )}
-            </>
+            </React.Fragment>
           );
         })}
       </ul>
@@ -65,7 +66,7 @@ const ChapterList = ({ chapters, bookId }) => {
       <Button color="gray" onClick={toggleEditChapter}>
         {isEditing ? "キャンセル" : "編集"}
       </Button>
-      <AddModal formTitle="チャプター" />
+      <AddChapterModal bookId={bookId} />
     </div>
   );
 };

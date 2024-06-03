@@ -53,7 +53,8 @@ export const addChapter = async (req, res) => {
   book.chapters.push(newChapter);
   await book.save();
 
-  res.status(201).json(newChapter);
+  const savedChapter = book.chapters[book.chapters.length - 1];
+  res.status(201).json(savedChapter);
 };
 
 export const updateChapter = async (req, res) => {

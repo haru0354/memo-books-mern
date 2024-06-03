@@ -7,32 +7,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchChapters } from "../store/slice/chaptersSlice";
 
 const Chapter = () => {
-  const [ chapter, setChapter ] = useState(null); 
+  const [chapter, setChapter] = useState(null);
   const { chapterId } = useParams();
   const { bookId } = useParams();
   const dispatch = useDispatch();
   const chapters = useSelector((state) => state.chapters.chapters);
+  const status = useSelector((state) => state.chapters.status);
 
   useEffect(() => {
     dispatch(fetchChapters(bookId));
   }, [dispatch, bookId]);
 
-  console.log(chapter);
   useEffect(() => {
-    if (chapters.length > 0 && chapterId) {
-      const foundChapter = chapters.find((ch) => ch._id === chapterId);
+    if (status === "succeeded" && chapters.length > 0 && chapterId) {
+      const foundChapter = chapters.find((chapter) => chapter._id === chapterId);
       setChapter(foundChapter);
     }
-  }, [chapters, chapterId]);
+  }, [chapters, chapterId, status]);
+
+  if (status === "loading") {
+    return <p>Loading ...</p>;
+  }
 
   if (!chapter) {
-    return <p>Loading...</p>;
+    return <p>チャプターが見つかりませんでした。</p>;
   }
 
-  if (!chapters) {
-    return <p>Loading...</p>
-  }
-  
   return (
     <main css={main2ColumnStyle}>
       <ChapterList chapters={chapters} bookId={bookId} />
