@@ -8,8 +8,7 @@ import { fetchChapters } from "../store/slice/chaptersSlice";
 
 const Chapter = () => {
   const [chapter, setChapter] = useState(null);
-  const { chapterId } = useParams();
-  const { bookId } = useParams();
+  const { bookId, chapterId } = useParams();
   const dispatch = useDispatch();
   const chapters = useSelector((state) => state.chapters.chapters);
   const status = useSelector((state) => state.chapters.status);
@@ -36,7 +35,7 @@ const Chapter = () => {
   return (
     <main css={main2ColumnStyle}>
       <ChapterList chapters={chapters} bookId={bookId} />
-      <ContentsArea chapter={chapter} bookId={bookId} />
+      <ContentsArea chapter={chapter} bookId={bookId} chapterId={chapterId}/>
     </main>
   );
 };

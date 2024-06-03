@@ -1,7 +1,6 @@
-import AddModal from "./AddModal";
 import { css } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAreaChart, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { RightContent } from "../styles/styles";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -59,7 +58,7 @@ display: flex;
   justify-content: space-between;
 `;
 
-const ContentsArea = ({ chapter, bookId }) => {
+const ContentsArea = ({ chapter, bookId, chapterId }) => {
   const [editingContentId, setEditingContentId] = useState(null);
 
   const toggleEditContents = (contentId) => {
@@ -131,7 +130,6 @@ const ContentsArea = ({ chapter, bookId }) => {
           </div>
         );
       })}
-      <AddModal isContents={true} formTitle="コンテンツ" />
     </div>
   );
 };
