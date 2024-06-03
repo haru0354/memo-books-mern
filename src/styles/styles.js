@@ -29,34 +29,34 @@ export const modalBackStyle = css`
   align-items: center;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgb(156 163 175 / 65%);
 `;
 
 export const modalContainerStyle = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 450px;
-  padding: 2rem;
+  max-width: 450px;
+  padding-top: 0.8rem;
+  padding-left: 2rem;
+  padding-bottom: 2rem;
+  padding-right: 2rem;
   border-radius: 4px;
   background-color: white;
-  margin: 0 auto;
+
+  p {
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: 8px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgb(185 184 184);
+  }
 `;
 
 // フォームのスタイル
 export const formStyle = css`
   display: flex;
-  height: auto;
   flex-direction: column;
-  background-color: white;
-  border: 1px solid gray;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-bottom: 2rem;
-  border-radius: 4px;
+  text-align: left;
 `;
 
 

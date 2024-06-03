@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import bookApi from "../api/book";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../store/slice/booksSlice";
-import BookButton from "../components/ui/BookButton";
-import AddModal from "../components/AddModal";
+import AddBookModal from "../components/book/AddBookModal";
 
 const mainStyle = css`
   width: 1080px;
@@ -98,11 +95,7 @@ const Books = () => {
         {books.map((book) => (
           <div key={book._id}>
             <Link
-              to={
-                book.chapters[0]
-                  ? `/${book._id}/${book.chapters[0]._id}`
-                  : `/books/${book._id}`
-              }
+              to={`/${book._id}/${book.firstChapterId}`}
             >
               <div css={bookStyle}>
                 <h2>{book.title}</h2>
@@ -117,7 +110,7 @@ const Books = () => {
         ))}
       </div>
       <div css={addBookContainerStyle}>
-        <AddModal isBook={true} formTitle="本" />
+        <AddBookModal />
       </div>
     </div>
   );

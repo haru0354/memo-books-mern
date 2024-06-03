@@ -2,7 +2,15 @@ import Book from "../models/book.mjs";
 import { validationResult } from "express-validator";
 
 export const getAllBooks = async (req, res) => {
-  const books = await Book.find();
+  const books = await Book.aggregate([
+    {
+      $project: {
+        title: 1,
+        firstChapterId: { $arrayElemAt: ["$chapters._id", 0] },
+      },
+    },
+  ]);
+
   res.json(books);
 };
 
@@ -25,7 +33,11 @@ export const addBook = async (req, res) => {
     return res.status(400).json(errs);
   }
 
-  const book = new Book({ title: req.body.title });
+  const book = new Book({
+    title: req.body.title,
+    chapters: req.body.chapters,
+  });
+
   const newBook = await book.save();
 
   res.status(201).json(newBook);

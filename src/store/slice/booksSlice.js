@@ -46,7 +46,6 @@ export const { addBook, deleteBook, updateBook } = bookSlice.actions;
 export const fetchBooks = createAsyncThunk("books/fetchBooks", async () => {
   try {
     const data = await bookApi.getAll();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("本のデータの取得に失敗しました。");
