@@ -11,6 +11,7 @@ import {
 import chapterApi from "../../api/chapter";
 import { useDispatch } from "react-redux";
 import { updateChapter } from "../../store/slice/chaptersSlice";
+import DeleteChapterModal from "./DeleteChapterModal";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -81,6 +82,12 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
                 </Button>
               </div>
             </form>
+            <DeleteChapterModal
+              chapterTitle={chapterTitle}
+              chapterId={chapterId}
+              bookId={bookId}
+              toggleAddModal={toggleAddModal}
+            />
           </div>
         </div>
       )}

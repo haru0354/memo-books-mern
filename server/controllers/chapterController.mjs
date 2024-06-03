@@ -18,7 +18,10 @@ export const getChapter = async (req, res) => {
   const bookId = req.params.id;
   const chapterId = req.params.chapterId;
 
-  const { bookChapters, chapter, error } = await findChapterById(bookId, chapterId);
+  const { bookChapters, chapter, error } = await findChapterById(
+    bookId,
+    chapterId
+  );
 
   if (error) {
     return res.status(404).json({ message: error });
@@ -26,7 +29,7 @@ export const getChapter = async (req, res) => {
 
   const responseData = {
     bookChapters: bookChapters,
-    chapter: chapter
+    chapter: chapter,
   };
 
   res.json(responseData);
@@ -88,10 +91,7 @@ export const deleteChapter = async (req, res) => {
   const bookId = req.params.id;
   const chapterId = req.params.chapterId;
 
-  const { book, error } = await findChapterById(
-    bookId,
-    chapterId,
-  );
+  const { book, error } = await findChapterById(bookId, chapterId);
 
   if (error) {
     return res.status(404).json({ message: error });
@@ -102,5 +102,15 @@ export const deleteChapter = async (req, res) => {
   );
 
   await book.save();
-  res.json({ message: "チャプターを削除しました。" });
+
+  let redirectedUrl = undefined;
+  if (book.chapters.length) {
+    redirectedUrl = book.chapters[0]._id;
+  }
+
+  res.json({
+    message: "チャプターを削除しました。",
+    deletedChapterId: chapterId,
+    redirectedUrl: redirectedUrl,
+  });
 };

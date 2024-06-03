@@ -21,6 +21,7 @@ const chapterApi = {
   },
   async delete(bookId, chapterId) {
     const result = await axios.delete(`${ENDPOINT_URL}/${bookId}/${chapterId}`);
+    return result.data;
   },
 };
 

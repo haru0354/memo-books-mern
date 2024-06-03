@@ -17,7 +17,7 @@ const Chapter = () => {
 
   useEffect(() => {
     dispatch(fetchChapters(bookId));
-  }, [dispatch, bookId]);
+  }, [dispatch, bookId, chapterId]);
 
   useEffect(() => {
     dispatch(fetchContents({bookId, chapterId}));

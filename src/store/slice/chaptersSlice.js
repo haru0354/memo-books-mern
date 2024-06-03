@@ -13,8 +13,9 @@ const chaptersSlice = createSlice({
       state.chapters.push(action.payload);
     },
     deleteChapter(state, action) {
+      const deletedChapterId = action.payload;
       state.chapters = state.chapters.filter(
-        (chapter) => chapter._id !== action.payload._id
+        (chapter) => chapter._id !== deletedChapterId
       );
     },
     updateChapter(state, action) {
