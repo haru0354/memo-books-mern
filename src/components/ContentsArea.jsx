@@ -7,6 +7,7 @@ import { useState } from "react";
 import Button from "./ui/Button";
 import TextInput from "./ui/TextInput";
 import Textarea from "./ui/Textarea";
+import AddContentModal from "./content/AddContentModal";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
@@ -98,7 +99,7 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
       <Link to={`/edit/${bookId}/${chapterId}`}>チャプターの編集</Link>
       {contents.map((content) => {
         const isEditing = editingContentId === content._id;
-        
+
         return (
           <div css={contentAreaStyle} id={content._id} key={content._id}>
             {isEditing ? (
@@ -130,6 +131,7 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
           </div>
         );
       })}
+      <AddContentModal bookId={bookId} chapterId={chapterId} />
     </div>
   );
 };

@@ -8,7 +8,7 @@ const contentsSlice = createSlice({
     status: "idle",
     error: null,
   },
-  reducer: {
+  reducers: {
     addContents(state, action) {
       state.contents.push(action.payload);
     },
@@ -52,7 +52,6 @@ export const fetchContents = createAsyncThunk(
   async ({ bookId, chapterId }) => {
     try {
       const data = await contentApi.getAll(bookId, chapterId);
-      console.log(data);
       return data;
     } catch (error) {
       console.error("コンテンツのフェッチに失敗しました");

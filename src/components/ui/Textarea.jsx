@@ -16,7 +16,7 @@ const textareaStyle = css`
   padding: 10px;
 `;
 
-const Textarea = ({ label, name, placeholder }) => {
+const Textarea = ({ label, name, placeholder, value, onChange }) => {
   return (
     <>
       <label css={labelStyle} htmlFor={label}>
@@ -27,6 +27,8 @@ const Textarea = ({ label, name, placeholder }) => {
         id={label}
         name={name}
         placeholder={placeholder}
+        value={value}
+        onChange={onChange}
         minRows={10}
         maxRows={18}
       />
