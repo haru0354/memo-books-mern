@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { RightContent, formStyle } from "../styles/styles";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import Button from "./ui/Button";
 import TextInput from "./ui/TextInput";
@@ -10,10 +9,9 @@ import Textarea from "./ui/Textarea";
 import AddContentModal from "./content/AddContentModal";
 import EditChapterModal from "./chapter/EditChapterModal";
 import contentApi from "../api/content";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   fetchContentById,
-  fetchContents,
   updateContents,
 } from "../store/slice/contentsSlice";
 import DeleteContentModal from "./content/DeleteContentModal";
@@ -77,12 +75,12 @@ const editingButtonContainerStyle = css`
   justify-content: center;
 `;
 
-const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
+const ContentsArea = ({ bookId, chapterId }) => {
   const [editingContentId, setEditingContentId] = useState(null);
   const [title, setTitle] = useState("");
   const [contentValue, setContentValue] = useState("");
   const dispatch = useDispatch();
-
+  const contents = useSelector((state) => state.contents.contents)
   const toggleEditContents = (contentId) => {
     setEditingContentId(editingContentId === contentId ? null : contentId);
   };
@@ -121,9 +119,8 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
         content._id,
         formData
       );
-      dispatch(fetchContentById({ bookId, chapterId, contentId: content._id }));
-      console.log(response);
       dispatch(updateContents(response));
+      dispatch(fetchContentById({ bookId, chapterId, contentId: content._id }));
       setContentValue("")
       setTitle("")
       toggleEditContents(content._id);
@@ -134,11 +131,11 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
 
   return (
     <div css={RightContent}>
-      <h1>{chapterTitle}</h1>
+      <h1>{contents.chapterTitle}</h1>
       <div css={tableOfContentsStyle}>
         <p>目次</p>
         <ul>
-          {contents.map((content) => {
+          {contents.contents.map((content) => {
             return (
               <li key={content._id} onClick={() => scrollToTitle(content._id)}>
                 <FontAwesomeIcon icon={faChevronDown} />
@@ -151,9 +148,9 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
       <EditChapterModal
         bookId={bookId}
         chapterId={chapterId}
-        chapterTitle={chapterTitle}
+        chapterTitle={contents.chapterTitle}
       />
-      {contents.map((content) => {
+      {contents.contents.map((content) => {
         const isEditing = editingContentId === content._id;
 
         return (
@@ -193,7 +190,6 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
                       chapterId={chapterId}
                       contentId={content._id}
                       contentTitle={content.heading_title}
-                      toggleEditContents={toggleEditContents}
                     />
               </div>
             ) : (

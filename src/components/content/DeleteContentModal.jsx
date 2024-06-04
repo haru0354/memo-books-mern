@@ -40,6 +40,7 @@ const DeleteContentModal = ({
     try {
       await contentApi.delete(bookId, chapterId, contentId);
       dispatch(deleteContent(contentId));
+
     } catch (error) {
       console.error("コンテンツの削除に失敗しました。");
     }

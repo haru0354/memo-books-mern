@@ -10,11 +10,11 @@ const contentsSlice = createSlice({
   },
   reducers: {
     addContents(state, action) {
-      state.contents.push(action.payload);
+      state.contents.contents.push(action.payload);
     },
     updateContents(state, action) {
       const { _id, heading_title, content } = action.payload;
-      const existingContent = state.contents.find((content) => {
+      const existingContent = state.contents.contents.find((content) => {
         content._id === _id;
       });
       if (existingContent) {
@@ -24,7 +24,7 @@ const contentsSlice = createSlice({
     },
     deleteContent(state, action) {
       const contentId  = action.payload;
-      state.contents = state.contents.filter(
+      state.contents.contents = state.contents.contents.filter(
         (content) => content._id !== contentId
       );
     },
@@ -48,11 +48,11 @@ const contentsSlice = createSlice({
       .addCase(fetchContentById.fulfilled, (state, action) => {
         state.status = "succeeded";
         const updatedContent = action.payload;
-        const existingContentIndex = state.contents.findIndex(
+        const existingContentIndex = state.contents.contents.findIndex(
           (content) => content._id === updatedContent._id
         );
         if (existingContentIndex !== -1) {
-          state.contents[existingContentIndex] = updatedContent;
+          state.contents.contents[existingContentIndex] = updatedContent;
         }
       })
       .addCase(fetchContentById.rejected, (state, action) => {

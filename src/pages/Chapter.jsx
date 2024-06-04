@@ -15,8 +15,6 @@ const loadingStyle = css`
 const Chapter = () => {
   const { bookId, chapterId } = useParams();
   const dispatch = useDispatch();
-  const chapters = useSelector((state) => state.chapters.chapters);
-  const contents = useSelector((state) => state.contents.contents);
   const chaptersStatus = useSelector((state) => state.chapters.status);
   const contentsStatus = useSelector((state) => state.contents.status);
   const [isLoading, setIsLoading] = useState(true);
@@ -45,21 +43,14 @@ const Chapter = () => {
     return <p css={loadingStyle}>Loading ...</p>;
   }
 
-  const chapterTitle =
-    chapters.chaptersWithoutContents.find(
-      (chapter) => chapter._id === chapterId
-    )?.chapter_title || "";
-
   return (
     <main css={main2ColumnStyle}>
       <ChapterList
         bookId={bookId}
       />
       <ContentsArea
-        contents={contents}
         bookId={bookId}
         chapterId={chapterId}
-        chapterTitle={chapterTitle}
       />
     </main>
   );
