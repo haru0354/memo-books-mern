@@ -40,6 +40,23 @@ const contentsSlice = createSlice({
       .addCase(fetchContents.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(fetchContentById.pending, (state) => {
+        state.status = "Loading";
+      })
+      .addCase(fetchContentById.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const updatedContent = action.payload;
+        const existingContentIndex = state.contents.findIndex(
+          (content) => content._id === updatedContent._id
+        );
+        if (existingContentIndex !== -1) {
+          state.contents[existingContentIndex] = updatedContent;
+        }
+      })
+      .addCase(fetchContentById.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });
@@ -55,6 +72,19 @@ export const fetchContents = createAsyncThunk(
       return data;
     } catch (error) {
       console.error("コンテンツのフェッチに失敗しました");
+      throw error;
+    }
+  }
+);
+
+export const fetchContentById = createAsyncThunk(
+  "contents/fetchById",
+  async ({ bookId, chapterId, contentId }) => {
+    try {
+      const data = await contentApi.get(bookId, chapterId, contentId);
+      return data;
+    } catch (error) {
+      console.error("指定したIDのコンテンツのフェッチに失敗しました");
       throw error;
     }
   }
