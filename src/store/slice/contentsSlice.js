@@ -14,18 +14,19 @@ const contentsSlice = createSlice({
     },
     updateContents(state, action) {
       const { _id, heading_title, content } = action.payload;
-      const updateContents = state.contents.find((content) => {
+      const existingContent = state.contents.find((content) => {
         content._id === _id;
       });
-      if (updateContents) {
+      if (existingContent) {
         updateContents.heading_title = heading_title;
         updateContents.content = content;
       }
     },
     deleteContent(state, action) {
-      state.contents = state.contents.filter((content) => {
-        content._id !== action.payload._id;
-      });
+      const contentId  = action.payload;
+      state.contents = state.contents.filter(
+        (content) => content._id !== contentId
+      );
     },
   },
   extraReducers: (builder) => {
@@ -57,7 +58,7 @@ const contentsSlice = createSlice({
       .addCase(fetchContentById.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-      });
+      })
   },
 });
 
@@ -89,5 +90,6 @@ export const fetchContentById = createAsyncThunk(
     }
   }
 );
+
 
 export default contentsSlice.reducer;

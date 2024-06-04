@@ -1,0 +1,73 @@
+import { useState } from "react";
+import Button from "../ui/Button";
+import { css } from "@emotion/react";
+import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
+import { useDispatch } from "react-redux";
+import { deleteContent } from "../../store/slice/contentsSlice";
+import contentApi from "../../api/content";
+
+const buttonContainerStyle = css`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-top: 20px;
+`;
+
+const modalAddStyle = css`
+  text-align: center;
+`;
+
+const DeleteContentModal = ({
+  contentTitle,
+  bookId,
+  chapterId,
+  contentId,
+}) => {
+  const [isDeleteModalOpen, setIdDeleteModalOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const toggleDeleteModal = () => {
+    setIdDeleteModalOpen((prev) => !prev);
+  };
+
+  const closeModal = (e) => {
+    if (e.target === e.currentTarget) {
+      toggleDeleteModal();
+    }
+  };
+
+  const onClickDelete = async () => {
+    try {
+      await contentApi.delete(bookId, chapterId, contentId);
+      dispatch(deleteContent(contentId));
+    } catch (error) {
+      console.error("コンテンツの削除に失敗しました。");
+    }
+  };
+
+  return (
+    <>
+      <Button color="red" onClick={toggleDeleteModal} type="button">
+        削除
+      </Button>
+      {isDeleteModalOpen && (
+        <div css={modalBackStyle} onClick={closeModal}>
+          <div css={[modalContainerStyle, modalAddStyle]}>
+            <p>「{contentTitle}」を削除しますか？</p>
+            <p>削除すると復元することはできません。</p>
+            <div css={buttonContainerStyle}>
+              <Button color="red" onClick={onClickDelete}>
+                削除
+              </Button>
+              <Button type="button" color="gray" onClick={toggleDeleteModal}>
+                キャンセル
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default DeleteContentModal;

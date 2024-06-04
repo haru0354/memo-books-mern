@@ -10,17 +10,17 @@ const chaptersSlice = createSlice({
   },
   reducers: {
     addChapter(state, action) {
-      state.chapters.push(action.payload);
+      state.chapters.chaptersWithoutContents.push(action.payload);
     },
     deleteChapter(state, action) {
       const deletedChapterId = action.payload;
-      state.chapters = state.chapters.filter(
+      state.chapters.chaptersWithoutContents = state.chapters.chaptersWithoutContents.filter(
         (chapter) => chapter._id !== deletedChapterId
       );
     },
     updateChapter(state, action) {
       const { _id, chapter_title } = action.payload;
-      const updateChapter = state.chapters.find(
+      const updateChapter = state.chapters.chaptersWithoutContents.find(
         (chapter) => chapter._id === _id
       );
       if (updateChapter) {
