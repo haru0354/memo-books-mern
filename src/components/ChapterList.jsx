@@ -1,9 +1,7 @@
-import React from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
-import Button from "./ui/Button";
-import TextInput from "./ui/TextInput";
 import AddChapterModal from "./chapter/AddChapterModal";
 
 const sidebarStyles = css`
@@ -17,53 +15,42 @@ const sidebarStyles = css`
     text-decoration: inherit;
     color: white;
   }
+`;
 
-  li {
-    padding: 8px;
+const liStyles = css`
+  padding: 8px;
 
-    &:hover {
-      background-color: #696c72;
-    }
+  &:hover {
+    background-color: #696c72;
   }
 `;
 
-const liStyle = css`
+const bookTitleStyle = css`
+  padding: 8px;
   border-bottom: 1px solid gray;
   margin-bottom: 30px;
+  color: white;
+  text-align: center;
 `;
 
-const ChapterList = ({ chapters, bookId, bookTitle }) => {
-  const [isEditing, setIsEditing] = useState(false);
-
-  const toggleEditChapter = () => {
-    setIsEditing((prev) => !prev);
-  };
+const ChapterList = ({ bookId }) => {
+  const chapters = useSelector((state) => state.chapters.chapters);
 
   return (
     <div css={sidebarStyles}>
       <ul>
+        <li css={bookTitleStyle}>{chapters.bookTitle}</li>
         <Link to="/books">
-          <li>本の一覧</li>
+          <li css={liStyles}>本の一覧へ</li>
         </Link>
-        <li css={liStyle}>{bookTitle}</li>
-        {chapters.map((chapter) => {
+        {chapters.chaptersWithoutContents.map((chapter) => {
           return (
-            <React.Fragment key={chapter._id}>
-              {isEditing ? (
-                <TextInput />
-              ) : (
-                <Link to={`/${bookId}/${chapter._id}`} key={chapter._id}>
-                  <li>{chapter.chapter_title}</li>
-                </Link>
-              )}
-            </React.Fragment>
+            <Link to={`/${bookId}/${chapter._id}`} key={chapter._id}>
+              <li css={liStyles}>{chapter.chapter_title}</li>
+            </Link>
           );
         })}
       </ul>
-      {isEditing && <Button color="blue">保存</Button>}
-      <Button color="gray" onClick={toggleEditChapter}>
-        {isEditing ? "キャンセル" : "編集"}
-      </Button>
       <AddChapterModal bookId={bookId} />
     </div>
   );

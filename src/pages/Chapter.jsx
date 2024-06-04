@@ -50,14 +50,10 @@ const Chapter = () => {
       (chapter) => chapter._id === chapterId
     )?.chapter_title || "";
 
-  const bookTitle = chapters.bookTitle;
-
   return (
     <main css={main2ColumnStyle}>
       <ChapterList
-        chapters={chapters.chaptersWithoutContents}
         bookId={bookId}
-        bookTitle={bookTitle}
       />
       <ContentsArea
         contents={contents}
