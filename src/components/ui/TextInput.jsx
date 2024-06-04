@@ -7,7 +7,7 @@ const labelStyle = css`
 
 const textInputStyle = css`
   max-width: 100%;
-  height: 35px;
+  height: 25px;
   margin-bottom: 20px;
   border: 1px solid rgb(185 184 184);
   border-radius: 4px;

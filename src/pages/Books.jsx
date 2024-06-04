@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import bookApi from "../api/book";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
+import Button from "../components/ui/Button";
+import React from "react";
 
 const mainStyle = css`
   width: 1080px;
@@ -64,6 +66,11 @@ const bookStyle = css`
   }
 `;
 
+const aStyle = css`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Books = () => {
   const [books, setBooks] = useState([]);
 
@@ -89,18 +96,22 @@ const Books = () => {
       <h1>メモブックの一覧</h1>
       <div css={divStyle}>
         {books.map((book) => (
-          <Link
-            to={
-              book.chapters[0]
-                ? `/${book._id}/${book.chapters[0]._id}`
-                : `/books/${book._id}`
-            }
-            key={book._id}
-          >
-            <div css={bookStyle}>
-              <h2>{book.title}</h2>
+          <div>
+            <Link
+              to={
+                book.chapters[0]
+                  ? `/${book._id}/${book.chapters[0]._id}`
+                  : `/books/${book._id}`
+              }
+            >
+              <div css={bookStyle}>
+                <h2>{book.title}</h2>
+              </div>
+            </Link>
+            <div css={aStyle}>
+              <Link to={`/edit/${book._id}`}><Button color="blue">編集</Button></Link>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

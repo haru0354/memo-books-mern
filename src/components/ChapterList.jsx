@@ -1,10 +1,13 @@
 import AddModal from "./AddModal";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
+import { useState } from "react";
+import Button from "./ui/Button";
+import TextInput from "./ui/TextInput";
 
 const sidebarStyles = css`
-  width: 180px;
-  max-width: 180px;
+  width: 200px;
+  max-width: 200px;
   border-right: 1px solid gray;
   background-color: rgb(55 65 81);
   padding: 10px;
@@ -29,6 +32,12 @@ const liStyle = css`
 `;
 
 const ChapterList = ({ chapters, bookId }) => {
+  const [isEditing, setIsEditing] = useState(false);
+
+  const toggleEditChapter = () => {
+    setIsEditing((prev) => !prev);
+  };
+
   return (
     <div css={sidebarStyles}>
       <ul>
@@ -40,12 +49,22 @@ const ChapterList = ({ chapters, bookId }) => {
         </Link>
         {chapters.map((chapter) => {
           return (
-            <Link to={`/${bookId}/${chapter._id}`} key={chapter._id}>
-              <li>{chapter.chapter_title}</li>
-            </Link>
+            <>
+              {isEditing ? (
+                <TextInput />
+              ) : (
+                <Link to={`/${bookId}/${chapter._id}`} key={chapter._id}>
+                  <li>{chapter.chapter_title}</li>
+                </Link>
+              )}
+            </>
           );
         })}
       </ul>
+      {isEditing && <Button color="blue">保存</Button>}
+      <Button color="gray" onClick={toggleEditChapter}>
+        {isEditing ? "キャンセル" : "編集"}
+      </Button>
       <AddModal formTitle="チャプター" />
     </div>
   );
