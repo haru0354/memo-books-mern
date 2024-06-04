@@ -10,8 +10,14 @@ export const getAllChapters = async (req, res) => {
     res.status(404).json({ message: "指定した本が見つかりませんでした" });
   }
 
-  const chapter = book.chapters;
-  res.json(chapter);
+  const chapters = book.chapters;
+
+  const returnData = chapters.map(chapter => ({
+    chapter_title: chapter.chapter_title,
+    _id: chapter._id
+  }));
+
+  res.json(returnData);
 };
 
 export const getChapter = async (req, res) => {

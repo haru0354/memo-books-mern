@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../store/slice/booksSlice";
 import AddBookModal from "../components/book/AddBookModal";
+import { main1ColumnStyle } from "../styles/styles";
 
 const mainStyle = css`
   width: 1080px;
@@ -23,7 +24,7 @@ const mainStyle = css`
   }
 `;
 
-const divStyle = css`
+const BooksAreaStyle = css`
   display: flex;
   padding: 4rem;
 `;
@@ -76,30 +77,38 @@ const addBookContainerStyle = css`
   text-align: center;
 `;
 
+const loadingStyle = css`
+  text-align: center;
+`;
+
 const Books = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
   const status = useSelector((state) => state.books.status);
-
+  const [ isLoading, setIsLoading ] = useState(true)
   useEffect(() => {
     dispatch(fetchBooks());
   }, [dispatch]);
 
-  if (!books) {
-    return <p>Loading...</p>;
-  }
-  if (status === 'loading') {
-    return <p>Loading...</p>;
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500); 
 
-  if (status === 'failed') {
-    return <p>Failed to fetch books.</p>;
+    return () => clearTimeout(timer); 
+  }, []);
+
+  if (
+    isLoading ||
+    status === "loading"
+  ) {
+    return <p css={loadingStyle}>Loading ...</p>;
   }
 
   return (
-    <div css={mainStyle}>
+    <main css={main1ColumnStyle}>
       <h1>メモブックの一覧</h1>
-      <div css={divStyle}>
+      <div css={BooksAreaStyle}>
         {books.map((book) => (
           <div key={book._id}>
             <Link
@@ -120,7 +129,7 @@ const Books = () => {
       <div css={addBookContainerStyle}>
         <AddBookModal />
       </div>
-    </div>
+    </main>
   );
 };
 

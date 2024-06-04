@@ -1,5 +1,23 @@
 import { css } from "@emotion/react";
 
+// 1カラム時のmainタグデザイン
+export const main1ColumnStyle = css`
+  width: 1080px;
+  margin: 40px auto;
+
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    padding-top: 2rem;
+    padding-left: 2rem;
+    font-size: 1.2rem;
+  }
+`;
+
 // 2カラム時のmainタグデザイン
 export const main2ColumnStyle = css`
   display: flex;
@@ -58,5 +76,3 @@ export const formStyle = css`
   flex-direction: column;
   text-align: left;
 `;
-
-
