@@ -11,13 +11,14 @@ export const getAllChapters = async (req, res) => {
   }
 
   const chapters = book.chapters;
+  const bookTitle = book.title;
 
-  const returnData = chapters.map(chapter => ({
+  const chaptersWithoutContents =  chapters.map(chapter => ({
     chapter_title: chapter.chapter_title,
     _id: chapter._id
   }));
 
-  res.json(returnData);
+  res.json({bookTitle, chaptersWithoutContents});
 };
 
 export const getChapter = async (req, res) => {

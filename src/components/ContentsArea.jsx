@@ -76,9 +76,7 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
   if (!contents) {
     return <p>Loading...</p>;
   }
-  if (contents.length === 0) {
-    return <p>No contents available</p>;
-  }
+
   const scrollToTitle = (id) => {
     const el = document.getElementById(id);
     if (el) {

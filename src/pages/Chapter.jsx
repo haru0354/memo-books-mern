@@ -32,9 +32,9 @@ const Chapter = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 500); 
+    }, 500);
 
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, []);
 
   if (
@@ -46,11 +46,19 @@ const Chapter = () => {
   }
 
   const chapterTitle =
-    chapters.find((chapter) => chapter._id === chapterId)?.chapter_title || "";
+    chapters.chaptersWithoutContents.find(
+      (chapter) => chapter._id === chapterId
+    )?.chapter_title || "";
+
+  const bookTitle = chapters.bookTitle;
 
   return (
     <main css={main2ColumnStyle}>
-      <ChapterList chapters={chapters} bookId={bookId} />
+      <ChapterList
+        chapters={chapters.chaptersWithoutContents}
+        bookId={bookId}
+        bookTitle={bookTitle}
+      />
       <ContentsArea
         contents={contents}
         bookId={bookId}
