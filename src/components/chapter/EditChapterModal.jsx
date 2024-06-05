@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
 import { css } from "@emotion/react";
@@ -22,15 +22,19 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
-const editButtonStyle = css`
-  display: block;
-  margin: 2rem auto;
-`;
-
 const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
-  const [isAddModal, setIsAddModal] = useState(false);
+  const [isEditModal, setIsEditModal] = useState(false);
   const dispatch = useDispatch();
   const methods = useForm();
+  const bodyRef = useRef(document.body);
+
+  const disableScroll = () => {
+    bodyRef.current.style.overflow = 'hidden';
+  };
+
+  const enableScroll = () => {
+    bodyRef.current.style.overflow = 'auto';
+  };
 
   const onSubmit = async (data) => {
     const formData = {
@@ -47,20 +51,27 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
     }
   };
 
-  const toggleAddModal = () => {
-    setIsAddModal((prev) => !prev);
+  const toggleOpenModal = () => {
+    setIsEditModal((prev) => !prev);
+    disableScroll();
+  };
+
+  const toggleCloseModal = () => {
+    setIsEditModal((prev) => !prev);
+    enableScroll();
   };
 
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
-      toggleAddModal();
+      setIsEditModal();
+      enableScroll();
     }
   };
 
   return (
     <>
-      <EditImageButton onClick={toggleAddModal} />
-      {isAddModal && (
+      <EditImageButton onClick={toggleOpenModal} />
+      {isEditModal && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
             <h3>チャプターの編集</h3>
@@ -81,7 +92,7 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
                   <Button type="submit" color="blue">
                     保存する
                   </Button>
-                  <Button color="gray" onClick={toggleAddModal}>
+                  <Button color="gray" onClick={toggleCloseModal}>
                     キャンセル
                   </Button>
                 </div>
@@ -91,7 +102,7 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
               chapterTitle={chapterTitle}
               chapterId={chapterId}
               bookId={bookId}
-              toggleAddModal={toggleAddModal}
+              toggleAddModal={toggleOpenModal}
             />
           </div>
         </div>

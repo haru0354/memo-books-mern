@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../ui/Button";
 import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
@@ -37,14 +37,30 @@ const DeleteChapterModal = ({
   const [isDeleteModalOpen, setIdDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const bodyRef = useRef(document.body);
 
-  const toggleDeleteModal = () => {
+  const disableScroll = () => {
+    bodyRef.current.style.overflow = 'hidden';
+  };
+
+  const enableScroll = () => {
+    bodyRef.current.style.overflow = 'auto';
+  };
+
+  const toggleOpenModal = () => {
     setIdDeleteModalOpen((prev) => !prev);
+    disableScroll();
+  };
+
+  const toggleCloseModal = () => {
+    setIdDeleteModalOpen((prev) => !prev);
+    enableScroll();
   };
 
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
-      toggleDeleteModal();
+      toggleCloseModal();
+      enableScroll();
     }
   };
 
@@ -54,7 +70,7 @@ const DeleteChapterModal = ({
       if (response.deletedChapterId === chapterId) {
         dispatch(deleteChapter(response.deletedChapterId));
   
-        toggleDeleteModal();
+        toggleCloseModal();
         toggleAddModal();
         if (response.redirectedUrl) {
           navigate(`/${bookId}/${response.redirectedUrl}`);
@@ -73,7 +89,7 @@ const DeleteChapterModal = ({
       <Button
         addCss={deleteButtonStyle}
         color="red"
-        onClick={toggleDeleteModal}
+        onClick={toggleOpenModal}
       >
         削除
       </Button>
@@ -87,7 +103,7 @@ const DeleteChapterModal = ({
               <Button color="red" onClick={onClickDelete}>
                 削除
               </Button>
-              <Button color="gray" onClick={toggleDeleteModal}>
+              <Button color="gray" onClick={toggleCloseModal}>
                 キャンセル
               </Button>
             </div>
