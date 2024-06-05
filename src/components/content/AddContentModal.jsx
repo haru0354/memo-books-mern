@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
 import AddButton from "../ui/AddButton";
@@ -26,6 +26,15 @@ const AddContentModal = ({ bookId, chapterId }) => {
   const [isAddModal, setIsAddModal] = useState(false);
   const dispatch = useDispatch();
   const methods = useForm();
+  const bodyRef = useRef(document.body);
+
+  const disableScroll = () => {
+    bodyRef.current.style.overflow = 'hidden';
+  };
+
+  const enableScroll = () => {
+    bodyRef.current.style.overflow = 'auto';
+  };
 
   const onSubmit = async (data) => {
     const formData = {
@@ -41,26 +50,33 @@ const AddContentModal = ({ bookId, chapterId }) => {
       }
 
       dispatch(addContents(response));
-      toggleAddModal();
+      toggleCloseModal();
       methods.reset();
     } catch (error) {
       console.error("フォームの送信に失敗しました。", error);
     }
   };
 
-  const toggleAddModal = () => {
+  const toggleOpenModal = () => {
     setIsAddModal((prev) => !prev);
+    disableScroll();
+  };
+
+  const toggleCloseModal = () => {
+    setIsAddModal((prev) => !prev);
+    enableScroll();
   };
 
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
-      toggleAddModal();
+      toggleCloseModal();
     }
   };
 
+
   return (
     <>
-      <AddButton onClick={toggleAddModal} />
+      <AddButton onClick={toggleOpenModal} />
       {isAddModal && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
@@ -94,7 +110,7 @@ const AddContentModal = ({ bookId, chapterId }) => {
                   <Button type="submit" color="blue">
                     追加する
                   </Button>
-                  <Button color="gray" onClick={toggleAddModal}>
+                  <Button color="gray" onClick={toggleCloseModal}>
                     キャンセル
                   </Button>
                 </div>
