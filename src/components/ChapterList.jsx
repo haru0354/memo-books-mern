@@ -30,7 +30,7 @@ const booksBackStyle = css`
 `;
 
 const bookTitleStyle = css`
-  word-wrap: break-word; 
+  word-wrap: break-word;
   padding: 8px;
   border-bottom: 1px solid gray;
   margin-top: 30px;
