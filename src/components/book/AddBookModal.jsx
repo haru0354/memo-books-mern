@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
 import AddButton from "../ui/AddButton";
@@ -19,11 +19,19 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
-
 const AddBookModal = () => {
   const [isAddModal, setIsAddModal] = useState(false);
   const navigate = useNavigate();
   const methods = useForm();
+  const bodyRef = useRef(document.body);
+
+  const disableScroll = () => {
+    bodyRef.current.style.overflowY = "hidden";
+  };
+
+  const enableScroll = () => {
+    bodyRef.current.style.overflow = "auto";
+  };
 
   const onSubmit = async (data) => {
     const formData = {
@@ -42,26 +50,32 @@ const AddBookModal = () => {
       if (!response || !response._id) {
         throw new Error("フォームの送信に失敗しました。");
       }
-
+      toggleCloseModal();
       navigate(`/${response._id}/${response.chapters[0]._id}`);
     } catch (error) {
       console.error("フォームの送信に失敗しました。111", error);
     }
   };
 
-  const toggleAddModal = () => {
+  const toggleOpenModal = () => {
     setIsAddModal((prev) => !prev);
+    disableScroll();
+  };
+
+  const toggleCloseModal = () => {
+    setIsAddModal((prev) => !prev);
+    enableScroll();
   };
 
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
-      toggleAddModal();
+      toggleCloseModal();
     }
   };
 
   return (
     <>
-      <AddButton isBook={true} onClick={toggleAddModal} />
+      <AddButton isBook={true} onClick={toggleOpenModal} />
       {isAddModal && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
@@ -84,7 +98,7 @@ const AddBookModal = () => {
                   <Button type="submit" color="blue">
                     追加する
                   </Button>
-                  <Button type="button" color="gray" onClick={toggleAddModal}>
+                  <Button type="button" color="gray" onClick={toggleCloseModal}>
                     キャンセル
                   </Button>
                 </div>

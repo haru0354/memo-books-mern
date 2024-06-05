@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../ui/Button";
 import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
@@ -29,26 +29,42 @@ const buttonContainerStyle = css`
 `;
 
 const DeleteBookModal = ({ bookTitle, bookId }) => {
-  const [isDeleteModalOpen, setIdDeleteModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const bodyRef = useRef(document.body);
 
-  const toggleDeleteModal = () => {
-    setIdDeleteModalOpen((prev) => !prev);
+  const disableScroll = () => {
+    bodyRef.current.style.overflowY = 'hidden';
+  };
+
+  const enableScroll = () => {
+    bodyRef.current.style.overflow = 'auto';
+  };
+
+  const toggleOpenModal = () => {
+    setIsDeleteModalOpen((prev) => !prev);
+    disableScroll();
+  };
+
+  const toggleCloseModal = () => {
+    setIsDeleteModalOpen((prev) => !prev);
+    enableScroll();
   };
 
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
-      toggleDeleteModal();
+      toggleCloseModal();
     }
   };
+
 
   const onClickDelete = async () => {
     const response = await bookApi.delete(bookId);
     if (response.message === "本の削除に成功しました。") {
       dispatch(deleteBook(response.deletedBookId));
 
-      toggleDeleteModal();
+      toggleCloseModal();
       navigate("/books");
     } else {
       console.error("本の削除に失敗しました。");
@@ -60,7 +76,7 @@ const DeleteBookModal = ({ bookTitle, bookId }) => {
       <Button
         addCss={DeleteButtonStyle}
         color="red"
-        onClick={toggleDeleteModal}
+        onClick={toggleOpenModal}
       >
         削除
       </Button>
@@ -76,7 +92,7 @@ const DeleteBookModal = ({ bookTitle, bookId }) => {
               <Button color="red" onClick={onClickDelete}>
                 削除
               </Button>
-              <Button color="gray" onClick={toggleDeleteModal}>
+              <Button color="gray" onClick={toggleCloseModal}>
                 キャンセル
               </Button>
             </div>

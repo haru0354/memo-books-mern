@@ -40,7 +40,7 @@ const DeleteChapterModal = ({
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
-    bodyRef.current.style.overflow = 'hidden';
+    bodyRef.current.style.overflowY = 'hidden';
   };
 
   const enableScroll = () => {

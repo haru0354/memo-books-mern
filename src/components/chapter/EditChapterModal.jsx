@@ -29,7 +29,7 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
-    bodyRef.current.style.overflow = 'hidden';
+    bodyRef.current.style.overflowY = 'hidden';
   };
 
   const enableScroll = () => {
@@ -45,7 +45,7 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
       const response = await chapterApi.patch(bookId, chapterId, formData);
 
       dispatch(updateChapter(response));
-      toggleAddModal();
+      toggleCloseModal();
     } catch (error) {
       console.error("編集に失敗しました", error);
     }
@@ -102,7 +102,7 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
               chapterTitle={chapterTitle}
               chapterId={chapterId}
               bookId={bookId}
-              toggleAddModal={toggleOpenModal}
+              toggleAddModal={toggleCloseModal}
             />
           </div>
         </div>

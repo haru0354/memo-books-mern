@@ -12,7 +12,7 @@ import Button from "../../components/ui/Button";
 import bookApi from "../../api/book";
 import { updateBook } from "../../store/slice/booksSlice";
 import { FormProvider, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -23,9 +23,18 @@ const buttonContainerStyle = css`
 
 
 const EditBookModal = ({ bookId, bookTitle }) => {
-  const [isAddModal, setIsAddModal] = useState(false);
+  const [isEditModal, setIsEditModal] = useState(false);
   const dispatch = useDispatch();
   const methods = useForm();
+  const bodyRef = useRef(document.body);
+
+  const disableScroll = () => {
+    bodyRef.current.style.overflowY = 'hidden';
+  };
+
+  const enableScroll = () => {
+    bodyRef.current.style.overflow = 'auto';
+  };
 
   const onSubmit = async (data) => {
 
@@ -41,28 +50,34 @@ const EditBookModal = ({ bookId, bookTitle }) => {
       }
 
       dispatch(updateBook(response));
-      toggleAddModal();
+      toggleCloseModal();
     } catch (error) {
       console.error("編集に失敗しました", error);
     }
   };
 
-  const toggleAddModal = () => {
-    setIsAddModal((prev) => !prev);
+  const toggleOpenModal = () => {
+    setIsEditModal((prev) => !prev);
+    disableScroll();
+  };
+
+  const toggleCloseModal = () => {
+    setIsEditModal((prev) => !prev);
+    enableScroll();
   };
 
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
-      toggleAddModal();
+      toggleCloseModal();
     }
   };
 
   return (
     <>
-      <Button color="blue" onClick={toggleAddModal}>
+      <Button color="blue" onClick={toggleOpenModal}>
         編集
       </Button>
-      {isAddModal && (
+      {isEditModal && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
             <h3>本の編集</h3>
@@ -85,7 +100,7 @@ const EditBookModal = ({ bookId, bookTitle }) => {
                   <Button type="submit" color="blue">
                     保存する
                   </Button>
-                  <Button color="gray" onClick={toggleAddModal}>
+                  <Button color="gray" onClick={toggleCloseModal}>
                     キャンセル
                   </Button>
                 </div>
