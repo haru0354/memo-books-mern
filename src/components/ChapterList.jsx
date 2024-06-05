@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
@@ -16,6 +15,26 @@ const sidebarStyles = css`
     text-decoration: inherit;
     color: white;
   }
+`;
+
+const booksBackStyle = css`
+  text-align: center;
+  margin-top: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed gray;
+
+  &:hover {
+    background-color: #7e7979;
+  }
+`;
+
+const bookTitleStyle = css`
+  padding: 8px;
+  border-bottom: 1px solid gray;
+  margin-top: 30px;
+  color: white;
+  text-align: center;
 `;
 
 const ulStyles = css`
@@ -39,48 +58,27 @@ const linkStyles = css`
   }
 `;
 
-const bookTitleStyle = css`
-  padding: 8px;
-  border-bottom: 1px solid gray;
-  margin-top: 30px;
-  color: white;
-  text-align: center;
-`;
-
-const booksBackStyle = css`
-  text-align: center;
-  margin-top: 0;
-  padding-bottom: 6px;
-  border-bottom:1px dashed gray;
-
-  &:hover {
-   background-color: #7e7979;
-  }
-`;
-
 const ChapterList = ({ bookId }) => {
   const chapters = useSelector((state) => state.chapters.chapters);
   return (
     <div css={sidebarStyles}>
       <Link to="/books">
-       <p css={booksBackStyle}>本の一覧へ</p> 
+        <p css={booksBackStyle}>本の一覧へ</p>
       </Link>
       <h2 css={bookTitleStyle}>{chapters.bookTitle}</h2>
       <ul css={ulStyles}>
         {chapters.chaptersWithoutContents.map((chapter) => {
           return (
-            <>
-              <li css={liStyles}>
-                <Link to={`/${bookId}/${chapter._id}`} css={linkStyles}>
-                  {chapter.chapter_title}
-                </Link>
-                <EditChapterModal
-                  bookId={bookId}
-                  chapterId={chapter._id}
-                  chapterTitle={chapter.chapter_title}
-                />
-              </li>
-            </>
+            <li css={liStyles} key={chapter._id}>
+              <Link to={`/${bookId}/${chapter._id}`} css={linkStyles}>
+                {chapter.chapter_title}
+              </Link>
+              <EditChapterModal
+                bookId={bookId}
+                chapterId={chapter._id}
+                chapterTitle={chapter.chapter_title}
+              />
+            </li>
           );
         })}
       </ul>
