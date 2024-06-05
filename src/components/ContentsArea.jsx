@@ -16,7 +16,7 @@ import EditImageButton from "./ui/EditImageButton";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 0.2rem 2rem;
   border: 1px solid #cbc9c9;
   border-radius: 4px;
@@ -46,6 +46,7 @@ const tableOfContentsStyle = css`
 const contentAreaStyle = css`
   padding-top: 1rem;
   padding-bottom: 1rem;
+  margin: 2rem 0;
   border-bottom: 1px dotted gray;
 `;
 
@@ -62,6 +63,7 @@ const editContainerStyle = css`
 const editButtonContainerStyle = css`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const cancelButtonStyle = css`
@@ -71,12 +73,6 @@ const cancelButtonStyle = css`
 const editingButtonContainerStyle = css`
   display: flex;
   justify-content: center;
-`;
-
-const aStyle = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const ContentsArea = ({ bookId, chapterId }) => {
@@ -146,7 +142,7 @@ const ContentsArea = ({ bookId, chapterId }) => {
 
   return (
     <div css={RightContent}>
-        <h1>{chapterTitle}</h1>
+      <h1>{chapterTitle}</h1>
       <div css={tableOfContentsStyle}>
         <p>目次</p>
         <ul>
@@ -206,12 +202,9 @@ const ContentsArea = ({ bookId, chapterId }) => {
               <>
                 <div css={editButtonContainerStyle}>
                   <h2 css={h2Styles}>{content.heading_title}</h2>
-                  <Button
-                    color="blue"
+                  <EditImageButton
                     onClick={() => toggleEditContents(content._id)}
-                  >
-                    編集
-                  </Button>
+                  />
                 </div>
                 {content.content}
               </>
