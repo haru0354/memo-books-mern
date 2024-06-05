@@ -1,0 +1,12 @@
+import React from "react";
+
+export const splitAndNewLines = (text) => {
+  return text.split("\n").map((line, index) => {
+    return (
+      <React.Fragment key={index}>
+        {line}
+        <br />
+      </React.Fragment>
+    );
+  });
+};

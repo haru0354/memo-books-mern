@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { RightContent, formStyle, errorMessageStyle } from "../styles/styles";
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "./ui/Button";
 import TextInput from "./ui/TextInput";
 import Textarea from "./ui/Textarea";
@@ -13,6 +13,7 @@ import { fetchContentById, updateContents } from "../store/slice/contentsSlice";
 import DeleteContentModal from "./content/DeleteContentModal";
 import EditImageButton from "./ui/EditImageButton";
 import { FormProvider, useForm } from "react-hook-form";
+import { splitAndNewLines } from "../lib/splitAndNewLines";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
@@ -218,7 +219,7 @@ const ContentsArea = ({ bookId, chapterId }) => {
                     onClick={() => toggleEditContents(content._id)}
                   />
                 </div>
-                {content.content}
+                {splitAndNewLines(content.content)}
               </>
             )}
           </div>
