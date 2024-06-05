@@ -42,7 +42,6 @@ const Book = () => {
         bookId={bookId}
       />      
       <AddChapterForm bookId={bookId}/>
-      
     </main>
   );
 };

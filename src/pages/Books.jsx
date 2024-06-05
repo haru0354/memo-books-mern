@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../store/slice/booksSlice";
 import AddBookModal from "../components/book/AddBookModal";
 import { main1ColumnStyle } from "../styles/styles";
+import EditBookModal from "../components/book/EditBookModal";
 
 const bookContainerStyle = css`
   padding: 0 1.8rem;
@@ -109,9 +110,7 @@ const Books = () => {
               </div>
             </Link>
             <div css={editButtonContainerStyle}>
-              <Link to={`/edit/${book._id}`}>
-                <Button color="blue">編集</Button>
-              </Link>
+              <EditBookModal bookTitle={book.title} bookId={book._id}/>
             </div>
           </div>
         ))}

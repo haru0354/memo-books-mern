@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
 import { css } from "@emotion/react";
 import {
@@ -7,11 +6,11 @@ import {
   modalBackStyle,
   modalContainerStyle,
 } from "../../styles/styles";
-import chapterApi from "../../api/chapter";
 import { useDispatch } from "react-redux";
-import { updateChapter } from "../../store/slice/chaptersSlice";
-import DeleteChapterModal from "./DeleteChapterModal";
-import EditImageButton from "../ui/EditImageButton";
+import DeleteBookModal from "./DeleteBookModal";
+import Button from "../../components/ui/Button"
+import bookApi from "../../api/book";
+import { updateBook } from "../../store/slice/booksSlice";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -25,8 +24,8 @@ const editButtonStyle = css`
   margin: 2rem auto;
 `;
 
-const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
-  const [title, setTitle] = useState(`${chapterTitle}`);
+const EditBookModal = ({ bookId, bookTitle }) => {
+  const [title, setTitle] = useState(`${bookTitle}`);
   const [isAddModal, setIsAddModal] = useState(false);
   const dispatch = useDispatch();
 
@@ -34,14 +33,18 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
     e.preventDefault();
 
     const formData = {
-      chapter_title: title,
+      title,
     };
 
     try {
-      const response = await chapterApi.patch(bookId, chapterId, formData);
+      const response = await bookApi.patch(bookId, formData);
 
-      dispatch(updateChapter(response));
-      toggleAddModal();
+      if (response._id !== bookId) {
+        throw new Error("編集に失敗しました。");
+      }
+
+      dispatch(updateBook(response));
+      toggleAddModal()
     } catch (error) {
       console.error("編集に失敗しました", error);
     }
@@ -59,15 +62,15 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
 
   return (
     <>
-    <EditImageButton onClick={toggleAddModal}/>
+    <Button color="blue" onClick={toggleAddModal}>編集</Button>
       {isAddModal && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
-            <h3>チャプターの編集</h3>
+            <h3>本の編集</h3>
             <form  css={formStyle}>
               <TextInput
-                label="チャプター名"
-                placeholder="チャプター名を入力してください。"
+                label="タイトル"
+                placeholder="タイトルを入力してください。"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
@@ -80,12 +83,7 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
                 </Button>
               </div>
             </form>
-            <DeleteChapterModal
-              chapterTitle={chapterTitle}
-              chapterId={chapterId}
-              bookId={bookId}
-              toggleAddModal={toggleAddModal}
-            />
+            <DeleteBookModal bookTitle={bookTitle} bookId={bookId}/>
           </div>
         </div>
       )}
@@ -93,4 +91,4 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
   );
 };
 
-export default EditChapterModal;
+export default EditBookModal;

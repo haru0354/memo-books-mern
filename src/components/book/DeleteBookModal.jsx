@@ -12,6 +12,15 @@ const pStyle = css`
   color: red;
 `;
 
+const DeleteButtonStyle = css`
+  display: block;
+  margin: 0 auto;
+`;
+
+const modalAddStyle = css`
+  text-align: center;
+`;
+
 const buttonContainerStyle = css`
   display: flex;
   justify-content: space-between;
@@ -19,60 +28,63 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
+const DeleteBookModal = ({ bookTitle, bookId }) => {
+  const [isDeleteModalOpen, setIdDeleteModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-const DeleteBookModal = ({ guidance, title, bookId }) => {
-    const [isDeleteModalOpen, setIdDeleteModalOpen] = useState(false);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-  
-    const toggleDeleteModal = () => {
-      setIdDeleteModalOpen((prev) => !prev);
-    };
-  
-    const closeModal = (e) => {
-      if (e.target === e.currentTarget) {
-        toggleDeleteModal();
-      }
-    };
-  
-    const onClickDelete = async () => {
-      const response = await bookApi.delete(bookId);
-      if (response.message === "本の削除に成功しました。") {
-        dispatch(deleteBook(response.deletedBookId));
-  
-        toggleDeleteModal();
-        navigate("/books");
-      } else {
-        console.error("本の削除に失敗しました。");
-      }
-    };
-  
-    return (
-      <>
-        <Button color="red" onClick={toggleDeleteModal}>
-          削除
-        </Button>
-        {isDeleteModalOpen && (
-          <div css={modalBackStyle} onClick={closeModal}>
-            <div css={modalContainerStyle}>
-              <p>「{title}」を削除しますか？</p>
-              <p>削除すると復元することはできません。</p>
-              {guidance && (
-                <span css={pStyle}>「本」の中見も全て削除されます。</span>
-              )}
-              <div css={buttonContainerStyle}>
-                <Button color="red" onClick={onClickDelete}>
-                  削除
-                </Button>
-                <Button color="gray" onClick={toggleDeleteModal}>
-                  キャンセル
-                </Button>
-              </div>
+  const toggleDeleteModal = () => {
+    setIdDeleteModalOpen((prev) => !prev);
+  };
+
+  const closeModal = (e) => {
+    if (e.target === e.currentTarget) {
+      toggleDeleteModal();
+    }
+  };
+
+  const onClickDelete = async () => {
+    const response = await bookApi.delete(bookId);
+    if (response.message === "本の削除に成功しました。") {
+      dispatch(deleteBook(response.deletedBookId));
+
+      toggleDeleteModal();
+      navigate("/books");
+    } else {
+      console.error("本の削除に失敗しました。");
+    }
+  };
+
+  return (
+    <>
+      <Button
+        addCss={DeleteButtonStyle}
+        color="red"
+        onClick={toggleDeleteModal}
+      >
+        削除
+      </Button>
+      {isDeleteModalOpen && (
+        <div css={modalBackStyle} onClick={closeModal}>
+          <div css={[modalContainerStyle, modalAddStyle]}>
+            <p>「{bookTitle}」を削除しますか？</p>
+            <p>削除すると復元することはできません。</p>
+
+            <span css={pStyle}>「本」の中見も全て削除されます。</span>
+
+            <div css={buttonContainerStyle}>
+              <Button color="red" onClick={onClickDelete}>
+                削除
+              </Button>
+              <Button color="gray" onClick={toggleDeleteModal}>
+                キャンセル
+              </Button>
             </div>
           </div>
-        )}
-      </>
-    );
-  };
-  
-export default DeleteBookModal
+        </div>
+      )}
+    </>
+  );
+};
+
+export default DeleteBookModal;

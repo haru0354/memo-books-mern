@@ -30,6 +30,7 @@ const booksBackStyle = css`
 `;
 
 const bookTitleStyle = css`
+  word-wrap: break-word; 
   padding: 8px;
   border-bottom: 1px solid gray;
   margin-top: 30px;
@@ -48,6 +49,8 @@ const liStyles = css`
 `;
 
 const linkStyles = css`
+  word-break: break-all;
+
   width: 100%;
   height: 100%;
 
