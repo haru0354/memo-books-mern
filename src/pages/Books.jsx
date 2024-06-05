@@ -15,19 +15,21 @@ const BooksAreaStyle = css`
   display: flex;
   align-items: center;
   flex-wrap: wrap; 
-  padding: 4rem;
+  padding: 1rem 4rem;
   margin: 0 auto;
 `;
 
 const bookStyle = css`
   width: 180px;
   height: 240px;
+  margin-bottom: 1rem;
   border: none;
+  color: black;
   background: #f8f9fa;
   position: relative;
   transition: all 0.3s ease;
   box-shadow: 0 18px 23px rgba(0, 0, 0, 0.2);
-  border-end-end-radius: 10px;
+  border-bottom-left-radius: 10px;
 
   &:hover {
     transform: translateY(-10px);
@@ -101,7 +103,6 @@ const Books = () => {
       <div css={BooksAreaStyle}>
         {books.map((book) => (
           <div css={bookContainerStyle} key={book._id}>
-            {}
             <Link to={book.firstChapterId ? `/${book._id}/${book.firstChapterId}` : `/${book._id}`}>
               <div css={bookStyle}>
                 <h2>{book.title}</h2>

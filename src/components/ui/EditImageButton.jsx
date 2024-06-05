@@ -6,12 +6,13 @@ const buttonStyle = css`
   cursor: pointer;
   width: 35px;
   height: 30px;
-  background-color: gray;
+  background-color: #e3e3e3;
   border: 1px dotted gray;
   border-radius: 4px;
 
   &:hover {
-    background-color: #e3e3e3;
+    background-color: #5c5c5c;
+    color: #e3e3e3;
   }
 
   svg {
