@@ -12,6 +12,7 @@ import chapterApi from "../../api/chapter";
 import { useDispatch } from "react-redux";
 import { updateChapter } from "../../store/slice/chaptersSlice";
 import DeleteChapterModal from "./DeleteChapterModal";
+import EditImageButton from "../ui/EditImageButton";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -59,14 +60,12 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
 
   return (
     <>
-      <Button color="gray" addCss={editButtonStyle} onClick={toggleAddModal}>
-        チャプターの編集
-      </Button>
+    <EditImageButton onClick={toggleAddModal}/>
       {isAddModal && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
             <h3>チャプターの編集</h3>
-            <form onSubmit={formSubmit} css={formStyle}>
+            <form  css={formStyle}>
               <TextInput
                 label="チャプター名"
                 placeholder="チャプター名を入力してください。"
@@ -74,7 +73,7 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
                 onChange={(e) => setTitle(e.target.value)}
               />
               <div css={buttonContainerStyle}>
-                <Button type="submit" color="blue">
+                <Button type="submit" color="blue" onClick={formSubmit}>
                   保存する
                 </Button>
                 <Button color="gray" onClick={toggleAddModal}>

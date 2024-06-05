@@ -10,11 +10,9 @@ import AddContentModal from "./content/AddContentModal";
 import EditChapterModal from "./chapter/EditChapterModal";
 import contentApi from "../api/content";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchContentById,
-  updateContents,
-} from "../store/slice/contentsSlice";
+import { fetchContentById, updateContents } from "../store/slice/contentsSlice";
 import DeleteContentModal from "./content/DeleteContentModal";
+import EditImageButton from "./ui/EditImageButton";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
@@ -75,19 +73,36 @@ const editingButtonContainerStyle = css`
   justify-content: center;
 `;
 
+const aStyle = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const ContentsArea = ({ bookId, chapterId }) => {
   const [editingContentId, setEditingContentId] = useState(null);
   const [title, setTitle] = useState("");
   const [contentValue, setContentValue] = useState("");
   const dispatch = useDispatch();
-  const contents = useSelector((state) => state.contents.contents)
-  const toggleEditContents = (contentId) => {
-    setEditingContentId(editingContentId === contentId ? null : contentId);
-  };
+  const contents = useSelector((state) => state.contents.contents);
+  const chapterTitle = useSelector((state) => {
+    const chapter = state.chapters.chapters.chaptersWithoutContents.find(
+      (chapter) => chapter._id === chapterId
+    );
+    return chapter ? chapter.chapter_title : null;
+  });
+
+  if (!chapterTitle) {
+    return <p>チャプターが見つかりませんでした</p>;
+  }
 
   if (!contents) {
     return <p>Loading...</p>;
   }
+
+  const toggleEditContents = (contentId) => {
+    setEditingContentId(editingContentId === contentId ? null : contentId);
+  };
 
   const scrollToTitle = (id) => {
     const el = document.getElementById(id);
@@ -121,8 +136,8 @@ const ContentsArea = ({ bookId, chapterId }) => {
       );
       dispatch(updateContents(response));
       dispatch(fetchContentById({ bookId, chapterId, contentId: content._id }));
-      setContentValue("")
-      setTitle("")
+      setContentValue("");
+      setTitle("");
       toggleEditContents(content._id);
     } catch (error) {
       console.error("コンテンツの編集に失敗しました。");
@@ -131,7 +146,7 @@ const ContentsArea = ({ bookId, chapterId }) => {
 
   return (
     <div css={RightContent}>
-      <h1>{contents.chapterTitle}</h1>
+        <h1>{chapterTitle}</h1>
       <div css={tableOfContentsStyle}>
         <p>目次</p>
         <ul>
@@ -145,11 +160,6 @@ const ContentsArea = ({ bookId, chapterId }) => {
           })}
         </ul>
       </div>
-      <EditChapterModal
-        bookId={bookId}
-        chapterId={chapterId}
-        chapterTitle={contents.chapterTitle}
-      />
       {contents.contents.map((content) => {
         const isEditing = editingContentId === content._id;
 
@@ -185,12 +195,12 @@ const ContentsArea = ({ bookId, chapterId }) => {
                     </Button>
                   </div>
                 </form>
-                    <DeleteContentModal
-                      bookId={bookId}
-                      chapterId={chapterId}
-                      contentId={content._id}
-                      contentTitle={content.heading_title}
-                    />
+                <DeleteContentModal
+                  bookId={bookId}
+                  chapterId={chapterId}
+                  contentId={content._id}
+                  contentTitle={content.heading_title}
+                />
               </div>
             ) : (
               <>

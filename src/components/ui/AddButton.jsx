@@ -1,8 +1,9 @@
 import { css } from "@emotion/react";
 
 const normalButtonStyle = css`
+  cursor: pointer;
   width: 100%;
-  height: 30px;
+  height: 35px;
 
   &:hover {
     color: black;
@@ -57,7 +58,7 @@ const AddButton = ({ onClick, addCss, isBook = false }) => {
 
   return (
     <button css={[buttonStyle, addCss]} onClick={onClick}>
-      {isBook ? "本の追加" : "[+]"}
+      {isBook ? "本の追加" : "+"}
     </button>
   );
 };
