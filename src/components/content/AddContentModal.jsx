@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
 import AddButton from "../ui/AddButton";
 import { css } from "@emotion/react";
 import {
+  errorMessageStyle,
   formStyle,
   modalBackStyle,
   modalContainerStyle,
@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import Textarea from "../ui/Textarea";
 import contentApi from "../../api/content";
 import { addContents } from "../../store/slice/contentsSlice";
+import { FormProvider, useForm } from "react-hook-form";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -22,17 +23,14 @@ const buttonContainerStyle = css`
 `;
 
 const AddContentModal = ({ bookId, chapterId }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const [isAddModal, setIsAddModal] = useState(false);
   const dispatch = useDispatch();
+  const methods = useForm();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const onSubmit = async (data) => {
     const formData = {
-      heading_title: title,
-      content: content
+      heading_title: data.title,
+      content: data.content,
     };
 
     try {
@@ -44,8 +42,7 @@ const AddContentModal = ({ bookId, chapterId }) => {
 
       dispatch(addContents(response));
       toggleAddModal();
-      setTitle("");
-      setContent("")
+      methods.reset();
     } catch (error) {
       console.error("フォームの送信に失敗しました。", error);
     }
@@ -68,28 +65,41 @@ const AddContentModal = ({ bookId, chapterId }) => {
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
             <h3>コンテンツの追加</h3>
-            <form onSubmit={handleSubmit} css={formStyle}>
-              <TextInput
-                label="タイトル"
-                placeholder="タイトルを入力してください。"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <Textarea
-                label="コンテンツ"
-                placeholder="コンテンツを入力してください。"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              />
-              <div css={buttonContainerStyle}>
-                <Button type="submit" color="blue">
-                  追加する
-                </Button>
-                <Button color="gray" onClick={toggleAddModal}>
-                  キャンセル
-                </Button>
-              </div>
-            </form>
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
+                <TextInput
+                  label="タイトル"
+                  placeholder="タイトルを入力してください。"
+                  name="title"
+                  required={true}
+                  maxLength={25}
+                />
+                <Textarea
+                  label="コンテンツ"
+                  placeholder="コンテンツを入力してください。"
+                  name="content"
+                  required={true}
+                />
+                {methods.formState.errors.title && (
+                  <p css={errorMessageStyle}>
+                    {methods.formState.errors.title.message}
+                  </p>
+                )}
+                {methods.formState.errors.content && (
+                  <p css={errorMessageStyle}>
+                    {methods.formState.errors.content.message}
+                  </p>
+                )}
+                <div css={buttonContainerStyle}>
+                  <Button type="submit" color="blue">
+                    追加する
+                  </Button>
+                  <Button color="gray" onClick={toggleAddModal}>
+                    キャンセル
+                  </Button>
+                </div>
+              </form>
+            </FormProvider>
           </div>
         </div>
       )}

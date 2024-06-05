@@ -1,18 +1,18 @@
 import { css } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { RightContent, formStyle } from "../styles/styles";
+import { RightContent, formStyle, errorMessageStyle } from "../styles/styles";
 import { useState } from "react";
 import Button from "./ui/Button";
 import TextInput from "./ui/TextInput";
 import Textarea from "./ui/Textarea";
 import AddContentModal from "./content/AddContentModal";
-import EditChapterModal from "./chapter/EditChapterModal";
 import contentApi from "../api/content";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContentById, updateContents } from "../store/slice/contentsSlice";
 import DeleteContentModal from "./content/DeleteContentModal";
 import EditImageButton from "./ui/EditImageButton";
+import { FormProvider, useForm } from "react-hook-form";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
@@ -77,8 +77,6 @@ const editingButtonContainerStyle = css`
 
 const ContentsArea = ({ bookId, chapterId }) => {
   const [editingContentId, setEditingContentId] = useState(null);
-  const [title, setTitle] = useState("");
-  const [contentValue, setContentValue] = useState("");
   const dispatch = useDispatch();
   const contents = useSelector((state) => state.contents.contents);
   const chapterTitle = useSelector((state) => {
@@ -87,6 +85,7 @@ const ContentsArea = ({ bookId, chapterId }) => {
     );
     return chapter ? chapter.chapter_title : null;
   });
+  const methods = useForm();
 
   if (!chapterTitle) {
     return <p>チャプターが見つかりませんでした</p>;
@@ -98,6 +97,7 @@ const ContentsArea = ({ bookId, chapterId }) => {
 
   const toggleEditContents = (contentId) => {
     setEditingContentId(editingContentId === contentId ? null : contentId);
+    methods.reset();
   };
 
   const scrollToTitle = (id) => {
@@ -110,31 +110,26 @@ const ContentsArea = ({ bookId, chapterId }) => {
     }
   };
 
-  const handleSubmit = async (e, content) => {
-    e.preventDefault();
+  const onSubmitContent = async (data, contentId) => {
+    const formData = {
+      heading_title: data.title,
+      content: data.content,
+    };
 
-    const formData = {};
-
-    if (title) {
-      formData.heading_title = title;
-    }
-
-    if (contentValue) {
-      formData.content = contentValue;
-    }
+    console.log(contentId);
 
     try {
       const response = await contentApi.patch(
         bookId,
         chapterId,
-        content._id,
+        contentId,
         formData
       );
       dispatch(updateContents(response));
-      dispatch(fetchContentById({ bookId, chapterId, contentId: content._id }));
-      setContentValue("");
-      setTitle("");
-      toggleEditContents(content._id);
+      dispatch(fetchContentById({ bookId, chapterId, contentId }));
+
+      methods.reset();
+      toggleEditContents(contentId);
     } catch (error) {
       console.error("コンテンツの編集に失敗しました。");
     }
@@ -158,39 +153,56 @@ const ContentsArea = ({ bookId, chapterId }) => {
       </div>
       {contents.contents.map((content) => {
         const isEditing = editingContentId === content._id;
-
+        const contentId = content._id;
         return (
           <div css={contentAreaStyle} id={content._id} key={content._id}>
             {isEditing ? (
               <div css={editContainerStyle}>
-                <form
-                  css={formStyle}
-                  onSubmit={(e) => handleSubmit(e, content)}
-                >
-                  <TextInput
-                    label="タイトル"
-                    value={title || content.heading_title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                  <Textarea
-                    label="コンテンツ"
-                    value={contentValue || content.content}
-                    onChange={(e) => setContentValue(e.target.value)}
-                  />
-                  <div css={editingButtonContainerStyle}>
-                    <Button type="submit" color="blue">
-                      保存
-                    </Button>
-                    <Button
-                      type="button"
-                      addCss={cancelButtonStyle}
-                      color="gray"
-                      onClick={() => toggleEditContents(content._id)}
-                    >
-                      キャンセル
-                    </Button>
-                  </div>
-                </form>
+                <FormProvider {...methods}>
+                  <form
+                    css={formStyle}
+                    onSubmit={methods.handleSubmit((data) =>
+                      onSubmitContent(data, contentId)
+                    )}
+                  >
+                    <TextInput
+                      label="タイトル"
+                      defaultValue={content.heading_title}
+                      name="title"
+                      required={true}
+                      maxLength={25}
+                    />
+                    <Textarea
+                      label="コンテンツ"
+                      name="content"
+                      defaultValue={content.content}
+                      required={true}
+                    />
+                    {methods.formState.errors.title && (
+                      <p css={errorMessageStyle}>
+                        {methods.formState.errors.title.message}
+                      </p>
+                    )}
+                    {methods.formState.errors.content && (
+                      <p css={errorMessageStyle}>
+                        {methods.formState.errors.content.message}
+                      </p>
+                    )}
+                    <div css={editingButtonContainerStyle}>
+                      <Button type="submit" color="blue">
+                        保存
+                      </Button>
+                      <Button
+                        type="button"
+                        addCss={cancelButtonStyle}
+                        color="gray"
+                        onClick={() => toggleEditContents(content._id)}
+                      >
+                        キャンセル
+                      </Button>
+                    </div>
+                  </form>
+                </FormProvider>
                 <DeleteContentModal
                   bookId={bookId}
                   chapterId={chapterId}
