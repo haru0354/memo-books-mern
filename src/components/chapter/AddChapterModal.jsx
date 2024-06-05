@@ -5,6 +5,7 @@ import TextInput from "../ui/TextInput";
 import AddButton from "../ui/AddButton";
 import { css } from "@emotion/react";
 import {
+  errorMessageStyle,
   formStyle,
   modalBackStyle,
   modalContainerStyle,
@@ -12,6 +13,7 @@ import {
 import chapterApi from "../../api/chapter";
 import { useDispatch } from "react-redux";
 import { addChapter } from "../../store/slice/chaptersSlice";
+import { FormProvider, useForm } from "react-hook-form";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -21,16 +23,14 @@ const buttonContainerStyle = css`
 `;
 
 const AddChapterModal = ({ bookId }) => {
-  const [title, setTitle] = useState("");
   const [isAddModal, setIsAddModal] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const methods = useForm();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const onSubmit = async (data) => {
     const formData = {
-      chapter_title: title,
+      chapter_title: data.title,
     };
 
     try {
@@ -42,7 +42,7 @@ const AddChapterModal = ({ bookId }) => {
 
       dispatch(addChapter(response));
       toggleAddModal();
-      setTitle("");
+      methods.reset();
       navigate(`/${bookId}/${response._id}`);
     } catch (error) {
       console.error("フォームの送信に失敗しました。", error);
@@ -66,22 +66,30 @@ const AddChapterModal = ({ bookId }) => {
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
             <h3>チャプターの追加</h3>
-            <form onSubmit={handleSubmit} css={formStyle}>
-              <TextInput
-                label="チャプター名"
-                placeholder="チャプター名を入力してください。"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <div css={buttonContainerStyle}>
-                <Button type="submit" color="blue">
-                  追加する
-                </Button>
-                <Button color="gray" onClick={toggleAddModal}>
-                  キャンセル
-                </Button>
-              </div>
-            </form>
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
+                <TextInput
+                  label="チャプター名"
+                  placeholder="チャプター名を入力してください。"
+                  name="title"
+                  required={true}
+                  maxLength={16}
+                />
+                {methods.formState.errors.title && (
+                  <p css={errorMessageStyle}>
+                    {methods.formState.errors.title.message}
+                  </p>
+                )}
+                <div css={buttonContainerStyle}>
+                  <Button type="submit" color="blue">
+                    追加する
+                  </Button>
+                  <Button color="gray" onClick={toggleAddModal}>
+                    キャンセル
+                  </Button>
+                </div>
+              </form>
+            </FormProvider>
           </div>
         </div>
       )}
