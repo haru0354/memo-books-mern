@@ -29,7 +29,7 @@ const EditBookModal = ({ bookId, bookTitle }) => {
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
-    bodyRef.current.style.overflowY = 'hidden';
+    bodyRef.current.style.overflowY = "hidden";
   };
 
   const enableScroll = () => {
