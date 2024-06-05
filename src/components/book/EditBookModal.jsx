@@ -1,16 +1,18 @@
-import { useState } from "react";
 import TextInput from "../ui/TextInput";
 import { css } from "@emotion/react";
 import {
   formStyle,
   modalBackStyle,
   modalContainerStyle,
+  errorMessageStyle,
 } from "../../styles/styles";
 import { useDispatch } from "react-redux";
 import DeleteBookModal from "./DeleteBookModal";
-import Button from "../../components/ui/Button"
+import Button from "../../components/ui/Button";
 import bookApi from "../../api/book";
 import { updateBook } from "../../store/slice/booksSlice";
+import { FormProvider, useForm } from "react-hook-form";
+import { useState } from "react";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -19,21 +21,16 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
-const editButtonStyle = css`
-  display: block;
-  margin: 2rem auto;
-`;
 
 const EditBookModal = ({ bookId, bookTitle }) => {
-  const [title, setTitle] = useState(`${bookTitle}`);
   const [isAddModal, setIsAddModal] = useState(false);
   const dispatch = useDispatch();
+  const methods = useForm();
 
-  const formSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
 
     const formData = {
-      title,
+      title: data.title
     };
 
     try {
@@ -44,7 +41,7 @@ const EditBookModal = ({ bookId, bookTitle }) => {
       }
 
       dispatch(updateBook(response));
-      toggleAddModal()
+      toggleAddModal();
     } catch (error) {
       console.error("編集に失敗しました", error);
     }
@@ -62,28 +59,40 @@ const EditBookModal = ({ bookId, bookTitle }) => {
 
   return (
     <>
-    <Button color="blue" onClick={toggleAddModal}>編集</Button>
+      <Button color="blue" onClick={toggleAddModal}>
+        編集
+      </Button>
       {isAddModal && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
             <h3>本の編集</h3>
-            <form  css={formStyle}>
-              <TextInput
-                label="タイトル"
-                placeholder="タイトルを入力してください。"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <div css={buttonContainerStyle}>
-                <Button type="submit" color="blue" onClick={formSubmit}>
-                  保存する
-                </Button>
-                <Button color="gray" onClick={toggleAddModal}>
-                  キャンセル
-                </Button>
-              </div>
-            </form>
-            <DeleteBookModal bookTitle={bookTitle} bookId={bookId}/>
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
+                <TextInput
+                  label="タイトル"
+                  placeholder="タイトルを入力してください。"
+                  name="title"
+                  required={true}
+                  maxLength={18}
+                  defaultValue={bookTitle}
+                />
+                {methods.formState.errors.title && (
+                  <p css={errorMessageStyle}>
+                  {methods.formState.errors.title.message}
+                </p>
+              )}
+                <div css={buttonContainerStyle}>
+                  <Button type="submit" color="blue">
+                    保存する
+                  </Button>
+                  <Button color="gray" onClick={toggleAddModal}>
+                    キャンセル
+                  </Button>
+                </div>
+              </form>
+            </FormProvider>
+
+            <DeleteBookModal bookTitle={bookTitle} bookId={bookId} />
           </div>
         </div>
       )}

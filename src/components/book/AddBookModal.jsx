@@ -1,11 +1,16 @@
 import { useState } from "react";
 import Button from "../ui/Button";
-import TextInput from "../ui/TextInput"
+import TextInput from "../ui/TextInput";
 import AddButton from "../ui/AddButton";
 import { css } from "@emotion/react";
 import bookApi from "../../api/book";
 import { useNavigate } from "react-router-dom";
-import { formStyle, modalBackStyle, modalContainerStyle } from "../../styles/styles";
+import {
+  formStyle,
+  modalBackStyle,
+  modalContainerStyle,
+} from "../../styles/styles";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -14,16 +19,15 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
+
 const AddBookModal = () => {
-  const [title, setTitle] = useState("");
   const [isAddModal, setIsAddModal] = useState(false);
   const navigate = useNavigate();
+  const methods = useForm();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const onSubmit = async (data) => {
     const formData = {
-      title: title,
+      title: data.title,
       chapters: [
         {
           chapter_title: "チャプター1",
@@ -62,22 +66,30 @@ const AddBookModal = () => {
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
             <h3>本のフォーム</h3>
-            <form onSubmit={handleSubmit} css={formStyle}>
-              <TextInput
-                label="本のタイトル"
-                placeholder="本のタイトルを入力してください。"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <div css={buttonContainerStyle}>
-                <Button type="submit" color="blue">
-                  追加する
-                </Button>
-                <Button color="gray" onClick={toggleAddModal}>
-                  キャンセル
-                </Button>
-              </div>
-            </form>
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
+                <TextInput
+                  label="本のタイトル"
+                  placeholder="本のタイトルを入力してください。"
+                  name="title"
+                  required={true}
+                  maxLength={18}
+                />
+                {methods.formState.errors.title && (
+                  <p css={errorMessageStyle}>
+                    {methods.formState.errors.title.message}
+                  </p>
+                )}
+                <div css={buttonContainerStyle}>
+                  <Button type="submit" color="blue">
+                    追加する
+                  </Button>
+                  <Button type="button" color="gray" onClick={toggleAddModal}>
+                    キャンセル
+                  </Button>
+                </div>
+              </form>
+            </FormProvider>
           </div>
         </div>
       )}

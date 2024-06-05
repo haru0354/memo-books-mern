@@ -78,3 +78,9 @@ export const formStyle = css`
   flex-direction: column;
   text-align: left;
 `;
+
+// フォームのエラーメッセージ
+export const errorMessageStyle = css`
+  color: red;
+  text-align: center;
+`;
