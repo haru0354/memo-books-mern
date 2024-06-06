@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBooks } from "../store/slice/booksSlice";
 
 const mainStyle = css`
   width: 1080px;
@@ -72,22 +74,14 @@ const aStyle = css`
 `;
 
 const Books = () => {
-  const [books, setBooks] = useState([]);
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.books.books);
 
   useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const bookData = await bookApi.getAll();
-        setBooks(bookData);
-      } catch (error) {
-        console.error("DBから本の一覧の取得に失敗しました。");
-      }
-    };
+    dispatch(fetchBooks()); 
+  }, [dispatch]);
 
-    fetchBooks();
-  }, []);
-
-  if (!books) {
+  if (!books) { 
     return <p>Loading...</p>;
   }
 
@@ -96,7 +90,7 @@ const Books = () => {
       <h1>メモブックの一覧</h1>
       <div css={divStyle}>
         {books.map((book) => (
-          <div>
+          <div key={book._id}>
             <Link
               to={
                 book.chapters[0]
@@ -109,7 +103,9 @@ const Books = () => {
               </div>
             </Link>
             <div css={aStyle}>
-              <Link to={`/edit/${book._id}`}><Button color="blue">編集</Button></Link>
+              <Link to={`/edit/${book._id}`}>
+                <Button color="blue">編集</Button>
+              </Link>
             </div>
           </div>
         ))}
