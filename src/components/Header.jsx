@@ -76,7 +76,7 @@ const Header = ({ variant }) => {
           <h2>メモブック</h2>
         </Link>
         <ul css={menuStyle}>
-          <Link to="/">
+          <Link to="/books">
             <li>ログイン</li>
           </Link>
           <Link to="/">

@@ -3,8 +3,11 @@ import { css } from "@emotion/react";
 const footerStyle = css`
   max-height: 70px;
   font-size: 13px;
-  background-color: rgb(207 207 207);
+  color: #e3e3e3;
+  background-color: #5c5c5c;
   text-align: center;
+  padding: 1px;
+
 
   li {
     margin-bottom: 8px;
