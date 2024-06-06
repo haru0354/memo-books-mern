@@ -26,7 +26,6 @@ const bookButtonStyle = css`
   height: 240px;
   border: none;
   background-color: #e3e3e3;
-  color: black;
   position: relative;
   transition: all 0.3s ease;
   box-shadow: 0 18px 23px rgba(0, 0, 0, 0.2);

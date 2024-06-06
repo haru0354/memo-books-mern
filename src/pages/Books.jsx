@@ -30,7 +30,7 @@ const bookStyle = css`
   height: 240px;
   margin-bottom: 1rem;
   border: none;
-  color: black;
+  color: rgb(55 65 81);
   background: #f8f9fa;
   position: relative;
   transition: all 0.3s ease;

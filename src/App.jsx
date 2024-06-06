@@ -14,6 +14,7 @@ const globalStyles = css`
   body {
     font-family: "Noto Sans JP", sans-serif;
     margin: 0;
+    color: rgb(55 65 81);
   }
 
   #root {
