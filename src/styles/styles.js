@@ -29,7 +29,7 @@ export const main2ColumnStyle = css`
 export const RightContent = css`
   flex: 1;
   max-width: 1000px;
-  margin-left: 80px;
+  margin-left: 300px;
   padding: 20px;
   background-color: #ffffff;
 

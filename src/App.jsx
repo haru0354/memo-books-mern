@@ -17,12 +17,8 @@ const globalStyles = css`
     font-family: "Noto Sans JP", sans-serif;
     margin: 0;
     color: rgb(55 65 81);
-  }
-
-  #root {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 
     ul {
       list-style-type: none;
@@ -40,12 +36,12 @@ function App() {
       <Global styles={globalStyles} />
       <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="/" element={<Home />} />
+        <Route index element={<Home />} />
         <Route path="/books" element={<Books />} />
         <Route path="/:bookId" element={<Book />} />
         <Route path="/:bookId/:chapterId" element={<Chapter />} />
         <Route path="/edit/:bookId/:chapterId" element={<EditChapter />} />
-        <Route path="/*" element={<Page404 />} />
+        <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
     </BrowserRouter>

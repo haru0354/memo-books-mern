@@ -1,9 +1,10 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, matchPath } from "react-router-dom";
 import Header from "./Header";
 
 const Layout = () => {
   const location = useLocation();
   let variant;
+  let showHeader = true;
 
   switch (location.pathname) {
     case "/":
@@ -14,9 +15,20 @@ const Layout = () => {
       variant = "twoColumn";
   }
 
+  if (
+    matchPath("/:bookId/:chapterId", location.pathname) ||
+    matchPath("/:bookId", location.pathname)
+  ) {
+    showHeader = false;
+  }
+
+  if (matchPath({ path: "/books" }, location.pathname)) {
+    showHeader = true;
+  }
+
   return (
     <>
-      <Header variant={variant} />
+      {showHeader && <Header variant={variant} />}
       <main>
         <Outlet />
       </main>

@@ -1,12 +1,14 @@
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
+import { memo } from "react";
 
 const headerContainer = css`
   width: 100%;
-
+  height: 75px;
+  
   a {
-      color: #374151;
-    }
+    color: #374151;
+  }
 `;
 
 const oneColumnAddHeaderContainer = css`
@@ -26,6 +28,8 @@ const oneColumnAddHeaderStyle = css`
 `;
 
 const twoColumnAddHeaderStyle = css`
+  position: fixed;
+  width: 100%;
   max-width: 1300px;
   padding-left: 1rem;
   padding-right: 2rem;
@@ -33,7 +37,7 @@ const twoColumnAddHeaderStyle = css`
   background-color: #5c5c5c;
 
   a {
-    color:  #e3e3e3
+    color: #e3e3e3;
   }
 `;
 
@@ -43,8 +47,6 @@ const menuStyle = css`
   li {
     margin: 0 1rem;
     padding: 0.2rem 1rem;
-
-
 
     &:hover {
       background-color: #e3e3e3;
@@ -86,4 +88,4 @@ const Header = ({ variant }) => {
   );
 };
 
-export default Header;
+export default memo(Header);

@@ -3,13 +3,18 @@ import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import AddChapterModal from "./chapter/AddChapterModal";
 import EditChapterModal from "./chapter/EditChapterModal";
+import { memo } from "react";
 
 const sidebarStyles = css`
+  position: fixed;
   width: 200px;
   max-width: 200px;
+  height: 100%;
   border-right: 1px solid gray;
   background-color: rgb(55 65 81);
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow-y: auto;
 
   a {
     text-decoration: inherit;
@@ -50,10 +55,8 @@ const liStyles = css`
 
 const linkStyles = css`
   word-break: break-all;
-
   width: 100%;
   height: 100%;
-
   margin-right: 10px;
   padding: 8px;
   &:hover {
@@ -62,6 +65,7 @@ const linkStyles = css`
 `;
 
 const ChapterList = ({ bookId }) => {
+  console.log("a");
   const chapters = useSelector((state) => state.chapters.chapters);
   return (
     <div css={sidebarStyles}>
@@ -90,4 +94,4 @@ const ChapterList = ({ bookId }) => {
   );
 };
 
-export default ChapterList;
+export default memo(ChapterList);
