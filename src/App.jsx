@@ -7,6 +7,8 @@ import Books from "./pages/Books";
 import Book from "./pages/Book";
 import Chapter from "./pages/Chapter";
 import EditChapter from "./pages/EditChapter";
+import Header from "./components/Header";
+import Layout from "./components/Layout";
 
 const globalStyles = css`
   @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
@@ -24,7 +26,6 @@ const globalStyles = css`
 
     ul {
       list-style-type: none;
-      padding: 0;
     }
 
     a {
@@ -38,12 +39,14 @@ function App() {
     <BrowserRouter>
       <Global styles={globalStyles} />
       <Routes>
+      <Route path="/" element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/books" element={<Books />} />
         <Route path="/:bookId" element={<Book />} />
         <Route path="/:bookId/:chapterId" element={<Chapter />} />
         <Route path="/edit/:bookId/:chapterId" element={<EditChapter />} />
         <Route path="/*" element={<Page404 />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
