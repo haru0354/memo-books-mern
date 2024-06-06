@@ -6,12 +6,17 @@ import Page404 from "./pages/Page404";
 import Books from "./pages/Books";
 import Book from "./pages/Book";
 import Chapter from "./pages/Chapter";
-import EditBook from "./pages/EditBook";
 import EditChapter from "./pages/EditChapter";
 
 const globalStyles = css`
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
+
+  body {
+    font-family: "Noto Sans JP", sans-serif;
+    margin: 0;
+  }
+
   #root {
-    font-family: Inter, sans-serif;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -24,10 +29,6 @@ const globalStyles = css`
     a {
       text-decoration: none;
     }
-  }
-
-  body {
-    margin: 0;
   }
 `;
 
