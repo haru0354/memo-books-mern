@@ -5,7 +5,8 @@ import { memo } from "react";
 const headerContainer = css`
   width: 100%;
   height: 75px;
-  
+  background-color: white;
+
   a {
     color: #374151;
   }
