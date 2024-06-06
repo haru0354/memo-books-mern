@@ -22,8 +22,9 @@ const headerStyle = css`
 `;
 
 const oneColumnAddHeaderStyle = css`
-  max-width: 1080px;
+  max-width: 1110px;
   margin: 0 auto;
+  padding: 0 15px;
   color: rgb(55 65 81);
 `;
 
@@ -55,8 +56,6 @@ const menuStyle = css`
   }
 `;
 
-const h2Style = css``;
-
 const Header = ({ variant }) => {
   return (
     <header
@@ -73,7 +72,7 @@ const Header = ({ variant }) => {
         ]}
       >
         <Link to="/">
-          <h2 css={h2Style}>メモブック</h2>
+          <h2>メモブック</h2>
         </Link>
         <ul css={menuStyle}>
           <Link to="/">

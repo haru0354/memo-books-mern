@@ -16,6 +16,18 @@ const sidebarStyles = css`
   padding-right: 10px;
   overflow-y: auto;
 
+  &::-webkit-scrollbar {
+    width: 4px; 
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #6c6969; 
+  }
+
   a {
     text-decoration: inherit;
     color: white;
@@ -65,7 +77,6 @@ const linkStyles = css`
 `;
 
 const ChapterList = ({ bookId }) => {
-  console.log("a");
   const chapters = useSelector((state) => state.chapters.chapters);
   return (
     <div css={sidebarStyles}>

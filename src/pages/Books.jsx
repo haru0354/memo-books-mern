@@ -101,7 +101,7 @@ const Books = () => {
   }
 
   return (
-    <main css={main1ColumnStyle}>
+    <div css={main1ColumnStyle}>
       <h1>メモブックの一覧</h1>
       <div css={BooksAreaStyle}>
         {books.map((book) => (
@@ -128,7 +128,7 @@ const Books = () => {
       <div css={addBookContainerStyle}>
         <AddBookModal />
       </div>
-    </main>
+    </div>
   );
 };
 

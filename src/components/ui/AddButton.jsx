@@ -7,7 +7,7 @@ const normalButtonStyle = css`
   width: 100%;
   height: 35px;
   background-color: #e3e3e3;
-  margin-bottom: 100px;
+  margin-bottom: 40px;
 
   &:hover {
     background-color: #5c5c5c;

@@ -105,7 +105,7 @@ const EditBook = () => {
   };
 
   return (
-    <main css={mainStyle}>
+    <div css={mainStyle}>
       <h1>本の編集</h1>
       <div css={divStyle}>
         <form onSubmit={formSubmit} css={formStyle}>
@@ -127,7 +127,7 @@ const EditBook = () => {
       <div css={aStyle}>
         <DeleteBookModal title={book.title} guidance="本" bookId={bookId}/>
       </div>
-    </main>
+    </div>
   );
 };
 
