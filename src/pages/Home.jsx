@@ -4,6 +4,7 @@ import Hero from "../components/section/Hero";
 import TwoColumnTextImage from "../components/section/TwoColumnTextImage";
 import ImageSlider from "../components/slider/ImageSlider";
 import CtaSection from "../components/section/CtaSection";
+import ThreePoint from "../components/section/ThreePoint";
 
 const firstSection = css`
   padding-top: 4rem;
@@ -29,7 +30,6 @@ const sectionH2Style = css`
   font-size: 1.8rem;
   font-weight: 600;
 `;
-
 
 const Home = () => {
   const sliderItems = [
@@ -87,16 +87,19 @@ const Home = () => {
         buttonText="今すぐ試してみる"
       />
       <section>
-        <div css={container}>
-          <h2>3つの特x徴</h2>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
+        <div css={firstSection}>
+          <h2 css={sectionH2Style}>3つの特x徴</h2>
+          <ThreePoint
+            firstTitle="いいいいいいいいい"
+            firstText="ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"
+            firstTextSecond="あああああああああああああああああああああああああああああああああああああああああああああああああああ"
+            secondTitle="ううううううう"
+            secondText="ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"
+            secondTextSecond="あああああああああああああああああああああああああああああああああああああああああああああああああああ"
+            thirdTitle="ええええええ"
+            thirdText="ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"
+            thirdTextSecond="あああああああああああああああああああああああああああああああああああああああああああああああああああ"
+          />
         </div>
       </section>
       <section css={secondSection}>
