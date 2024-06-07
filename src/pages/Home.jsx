@@ -1,10 +1,13 @@
 import Footer from "../components/Footer";
 import { css } from "@emotion/react";
 import Hero from "../components/section/Hero";
-import TwoColumnRightImage from "../components/section/TwoColumnRightImage";
+import TwoColumnTextImage from "../components/section/TwoColumnTextImage";
+import { sectionH2Style } from "../styles/styles";
 
 const aSection = css`
   background-color: #ffffff;
+  margin: 4rem 0;
+
 `;
 
 const container = css`
@@ -14,6 +17,7 @@ const container = css`
 `;
 
 const ctaSection = css`
+  margin: 4rem 0;
   padding-top: 40px;
   padding-bottom: 40px;
   padding-right: 0px;
@@ -29,22 +33,30 @@ const ctaContainer = css`
   background-color: #fffaf1;
 `;
 
+const sectionStyle = css`
+  margin: 4rem 0;
+`;
+
 const Home = () => {
   return (
     <>
       <Hero />
-      <TwoColumnRightImage
-        title="様々なメモを登録することが可能"
-        contentTop="英語が話せない人でも安心して海外旅行へをコンセプトに作成されたアプリです。
-
-"
-        contentCenter="海外だと分からないことも多いです。事前に旅程やメモをして旅行準備さえすれば英語が話せなくても海外旅行ができるようになってます。
-
-"
-        contentBottom="現地で必要なタイミングでメモを閲覧できるので、言語の壁があっても安心して旅行が可能です。
-
-"
-      />
+      <section css={sectionStyle}>
+        <h2 css={sectionH2Style}>メモブックの機能</h2>
+        <TwoColumnTextImage
+          title="様々なメモを登録することが可能"
+          contentTop="英語が話せない人でも安心して海外旅行へをコンセプトに作成されたアプリです。"
+          contentCenter="海外だと分からないことも多いです。事前に旅程やメモをして旅行準備さえすれば英語が話せなくても海外旅行ができるようになってます。"
+          contentBottom="現地で必要なタイミングでメモを閲覧できるので、言語の壁があっても安心して旅行が可能です。"
+        />
+        <TwoColumnTextImage
+          inversion={true}
+          title="様々なメモを登録することが可能"
+          contentTop="英語が話せない人でも安心して海外旅行へをコンセプトに作成されたアプリです。"
+          contentCenter="海外だと分からないことも多いです。事前に旅程やメモをして旅行準備さえすれば英語が話せなくても海外旅行ができるようになってます。"
+          contentBottom="現地で必要なタイミングでメモを閲覧できるので、言語の壁があっても安心して旅行が可能です。"
+        />
+      </section>
       <section css={aSection}>
         <div css={container}>
           <h2>使い道のアイデアを横スクロールで紹介</h2>

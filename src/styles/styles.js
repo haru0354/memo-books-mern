@@ -15,7 +15,7 @@ export const main1ColumnStyle = css`
   }
 
   h2 {
-    word-wrap: break-word; 
+    word-wrap: break-word;
     padding-top: 2rem;
     padding-left: 1.7rem;
     font-size: 1.2rem;
@@ -26,7 +26,6 @@ export const main1ColumnStyle = css`
 export const main2ColumnStyle = css`
   display: flex;
   background-color: #fffaf1;
-
 `;
 
 // 2カラム時のライトカラムレイアウト
@@ -91,9 +90,10 @@ export const errorMessageStyle = css`
   text-align: center;
 `;
 
-
-export const sectionH3Style = css`
+export const sectionH2Style = css`
   text-align: center;
   margin-top: 2rem;
-  margin-bottom:2rem;
-`
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+`;
