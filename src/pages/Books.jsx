@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import bookApi from "../api/book";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../store/slice/booksSlice";
+import AddBookModal from "../components/book/AddBookModal";
 
 const mainStyle = css`
   width: 1080px;
@@ -68,21 +67,33 @@ const bookStyle = css`
   }
 `;
 
-const aStyle = css`
+const editButtonContainerStyle = css`
   display: flex;
   flex-direction: column;
+`;
+
+const addBookContainerStyle = css`
+  text-align: center;
 `;
 
 const Books = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
+  const status = useSelector((state) => state.books.status);
 
   useEffect(() => {
-    dispatch(fetchBooks()); 
+    dispatch(fetchBooks());
   }, [dispatch]);
 
-  if (!books) { 
+  if (!books) {
     return <p>Loading...</p>;
+  }
+  if (status === 'loading') {
+    return <p>Loading...</p>;
+  }
+
+  if (status === 'failed') {
+    return <p>Failed to fetch books.</p>;
   }
 
   return (
@@ -92,23 +103,22 @@ const Books = () => {
         {books.map((book) => (
           <div key={book._id}>
             <Link
-              to={
-                book.chapters[0]
-                  ? `/${book._id}/${book.chapters[0]._id}`
-                  : `/books/${book._id}`
-              }
+              to={`/${book._id}/${book.firstChapterId}`}
             >
               <div css={bookStyle}>
                 <h2>{book.title}</h2>
               </div>
             </Link>
-            <div css={aStyle}>
+            <div css={editButtonContainerStyle}>
               <Link to={`/edit/${book._id}`}>
                 <Button color="blue">編集</Button>
               </Link>
             </div>
           </div>
         ))}
+      </div>
+      <div css={addBookContainerStyle}>
+        <AddBookModal />
       </div>
     </div>
   );

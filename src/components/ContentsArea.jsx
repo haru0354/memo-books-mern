@@ -1,13 +1,13 @@
-import AddModal from "./AddModal";
 import { css } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAreaChart, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { RightContent } from "../styles/styles";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Button from "./ui/Button";
 import TextInput from "./ui/TextInput";
 import Textarea from "./ui/Textarea";
+import AddContentModal from "./content/AddContentModal";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
@@ -55,18 +55,18 @@ const editContainerStyle = css`
 `;
 
 const editButtonContainerStyle = css`
-display: flex;
+  display: flex;
   justify-content: space-between;
 `;
 
-const ContentsArea = ({ chapter, bookId }) => {
+const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
   const [editingContentId, setEditingContentId] = useState(null);
 
   const toggleEditContents = (contentId) => {
     setEditingContentId(editingContentId === contentId ? null : contentId);
   };
 
-  if (!chapter) {
+  if (!contents) {
     return <p>Loading...</p>;
   }
 
@@ -82,11 +82,11 @@ const ContentsArea = ({ chapter, bookId }) => {
 
   return (
     <div css={RightContent}>
-      <h1>{chapter.chapter_title}</h1>
+      <h1>{chapterTitle}</h1>
       <div css={tableOfContentsStyle}>
         <p>目次</p>
         <ul>
-          {chapter.contents.map((content) => {
+          {contents.map((content) => {
             return (
               <li key={content._id} onClick={() => scrollToTitle(content._id)}>
                 <FontAwesomeIcon icon={faChevronDown} />
@@ -96,8 +96,8 @@ const ContentsArea = ({ chapter, bookId }) => {
           })}
         </ul>
       </div>
-      <Link to={`/edit/${bookId}/${chapter._id}`}>チャプターの編集</Link>
-      {chapter.contents.map((content) => {
+      <Link to={`/edit/${bookId}/${chapterId}`}>チャプターの編集</Link>
+      {contents.map((content) => {
         const isEditing = editingContentId === content._id;
 
         return (
@@ -131,7 +131,7 @@ const ContentsArea = ({ chapter, bookId }) => {
           </div>
         );
       })}
-      <AddModal isContents={true} formTitle="コンテンツ" />
+      <AddContentModal bookId={bookId} chapterId={chapterId} />
     </div>
   );
 };

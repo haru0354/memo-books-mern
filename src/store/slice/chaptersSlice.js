@@ -54,7 +54,7 @@ export const fetchChapters = createAsyncThunk(
       return data;
     } catch (error) {
       console.error("チャプターのデータの取得に失敗しました。");
-      throw error; 
+      throw error;
     }
   }
 );

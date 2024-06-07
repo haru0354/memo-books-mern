@@ -1,42 +1,37 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { fetchChapters } from "../store/slice/chaptersSlice";
+import { fetchContents } from "../store/slice/contentsSlice";
+import { useDispatch, useSelector } from "react-redux";
 import ContentsArea from "../components/ContentsArea";
 import ChapterList from "../components/ChapterList";
 import { main2ColumnStyle } from "../styles/styles";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchChapters } from "../store/slice/chaptersSlice";
 
 const Chapter = () => {
-  const [ chapter, setChapter ] = useState(null); 
-  const { chapterId } = useParams();
-  const { bookId } = useParams();
+  const { bookId, chapterId } = useParams();
   const dispatch = useDispatch();
   const chapters = useSelector((state) => state.chapters.chapters);
+  const contents = useSelector((state) => state.contents.contents)
+  const chaptersStatus = useSelector((state) => state.chapters.status);
+  const contentsStatus = useSelector((state) => state.contents.status);
 
   useEffect(() => {
     dispatch(fetchChapters(bookId));
   }, [dispatch, bookId]);
 
-  console.log(chapter);
   useEffect(() => {
-    if (chapters.length > 0 && chapterId) {
-      const foundChapter = chapters.find((ch) => ch._id === chapterId);
-      setChapter(foundChapter);
-    }
-  }, [chapters, chapterId]);
+    dispatch(fetchContents({bookId, chapterId}));
+  }, [dispatch, bookId, chapterId]);
 
-  if (!chapter) {
-    return <p>Loading...</p>;
+  if (chaptersStatus === "loading" || contentsStatus === "loading") {
+    return <p>Loading ...</p>;
   }
+  const chapterTitle = chapters.find((chapter) => chapter._id === chapterId)?.chapter_title || '';
 
-  if (!chapters) {
-    return <p>Loading...</p>
-  }
-  
   return (
     <main css={main2ColumnStyle}>
       <ChapterList chapters={chapters} bookId={bookId} />
-      <ContentsArea chapter={chapter} bookId={bookId} />
+      <ContentsArea contents={contents} bookId={bookId} chapterId={chapterId} chapterTitle={chapterTitle} />
     </main>
   );
 };

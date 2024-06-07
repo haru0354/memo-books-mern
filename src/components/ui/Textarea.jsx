@@ -8,6 +8,7 @@ const labelStyle = css`
 
 const textareaStyle = css`
   max-width: 100%;
+  font-size: 0.9rem;
   height: 800px;
   margin-bottom: 20px;
   border: 1px solid rgb(185 184 184);
@@ -15,7 +16,7 @@ const textareaStyle = css`
   padding: 10px;
 `;
 
-const Textarea = ({ label, name, placeholder }) => {
+const Textarea = ({ label, name, placeholder, value, onChange }) => {
   return (
     <>
       <label css={labelStyle} htmlFor={label}>
@@ -23,9 +24,12 @@ const Textarea = ({ label, name, placeholder }) => {
       </label>
       <TextareaAutosize
         css={textareaStyle}
+        id={label}
         name={name}
         placeholder={placeholder}
-        minRows={6}
+        value={value}
+        onChange={onChange}
+        minRows={10}
         maxRows={18}
       />
     </>

@@ -13,6 +13,7 @@ const bookSlice = createSlice({
       state.books.push(action.payload);
     },
     deleteBook(state, action) {
+      const deletedBookId = action.payload;
       state.books = state.books.filter(
         (book) => book._id !== action.payload._id
       );
@@ -38,6 +39,25 @@ const bookSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
+      .addCase(fetchBookById.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchBookById.fulfilled, (state, action) => {
+        const updatedBook = action.payload;
+        const existingBook = state.books.findIndex(
+          (book) => book._id === updatedBook._id
+        );
+        if (existingBook !== -1) {
+          state.books[existingBook] = updatedBook;
+        } else {
+          state.books.push(updatedBook);
+        }
+        state.status = "succeeded";
+      })
+      .addCase(fetchBookById.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
   },
 });
 
@@ -46,13 +66,26 @@ export const { addBook, deleteBook, updateBook } = bookSlice.actions;
 export const fetchBooks = createAsyncThunk("books/fetchBooks", async () => {
   try {
     const data = await bookApi.getAll();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("本のデータの取得に失敗しました。");
-    throw error; 
+    throw error;
   }
 });
+
+export const fetchBookById = createAsyncThunk(
+  "books/fetchBookById",
+  async (bookId) => {
+    try {
+      const data = await bookApi.get(bookId);
+      return data;
+    } catch (error) {
+      console.error("本のデータの取得に失敗しました。");
+      throw error;
+    }
+  }
+);
+
 
 
 

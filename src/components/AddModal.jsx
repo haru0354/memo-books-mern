@@ -48,7 +48,7 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
-const AddModal = ({ isContents = false, formTitle }) => {
+const AddModal = ({ isContents = false, isBook = false, formTitle }) => {
   const [isAddModal, setIsAddModal] = useState(false);
 
   const toggleAddModal = () => {
@@ -63,7 +63,11 @@ const AddModal = ({ isContents = false, formTitle }) => {
 
   return (
     <>
-      <AddButton onClick={toggleAddModal} />
+      {isBook ? (
+        <AddButton isBook={true} onClick={toggleAddModal} />
+      ) : (
+        <AddButton onClick={toggleAddModal} />
+      )}
       {isAddModal && (
         <div css={modalStyle} onClick={closeModal}>
           <div css={divStyle}>
@@ -81,7 +85,9 @@ const AddModal = ({ isContents = false, formTitle }) => {
               )}
               <div css={buttonContainerStyle}>
                 <Button color="blue">追加する</Button>
-                <Button color="gray" onClick={toggleAddModal}>キャンセル</Button>
+                <Button color="gray" onClick={toggleAddModal}>
+                  キャンセル
+                </Button>
               </div>
             </form>
           </div>

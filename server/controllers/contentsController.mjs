@@ -66,7 +66,9 @@ export const addContents = async (req, res) => {
 
   chapter.contents.push(newContents);
   await book.save();
-  res.status(201).json(newContents);
+
+  const savedContents = chapter.contents[chapter.contents.length - 1];
+  res.status(201).json(savedContents);
 };
 
 export const updateContents = async (req, res) => {
