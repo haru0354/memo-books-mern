@@ -33,7 +33,7 @@ const formContainerStyle = css`
   max-width: 300px;
   padding: 20px;
   margin: 0 auto;
-  background-color: white;
+  background-color: #fffdfb;
   border-radius: 4px;
 `;
 

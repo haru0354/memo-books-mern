@@ -5,6 +5,7 @@ import TwoColumnTextImage from "../components/section/TwoColumnTextImage";
 import ImageSlider from "../components/slider/ImageSlider";
 import CtaSection from "../components/section/CtaSection";
 import ThreePoint from "../components/section/ThreePoint";
+import QaSection from "../components/section/QaSection";
 
 const firstSection = css`
   padding-top: 4rem;
@@ -14,7 +15,7 @@ const firstSection = css`
 const secondSection = css`
   padding-top: 4rem;
   padding-bottom: 4rem;
-  background-color: #99bff7;
+  background-color: #e4f1ff;
 `;
 
 const container = css`
@@ -104,28 +105,33 @@ const Home = () => {
       </section>
       <section css={secondSection}>
         <div css={container}>
-          <h2>おすすめな人</h2>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
+          <h2 css={sectionH2Style}>こんな人にはおすすめ</h2>
+          <TwoColumnTextImage
+            title="様々なメモをチャプター別に登録が可能"
+            contentTop="英語が話せない人でも安心して海外旅行へをコンセプトに作成されたアプリです。"
+            contentCenter="海外だと分からないことも多いです。事前に旅程やメモをして旅行準備さえすれば英語が話せなくても海外旅行ができるようになってます。"
+            contentBottom="現地で必要なタイミングでメモを閲覧できるので、言語の壁があっても安心して旅行が可能です。"
+          />
+          <TwoColumnTextImage
+            inversion={true}
+            title="複数の本を登録が可能"
+            contentTop="英語が話せない人でも安心して海外旅行へをコンセプトに作成されたアプリです。"
+            contentCenter="海外だと分からないことも多いです。事前に旅程やメモをして旅行準備さえすれば英語が話せなくても海外旅行ができるようになってます。"
+            contentBottom="現地で必要なタイミングでメモを閲覧できるので、言語の壁があっても安心して旅行が可能です。"
+          />
         </div>
       </section>
-      <section>
+      <section css={firstSection}>
         <div css={container}>
-          <h2>よくある質問(開閉式にする)</h2>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
+          <h2 css={sectionH2Style}>よくある質問(クリックで開閉)</h2>
+          <QaSection
+            title="本当に無料で利用できますか？"
+            text="完全無料のアプリです。"
+          />
+          <QaSection
+            title="本当に無料で利用できますか？"
+            text="完全無料のアプリです。"
+          />
         </div>
       </section>
       <CtaSection

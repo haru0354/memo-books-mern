@@ -4,6 +4,8 @@ import Button from "../ui/Button";
 const ctaSection = css`
   padding-top: 60px;
   padding-bottom: 60px;
+  padding-left: 20px;
+  padding-right: 20px;
   background-color: #25448b;
 `;
 
@@ -14,7 +16,7 @@ const ctaContainer = css`
   max-width: 700px;
   border: 1px solid #25448b;
   border-radius: 4px;
-  background-color: #fffaf1;
+  background-color: #fffdfb;
 `;
 
 const sectionH2Style = css`
