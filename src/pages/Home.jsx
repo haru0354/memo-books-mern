@@ -2,13 +2,13 @@ import Footer from "../components/Footer";
 import { css } from "@emotion/react";
 import Hero from "../components/section/Hero";
 import TwoColumnTextImage from "../components/section/TwoColumnTextImage";
-import { sectionH2Style } from "../styles/styles";
 import ImageSlider from "../components/slider/ImageSlider";
+import CtaSection from "../components/section/CtaSection";
 
 const firstSection = css`
   padding-top: 4rem;
   padding-bottom: 4rem;
-  `;
+`;
 
 const secondSection = css`
   padding-top: 4rem;
@@ -22,20 +22,14 @@ const container = css`
   max-width: 1100px;
 `;
 
-const ctaSection = css`
-  padding-top: 60px;
-  padding-bottom: 60px;
-  background-color: #25448b;
+const sectionH2Style = css`
+  text-align: center;
+  margin-top: 0rem;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
 `;
 
-const ctaContainer = css`
-  padding: 40px;
-  margin: 0px auto;
-  max-width: 700px;
-  border: 1px solid #25448b;
-  border-radius: 4px;
-  background-color: #fffaf1;
-`;
 
 const Home = () => {
   const sliderItems = [
@@ -85,15 +79,13 @@ const Home = () => {
         <h2 css={sectionH2Style}>メモブックの使い方の例</h2>
         <ImageSlider items={sliderItems} />
       </section>
-      <section css={ctaSection}>
-        <div css={ctaContainer}>
-          <h2>CTAエリア</h2>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-        </div>
-      </section>
+      <CtaSection
+        title="a"
+        topText="top"
+        centerText="center"
+        bottomText="bottom"
+        buttonText="今すぐ試してみる"
+      />
       <section>
         <div css={container}>
           <h2>3つの特x徴</h2>
@@ -133,14 +125,13 @@ const Home = () => {
           <p>aaa</p>
         </div>
       </section>
-      <section css={ctaSection}>
-        <div css={ctaContainer}>
-          <h2>CTAエリア</h2>
-          <p>aaa</p>
-          <p>aaa</p>
-          <p>aaa</p>
-        </div>
-      </section>
+      <CtaSection
+        title="a"
+        topText="top"
+        centerText="center"
+        bottomText="bottom"
+        buttonText="登録して利用"
+      />
       <Footer />
     </>
   );
