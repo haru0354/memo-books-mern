@@ -92,7 +92,7 @@ export const errorMessageStyle = css`
 
 export const sectionH2Style = css`
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 0rem;
   margin-bottom: 2rem;
   font-size: 1.8rem;
   font-weight: 600;

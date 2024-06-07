@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Global, css } from "@emotion/react";
+import "normalize.css";
 
 import Home from "./pages/Home";
 import Page404 from "./pages/Page404";
@@ -19,6 +20,7 @@ const globalStyles = css`
     display: flex;
     flex-direction: column;
     background-color: #fffaf1;
+    line-height: 30px;
 
     ul {
       list-style-type: none;
