@@ -10,10 +10,9 @@ const heroSection = css`
 
 const heroContainer = css`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 60px 20px;
+  padding: 20px 0;
   margin: 0px auto;
   max-width: 1100px;
   width: 100%;
@@ -24,6 +23,8 @@ const hero = css`
   max-width: 360px;
   width: 100%;
   border-radius: 4px;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: auto;
 `;
 
@@ -31,6 +32,7 @@ const formContainerStyle = css`
   width: 100%;
   max-width: 300px;
   padding: 20px;
+  margin: 0 auto;
   background-color: white;
   border-radius: 4px;
 `;

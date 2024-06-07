@@ -90,3 +90,10 @@ export const errorMessageStyle = css`
   color: red;
   text-align: center;
 `;
+
+
+export const sectionH3Style = css`
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom:2rem;
+`
