@@ -9,13 +9,11 @@ import QaSection from "../components/section/QaSection";
 import Footer from "../components/Footer";
 
 const firstSection = css`
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding: 60px 10px;
 `;
 
 const secondSection = css`
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding: 60px 10px;
   background-color: #e4f1ff;
 `;
 
@@ -31,6 +29,14 @@ const sectionH2Style = css`
   margin-bottom: 2rem;
   font-size: 1.8rem;
   font-weight: 600;
+`;
+
+const reasonArea = css`
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  max-width: 650px;
+  border: 1px solid rgb(215 215 215);
 `;
 
 const Home = () => {
@@ -60,10 +66,13 @@ const Home = () => {
 
   return (
     <>
-    <Helmet>
-      <title>メモブック「本のようにチャプターに分けてメモを保存」</title>
-      <meta name="description" content="メモブックでは本のようにチャプターに分けてメモを保存して整理をする無料のwebアプリです。どの端末からでもメモの保存や確認などすることができます。勉強での学習のメモや仕事の管理や欲しい物リストの管理など、あらゆるメモを登録できます。PC・スマホ・タブレットでの利用が可能。"></meta>
-    </Helmet>
+      <Helmet>
+        <title>メモブック「本のようにチャプターに分けてメモを保存」</title>
+        <meta
+          name="description"
+          content="メモブックでは本のようにチャプターに分けてメモを保存して整理をする無料のwebアプリです。どの端末からでもメモの保存や確認などすることができます。勉強での学習のメモや仕事の管理や欲しい物リストの管理など、あらゆるメモを登録できます。PC・スマホ・タブレットでの利用が可能。"
+        ></meta>
+      </Helmet>
       <Hero />
       <section css={firstSection}>
         <h2 css={sectionH2Style}>メモブックの機能</h2>
@@ -82,6 +91,31 @@ const Home = () => {
         />
       </section>
       <section css={secondSection}>
+        <h2 css={sectionH2Style}>メモブックが使われる理由</h2>
+        <div css={reasonArea}>
+          <p>メモブックが使われる理由には2つあります。</p>
+          <ul>
+            <li>「整理による必要なメモを即時閲覧」 </li>
+            <li>「管理により綺麗な状態で保管」</li>
+          </ul>
+          <p>
+            なぜ、そんなことで使われるのか、どんなメリットを得られるか紹介していきます。
+          </p>
+        </div>
+        <TwoColumnTextImage
+          title="整理による必要なメモを即時閲覧"
+          contentTop="PCやスマホや紙のノートで、「メモを取ったファイルやノートを探し」、更に「閲覧したい部分をめくって探す」のは、面倒ではありませんか？」"
+          contentCenter="メモブックでは「本」や「チャプター」に項目を作成することで、「どの本に何が書かれていて」、「各チャプターにどんなメモが書かれているか」簡単にメモを整理できます。"
+          contentBottom="また、「作成したメモは自動で目次が作成」されるので、本を開き必要な目次をクリックで、「探してるメモを即時閲覧」できます。"
+        />
+       <TwoColumnTextImage
+          title="管理により綺麗な状態で保管"
+          contentTop="「PCやスマホでメモを取ったがどこか分からない・・・」「ノートにメモを取ったが無くした、ボロボロになってしまった・・・」こんな経験はありませんか？"
+          contentCenter="メモブックでは「メモをこのアプリの中で全て管理」できるので、どこにファイルやノートがあるか探す必要はなくなります。"
+          contentBottom="また、「ノートのように紛失したり」「ボロボロになってしまう」心配がなく、インターネット環境さえあればアプリにアクセスし、閲覧をすることができます。"
+        />
+      </section>
+      <section css={firstSection}>
         <h2 css={sectionH2Style}>メモブックの使い方の例</h2>
         <ImageSlider items={sliderItems} />
       </section>
