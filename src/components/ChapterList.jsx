@@ -32,7 +32,7 @@ const liStyle = css`
   margin-bottom: 30px;
 `;
 
-const ChapterList = ({ chapters, bookId }) => {
+const ChapterList = ({ chapters, bookId, bookTitle }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEditChapter = () => {
@@ -45,9 +45,7 @@ const ChapterList = ({ chapters, bookId }) => {
         <Link to="/books">
           <li>本の一覧</li>
         </Link>
-        <Link to={`/books/${bookId}`}>
-          <li css={liStyle}>本の詳細</li>
-        </Link>
+        <li css={liStyle}>{bookTitle}</li>
         {chapters.map((chapter) => {
           return (
             <React.Fragment key={chapter._id}>

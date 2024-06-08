@@ -14,18 +14,19 @@ const contentsSlice = createSlice({
     },
     updateContents(state, action) {
       const { _id, heading_title, content } = action.payload;
-      const updateContents = state.contents.find((content) => {
+      const existingContent = state.contents.find((content) => {
         content._id === _id;
       });
-      if (updateContents) {
+      if (existingContent) {
         updateContents.heading_title = heading_title;
         updateContents.content = content;
       }
     },
     deleteContent(state, action) {
-      state.contents = state.contents.filter((content) => {
-        content._id !== action.payload._id;
-      });
+      const contentId  = action.payload;
+      state.contents = state.contents.filter(
+        (content) => content._id !== contentId
+      );
     },
   },
   extraReducers: (builder) => {
@@ -40,7 +41,24 @@ const contentsSlice = createSlice({
       .addCase(fetchContents.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-      });
+      })
+      .addCase(fetchContentById.pending, (state) => {
+        state.status = "Loading";
+      })
+      .addCase(fetchContentById.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const updatedContent = action.payload;
+        const existingContentIndex = state.contents.findIndex(
+          (content) => content._id === updatedContent._id
+        );
+        if (existingContentIndex !== -1) {
+          state.contents[existingContentIndex] = updatedContent;
+        }
+      })
+      .addCase(fetchContentById.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
   },
 });
 
@@ -59,5 +77,19 @@ export const fetchContents = createAsyncThunk(
     }
   }
 );
+
+export const fetchContentById = createAsyncThunk(
+  "contents/fetchById",
+  async ({ bookId, chapterId, contentId }) => {
+    try {
+      const data = await contentApi.get(bookId, chapterId, contentId);
+      return data;
+    } catch (error) {
+      console.error("指定したIDのコンテンツのフェッチに失敗しました");
+      throw error;
+    }
+  }
+);
+
 
 export default contentsSlice.reducer;

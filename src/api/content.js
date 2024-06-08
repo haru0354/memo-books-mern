@@ -14,12 +14,16 @@ const contentApi = {
     return result.data;
   },
   async post(bookId, chapterId, contents) {
-    const result = await axios.post(`${ENDPOINT_URL}/${bookId}/${chapterId}`, contents);
+    const result = await axios.post(
+      `${ENDPOINT_URL}/${bookId}/${chapterId}`,
+      contents
+    );
     return result.data;
   },
-  async patch(bookId, chapterId, contentsId) {
+  async patch(bookId, chapterId, contentsId, contents) {
     const result = await axios.patch(
-      `${ENDPOINT_URL}/${bookId}/${chapterId}/${contentsId}`
+      `${ENDPOINT_URL}/${bookId}/${chapterId}/${contentsId}`,
+      contents
     );
     return result.data;
   },
