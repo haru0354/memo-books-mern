@@ -22,7 +22,6 @@ scss,pandaCSS,Bootstrap,materialUIのまだ使用していないのを使う
 
 フロントの作成
 - TOPページの作成
-- metaデータの作成
 - robot.txtとsitemap.xmlの作成
 - 認証はfirebaseまたはsupabaseを使用する(予定)
 - 画像をメモにアップロード

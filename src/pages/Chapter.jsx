@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async"
+import { Helmet } from "react-helmet-async";
 import { css } from "@emotion/react";
 import { main2ColumnStyle } from "../styles/styles";
 import { fetchChapters } from "../store/slice/chaptersSlice";
@@ -55,7 +55,7 @@ const Chapter = () => {
         <meta
           name="description"
           content={`${chapterTitle}中のコンテンツの一覧ページです。チャプターの中には今までに登録したメモが含まれています。様々なメモを登録したり編集や削除などがこのページでは可能です。PC・スマホ・タブレットなどのあらゆる端末なだけでなく、iphoneやandroidのどちらでも利用が可能です。`}
-        ></meta>
+        />
       </Helmet>
       <div css={main2ColumnStyle}>
         <ChapterList bookId={bookId} />

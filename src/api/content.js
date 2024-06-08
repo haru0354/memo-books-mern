@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const ENDPOINT_URL = "http://localhost:8080/api/contents";
+const expressUrl = import.meta.env.VITE_EXPRESS_URL;
+const ENDPOINT_URL = `${expressUrl}contents`;
 
 const contentApi = {
   async getAll(bookId, chapterId) {
