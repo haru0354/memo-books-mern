@@ -12,7 +12,7 @@ const twoColumnContainer = (inversion) => css`
   width: 100%;
   max-width: 1100px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: center;
   margin-right: auto;
