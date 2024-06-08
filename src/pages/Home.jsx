@@ -17,10 +17,10 @@ const secondSection = css`
   background-color: #e4f1ff;
 `;
 
-const container = css`
-  padding: 20px;
-  margin: 0px auto;
+const qaContainer = css`
+  width: 100%;
   max-width: 1140px;
+  margin: 0px auto;
 `;
 
 const sectionH2Style = css`
@@ -139,15 +139,15 @@ const Home = () => {
       <section css={firstSection}>
         <h2 css={sectionH2Style}>3つの特x徴</h2>
         <ThreePoint
-          firstTitle="いいいいいいいいい"
-          firstText="ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"
-          firstTextSecond="あああああああああああああああああああああああああああああああああああああああああああああああああああ"
-          secondTitle="ううううううう"
-          secondText="ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"
-          secondTextSecond="あああああああああああああああああああああああああああああああああああああああああああああああああああ"
-          thirdTitle="ええええええ"
-          thirdText="ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"
-          thirdTextSecond="あああああああああああああああああああああああああああああああああああああああああああああああああああ"
+          firstTitle="メモの登録が簡単"
+          firstText="メモブックには面倒な設定などは一切必要なし。すぐに、メモの「作成・閲覧・編集・削除」ができます"
+          firstTextSecond="本の登録、チャプターの登録、メモの登録と、各ページでボタンひとつで登録をすることができます。"
+          secondTitle="目次で簡単にメモの閲覧"
+          secondText="チャプターページにてメモを作成すると、そのページの上部には自動で目次が作成されます。"
+          secondTextSecond="メモを見る時は上部の目次をクリックすれば、即時に該当のメモの閲覧が可能なので、どの辺りにあるか探す必要はありません。"
+          thirdTitle="端末を選ばず利用可能"
+          thirdText="PC・スマホ・タブレットで利用ができます。必要なのは「端末」「インターネットに接続する環境」「アカウント」です。"
+          thirdTextSecond="「PCで作成してスマホで閲覧」。「スマートフォンで作成してPCで閲覧」することも可能です。"
         />
       </section>
       <section css={secondSection}>
@@ -168,22 +168,24 @@ const Home = () => {
       </section>
       <section css={firstSection}>
         <h2 css={sectionH2Style}>よくある質問(クリックで開閉)</h2>
-        <QaSection
-          title="本当に無料で利用できますか？"
-          text="メモブックは完全無料のアプリです。利用料金は一切かかりません。"
-        />
-        <QaSection
-          title="「iphone」や「android」のスマホで利用できますか？"
-          text="「iphone」や「android」のどちらでも利用が可能です。PC・タブレット・スマートフォンのあらゆる端末で利用ができます。"
-        />
-        <QaSection
-          title="PCで作成してスマホでの閲覧はできますか？(逆のパターンも含む)"
-          text="同じアカウントでログインすれば、作成したメモはどの端末でも確認できます。PCやスマホやタブレットでメモの作成と閲覧ができます。"
-        />
-        <QaSection
-          title="利用するのに必要なのは何ですか？"
-          text="利用するのに必要なのは、「アカウント」と「端末(PC・スマホ・タブレット)」と「インターネットへのアクセス環境」の3つです。アカウントは「ニックネーム」「email」「パスワード」の3つのみで作成が可能です。"
-        />
+        <div css={qaContainer}>
+          <QaSection
+            title="本当に無料で利用できますか？"
+            text="メモブックは完全無料のアプリです。利用料金は一切かかりません。"
+          />
+          <QaSection
+            title="「iphone」や「android」のスマホで利用できますか？"
+            text="「iphone」や「android」のどちらでも利用が可能です。PC・タブレット・スマートフォンのあらゆる端末で利用ができます。"
+          />
+          <QaSection
+            title="PCで作成してスマホでの閲覧はできますか？(逆のパターンも含む)"
+            text="同じアカウントでログインすれば、作成したメモはどの端末でも確認できます。PCやスマホやタブレットでメモの作成と閲覧ができます。"
+          />
+          <QaSection
+            title="利用するのに必要なのは何ですか？"
+            text="利用するのに必要なのは、「アカウント」と「端末(PC・スマホ・タブレット)」と「インターネットへのアクセス環境」の3つです。アカウントは「ニックネーム」「email」「パスワード」の3つのみで作成が可能です。"
+          />
+        </div>
       </section>
       <CtaSection
         title="「メモブック」を無料で即時利用"
