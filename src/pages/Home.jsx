@@ -120,10 +120,10 @@ const Home = () => {
         <ImageSlider items={sliderItems} />
       </section>
       <CtaSection
-        title="a"
-        topText="top"
-        centerText="center"
-        bottomText="bottom"
+        title="30秒で登録して無料で使える"
+        topText="メモブックは「ニックネーム」「emailアドレス」「パスワード」の3つを入力するだけなので、操作に慣れた人なら「30秒ほどでアカウントが作成」されます。"
+        centerText="アカウント作成も利用も「完全無料」なので、費用は一切かからないアプリです。"
+        bottomText="まずは下記ボタンよりアカウントを作成し試してみてください。"
         buttonText="今すぐ試してみる"
       />
       <section>
@@ -174,10 +174,10 @@ const Home = () => {
         </div>
       </section>
       <CtaSection
-        title="a"
-        topText="top"
-        centerText="center"
-        bottomText="bottom"
+        title="「メモブック」を無料で即時利用"
+        topText="メモブックは「完全無料で利用できるwebアプリ」です。"
+        centerText="PC・スマホ・タブレットの、androidやiphoneなどの、どの端末でもインターネットに接続できれば利用が可能となっています。"
+        bottomText="登録は「ニックネーム」「emailアドレス」「パスワード」の3つを入力しアカウントを作成すれば、利用ができます。"
         buttonText="登録して利用"
       />
       <Footer />
