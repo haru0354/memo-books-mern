@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchChapters } from "../store/slice/chaptersSlice";
+import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
-import ChapterList from "../components/ChapterList";
-import { main2ColumnStyle } from "../styles/styles";
+import { fetchChapters } from "../store/slice/chaptersSlice";
 import { css } from "@emotion/react";
+import { main2ColumnStyle } from "../styles/styles";
+import ChapterList from "../components/ChapterList";
 import AddChapterForm from "../components/AddChapterForm";
 
 const loadingStyle = css`
@@ -13,9 +14,11 @@ const loadingStyle = css`
 
 const Book = () => {
   const { bookId } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+
   const dispatch = useDispatch();
   const chaptersStatus = useSelector((state) => state.chapters.status);
-  const [isLoading, setIsLoading] = useState(true);
+  const bookTitle = useSelector((state) => state.chapters.chapters.bookTitle);
 
   useEffect(() => {
     dispatch(fetchChapters(bookId));
@@ -29,20 +32,24 @@ const Book = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  if (
-    isLoading ||
-    chaptersStatus === "loading" 
-  ) {
+  if (isLoading || chaptersStatus === "loading") {
     return <p css={loadingStyle}>Loading ...</p>;
   }
 
   return (
-    <div css={main2ColumnStyle}>
-      <ChapterList
-        bookId={bookId}
-      />      
-      <AddChapterForm bookId={bookId}/>
-    </div>
+    <>
+      <Helmet>
+        <title>{bookTitle}のチャプターの登録ページ | ブックメモ</title>
+        <meta
+          name="description"
+          content={`${bookTitle}のチャプターの登録をすることが可能です。ブックメモに登録をした本のチャプターを全て削除した時に表示されます。ブックメモでは本にチャプターの登録をして様々なメモを追加して閲覧をすることができます。`}
+        />
+      </Helmet>
+      <div css={main2ColumnStyle}>
+        <ChapterList bookId={bookId} />
+        <AddChapterForm bookId={bookId} />
+      </div>
+    </>
   );
 };
 

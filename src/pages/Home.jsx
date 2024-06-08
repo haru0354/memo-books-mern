@@ -1,4 +1,4 @@
-import Footer from "../components/Footer";
+import { Helmet } from "react-helmet-async";
 import { css } from "@emotion/react";
 import Hero from "../components/section/Hero";
 import TwoColumnTextImage from "../components/section/TwoColumnTextImage";
@@ -6,6 +6,7 @@ import ImageSlider from "../components/slider/ImageSlider";
 import CtaSection from "../components/section/CtaSection";
 import ThreePoint from "../components/section/ThreePoint";
 import QaSection from "../components/section/QaSection";
+import Footer from "../components/Footer";
 
 const firstSection = css`
   padding-top: 4rem;
@@ -59,6 +60,10 @@ const Home = () => {
 
   return (
     <>
+    <Helmet>
+      <title>メモブック「本のようにチャプターに分けてメモを保存」</title>
+      <meta name="description" content="メモブックでは本のようにチャプターに分けてメモを保存して整理をする無料のwebアプリです。どの端末からでもメモの保存や確認などすることができます。勉強での学習のメモや仕事の管理や欲しい物リストの管理など、あらゆるメモを登録できます。PC・スマホ・タブレットでの利用が可能。"></meta>
+    </Helmet>
       <Hero />
       <section css={firstSection}>
         <h2 css={sectionH2Style}>メモブックの機能</h2>

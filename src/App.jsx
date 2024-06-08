@@ -1,14 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Global, css } from "@emotion/react";
 import "normalize.css";
-
-import Home from "./pages/Home";
-import Page404 from "./pages/Page404";
-import Books from "./pages/Books";
-import Book from "./pages/Book";
-import Chapter from "./pages/Chapter";
-import EditChapter from "./pages/EditChapter";
+import { HelmetProvider } from "react-helmet-async"
 import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import Books from "./pages/Books";
+import Chapter from "./pages/Chapter";
+import Book from "./pages/Book";
+import Page404 from "./pages/Page404";
 
 const globalStyles = css`
   @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
@@ -35,17 +34,18 @@ const globalStyles = css`
 function App() {
   return (
     <BrowserRouter>
-      <Global styles={globalStyles} />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/books" element={<Books />} />
-          <Route path="/:bookId" element={<Book />} />
-          <Route path="/:bookId/:chapterId" element={<Chapter />} />
-          <Route path="/edit/:bookId/:chapterId" element={<EditChapter />} />
-          <Route path="*" element={<Page404 />} />
-        </Route>
-      </Routes>
+      <HelmetProvider>
+        <Global styles={globalStyles} />
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/books" element={<Books />} />
+            <Route path="/:bookId" element={<Book />} />
+            <Route path="/:bookId/:chapterId" element={<Chapter />} />
+            <Route path="*" element={<Page404 />} />
+          </Route>
+        </Routes>
+      </HelmetProvider>
     </BrowserRouter>
   );
 }

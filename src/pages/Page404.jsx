@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { css } from "@emotion/react";
+import { Link } from "react-router-dom";
 
 const page404Style = css`
   text-align: center;
@@ -9,19 +10,27 @@ const page404Style = css`
 const returnStyle = css`
   margin-top: 3rem;
   font-size: 1.2rem;
-
 `;
 
 const Page404 = () => {
   return (
-    <div css={page404Style}>
-      <h2>404 Not Found</h2>
-      <p>このページは存在しないか削除されました。</p>
-      <p>URLが正しいかご確認ください。</p>
-      <p css={returnStyle}>
-        <Link to="/">TOPページへ戻る</Link>
-      </p>
-    </div>
+    <>
+      <Helmet>
+        <title>404NotFound | メモブック</title>
+        <meta
+          name="description"
+          content="メモブックの404ページです。このページは存在しないか削除された可能性があります。"
+        />
+      </Helmet>
+      <div css={page404Style}>
+        <h2>404 Not Found</h2>
+        <p>このページは存在しないか削除されました。</p>
+        <p>URLが正しいかご確認ください。</p>
+        <p css={returnStyle}>
+          <Link to="/">TOPページへ戻る</Link>
+        </p>
+      </div>
+    </>
   );
 };
 
