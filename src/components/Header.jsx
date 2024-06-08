@@ -23,9 +23,9 @@ const headerStyle = css`
 `;
 
 const oneColumnAddHeaderStyle = css`
-  max-width: 1110px;
+  max-width: 1108px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 16px;
   color: rgb(55 65 81);
 `;
 
@@ -45,10 +45,12 @@ const twoColumnAddHeaderStyle = css`
 
 const menuStyle = css`
   display: flex;
+  padding-inline-start: 0px;
 
   li {
-    margin: 0 1rem;
-    padding: 0.2rem 1rem;
+    margin: 10px;
+    padding: 0 10px;
+    list-style-type: none;
 
     &:hover {
       background-color: #e3e3e3;
@@ -73,7 +75,7 @@ const Header = ({ variant }) => {
         ]}
       >
         <Link to="/">
-          <h2>メモブック</h2>
+          <h1>メモブック</h1>
         </Link>
         <ul css={menuStyle}>
           <Link to="/books">

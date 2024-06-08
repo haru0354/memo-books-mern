@@ -14,7 +14,7 @@ const heroContainer = css`
   flex-wrap: wrap;
   padding: 20px 0;
   margin: 0px auto;
-  max-width: 1100px;
+  max-width: 1140px;
   width: 100%;
 `;
 

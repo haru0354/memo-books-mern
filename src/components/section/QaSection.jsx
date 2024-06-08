@@ -6,7 +6,9 @@ import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const container = css`
   cursor: pointer;
-  margin-top: 60px;
+  width: 100%;
+  max-width: 1140px;
+  margin: 30px auto;
   border: 1px solid rgb(193 193 193);
   border-radius: 4px;
   padding: 20px;
