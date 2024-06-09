@@ -3,8 +3,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { formStyle } from "../styles/styles";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
-import { auth } from "./firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUser } from "../store/slice/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const formContainerStyle = css`
   width: 100%;
@@ -35,15 +35,16 @@ const errorMessageStyle = css`
 
 const SignUp = () => {
   const methods = useForm();
+  const dispatch = useDispatch();
+  const userStatus = useSelector((state) => state.user.status);
 
   const onSubmit = async (data) => {
+    const { email, password } = data;
     try {
-      const { email, password } = data;
-      await createUserWithEmailAndPassword(auth, email, password);
-      console.log("送信しました。", email, password);
+      dispatch(createUser({ email, password }));
+      console.log("アカウントの作成に成功しました。");
     } catch (error) {
-      console.error("送信に失敗しました。", error);
-      console.log("送信に失敗しました。");
+      console.error("アカウントの作成に失敗しました。", error);
     }
   };
 

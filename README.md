@@ -21,8 +21,8 @@ CSSは未使用のを利用する。
 scss,pandaCSS,Bootstrap,materialUIのまだ使用していないのを使う
 
 フロントの作成
-- TOPページの作成
-- 認証はfirebaseまたはsupabaseを使用する(予定)
+- 認証をチェック
+- 認証を追加に伴うフェッチをユーザーごとに修正
 - robot.txtとsitemap.xmlの作成
 - 画像をメモにアップロード
 
