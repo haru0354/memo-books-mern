@@ -3,6 +3,7 @@ import Button from "../ui/Button";
 import { FormProvider, useForm } from "react-hook-form";
 import { formStyle } from "../../styles/styles";
 import TextInput from "../ui/TextInput";
+import SignUp from "../../auth/SignUp";
 
 const heroSection = css`
   background-color: #99bff7;
@@ -56,10 +57,6 @@ const errorMessageStyle = css`
 `;
 
 const Hero = () => {
-  const methods = useForm();
-
-  const onSubmit = () => {};
-
   return (
     <section css={heroSection}>
       <div css={heroContainer}>
@@ -72,56 +69,7 @@ const Hero = () => {
           <p css={textCenterStyle}>20秒で登録して即使える</p>
           <p css={textCenterStyle}>PC・スマホ・タブレット対応の無料アプリ</p>
         </div>
-        <div css={formContainerStyle}>
-          <FormProvider {...methods}>
-            <form css={formStyle} onSubmit={methods.handleSubmit(onSubmit)}>
-              <span css={FormTextStyle}>アカウント登録</span>
-              <TextInput
-                label="ニックネーム(英数字)"
-                placeholder="英数字で入力してください"
-                name="name"
-                required={true}
-                maxLength={10}
-              />
-              {methods.formState.errors.name && (
-                <span css={errorMessageStyle}>
-                  {methods.formState.errors.name.message}
-                </span>
-              )}
-              <TextInput
-                label="メールアドレス"
-                placeholder="メールアドレスを入力してください"
-                name="email"
-                required={true}
-              />
-              {methods.formState.errors.email && (
-                <span css={errorMessageStyle}>
-                  {methods.formState.errors.email.message}
-                </span>
-              )}
-              <TextInput
-                label="パスワード"
-                placeholder="8～12文字で入力してください"
-                name="password"
-                required={true}
-                maxLength={12}
-              />
-              
-              
-              {methods.formState.errors.password && (
-                <span css={errorMessageStyle}>
-                  {methods.formState.errors.password.message}
-                </span>
-              )}
-              <div css={textCenterStyle}>
-                <Button type="submit" color="blue">
-                  登録
-                </Button>
-                <Button color="gray">googleでログイン</Button>
-              </div>
-            </form>
-          </FormProvider>
-        </div>
+        <SignUp />
       </div>
     </section>
   );
