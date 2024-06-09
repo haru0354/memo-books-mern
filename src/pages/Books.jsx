@@ -6,39 +6,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../store/slice/booksSlice";
 import AddBookModal from "../components/book/AddBookModal";
 import { main1ColumnStyle } from "../styles/styles";
+import EditBookModal from "../components/book/EditBookModal";
 
-const mainStyle = css`
-  width: 1080px;
-  margin: 0 auto;
-
-  h1 {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  h2 {
-    padding-top: 2rem;
-    padding-left: 2rem;
-    font-size: 1.2rem;
-  }
+const bookContainerStyle = css`
+  padding: 0 1.8rem;
 `;
 
 const BooksAreaStyle = css`
   display: flex;
-  padding: 4rem;
+  align-items: center;
+  flex-wrap: wrap; 
+  padding: 1rem 4rem;
+  margin: 0 auto;
 `;
 
 const bookStyle = css`
   width: 180px;
   height: 240px;
+  margin-bottom: 1rem;
   border: none;
+  color: black;
   background: #f8f9fa;
   position: relative;
   transition: all 0.3s ease;
   box-shadow: 0 18px 23px rgba(0, 0, 0, 0.2);
-  border-end-end-radius: 10px;
-  margin-right: 4rem;
+  border-bottom-left-radius: 10px;
 
   &:hover {
     transform: translateY(-10px);
@@ -86,6 +78,7 @@ const Books = () => {
   const books = useSelector((state) => state.books.books);
   const status = useSelector((state) => state.books.status);
   const [ isLoading, setIsLoading ] = useState(true)
+
   useEffect(() => {
     dispatch(fetchBooks());
   }, [dispatch]);
@@ -110,18 +103,14 @@ const Books = () => {
       <h1>メモブックの一覧</h1>
       <div css={BooksAreaStyle}>
         {books.map((book) => (
-          <div key={book._id}>
-            <Link
-              to={`/${book._id}/${book.firstChapterId}`}
-            >
+          <div css={bookContainerStyle} key={book._id}>
+            <Link to={book.firstChapterId ? `/${book._id}/${book.firstChapterId}` : `/${book._id}`}>
               <div css={bookStyle}>
                 <h2>{book.title}</h2>
               </div>
             </Link>
             <div css={editButtonContainerStyle}>
-              <Link to={`/edit/${book._id}`}>
-                <Button color="blue">編集</Button>
-              </Link>
+              <EditBookModal bookTitle={book.title} bookId={book._id}/>
             </div>
           </div>
         ))}

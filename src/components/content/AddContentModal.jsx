@@ -47,7 +47,7 @@ const AddContentModal = ({ bookId, chapterId }) => {
       setTitle("");
       setContent("")
     } catch (error) {
-      console.error("フォームの送信に失敗しまし00000た。", error);
+      console.error("フォームの送信に失敗しました。", error);
     }
   };
 

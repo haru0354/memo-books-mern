@@ -13,6 +13,10 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
+const deleteButtonStyle = css`
+  margin: 1rem auto;
+`;
+
 const modalAddStyle = css`
   text-align: center;
 `;
@@ -40,6 +44,7 @@ const DeleteContentModal = ({
     try {
       await contentApi.delete(bookId, chapterId, contentId);
       dispatch(deleteContent(contentId));
+
     } catch (error) {
       console.error("コンテンツの削除に失敗しました。");
     }
@@ -47,7 +52,7 @@ const DeleteContentModal = ({
 
   return (
     <>
-      <Button color="red" onClick={toggleDeleteModal} type="button">
+      <Button color="red" addCss={deleteButtonStyle} onClick={toggleDeleteModal} type="button">
         削除
       </Button>
       {isDeleteModalOpen && (

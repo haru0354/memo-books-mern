@@ -13,7 +13,9 @@ export const getAllContents = async (req, res) => {
   }
 
   const contents = chapter.contents;
-  res.json(contents);
+  const chapterTitle = chapter.chapter_title
+
+  res.json({contents, chapterTitle});
 };
 
 export const getContents = async (req, res) => {

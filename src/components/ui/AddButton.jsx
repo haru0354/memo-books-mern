@@ -1,26 +1,36 @@
 import { css } from "@emotion/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const normalButtonStyle = css`
+  cursor: pointer;
   width: 100%;
-  height: 30px;
+  height: 35px;
+  background-color: #e3e3e3;
 
   &:hover {
-    color: black;
-    background-color: #ffffff;
+    background-color: #5c5c5c;
+    color: #e3e3e3;
+  }
+
+  svg {
+    height: 20px;
   }
 `;
 
 const bookButtonStyle = css`
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.4rem;
+  font-weight: 500;
   width: 180px;
   height: 240px;
   border: none;
-  background: #b3c1cf;
+  background-color: #e3e3e3;
+  color: black;
   position: relative;
   transition: all 0.3s ease;
   box-shadow: 0 18px 23px rgba(0, 0, 0, 0.2);
-  border-end-end-radius: 10px;
+  border-bottom-left-radius: 10px;
   margin-right: 4rem;
 
   &:hover {
@@ -57,7 +67,7 @@ const AddButton = ({ onClick, addCss, isBook = false }) => {
 
   return (
     <button css={[buttonStyle, addCss]} onClick={onClick}>
-      {isBook ? "本の追加" : "[+]"}
+      {isBook ? "「本の追加」" : <FontAwesomeIcon icon={faPlus} />}
     </button>
   );
 };

@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { RightContent, formStyle } from "../styles/styles";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import Button from "./ui/Button";
 import TextInput from "./ui/TextInput";
@@ -10,17 +9,14 @@ import Textarea from "./ui/Textarea";
 import AddContentModal from "./content/AddContentModal";
 import EditChapterModal from "./chapter/EditChapterModal";
 import contentApi from "../api/content";
-import { useDispatch } from "react-redux";
-import {
-  fetchContentById,
-  fetchContents,
-  updateContents,
-} from "../store/slice/contentsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchContentById, updateContents } from "../store/slice/contentsSlice";
 import DeleteContentModal from "./content/DeleteContentModal";
+import EditImageButton from "./ui/EditImageButton";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 0.2rem 2rem;
   border: 1px solid #cbc9c9;
   border-radius: 4px;
@@ -50,6 +46,7 @@ const tableOfContentsStyle = css`
 const contentAreaStyle = css`
   padding-top: 1rem;
   padding-bottom: 1rem;
+  margin: 2rem 0;
   border-bottom: 1px dotted gray;
 `;
 
@@ -66,6 +63,7 @@ const editContainerStyle = css`
 const editButtonContainerStyle = css`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const cancelButtonStyle = css`
@@ -77,19 +75,30 @@ const editingButtonContainerStyle = css`
   justify-content: center;
 `;
 
-const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
+const ContentsArea = ({ bookId, chapterId }) => {
   const [editingContentId, setEditingContentId] = useState(null);
   const [title, setTitle] = useState("");
   const [contentValue, setContentValue] = useState("");
   const dispatch = useDispatch();
+  const contents = useSelector((state) => state.contents.contents);
+  const chapterTitle = useSelector((state) => {
+    const chapter = state.chapters.chapters.chaptersWithoutContents.find(
+      (chapter) => chapter._id === chapterId
+    );
+    return chapter ? chapter.chapter_title : null;
+  });
 
-  const toggleEditContents = (contentId) => {
-    setEditingContentId(editingContentId === contentId ? null : contentId);
-  };
+  if (!chapterTitle) {
+    return <p>チャプターが見つかりませんでした</p>;
+  }
 
   if (!contents) {
     return <p>Loading...</p>;
   }
+
+  const toggleEditContents = (contentId) => {
+    setEditingContentId(editingContentId === contentId ? null : contentId);
+  };
 
   const scrollToTitle = (id) => {
     const el = document.getElementById(id);
@@ -121,11 +130,10 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
         content._id,
         formData
       );
-      dispatch(fetchContentById({ bookId, chapterId, contentId: content._id }));
-      console.log(response);
       dispatch(updateContents(response));
-      setContentValue("")
-      setTitle("")
+      dispatch(fetchContentById({ bookId, chapterId, contentId: content._id }));
+      setContentValue("");
+      setTitle("");
       toggleEditContents(content._id);
     } catch (error) {
       console.error("コンテンツの編集に失敗しました。");
@@ -138,7 +146,7 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
       <div css={tableOfContentsStyle}>
         <p>目次</p>
         <ul>
-          {contents.map((content) => {
+          {contents.contents.map((content) => {
             return (
               <li key={content._id} onClick={() => scrollToTitle(content._id)}>
                 <FontAwesomeIcon icon={faChevronDown} />
@@ -148,12 +156,7 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
           })}
         </ul>
       </div>
-      <EditChapterModal
-        bookId={bookId}
-        chapterId={chapterId}
-        chapterTitle={chapterTitle}
-      />
-      {contents.map((content) => {
+      {contents.contents.map((content) => {
         const isEditing = editingContentId === content._id;
 
         return (
@@ -188,24 +191,20 @@ const ContentsArea = ({ contents, bookId, chapterId, chapterTitle }) => {
                     </Button>
                   </div>
                 </form>
-                    <DeleteContentModal
-                      bookId={bookId}
-                      chapterId={chapterId}
-                      contentId={content._id}
-                      contentTitle={content.heading_title}
-                      toggleEditContents={toggleEditContents}
-                    />
+                <DeleteContentModal
+                  bookId={bookId}
+                  chapterId={chapterId}
+                  contentId={content._id}
+                  contentTitle={content.heading_title}
+                />
               </div>
             ) : (
               <>
                 <div css={editButtonContainerStyle}>
                   <h2 css={h2Styles}>{content.heading_title}</h2>
-                  <Button
-                    color="blue"
+                  <EditImageButton
                     onClick={() => toggleEditContents(content._id)}
-                  >
-                    編集
-                  </Button>
+                  />
                 </div>
                 {content.content}
               </>

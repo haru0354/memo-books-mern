@@ -12,8 +12,9 @@ export const main1ColumnStyle = css`
   }
 
   h2 {
+    word-wrap: break-word; 
     padding-top: 2rem;
-    padding-left: 2rem;
+    padding-left: 1.7rem;
     font-size: 1.2rem;
   }
 `;
@@ -35,7 +36,7 @@ export const RightContent = css`
   h1 {
     font-size: 2rem;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
   }
 `;
 
@@ -50,6 +51,7 @@ export const modalBackStyle = css`
   width: 100vw;
   height: 100vh;
   background-color: rgb(156 163 175 / 65%);
+  z-index: 50;
 `;
 
 export const modalContainerStyle = css`

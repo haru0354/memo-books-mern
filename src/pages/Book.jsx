@@ -1,50 +1,47 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import bookApi from "../api/book";
+import { fetchChapters } from "../store/slice/chaptersSlice";
+import { useDispatch, useSelector } from "react-redux";
 import ChapterList from "../components/ChapterList";
-import { RightContent, main2ColumnStyle } from "../styles/styles";
-import { formatDate } from "../lib/formatDate";
+import { main2ColumnStyle } from "../styles/styles";
 import { css } from "@emotion/react";
+import AddChapterForm from "../components/AddChapterForm";
 
-const h2Style = css`
-  margin-top: 4rem;
-  margin-bottom: 2rem;
+const loadingStyle = css`
+  text-align: center;
 `;
 
 const Book = () => {
-  const [book, setBook] = useState();
   const { bookId } = useParams();
+  const dispatch = useDispatch();
+  const chaptersStatus = useSelector((state) => state.chapters.status);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBook = async () => {
-      try {
-        const data = await bookApi.get(bookId);
-        setBook(data);
-      } catch (error) {
-        console.error("DBから本の取得に失敗しました。");
-      }
-    };
+    dispatch(fetchChapters(bookId));
+  }, [dispatch, bookId]);
 
-    fetchBook();
-  }, [bookId]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
 
-  if (!book) {
-    return <p>Loading...</p>;
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (
+    isLoading ||
+    chaptersStatus === "loading" 
+  ) {
+    return <p css={loadingStyle}>Loading ...</p>;
   }
-
-  const formattedCreatedDate = formatDate(book.createdAt);
-  const formattedUpdatedDate = formatDate(book.updatedAt);
 
   return (
     <main css={main2ColumnStyle}>
-      <ChapterList chapters={book.chapters} bookId={book._id} />
-      <div css={RightContent}>
-        <h1>{book.title}</h1>
-        <p>本の作成日：{formattedCreatedDate}</p>
-        <p>最終更新日：{formattedUpdatedDate}</p>
-        <h2 css={h2Style}>本の詳細</h2>
-        {book.description}
-      </div>
+      <ChapterList
+        bookId={bookId}
+      />      
+      <AddChapterForm bookId={bookId}/>
     </main>
   );
 };

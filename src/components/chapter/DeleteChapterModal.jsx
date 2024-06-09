@@ -59,7 +59,7 @@ const DeleteChapterModal = ({
         if (response.redirectedUrl) {
           navigate(`/${bookId}/${response.redirectedUrl}`);
         } else {
-          navigate("/books");
+          navigate(`/${bookId}`);
         }
       } else {
         console.error("チャプターの削除に失敗しました。");

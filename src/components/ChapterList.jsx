@@ -1,10 +1,8 @@
-import React from "react";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
-import Button from "./ui/Button";
-import TextInput from "./ui/TextInput";
 import AddChapterModal from "./chapter/AddChapterModal";
+import EditChapterModal from "./chapter/EditChapterModal";
 
 const sidebarStyles = css`
   width: 200px;
@@ -17,53 +15,76 @@ const sidebarStyles = css`
     text-decoration: inherit;
     color: white;
   }
+`;
 
-  li {
-    padding: 8px;
+const booksBackStyle = css`
+  text-align: center;
+  margin-top: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed gray;
 
-    &:hover {
-      background-color: #696c72;
-    }
+  &:hover {
+    background-color: #7e7979;
   }
 `;
 
-const liStyle = css`
+const bookTitleStyle = css`
+  word-wrap: break-word;
+  padding: 8px;
   border-bottom: 1px solid gray;
-  margin-bottom: 30px;
+  margin-top: 30px;
+  color: white;
+  text-align: center;
 `;
 
-const ChapterList = ({ chapters, bookId, bookTitle }) => {
-  const [isEditing, setIsEditing] = useState(false);
+const ulStyles = css`
+  padding: 0;
+  padding: 10px 0;
+`;
 
-  const toggleEditChapter = () => {
-    setIsEditing((prev) => !prev);
-  };
+const liStyles = css`
+  display: flex;
+  align-items: center;
+`;
 
+const linkStyles = css`
+  word-break: break-all;
+
+  width: 100%;
+  height: 100%;
+
+  margin-right: 10px;
+  padding: 8px;
+  &:hover {
+    background-color: #7e7979;
+  }
+`;
+
+const ChapterList = ({ bookId }) => {
+  const chapters = useSelector((state) => state.chapters.chapters);
   return (
     <div css={sidebarStyles}>
-      <ul>
-        <Link to="/books">
-          <li>本の一覧</li>
-        </Link>
-        <li css={liStyle}>{bookTitle}</li>
-        {chapters.map((chapter) => {
+      <Link to="/books">
+        <p css={booksBackStyle}>本の一覧へ</p>
+      </Link>
+      <h2 css={bookTitleStyle}>{chapters.bookTitle}</h2>
+      <ul css={ulStyles}>
+        {chapters.chaptersWithoutContents.map((chapter) => {
           return (
-            <React.Fragment key={chapter._id}>
-              {isEditing ? (
-                <TextInput />
-              ) : (
-                <Link to={`/${bookId}/${chapter._id}`} key={chapter._id}>
-                  <li>{chapter.chapter_title}</li>
-                </Link>
-              )}
-            </React.Fragment>
+            <li css={liStyles} key={chapter._id}>
+              <Link to={`/${bookId}/${chapter._id}`} css={linkStyles}>
+                {chapter.chapter_title}
+              </Link>
+              <EditChapterModal
+                bookId={bookId}
+                chapterId={chapter._id}
+                chapterTitle={chapter.chapter_title}
+              />
+            </li>
           );
         })}
       </ul>
-      {isEditing && <Button color="blue">保存</Button>}
-      <Button color="gray" onClick={toggleEditChapter}>
-        {isEditing ? "キャンセル" : "編集"}
-      </Button>
       <AddChapterModal bookId={bookId} />
     </div>
   );
