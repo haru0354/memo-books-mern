@@ -7,6 +7,7 @@ import CtaSection from "../components/section/CtaSection";
 import ThreePoint from "../components/section/ThreePoint";
 import QaSection from "../components/section/QaSection";
 import Footer from "../components/Footer";
+import LoginModal from "../auth/LoginModal";
 
 const firstSection = css`
   padding: 60px 10px;
