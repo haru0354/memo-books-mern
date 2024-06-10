@@ -11,7 +11,7 @@ import {
   modalContainerStyle,
 } from "../../styles/styles";
 import chapterApi from "../../api/chapter";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addChapter } from "../../store/slice/chaptersSlice";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -26,6 +26,7 @@ const AddChapterModal = ({ bookId }) => {
   const [isAddModal, setIsAddModal] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.user.uid)
   const methods = useForm();
   const bodyRef = useRef(document.body);
 
@@ -43,7 +44,7 @@ const AddChapterModal = ({ bookId }) => {
     };
 
     try {
-      const response = await chapterApi.post(bookId, formData);
+      const response = await chapterApi.post(userId, bookId, formData);
 
       if (!response || !response._id) {
         throw new Error("フォームの送信に失敗しました。");

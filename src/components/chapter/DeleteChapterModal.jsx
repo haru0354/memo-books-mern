@@ -3,7 +3,7 @@ import Button from "../ui/Button";
 import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import chapterApi from "../../api/chapter";
 import { deleteChapter } from "../../store/slice/chaptersSlice";
 
@@ -37,6 +37,8 @@ const DeleteChapterModal = ({
   const [isDeleteModalOpen, setIdDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.user.uid)
+
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
@@ -66,7 +68,7 @@ const DeleteChapterModal = ({
 
   const onClickDelete = async () => {
     try {
-      const response = await chapterApi.delete(bookId, chapterId);
+      const response = await chapterApi.delete(userId, bookId, chapterId);
       if (response.deletedChapterId === chapterId) {
         dispatch(deleteChapter(response.deletedChapterId));
   

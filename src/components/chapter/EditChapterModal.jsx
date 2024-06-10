@@ -9,7 +9,7 @@ import {
   modalContainerStyle,
 } from "../../styles/styles";
 import chapterApi from "../../api/chapter";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateChapter } from "../../store/slice/chaptersSlice";
 import DeleteChapterModal from "./DeleteChapterModal";
 import EditImageButton from "../ui/EditImageButton";
@@ -25,6 +25,7 @@ const buttonContainerStyle = css`
 const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
   const [isEditModal, setIsEditModal] = useState(false);
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.user.uid)
   const methods = useForm();
   const bodyRef = useRef(document.body);
 
@@ -42,7 +43,7 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
     };
 
     try {
-      const response = await chapterApi.patch(bookId, chapterId, formData);
+      const response = await chapterApi.patch(userId, bookId, chapterId, formData);
 
       dispatch(updateChapter(response));
       toggleCloseModal();
