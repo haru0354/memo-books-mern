@@ -123,8 +123,6 @@ export const deleteChaptersAsync = createAsyncThunk(
   async ({ userId, bookId, chapterId }) => {
     try {
       const data = await chapterApi.delete(userId, bookId, chapterId);
-      console.log(data);
-
       return data;
     } catch (error) {
       console.error("チャプターの編集に失敗しました。");
