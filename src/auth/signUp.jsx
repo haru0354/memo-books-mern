@@ -4,7 +4,8 @@ import { formStyle } from "../styles/styles";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
 import { createUser } from "../store/slice/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const formContainerStyle = css`
   width: 100%;
@@ -36,12 +37,13 @@ const errorMessageStyle = css`
 const SignUp = () => {
   const methods = useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     const { email, password } = data;
     try {
-      dispatch(createUser({ email, password }));
-      console.log("アカウントの作成に成功しました。");
+      await dispatch(createUser({ email, password }));
+      navigate("/books");
     } catch (error) {
       console.error("アカウントの作成に失敗しました。", error);
     }

@@ -7,6 +7,7 @@ import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
 import TextInput from "../components/ui/TextInput";
 import AuthButton from "../components/ui/AuthButton";
+import { useNavigate } from "react-router-dom";
 
 const formContainerStyle = css`
   width: 100%;
@@ -41,8 +42,9 @@ const LoginModal = () => {
   const methods = useForm();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-
+  const navigate = useNavigate();
   const bodyRef = useRef(document.body);
+
   const disableScroll = () => {
     bodyRef.current.style.overflowY = "hidden";
   };
@@ -55,17 +57,19 @@ const LoginModal = () => {
     const { email, password } = data;
 
     try {
-      dispatch(login({ email, password }));
+      await dispatch(login({ email, password }));
+
       toggleCloseModal();
-      console.log("ログインに成功しました");
+      navigate("/books");
     } catch (error) {
       console.error("ログインに失敗しました", error);
       console.log("ログインに失敗しました");
     }
   };
 
-  const onLogout = () => {
-    dispatch(logout());
+  const onLogout = async () => {
+    await dispatch(logout());
+    navigate("/");
   };
 
   const toggleOpenModal = () => {
@@ -127,7 +131,7 @@ const LoginModal = () => {
                     )}
                     <div css={textCenterStyle}>
                       <Button type="submit" color="blue">
-                        登録
+                        ログイン
                       </Button>
                       <Button color="gray">googleでログイン</Button>
                     </div>
