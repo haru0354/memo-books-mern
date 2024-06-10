@@ -16,11 +16,11 @@ const userSlice = createSlice({
   reducers: {
     setUser(state, action) {
       state.user = action.payload;
-      state.status = 'authenticated'; 
+      state.status = 'succeeded'; 
     },
     clearUser(state) {
       state.user = null;
-      state.status = 'notAuthenticated'; 
+      state.status = 'failed'; 
     },
   },
   extraReducers: (builder) => {

@@ -9,7 +9,7 @@ const ProtectedRoute = ({ element }) => {
         return <div>Loading...</div>; 
     }
 
-    if (userStatus === "notAuthenticated" || !user) {
+    if (userStatus === "failed" || !user) {
         return <Navigate to="/" />;
     }
 
