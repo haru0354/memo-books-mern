@@ -28,6 +28,13 @@ const sectionH2Style = css`
 `;
 
 const CtaSection = ({ title, topText, centerText, bottomText, buttonText }) => {
+    const scrollToForm = () => {
+      const formSection = document.getElementById("form");
+      if (formSection) {
+        formSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
   return (
     <section css={ctaSection}>
       <div css={ctaContainer}>
@@ -35,7 +42,7 @@ const CtaSection = ({ title, topText, centerText, bottomText, buttonText }) => {
         <p>{topText}</p>
         <p>{centerText}</p>
         <p>{bottomText}</p>
-        <Button color="blue">{buttonText}</Button>
+        <Button onClick={scrollToForm} color="blue">{buttonText}</Button>
       </div>
     </section>
   );
