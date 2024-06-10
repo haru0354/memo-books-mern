@@ -1,7 +1,7 @@
 import { findChapterById } from "./findChapterById.mjs";
 
-export const findContentsById = async (bookId, chapterId, contentsId) => {
-  const { chapter, book, error } = await findChapterById(bookId, chapterId);
+export const findContentsById = async (userId , bookId, chapterId, contentsId) => {
+  const { chapter, book, error } = await findChapterById(userId, bookId, chapterId);
 
   if (error) {
     return { error };

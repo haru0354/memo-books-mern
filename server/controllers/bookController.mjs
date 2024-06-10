@@ -82,15 +82,11 @@ export const updateBook = async (req, res) => {
   }
 
   const bookId = req.params.bookId;
-  const book = await Book.findById(bookId);
   const userId = req.params.userId;
+  const book = await Book.findOne({ _id: bookId, userId });
 
   if (!book) {
     return res.status(404).json({ message: "本が見つかりませんでした。" });
-  }
-
-  if (book.userId !== userId) {
-    return res.status(403).json({ message: "編集する権限がありません。" });
   }
 
   if (req.body.title) {

@@ -1,7 +1,7 @@
 import Book from "../models/book.mjs";
 
-export const findChapterById = async (bookId, chapterId) => {
-    const book = await Book.findById(bookId);
+export const findChapterById = async (userId, bookId, chapterId) => {
+  const book = await Book.findOne({ _id: bookId, userId });
 
     if (!book) {
       return { error: "指定した本が見つかりませんでした。" };
