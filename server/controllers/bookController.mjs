@@ -2,21 +2,39 @@ import Book from "../models/book.mjs";
 import { validationResult } from "express-validator";
 
 export const getAllBooks = async (req, res) => {
-  const books = await Book.aggregate([
+  const userId = req.params.userId;
+
+  if (!userId) {
+    return res.status(403).json({ message: "idが付与されていません。" });
+  }
+
+  const resData = await Book.aggregate([
     {
+      // userIdに一致する本をフィルタリング
+      $match: { userId },
+    },
+    {
+      // 最初のチャプターのIDを取得
       $project: {
+        _id: 1,
         title: 1,
-        firstChapterId: { $arrayElemAt: ["$chapters._id", 0] },
+        firstChapterId: { $arrayElemAt: ["$chapters._id", 0] }, 
       },
     },
   ]);
 
-  res.json(books);
+  res.json(resData);
 };
 
 export const getBook = async (req, res) => {
-  const bookId = req.params.id;
-  const book = await Book.findById(bookId);
+  const bookId = req.params.bookId;
+  const userId = req.params.userId;
+
+  if (!userId) {
+    return res.status(403).json({ message: "idが付与されていません。" });
+  }
+
+  const book = await Book.findOne({ _id: bookId, userId });
 
   if (!book) {
     return res.status(404).json({ message: "本が見つかりませんでした。" });
@@ -24,8 +42,8 @@ export const getBook = async (req, res) => {
 
   const resData = {
     title: book.title,
-    _id: book._id
-  }
+    _id: book._id,
+  };
 
   res.json(resData);
 };
@@ -38,7 +56,14 @@ export const addBook = async (req, res) => {
     return res.status(400).json(errs);
   }
 
+  const userId = req.params.userId;
+
+  if (!userId) {
+    return res.status(403).json({ message: "idが付与されていません。" });
+  }
+
   const book = new Book({
+    userId,
     title: req.body.title,
     chapters: req.body.chapters,
   });
@@ -56,11 +81,16 @@ export const updateBook = async (req, res) => {
     return res.status(400).json(errs);
   }
 
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
   const book = await Book.findById(bookId);
+  const userId = req.params.userId;
 
   if (!book) {
     return res.status(404).json({ message: "本が見つかりませんでした。" });
+  }
+
+  if (book.userId !== userId) {
+    return res.status(403).json({ message: "編集する権限がありません。" });
   }
 
   if (req.body.title) {
@@ -72,7 +102,14 @@ export const updateBook = async (req, res) => {
 };
 
 export const deleteBook = async (req, res) => {
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
+  const userId = req.params.userId;
+  const book = await Book.findById(bookId);
+
+  if (book.userId !== userId) {
+    return res.status(403).json({ message: "削除する権限がありません。" });
+  }
+
   const result = await Book.deleteOne({ _id: bookId });
 
   if (result.deletedCount === 0) {

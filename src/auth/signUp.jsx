@@ -36,7 +36,6 @@ const errorMessageStyle = css`
 const SignUp = () => {
   const methods = useForm();
   const dispatch = useDispatch();
-  const userStatus = useSelector((state) => state.user.status);
 
   const onSubmit = async (data) => {
     const { email, password } = data;

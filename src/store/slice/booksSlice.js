@@ -63,9 +63,9 @@ const bookSlice = createSlice({
 
 export const { addBook, deleteBook, updateBook } = bookSlice.actions;
 
-export const fetchBooks = createAsyncThunk("books/fetchBooks", async () => {
+export const fetchBooks = createAsyncThunk("books/fetchBooks", async (userId) => {
   try {
-    const data = await bookApi.getAll();
+    const data = await bookApi.getAll(userId);
     return data;
   } catch (error) {
     console.error("本のデータの取得に失敗しました。");

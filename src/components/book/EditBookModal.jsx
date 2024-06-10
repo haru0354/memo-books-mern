@@ -6,7 +6,7 @@ import {
   modalContainerStyle,
   errorMessageStyle,
 } from "../../styles/styles";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DeleteBookModal from "./DeleteBookModal";
 import Button from "../../components/ui/Button";
 import bookApi from "../../api/book";
@@ -26,8 +26,9 @@ const EditBookModal = ({ bookId, bookTitle }) => {
   const [isEditModal, setIsEditModal] = useState(false);
   const dispatch = useDispatch();
   const methods = useForm();
+  const userId = useSelector((state) => state.user.user.uid)
   const bodyRef = useRef(document.body);
-
+  
   const disableScroll = () => {
     bodyRef.current.style.overflowY = "hidden";
   };
@@ -43,7 +44,7 @@ const EditBookModal = ({ bookId, bookTitle }) => {
     };
 
     try {
-      const response = await bookApi.patch(bookId, formData);
+      const response = await bookApi.patch(userId, bookId, formData);
 
       if (response._id !== bookId) {
         throw new Error("編集に失敗しました。");
