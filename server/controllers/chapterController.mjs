@@ -3,7 +3,7 @@ import Book from "../models/book.mjs";
 import { validationResult } from "express-validator";
 
 export const getAllChapters = async (req, res) => {
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
   const book = await Book.findById(bookId);
 
   if (!book) {
@@ -22,7 +22,7 @@ export const getAllChapters = async (req, res) => {
 };
 
 export const getChapter = async (req, res) => {
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
 
   const { bookChapters, chapter, error } = await findChapterById(
@@ -50,7 +50,7 @@ export const addChapter = async (req, res) => {
     return res.status(400).json(errs);
   }
 
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
   const book = await Book.findById(bookId);
 
   if (!book) {
@@ -75,7 +75,7 @@ export const updateChapter = async (req, res) => {
     return res.status(400).json(errs);
   }
 
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
 
   const { chapter, book, error } = await findChapterById(bookId, chapterId);
@@ -95,7 +95,7 @@ export const updateChapter = async (req, res) => {
 };
 
 export const deleteChapter = async (req, res) => {
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
 
   const { book, error } = await findChapterById(bookId, chapterId);

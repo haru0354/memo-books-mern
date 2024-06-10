@@ -11,22 +11,22 @@ import { requestErrorHandler } from "../helpers/requestErrorHandler.mjs";
 
 const chapterRouter = express.Router();
 
-chapterRouter.get("/:id", requestErrorHandler(getAllChapters));
+chapterRouter.get("/:userId/:bookId", requestErrorHandler(getAllChapters));
 
-chapterRouter.get("/:id/:chapterId", requestErrorHandler(getChapter));
+chapterRouter.get("/:userId/:bookId/:chapterId", requestErrorHandler(getChapter));
 
 chapterRouter.post(
-  "/:id/",
+  "/:userId/:bookId/",
   body("chapter_title").notEmpty().withMessage("タイトルを入力してください。"),
   requestErrorHandler(addChapter)
 );
 
 chapterRouter.patch(
-  "/:id/:chapterId",
+  "/:userId/:bookId/:chapterId",
   body("chapter_title").notEmpty().withMessage("タイトルを入力してください。"),
   requestErrorHandler(updateChapter)
 );
 
-chapterRouter.delete("/:id/:chapterId", requestErrorHandler(deleteChapter));
+chapterRouter.delete("/:userId/:bookId/:chapterId", requestErrorHandler(deleteChapter));
 
 export default chapterRouter;
