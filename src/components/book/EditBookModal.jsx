@@ -9,8 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import DeleteBookModal from "./DeleteBookModal";
 import Button from "../../components/ui/Button";
-import bookApi from "../../api/book";
-import { updateBook } from "../../store/slice/booksSlice";
+import { updateBookAsync } from "../../store/slice/booksSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRef, useState } from "react";
 
@@ -20,7 +19,6 @@ const buttonContainerStyle = css`
   padding: 0 20px;
   margin-top: 20px;
 `;
-
 
 const EditBookModal = ({ bookId, bookTitle }) => {
   const [isEditModal, setIsEditModal] = useState(false);
@@ -44,14 +42,8 @@ const EditBookModal = ({ bookId, bookTitle }) => {
     };
 
     try {
-      const response = await bookApi.patch(userId, bookId, formData);
-
-      if (response._id !== bookId) {
-        throw new Error("編集に失敗しました。");
-      }
-
-      dispatch(updateBook(response));
-      toggleCloseModal();
+      await dispatch(updateBookAsync({userId, bookId, formData})).unwrap();
+      toggleCloseEditModal();
     } catch (error) {
       console.error("編集に失敗しました", error);
     }
@@ -62,7 +54,7 @@ const EditBookModal = ({ bookId, bookTitle }) => {
     disableScroll();
   };
 
-  const toggleCloseModal = () => {
+  const toggleCloseEditModal = () => {
     setIsEditModal((prev) => !prev);
     enableScroll();
   };
@@ -101,14 +93,13 @@ const EditBookModal = ({ bookId, bookTitle }) => {
                   <Button type="submit" color="blue">
                     保存する
                   </Button>
-                  <Button color="gray" onClick={toggleCloseModal}>
+                  <Button color="gray" onClick={toggleCloseEditModal}>
                     キャンセル
                   </Button>
                 </div>
               </form>
             </FormProvider>
-
-            <DeleteBookModal bookTitle={bookTitle} bookId={bookId} />
+            <DeleteBookModal bookTitle={bookTitle} bookId={bookId} toggleCloseEditModal={toggleCloseEditModal}/>
           </div>
         </div>
       )}

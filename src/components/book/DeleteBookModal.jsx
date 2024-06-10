@@ -4,8 +4,7 @@ import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteBook } from "../../store/slice/booksSlice";
-import bookApi from "../../api/book";
+import { deleteBookAsync } from "../../store/slice/booksSlice";
 
 const pStyle = css`
   font-weight: 600;
@@ -28,11 +27,11 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
-const DeleteBookModal = ({ bookTitle, bookId }) => {
+const DeleteBookModal = ({ bookTitle, bookId, toggleCloseEditModal }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user.uid)
+  const userId = useSelector((state) => state.user.user.uid);
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
@@ -40,7 +39,7 @@ const DeleteBookModal = ({ bookTitle, bookId }) => {
   };
 
   const enableScroll = () => {
-    bodyRef.current.style.overflow = 'auto';
+    bodyRef.current.style.overflow = "auto";
   };
 
   const toggleOpenModal = () => {
@@ -59,26 +58,20 @@ const DeleteBookModal = ({ bookTitle, bookId }) => {
     }
   };
 
-
   const onClickDelete = async () => {
-    const response = await bookApi.delete(userId, bookId);
-    if (response.message === "本の削除に成功しました。") {
-      dispatch(deleteBook(response.deletedBookId));
+    try {
+      await dispatch(deleteBookAsync({ userId, bookId })).unwrap();
 
+      toggleCloseEditModal();
       toggleCloseModal();
-      navigate("/books");
-    } else {
+    } catch {
       console.error("本の削除に失敗しました。");
     }
   };
 
   return (
     <>
-      <Button
-        addCss={DeleteButtonStyle}
-        color="red"
-        onClick={toggleOpenModal}
-      >
+      <Button addCss={DeleteButtonStyle} color="red" onClick={toggleOpenModal}>
         削除
       </Button>
       {isDeleteModalOpen && (
