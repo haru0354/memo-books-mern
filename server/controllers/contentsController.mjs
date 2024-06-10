@@ -3,10 +3,11 @@ import { findContentsById } from "../helpers/findContentsById.mjs";
 import { validationResult } from "express-validator";
 
 export const getAllContents = async (req, res) => {
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
+  const userId = req.params.userId;
 
-  const { chapter, error } = await findChapterById(bookId, chapterId);
+  const { chapter, error } = await findChapterById(userId, bookId, chapterId);
 
   if (error) {
     return res.status(404).json({ message: error });
@@ -19,11 +20,13 @@ export const getAllContents = async (req, res) => {
 };
 
 export const getContents = async (req, res) => {
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
   const contentsId = req.params.contentsId;
+  const userId = req.params.userId;
 
   const { contents, error } = await findContentsById(
+    userId,
     bookId,
     chapterId,
     contentsId
@@ -44,10 +47,11 @@ export const addContents = async (req, res) => {
     return res.status(400).json(errs);
   }
 
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
+  const userId = req.params.userId;
 
-  const { chapter, book, error } = await findChapterById(bookId, chapterId);
+  const { chapter, book, error } = await findChapterById(userId, bookId, chapterId);
 
   if (error) {
     res.status(404).json({ message: error });
@@ -81,11 +85,13 @@ export const updateContents = async (req, res) => {
     return res.status(400).json(errs);
   }
 
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
   const contentsId = req.params.contentsId;
+  const userId = req.params.userId;
 
   const { contents, book, error } = await findContentsById(
+    userId,
     bookId,
     chapterId,
     contentsId
@@ -110,11 +116,13 @@ export const updateContents = async (req, res) => {
 };
 
 export const deleteContents = async (req, res) => {
-  const bookId = req.params.id;
+  const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
   const contentsId = req.params.contentsId;
+  const userId = req.params.userId;
 
   const { chapter, book, error } = await findContentsById(
+    userId,
     bookId,
     chapterId,
     contentsId
