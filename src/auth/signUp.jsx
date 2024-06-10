@@ -6,6 +6,8 @@ import Button from "../components/ui/Button";
 import { createUser } from "../store/slice/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { formSchema } from "../lib/schema";
 
 const formContainerStyle = css`
   width: 100%;
@@ -35,7 +37,7 @@ const errorMessageStyle = css`
 `;
 
 const SignUp = () => {
-  const methods = useForm();
+  const methods = useForm({ resolver: zodResolver(formSchema) });
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -70,8 +72,6 @@ const SignUp = () => {
             placeholder="8～12文字で入力してください"
             name="password"
             required={true}
-            maxLength={12}
-            minLength={8}
           />
           {methods.formState.errors.password && (
             <span css={errorMessageStyle}>
