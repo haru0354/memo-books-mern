@@ -11,8 +11,7 @@ import {
 } from "../../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
 import Textarea from "../ui/Textarea";
-import contentApi from "../../api/content";
-import { addContents } from "../../store/slice/contentsSlice";
+import { addContentsAsync } from "../../store/slice/contentsSlice";
 import { FormProvider, useForm } from "react-hook-form";
 
 const buttonContainerStyle = css`
@@ -44,13 +43,7 @@ const AddContentModal = ({ bookId, chapterId }) => {
     };
 
     try {
-      const response = await contentApi.post(userId, bookId, chapterId, formData);
-
-      if (response.content !== formData.content) {
-        throw new Error("フォームの送信に失敗しました。");
-      }
-
-      dispatch(addContents(response));
+      await dispatch(addContentsAsync({userId, bookId, chapterId, formData})).unwrap();
       toggleCloseModal();
       methods.reset();
     } catch (error) {

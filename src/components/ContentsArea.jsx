@@ -7,9 +7,10 @@ import Button from "./ui/Button";
 import TextInput from "./ui/TextInput";
 import Textarea from "./ui/Textarea";
 import AddContentModal from "./content/AddContentModal";
-import contentApi from "../api/content";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContentById, updateContents } from "../store/slice/contentsSlice";
+import {
+  updateContentsAsync,
+} from "../store/slice/contentsSlice";
 import DeleteContentModal from "./content/DeleteContentModal";
 import EditImageButton from "./ui/EditImageButton";
 import { FormProvider, useForm } from "react-hook-form";
@@ -79,7 +80,7 @@ const editingButtonContainerStyle = css`
 const ContentsArea = ({ bookId, chapterId }) => {
   const [editingContentId, setEditingContentId] = useState(null);
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user.uid)
+  const userId = useSelector((state) => state.user.user.uid);
   const contents = useSelector((state) => state.contents.contents);
   const chapterTitle = useSelector((state) => {
     const chapter = state.chapters.chapters.chaptersWithoutContents.find(
@@ -119,15 +120,10 @@ const ContentsArea = ({ bookId, chapterId }) => {
     };
 
     try {
-      const response = await contentApi.patch(
-        userId,
-        bookId,
-        chapterId,
-        contentId,
-        formData
-      );
-      dispatch(updateContents(response));
-      dispatch(fetchContentById({userId, bookId, chapterId, contentId }));
+      await dispatch(
+        updateContentsAsync({ userId, bookId, chapterId, contentId, formData })
+      ).unwrap();
+      
 
       methods.reset();
       toggleEditContents(contentId);
@@ -209,6 +205,7 @@ const ContentsArea = ({ bookId, chapterId }) => {
                   chapterId={chapterId}
                   contentId={content._id}
                   contentTitle={content.heading_title}
+                  toggleEditContents={toggleEditContents}
                 />
               </div>
             ) : (
