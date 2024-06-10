@@ -9,7 +9,7 @@ import {
   modalBackStyle,
   modalContainerStyle,
 } from "../../styles/styles";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Textarea from "../ui/Textarea";
 import contentApi from "../../api/content";
 import { addContents } from "../../store/slice/contentsSlice";
@@ -25,6 +25,7 @@ const buttonContainerStyle = css`
 const AddContentModal = ({ bookId, chapterId }) => {
   const [isAddModal, setIsAddModal] = useState(false);
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.user.uid)
   const methods = useForm();
   const bodyRef = useRef(document.body);
 
@@ -43,7 +44,7 @@ const AddContentModal = ({ bookId, chapterId }) => {
     };
 
     try {
-      const response = await contentApi.post(bookId, chapterId, formData);
+      const response = await contentApi.post(userId, bookId, chapterId, formData);
 
       if (response.content !== formData.content) {
         throw new Error("フォームの送信に失敗しました。");

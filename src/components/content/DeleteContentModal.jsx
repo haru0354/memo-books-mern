@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import Button from "../ui/Button";
 import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteContent } from "../../store/slice/contentsSlice";
 import contentApi from "../../api/content";
 
@@ -24,6 +24,7 @@ const modalAddStyle = css`
 const DeleteContentModal = ({ contentTitle, bookId, chapterId, contentId }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.user.uid)
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
@@ -52,7 +53,7 @@ const DeleteContentModal = ({ contentTitle, bookId, chapterId, contentId }) => {
 
   const onClickDelete = async () => {
     try {
-      await contentApi.delete(bookId, chapterId, contentId);
+      await contentApi.delete(userId, bookId, chapterId, contentId);
       dispatch(deleteContent(contentId));
       toggleCloseModal();
     } catch (error) {

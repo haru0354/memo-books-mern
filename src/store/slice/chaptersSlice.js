@@ -49,7 +49,7 @@ export const { addChapter, deleteChapter, updateChapter } =
 
 export const fetchChapters = createAsyncThunk(
   "chapters/fetchChapters",
-  async (userId, bookId) => {
+  async ({userId, bookId}) => {
     try {
       const data = await chapterApi.getAll(userId, bookId);
       return data;

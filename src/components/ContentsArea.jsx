@@ -79,6 +79,7 @@ const editingButtonContainerStyle = css`
 const ContentsArea = ({ bookId, chapterId }) => {
   const [editingContentId, setEditingContentId] = useState(null);
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.user.uid)
   const contents = useSelector((state) => state.contents.contents);
   const chapterTitle = useSelector((state) => {
     const chapter = state.chapters.chapters.chaptersWithoutContents.find(
@@ -117,17 +118,16 @@ const ContentsArea = ({ bookId, chapterId }) => {
       content: data.content,
     };
 
-    console.log(contentId);
-
     try {
       const response = await contentApi.patch(
+        userId,
         bookId,
         chapterId,
         contentId,
         formData
       );
       dispatch(updateContents(response));
-      dispatch(fetchContentById({ bookId, chapterId, contentId }));
+      dispatch(fetchContentById({userId, bookId, chapterId, contentId }));
 
       methods.reset();
       toggleEditContents(contentId);
