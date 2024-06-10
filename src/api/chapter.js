@@ -4,24 +4,24 @@ const expressUrl = import.meta.env.VITE_EXPRESS_URL;
 const ENDPOINT_URL = `${expressUrl}chapter`;
 
 const chapterApi = {
-  async getAll(bookId) {
-    const result = await axios.get(`${ENDPOINT_URL}/${bookId}`);
+  async getAll(userId, bookId) {
+    const result = await axios.get(`${ENDPOINT_URL}/${userId}/${bookId}`);
     return result.data;
   },
-  async get(bookId, chapterId) {
-    const result = await axios.get(`${ENDPOINT_URL}/${bookId}/${chapterId}`);
+  async get(userId, bookId, chapterId) {
+    const result = await axios.get(`${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}`);
     return result.data;
   },
-  async post(bookId, chapter) {
-    const result = await axios.post(`${ENDPOINT_URL}/${bookId}`, chapter);
+  async post(userId, bookId, chapter) {
+    const result = await axios.post(`${ENDPOINT_URL}/${userId}/${bookId}`, chapter);
     return result.data;
   },
-  async patch(bookId, chapterId, chapter) {
-    const result = await axios.patch(`${ENDPOINT_URL}/${bookId}/${chapterId}`, chapter);
+  async patch(userId, bookId, chapterId, chapter) {
+    const result = await axios.patch(`${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}`, chapter);
     return result.data;
   },
-  async delete(bookId, chapterId) {
-    const result = await axios.delete(`${ENDPOINT_URL}/${bookId}/${chapterId}`);
+  async delete(userId, bookId, chapterId) {
+    const result = await axios.delete(`${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}`);
     return result.data;
   },
 };
