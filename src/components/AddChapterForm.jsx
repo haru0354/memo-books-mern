@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { RightContent } from "../styles/styles";
+import { RightContent, errorMessageStyle } from "../styles/styles";
 import { formStyle } from "../styles/styles";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -8,6 +8,7 @@ import chapterApi from "../api/chapter";
 import { useState } from "react";
 import TextInput from "./ui/TextInput";
 import Button from "./ui/Button";
+import { FormProvider, useForm } from "react-hook-form";
 
 const formContainerStyle = css`
   margin: 4rem 4rem;
@@ -18,15 +19,13 @@ const textStyle = css`
 `;
 
 const AddChapterForm = ({ bookId }) => {
-  const [title, setTitle] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const methods = useForm();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const onSubmit = async (data) => {
     const formData = {
-      chapter_title: title,
+      chapter_title: data.title,
     };
 
     try {
@@ -37,7 +36,6 @@ const AddChapterForm = ({ bookId }) => {
       }
 
       dispatch(addChapter(response));
-      setTitle("");
       navigate(`/${bookId}/${response._id}`);
     } catch (error) {
       console.error("フォームの送信に失敗しました。", error);
@@ -48,19 +46,29 @@ const AddChapterForm = ({ bookId }) => {
     <div css={RightContent}>
       <h1>チャプターの追加</h1>
       <p css={textStyle}>このページではチャプターを追加することができます。</p>
-      <p css={textStyle}>下記のフォーム、またはサイドメニューの「+」ボタンよりチャプターを登録してください。</p>
+      <p css={textStyle}>
+        下記のフォーム、またはサイドメニューの「+」ボタンよりチャプターを登録してください。
+      </p>
       <div css={formContainerStyle}>
-        <form onSubmit={handleSubmit} css={formStyle}>
-          <TextInput
-            label="チャプター名"
-            placeholder="チャプター名を入力してください。"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <Button type="submit" color="blue">
-            追加する
-          </Button>
-        </form>
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
+            <TextInput
+              label="チャプター名"
+              placeholder="チャプター名を入力してください。"
+              name="title"
+              required={true}
+              maxLength={16}
+            />
+            {methods.formState.errors.title && (
+              <p css={errorMessageStyle}>
+                {methods.formState.errors.title.message}
+              </p>
+            )}
+            <Button type="submit" color="blue">
+              追加する
+            </Button>
+          </form>
+        </FormProvider>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import TextareaAutosize from "react-textarea-autosize";
 import { css } from "@emotion/react";
+import { useFormContext } from "react-hook-form";
 
 const labelStyle = css`
   font-size: 0.9rem;
@@ -16,7 +17,18 @@ const textareaStyle = css`
   padding: 10px;
 `;
 
-const Textarea = ({ label, name, placeholder, value, onChange }) => {
+const Textarea = ({
+  label,
+  name,
+  placeholder,
+  value,
+  onChange,
+  required,
+  defaultValue,
+  maxLength,
+}) => {
+  const { register } = useFormContext();
+
   return (
     <>
       <label css={labelStyle} htmlFor={label}>
@@ -29,6 +41,14 @@ const Textarea = ({ label, name, placeholder, value, onChange }) => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        defaultValue={defaultValue}
+        {...register(name, {
+          required: required && `${label}の入力は必須です`,
+          maxLength: maxLength && {
+            value: maxLength,
+            message: `${label}は最大${maxLength}文字までです。`,
+          },
+        })}
         minRows={10}
         maxRows={18}
       />

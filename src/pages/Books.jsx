@@ -12,10 +12,15 @@ const bookContainerStyle = css`
   padding: 0 1.8rem;
 `;
 
+const bookTitleStyle = css`
+  padding-right: 15px;
+  text-align: center;
+`;
+
 const BooksAreaStyle = css`
   display: flex;
   align-items: center;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   padding: 1rem 4rem;
   margin: 0 auto;
 `;
@@ -77,7 +82,7 @@ const Books = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
   const status = useSelector((state) => state.books.status);
-  const [ isLoading, setIsLoading ] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     dispatch(fetchBooks());
@@ -86,15 +91,12 @@ const Books = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 500); 
+    }, 500);
 
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, []);
 
-  if (
-    isLoading ||
-    status === "loading"
-  ) {
+  if (isLoading || status === "loading") {
     return <p css={loadingStyle}>Loading ...</p>;
   }
 
@@ -104,13 +106,21 @@ const Books = () => {
       <div css={BooksAreaStyle}>
         {books.map((book) => (
           <div css={bookContainerStyle} key={book._id}>
-            <Link to={book.firstChapterId ? `/${book._id}/${book.firstChapterId}` : `/${book._id}`}>
+            <Link
+              to={
+                book.firstChapterId
+                  ? `/${book._id}/${book.firstChapterId}`
+                  : `/${book._id}`
+              }
+            >
               <div css={bookStyle}>
-                <h2>{book.title}</h2>
+                <div css={bookTitleStyle}>
+                  <h2>{book.title}</h2>
+                </div>
               </div>
             </Link>
             <div css={editButtonContainerStyle}>
-              <EditBookModal bookTitle={book.title} bookId={book._id}/>
+              <EditBookModal bookTitle={book.title} bookId={book._id} />
             </div>
           </div>
         ))}

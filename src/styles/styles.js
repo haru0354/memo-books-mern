@@ -42,14 +42,14 @@ export const RightContent = css`
 
 // モーダルのスタイル
 export const modalBackStyle = css`
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgb(156 163 175 / 65%);
   z-index: 50;
 `;
@@ -77,4 +77,10 @@ export const formStyle = css`
   display: flex;
   flex-direction: column;
   text-align: left;
+`;
+
+// フォームのエラーメッセージ
+export const errorMessageStyle = css`
+  color: red;
+  text-align: center;
 `;

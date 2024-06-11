@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../ui/Button";
 import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
@@ -21,22 +21,32 @@ const modalAddStyle = css`
   text-align: center;
 `;
 
-const DeleteContentModal = ({
-  contentTitle,
-  bookId,
-  chapterId,
-  contentId,
-}) => {
-  const [isDeleteModalOpen, setIdDeleteModalOpen] = useState(false);
+const DeleteContentModal = ({ contentTitle, bookId, chapterId, contentId }) => {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const bodyRef = useRef(document.body);
 
-  const toggleDeleteModal = () => {
-    setIdDeleteModalOpen((prev) => !prev);
+  const disableScroll = () => {
+    bodyRef.current.style.overflowY = "hidden";
+  };
+
+  const enableScroll = () => {
+    bodyRef.current.style.overflow = "auto";
+  };
+
+  const toggleOpenModal = () => {
+    setIsDeleteModalOpen((prev) => !prev);
+    disableScroll();
+  };
+
+  const toggleCloseModal = () => {
+    setIsDeleteModalOpen((prev) => !prev);
+    enableScroll();
   };
 
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
-      toggleDeleteModal();
+      toggleCloseModal();
     }
   };
 
@@ -44,7 +54,7 @@ const DeleteContentModal = ({
     try {
       await contentApi.delete(bookId, chapterId, contentId);
       dispatch(deleteContent(contentId));
-
+      toggleCloseModal();
     } catch (error) {
       console.error("コンテンツの削除に失敗しました。");
     }
@@ -52,7 +62,12 @@ const DeleteContentModal = ({
 
   return (
     <>
-      <Button color="red" addCss={deleteButtonStyle} onClick={toggleDeleteModal} type="button">
+      <Button
+        color="red"
+        addCss={deleteButtonStyle}
+        onClick={toggleOpenModal}
+        type="button"
+      >
         削除
       </Button>
       {isDeleteModalOpen && (
@@ -64,7 +79,7 @@ const DeleteContentModal = ({
               <Button color="red" onClick={onClickDelete}>
                 削除
               </Button>
-              <Button type="button" color="gray" onClick={toggleDeleteModal}>
+              <Button type="button" color="gray" onClick={toggleCloseModal}>
                 キャンセル
               </Button>
             </div>
