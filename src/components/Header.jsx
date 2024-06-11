@@ -45,11 +45,6 @@ const twoColumnAddHeaderStyle = css`
   }
 `;
 
-const menuStyle = css`
-  display: flex;
-  padding-inline-start: 0px;
-`;
-
 const Header = ({ variant }) => {
   return (
     <header
@@ -68,9 +63,7 @@ const Header = ({ variant }) => {
         <Link to="/">
         <img src="/logo.png" alt="メモブックノート" />
         </Link>
-        <ul css={menuStyle}>
-          <li><LoginModal /></li>
-        </ul>
+          <LoginModal />
       </div>
     </header>
   );
