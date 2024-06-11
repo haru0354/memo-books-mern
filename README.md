@@ -1,5 +1,10 @@
 # memo-books-mern
 
+画像はfirefoxの少しひだりぐらいの幅
+こんな人にはおすすめはイラストを使う。
+管理によりメモを紛失せず綺麗に保管はイラストまたは写真
+
+
 MERNスタックでアプリの作成
 
 reactでのアプリはまだなので、Next.jsは使用しない。
@@ -21,10 +26,19 @@ CSSは未使用のを利用する。
 scss,pandaCSS,Bootstrap,materialUIのまだ使用していないのを使う
 
 フロントの作成
-- CTAボタンクリックでTOPにスクロール
 - 画像の追加
 - googleでログインを追加
 - ダッシュボードを作成して、アカウントの削除などできるように。（メモブックの下に追加）
+
+ユーザーのメールアドレスを設定する（アドレス変更）
+https://firebase.google.com/docs/auth/web/manage-users?hl=ja#set_a_users_email_address
+ユーザーのパスワードを設定する
+パスワードの再設定メールを送信する
+ユーザーを削除する
+
+
+
+
 - robot.txtとsitemap.xmlの作成
 - 画像をメモにアップロード
 

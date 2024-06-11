@@ -25,6 +25,7 @@ const headerStyle = css`
 
 const oneColumnAddHeaderStyle = css`
   max-width: 1108px;
+  height: 75px;
   margin: 0 auto;
   padding: 0 16px;
   color: rgb(55 65 81);
@@ -65,7 +66,7 @@ const Header = ({ variant }) => {
         ]}
       >
         <Link to="/">
-          <h1>メモブック</h1>
+        <img src="/logo.png" alt="メモブックノート" />
         </Link>
         <ul css={menuStyle}>
           <li><LoginModal /></li>

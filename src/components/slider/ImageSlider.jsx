@@ -6,10 +6,9 @@ import NextArrow from "./NextArrow";
 import PrevArrow from "./PrevArrow";
 
 const customStyle = css`
-
-li {
-  width: 90px;
-}
+  li {
+    width: 90px;
+  }
 `;
 
 const containerStyle = css`
@@ -27,6 +26,7 @@ const sliderImageStyle = css`
 const sliderSmallImageStyle = css`
   padding-right: 20px !important;
   display: inline-block !important;
+  border: 1px solid rgb(203 201 199);
 `;
 
 const textStyle = css`
@@ -41,6 +41,10 @@ const h3Style = css`
 const sliderContainer = css`
   display: flex;
   margin: 40px 0;
+
+  img {
+      border: 1px solid rgb(203 201 199);
+    }
 `;
 
 const ImageSlider = ({ items }) => {
@@ -56,7 +60,7 @@ const ImageSlider = ({ items }) => {
         />
       );
     },
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -79,7 +83,7 @@ const ImageSlider = ({ items }) => {
               height={260}
               css={sliderImageStyle}
             />
-                        <h3 css={h3Style}>{item.h3}</h3>
+            <h3 css={h3Style}>{item.h3}</h3>
             <p css={textStyle}>{item.text}</p>
             <p css={textStyle}>{item.text2}</p>
           </div>

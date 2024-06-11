@@ -27,9 +27,9 @@ const bookTitleStyle = css`
 
 const BooksAreaStyle = css`
   display: flex;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: 1rem 4rem;
   margin: 0 auto;
 `;
 
@@ -83,10 +83,10 @@ const loadingStyle = css`
 `;
 
 const containerStyle = css`
+  text-align: center;
   background-color: white;
-  margin: 2rem 0;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  margin: 60px 16px;
+  padding: 60px 20px;
   border: 1px solid #d7d7d7;
   border-radius: 4px;
 `;
@@ -95,7 +95,7 @@ const Books = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
   const status = useSelector((state) => state.books.status);
-  const userId = useSelector((state) => state.user.user.uid)
+  const userId = useSelector((state) => state.user.user.uid);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -118,11 +118,14 @@ const Books = () => {
     <>
       <Helmet>
         <title>メモブックの一覧</title>
-        <meta name="description" content="登録をしたメモブックの一覧ページです。今までに登録をした本の一覧が表示されます。各本の中にはチャプターやメモの登録か閲覧をすることができます。" />
+        <meta
+          name="description"
+          content="登録をしたメモブックの一覧ページです。今までに登録をした本の一覧が表示されます。各本の中にはチャプターやメモの登録か閲覧をすることができます。"
+        />
       </Helmet>
       <div css={main1ColumnStyle}>
         <div css={containerStyle}>
-          <h1>メモブックの一覧</h1>
+          <h1>作成したメモブックノート</h1>
           <div css={BooksAreaStyle}>
             {books.map((book) => (
               <div css={bookContainerStyle} key={book._id}>
