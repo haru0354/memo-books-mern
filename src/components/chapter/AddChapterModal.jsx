@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
@@ -27,15 +27,6 @@ const AddChapterModal = ({ bookId }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.uid)
   const methods = useForm();
-  const bodyRef = useRef(document.body);
-
-  const disableScroll = () => {
-    bodyRef.current.style.overflowY = "hidden";
-  };
-
-  const enableScroll = () => {
-    bodyRef.current.style.overflow = "auto";
-  };
 
   const onSubmit = async (data) => {
     const formData = {
@@ -54,18 +45,15 @@ const AddChapterModal = ({ bookId }) => {
 
   const toggleAddModal = () => {
     setIsAddModal((prev) => !prev);
-    disableScroll();
   };
 
   const toggleCloseModal = () => {
     setIsAddModal((prev) => !prev);
-    enableScroll();
   };
 
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
       toggleAddModal();
-      enableScroll();
     }
   };
 

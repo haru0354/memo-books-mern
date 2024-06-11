@@ -42,6 +42,13 @@ export const RightContent = css`
     text-align: center;
     margin-bottom: 4rem;
   }
+
+  @media (max-width: 768px) {
+    margin: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+
+  }
 `;
 
 // モーダルのスタイル
@@ -55,15 +62,12 @@ export const modalBackStyle = css`
   width: 100%;
   height: 100%;
   background-color: rgb(156 163 175 / 65%);
-  z-index: 50;
+  z-index: 1000;
 `;
 
 export const modalContainerStyle = css`
+  width: 100%;
   max-width: 450px;
-  padding-top: 0.8rem;
-  padding-left: 2rem;
-  padding-bottom: 2rem;
-  padding-right: 2rem;
   border-radius: 4px;
   background-color: white;
 
@@ -81,6 +85,7 @@ export const formStyle = css`
   display: flex;
   flex-direction: column;
   text-align: left;
+  margin: 20px 20px;
 `;
 
 // フォームのエラーメッセージ

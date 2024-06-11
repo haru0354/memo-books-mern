@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
 import { css } from "@emotion/react";
@@ -26,15 +26,6 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.uid);
   const methods = useForm();
-  const bodyRef = useRef(document.body);
-
-  const disableScroll = () => {
-    bodyRef.current.style.overflowY = "hidden";
-  };
-
-  const enableScroll = () => {
-    bodyRef.current.style.overflow = "auto";
-  };
 
   const onSubmit = async (data) => {
     const formData = {
@@ -51,18 +42,15 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
 
   const toggleOpenModal = () => {
     setIsEditModal((prev) => !prev);
-    disableScroll();
   };
 
   const toggleCloseEditModal = () => {
     setIsEditModal((prev) => !prev);
-    enableScroll();
   };
 
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
       setIsEditModal();
-      enableScroll();
     }
   };
 
