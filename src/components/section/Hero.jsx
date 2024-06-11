@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import SignUp from "../../auth/SignUp";
+import AnimationItem from "../../lib/AnimationItem";
 
 const heroSection = css`
   background-color: #99bff7;
@@ -56,7 +57,7 @@ const Hero = () => {
   return (
     <section css={heroSection}>
       <div css={heroContainer}>
-        <div css={hero}>
+        <AnimationItem elType="div" animation="fadeInDown" emotionCss={hero}>
           <h2 css={textCenterStyle}>様々なメモを簡単に管理</h2>
           <p css={textCenterStyle}>
             本のようにチャプターに分け目的別にメモを管理!
@@ -64,7 +65,7 @@ const Hero = () => {
           <p css={textCenterStyle}>見たいメモを一瞬で確認ができる。</p>
           <p css={textCenterStyle}>20秒で登録して即使える</p>
           <p css={textCenterStyle}>PC・スマホ・タブレット対応の無料アプリ</p>
-        </div>
+        </AnimationItem>
         <SignUp />
       </div>
     </section>

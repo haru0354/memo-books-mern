@@ -7,6 +7,7 @@ import CtaSection from "../components/section/CtaSection";
 import ThreePoint from "../components/section/ThreePoint";
 import QaSection from "../components/section/QaSection";
 import Footer from "../components/Footer";
+import AnimationItem from "../lib/AnimationItem";
 
 const firstSection = css`
   padding: 60px 10px;
@@ -90,6 +91,7 @@ const Home = () => {
       <section css={firstSection}>
         <h2 css={sectionH2Style}>メモブックの機能</h2>
         <TwoColumnTextImage
+          animationStyle="fadeInRight"
           title="様々なメモをチャプター別に登録が可能"
           contentTop="メモブックでは単なるメモ帳アプリとは違い、各チャプター別にメモを登録していくことができます。"
           contentCenter="例えば、「勉強」という本を作れば「数学」「英語」「歴史」とチャプターを作成し、各チャプターごとにメモが可能です。"
@@ -98,6 +100,7 @@ const Home = () => {
           imgAlt="メモブックノートのチャプター機能"
         />
         <TwoColumnTextImage
+          animationStyle="fadeInLeft"
           inversion={true}
           title="複数の本を登録が可能"
           contentTop="メモブックでは大きな項目として「本」の登録ができ、そこに「チャプター」があります。"
@@ -109,7 +112,7 @@ const Home = () => {
       </section>
       <section css={secondSection}>
         <h2 css={sectionH2Style}>メモブックが使われる理由</h2>
-        <div css={reasonArea}>
+        <AnimationItem emotionCss={reasonArea} elType="div" animation="fadeInDown" >
           <p>メモブックが使われる理由には2つあります。</p>
           <ul>
             <li>「整理による必要なメモを即時閲覧」 </li>
@@ -118,8 +121,9 @@ const Home = () => {
           <p>
             なぜ、そんなことで使われるのか、どんなメリットを得られるか紹介していきます。
           </p>
-        </div>
+        </AnimationItem>
         <TwoColumnTextImage
+          animationStyle="fadeInRight"
           title="整理による必要なメモを即時閲覧"
           contentTop="PCやスマホや紙のノートで、「メモを取ったファイルやノートを探し」、更に「閲覧したい部分をめくって探す」のは、面倒ではありませんか？」"
           contentCenter="メモブックでは「本」や「チャプター」に項目を作成することで、「どの本に何が書かれていて」、「各チャプターにどんなメモが書かれているか」簡単にメモを整理できます。"
@@ -128,6 +132,7 @@ const Home = () => {
           imgAlt="メモブックノートの目次機能"
         />
         <TwoColumnTextImage
+          animationStyle="fadeInLeft"
           title="管理によりメモを紛失せず綺麗に保管"
           contentTop="「PCやスマホでメモを取ったがどこか分からない・・・」「ノートにメモを取ったが無くした、ボロボロになってしまった・・・」こんな経験はありませんか？"
           contentCenter="メモブックでは「メモをこのアプリの中で全て管理」できるので、どこにファイルやノートがあるか探す必要はなくなります。"
@@ -164,6 +169,7 @@ const Home = () => {
       <section css={secondSection}>
         <h2 css={sectionH2Style}>こんな人にはおすすめ</h2>
         <TwoColumnTextImage
+          animationStyle="fadeInRight"
           title="PCやスマホでメモをする習慣がある人"
           contentTop="メモブックを使うことで、「全てのメモの管理」がしやすく、「見たい項目がどこにあるか一目で分かります」。"
           contentCenter="メモを取っても保存したのかを忘れることもあります。また、メモが多いとその時に必要だと思っても、後程忘れてしまって、どんなことを記載したか見たいこともあります。"
@@ -172,6 +178,7 @@ const Home = () => {
           imgAlt="メモブックノートのチャプター機能"
         />
         <TwoColumnTextImage
+          animationStyle="fadeInLeft"
           inversion={true}
           title="勉強中の学生や資格取得の社会人"
           contentTop="学校や資格の勉強となると「頻繁にメモした内容を確認」することも多いです。"
@@ -181,6 +188,7 @@ const Home = () => {
           imgAlt="資格の勉強中のメモするノート"
         />
         <TwoColumnTextImage
+          animationStyle="fadeInRight"
           title="インターネットの閲覧をする人"
           contentTop="PCやスマホでよくネットサーフィンをして、「趣味について調べたり」「今日の献立を考えたり」とちょっとした情報を調べる人におすすめです。"
           contentCenter="簡単に登録と閲覧ができるようになっているので、ちょっとした内容をメモして、あとで確認するのに適しています。"
@@ -191,7 +199,7 @@ const Home = () => {
       </section>
       <section css={firstSection}>
         <h2 css={sectionH2Style}>よくある質問(クリックで開閉)</h2>
-        <div css={qaContainer}>
+        <AnimationItem elType="div" animation="fadeInDown" emotionCss={qaContainer}>
           <QaSection
             title="本当に無料で利用できますか？"
             text="メモブックは完全無料のアプリです。利用料金は一切かかりません。"
@@ -212,7 +220,7 @@ const Home = () => {
             title="目次機能とは？"
             text="メモした内容は自動で目次に追加されます。目次のメモ名をクリックやタップすると、メモのある位置までスクロールします。メモが増えるとスクロールして探したりと大変なことも多いです。即時に見たい項目が確認ができるようになっています。"
           />
-        </div>
+        </AnimationItem>
       </section>
       <CtaSection
         title="「メモブック」を無料で即時利用"
