@@ -10,13 +10,19 @@ import Footer from "../components/Footer";
 import AnimationItem from "../lib/AnimationItem";
 
 const firstSection = css`
-  padding: 60px 10px;
+  padding-top: 60px;
+  padding-right: 10px;
+  padding-bottom: 30px;
+  padding-left: 10px;
   background-color: #fffdfb;
   overflow-x: hidden;
 `;
 
 const secondSection = css`
-  padding: 60px 10px;
+  padding-top: 60px;
+  padding-right: 10px;
+  padding-bottom: 30px;
+  padding-left: 10px;
   background-color: #e4f1ff;
   overflow-x: hidden;
 `;
@@ -114,7 +120,11 @@ const Home = () => {
       </section>
       <section css={secondSection}>
         <h2 css={sectionH2Style}>メモブックが使われる理由</h2>
-        <AnimationItem emotionCss={reasonArea} elType="div" animation="fadeInDown" >
+        <AnimationItem
+          emotionCss={reasonArea}
+          elType="div"
+          animation="fadeInDown"
+        >
           <p>メモブックが使われる理由には2つあります。</p>
           <ul>
             <li>「整理による必要なメモを即時閲覧」 </li>
@@ -201,7 +211,11 @@ const Home = () => {
       </section>
       <section css={firstSection}>
         <h2 css={sectionH2Style}>よくある質問(クリックで開閉)</h2>
-        <AnimationItem elType="div" animation="fadeInDown" emotionCss={qaContainer}>
+        <AnimationItem
+          elType="div"
+          animation="fadeInDown"
+          emotionCss={qaContainer}
+        >
           <QaSection
             title="本当に無料で利用できますか？"
             text="メモブックは完全無料のアプリです。利用料金は一切かかりません。"

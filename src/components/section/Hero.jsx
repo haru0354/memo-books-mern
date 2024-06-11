@@ -23,7 +23,10 @@ const hero = css`
   border-radius: 4px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: auto;
+
+  @media (max-width: 768px) {
+    padding-top: 0px
+  }
 `;
 
 const formContainerStyle = css`

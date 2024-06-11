@@ -14,8 +14,12 @@ const customStyle = css`
 const containerStyle = css`
   width: 100%;
   height: 550px;
-  max-width: 1000px;
+  max-width: 800px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    height: 630px;
+  }
 `;
 
 const sliderImageStyle = css`
