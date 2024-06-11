@@ -63,7 +63,7 @@ const TwoColumnTextImage = ({
   inversion = false,
 }) => {
   return (
-    <AnimationItem elType="div" animation={animationStyle} css={container}>
+    <AnimationItem elType="div" animation={animationStyle} emotionCss={container}>
       <h3 css={h3Style}>{title}</h3>
       <div css={twoColumnContainer(inversion)}>
         <div css={leftColumn}>

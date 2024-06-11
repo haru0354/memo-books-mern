@@ -12,11 +12,13 @@ import AnimationItem from "../lib/AnimationItem";
 const firstSection = css`
   padding: 60px 10px;
   background-color: #fffdfb;
+  overflow-x: hidden;
 `;
 
 const secondSection = css`
   padding: 60px 10px;
   background-color: #e4f1ff;
+  overflow-x: hidden;
 `;
 
 const qaContainer = css`
