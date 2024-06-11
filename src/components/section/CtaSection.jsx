@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import Button from "../ui/Button";
+import AnimationItem from "../../lib/AnimationItem";
 
 const ctaSection = css`
   padding-top: 60px;
@@ -37,13 +38,13 @@ const CtaSection = ({ title, topText, centerText, bottomText, buttonText }) => {
 
   return (
     <section css={ctaSection}>
-      <div css={ctaContainer}>
+      <AnimationItem elType="div" animation="fadeInScale" emotionCss={ctaContainer} >
         <h2 css={sectionH2Style}>{title}</h2>
         <p>{topText}</p>
         <p>{centerText}</p>
         <p>{bottomText}</p>
         <Button onClick={scrollToForm} color="blue">{buttonText}</Button>
-      </div>
+      </AnimationItem>
     </section>
   );
 };

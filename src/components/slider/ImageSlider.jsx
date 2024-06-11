@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { css } from "@emotion/react";
 import NextArrow from "./NextArrow";
 import PrevArrow from "./PrevArrow";
+import AnimationItem from "../../lib/AnimationItem";
 
 const customStyle = css`
   li {
@@ -76,7 +77,7 @@ const ImageSlider = ({ items }) => {
   };
 
   return (
-    <div css={[containerStyle, customStyle]}>
+    <AnimationItem elType="div" animation="fadeInDown" emotionCss={[containerStyle, customStyle]} >
       <Slider {...settings}>
         {items.map((item) => (
           <div css={sliderContainer} key={item.h3}>
@@ -93,7 +94,7 @@ const ImageSlider = ({ items }) => {
           </div>
         ))}
       </Slider>
-    </div>
+    </AnimationItem>
   );
 };
 

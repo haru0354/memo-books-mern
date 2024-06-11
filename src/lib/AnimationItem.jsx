@@ -51,11 +51,24 @@ const AnimationItem = ({ emotionCss, children, elType, animation, delay }) => {
     },
   };
 
+  const fadeInScale = {
+    hidden: { opacity: 0, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: delay || 0,
+        duration: 0.8,
+      },
+    },
+  };
+
   const animations = {
     fadeInLeft,
     fadeInRight,
     fadeInDown,
     fadeInOpacity,
+    fadeInScale,
   };
 
   return (
