@@ -21,7 +21,7 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
-const AddChapterModal = ({ bookId, toggleAddModal, toggleHumBergerMenu }) => {
+const AddChapterModal = ({ bookId, toggleCloseAddModal, toggleHumBergerMenu }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.uid);
@@ -36,7 +36,7 @@ const AddChapterModal = ({ bookId, toggleAddModal, toggleHumBergerMenu }) => {
       const response = await dispatch(
         addChaptersAsync({ userId, bookId, formData })
       ).unwrap();
-      toggleAddModal();
+      toggleCloseAddModal();
       toggleHumBergerMenu();
       methods.reset();
       navigate(`/${bookId}/${response._id}`);
@@ -67,7 +67,7 @@ const AddChapterModal = ({ bookId, toggleAddModal, toggleHumBergerMenu }) => {
               <Button type="submit" color="blue">
                 追加する
               </Button>
-              <Button type="button" color="gray" onClick={toggleAddModal}>
+              <Button type="button" color="gray" onClick={toggleCloseAddModal}>
                 キャンセル
               </Button>
             </div>

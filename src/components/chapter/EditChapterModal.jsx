@@ -22,7 +22,7 @@ const EditChapterModal = ({
   bookId,
   chapterId,
   chapterTitle,
-  toggleEditModal,
+  toggleCloseEditModal,
 }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.uid);
@@ -37,7 +37,7 @@ const EditChapterModal = ({
       await dispatch(
         updateChaptersAsync({ userId, bookId, chapterId, formData })
       ).unwrap();
-      toggleEditModal();
+      toggleCloseEditModal();
     } catch (error) {
       console.error("編集に失敗しました", error);
     }
@@ -66,7 +66,7 @@ const EditChapterModal = ({
               <Button type="submit" color="blue">
                 保存する
               </Button>
-              <Button type="button" color="gray" onClick={toggleEditModal}>
+              <Button type="button" color="gray" onClick={toggleCloseEditModal}>
                 キャンセル
               </Button>
             </div>
@@ -76,7 +76,7 @@ const EditChapterModal = ({
           chapterTitle={chapterTitle}
           chapterId={chapterId}
           bookId={bookId}
-          toggleCloseEditModal={toggleEditModal}
+          toggleCloseEditModal={toggleCloseEditModal}
         />
       </div>
     </>

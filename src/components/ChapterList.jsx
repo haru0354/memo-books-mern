@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import AddChapterModal from "./chapter/AddChapterModal";
 import EditChapterModal from "./chapter/EditChapterModal";
-import { memo, useState } from "react";
+import { memo, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { modalBackStyle } from "../styles/styles";
@@ -137,30 +137,51 @@ const ChapterList = ({ bookId }) => {
   const [editingChapterId, setEditingChapterId] = useState(null);
   const [editingChapterTitle, setEditingChapterTitle] = useState("");
   const chapters = useSelector((state) => state.chapters.chapters);
+  const bodyRef = useRef(document.body);
+
+  const disableScroll = () => {
+    bodyRef.current.style.overflowY = "hidden";
+  };
+
+  const enableScroll = () => {
+    bodyRef.current.style.overflow = "auto";
+  };
 
   const toggleHumBergerMenu = () => {
     setIsHumBergerMenuOpen((prev) => !prev);
   };
 
-  const toggleAddModal = () => {
+  const toggleOpenAddModal = () => {
     setIsAddModalOpen((prev) => !prev);
+    disableScroll();
   };
 
-  const toggleCloseAddModal = (e) => {
+  const toggleCloseAddModal = () => {
+    setIsAddModalOpen((prev) => !prev);
+    enableScroll();
+  };
+
+  const closeAddModal = (e) => {
     if (e.target === e.currentTarget) {
-      toggleAddModal();
+      toggleCloseAddModal();
     }
   };
 
-  const toggleEditModal = (chapterId, chapterTitle) => {
+  const toggleOpenEditModal = (chapterId, chapterTitle) => {
     setEditingChapterId(chapterId);
     setEditingChapterTitle(chapterTitle);
     setIsEditModalOpen((prev) => !prev);
+    disableScroll()
   };
 
-  const toggleCloseEditModal = (e) => {
+  const toggleCloseEditModal = () => {
+    setIsEditModalOpen((prev) => !prev);
+    enableScroll()
+  };
+
+  const closeEditModal = (e) => {
     if (e.target === e.currentTarget) {
-      toggleEditModal();
+      toggleCloseEditModal();
     }
   };
 
@@ -182,14 +203,14 @@ const ChapterList = ({ bookId }) => {
                 </Link>
                 <EditImageButton
                   onClick={() =>
-                    toggleEditModal(chapter._id, chapter.chapter_title)
+                    toggleOpenEditModal(chapter._id, chapter.chapter_title)
                   }
                 />
               </li>
             );
           })}
         </ul>
-        <AddButton onClick={toggleAddModal} />
+        <AddButton onClick={toggleOpenAddModal} />
       </div>
       <button css={hamburgerButtonStyle} onClick={toggleHumBergerMenu}>
         {isHumBergerMenuOpen ? (
@@ -202,21 +223,21 @@ const ChapterList = ({ bookId }) => {
         )}
       </button>
       {isAddModalOpen && (
-        <div css={modalBackStyle} onClick={toggleCloseAddModal}>
+        <div css={modalBackStyle} onClick={closeAddModal}>
           <AddChapterModal
             bookId={bookId}
-            toggleAddModal={toggleAddModal}
+            toggleCloseAddModal={toggleCloseAddModal}
             toggleHumBergerMenu={toggleHumBergerMenu}
           />
         </div>
       )}
       {isEditModalOpen && (
-        <div css={modalBackStyle} onClick={toggleCloseEditModal}>
+        <div css={modalBackStyle} onClick={closeEditModal}>
           <EditChapterModal
             bookId={bookId}
             chapterId={editingChapterId}
             chapterTitle={editingChapterTitle}
-            toggleEditModal={toggleEditModal}
+            toggleCloseEditModal={toggleCloseEditModal}
           />
         </div>
       )}
