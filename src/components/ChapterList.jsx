@@ -6,6 +6,9 @@ import EditChapterModal from "./chapter/EditChapterModal";
 import { memo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { modalBackStyle } from "../styles/styles";
+import AddButton from "./ui/AddButton";
+import EditImageButton from "./ui/EditImageButton";
 
 const sidebarStyles = css`
   position: fixed;
@@ -40,10 +43,8 @@ const sidebarStyles = css`
   }
 
   @media (max-width: 768px) {
-    width: 100%;
-    max-width: 90vw;
     transform: translateX(-100%);
-    
+
     &::-webkit-transform {
       transform: translateX(-100%);
     }
@@ -130,16 +131,44 @@ const sidebarClosed = css`
 `;
 
 const ChapterList = ({ bookId }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isHumBergerMenuOpen, setIsHumBergerMenuOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingChapterId, setEditingChapterId] = useState(null);
+  const [editingChapterTitle, setEditingChapterTitle] = useState("");
   const chapters = useSelector((state) => state.chapters.chapters);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+  const toggleHumBergerMenu = () => {
+    setIsHumBergerMenuOpen((prev) => !prev);
+  };
+
+  const toggleAddModal = () => {
+    setIsAddModalOpen((prev) => !prev);
+  };
+
+  const toggleCloseAddModal = (e) => {
+    if (e.target === e.currentTarget) {
+      toggleAddModal();
+    }
+  };
+
+  const toggleEditModal = (chapterId, chapterTitle) => {
+    setEditingChapterId(chapterId);
+    setEditingChapterTitle(chapterTitle);
+    setIsEditModalOpen((prev) => !prev);
+  };
+
+  const toggleCloseEditModal = (e) => {
+    if (e.target === e.currentTarget) {
+      toggleEditModal();
+    }
   };
 
   return (
     <>
-      <div css={[sidebarStyles, isOpen ? sidebarOpen : sidebarClosed]}>
+      <div
+        css={[sidebarStyles, isHumBergerMenuOpen ? sidebarOpen : sidebarClosed]}
+      >
         <Link to="/books">
           <p css={booksBackStyle}>本の一覧へ</p>
         </Link>
@@ -151,19 +180,19 @@ const ChapterList = ({ bookId }) => {
                 <Link to={`/${bookId}/${chapter._id}`} css={linkStyles}>
                   {chapter.chapter_title}
                 </Link>
-                <EditChapterModal
-                  bookId={bookId}
-                  chapterId={chapter._id}
-                  chapterTitle={chapter.chapter_title}
+                <EditImageButton
+                  onClick={() =>
+                    toggleEditModal(chapter._id, chapter.chapter_title)
+                  }
                 />
               </li>
             );
           })}
         </ul>
-        <AddChapterModal />
+        <AddButton onClick={toggleAddModal} />
       </div>
-      <button css={hamburgerButtonStyle} onClick={toggleSidebar}>
-        {isOpen ? (
+      <button css={hamburgerButtonStyle} onClick={toggleHumBergerMenu}>
+        {isHumBergerMenuOpen ? (
           <FontAwesomeIcon icon={faXmark} />
         ) : (
           <>
@@ -172,6 +201,25 @@ const ChapterList = ({ bookId }) => {
           </>
         )}
       </button>
+      {isAddModalOpen && (
+        <div css={modalBackStyle} onClick={toggleCloseAddModal}>
+          <AddChapterModal
+            bookId={bookId}
+            toggleAddModal={toggleAddModal}
+            toggleHumBergerMenu={toggleHumBergerMenu}
+          />
+        </div>
+      )}
+      {isEditModalOpen && (
+        <div css={modalBackStyle} onClick={toggleCloseEditModal}>
+          <EditChapterModal
+            bookId={bookId}
+            chapterId={editingChapterId}
+            chapterTitle={editingChapterTitle}
+            toggleEditModal={toggleEditModal}
+          />
+        </div>
+      )}
     </>
   );
 };
