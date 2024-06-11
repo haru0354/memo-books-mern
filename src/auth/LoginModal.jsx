@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/slice/userSlice";
 import { FormProvider, useForm } from "react-hook-form";
-import { formStyle, modalBackStyle } from "../styles/styles";
-import { css, keyframes } from "@emotion/react";
+import { modalBackStyle } from "../styles/styles";
+import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
 import TextInput from "../components/ui/TextInput";
 import AuthButton from "../components/ui/AuthButton";
@@ -70,6 +70,12 @@ const menuTextStyle = css`
     color: #e3e3e3;
     background-color: #5c5c5c;
   }
+`;
+
+const formStyle = css`
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 `;
 
 const LoginModal = () => {

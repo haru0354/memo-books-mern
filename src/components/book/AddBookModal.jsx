@@ -45,9 +45,11 @@ const AddBookModal = () => {
         },
       ],
     };
-    
+
     try {
-      const response = await dispatch(addBookAsync({userId, formData})).unwrap()
+      const response = await dispatch(
+        addBookAsync({ userId, formData })
+      ).unwrap();
 
       toggleCloseModal();
       navigate(`/${response._id}/${response.chapters[0]._id}`);
