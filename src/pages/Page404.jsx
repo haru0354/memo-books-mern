@@ -16,7 +16,7 @@ const Page404 = () => {
   return (
     <>
       <Helmet>
-        <title>404NotFound | メモブック</title>
+        <title>404NotFound | メモブックノート</title>
         <meta
           name="description"
           content="メモブックの404ページです。このページは存在しないか削除された可能性があります。"
