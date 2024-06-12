@@ -6,6 +6,7 @@ import {
   useCallback,
   useEffect,
 } from "react";
+import AnimationItem from "../lib/AnimationItem";
 
 const ToastStyle = css`
     position: fixed;
@@ -46,9 +47,9 @@ export const ToastProvider = ({ children }) => {
     <ToastContext.Provider value={showToast}>
       {children}
       {toast && (
-        <div css={ToastStyle}>
+        <AnimationItem elType="div" animation="fadeInUp" emotionCss={ToastStyle} >
           {toast.text}
-        </div>
+        </AnimationItem>
       )}
     </ToastContext.Provider>
   );

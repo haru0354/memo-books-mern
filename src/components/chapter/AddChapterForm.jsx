@@ -1,14 +1,13 @@
 import { css } from "@emotion/react";
-import { RightContent, errorMessageStyle } from "../styles/styles";
-import { formStyle } from "../styles/styles";
+import { RightContent, errorMessageStyle } from "../../styles/styles";
+import { formStyle } from "../../styles/styles";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addChapter } from "../store/slice/chaptersSlice";
-import chapterApi from "../api/chapter";
-import { useState } from "react";
-import TextInput from "./ui/TextInput";
-import Button from "./ui/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { addChaptersAsync } from "../../store/slice/chaptersSlice";
+import TextInput from "../ui/TextInput";
+import Button from "../ui/Button";
 import { FormProvider, useForm } from "react-hook-form";
+import { useToast } from "../../context/ToastContext";
 
 const formContainerStyle = css`
   margin: 4rem 4rem;
@@ -22,22 +21,22 @@ const AddChapterForm = ({ bookId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const methods = useForm();
-
+  const userId = useSelector((state) => state.user.user.uid);
+  const showToast = useToast();
   const onSubmit = async (data) => {
     const formData = {
       chapter_title: data.title,
     };
 
     try {
-      const response = await chapterApi.post(bookId, formData);
-
-      if (!response || !response._id) {
-        throw new Error("フォームの送信に失敗しました。");
-      }
-
-      dispatch(addChapter(response));
+      const response = await dispatch(
+        addChaptersAsync({ userId, bookId, formData })
+      ).unwrap();
+      showToast("チャプターが追加されました");
+      methods.reset();
       navigate(`/${bookId}/${response._id}`);
     } catch (error) {
+      showToast("チャプターの追加に失敗しました");
       console.error("フォームの送信に失敗しました。", error);
     }
   };
