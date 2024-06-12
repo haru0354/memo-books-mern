@@ -67,7 +67,7 @@ const userSlice = createSlice({
       .addCase(deleteUserAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-        if (action.payload === "再認証が必要です。") {
+        if (action.payload === "再認証が必要です") {
           state.againAuth = true;
         }
       })
@@ -158,7 +158,7 @@ export const deleteUserAsync = createAsyncThunk(
       return "アカウントが削除されました。";
     } catch (error) {
       if (error.code === "auth/requires-recent-login") {
-        return rejectWithValue("再認証をお願いします。");
+        return rejectWithValue("再認証が必要です");
       }
 
       return rejectWithValue("アカウントの削除に失敗しました。");

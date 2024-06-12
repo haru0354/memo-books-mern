@@ -23,6 +23,7 @@ const againAuthText = css`
 const AgainAuth = ({ handleDeleteUser }) => {
   const methods = useForm();
   const dispatch = useDispatch();
+  const { status, error } = useSelector((state) => state.user);
 
   const handleAgainAuth = async () => {
     const result = await dispatch(againAuthAsync(password));
@@ -60,6 +61,8 @@ const AgainAuth = ({ handleDeleteUser }) => {
           </Button>
         </form>
       </FormProvider>
+      {status === 'loading' && <p>再認証中...</p>}
+      {error && <p css={errorMessageStyle}>{error}</p>}
       <p css={againAuthText}>
         一定期間「ログインボタンによるログイン」を行っていないと、アカウント所有権の確認に、パスワード入力による再認証が必要となる場合があります。
       </p>
