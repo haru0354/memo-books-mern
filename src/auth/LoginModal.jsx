@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
 import AnimationItem from "../lib/AnimationItem";
+import { useToast } from "../context/ToastContext";
 
 const formContainerStyle = css`
   width: 100%;
@@ -85,6 +86,8 @@ const LoginModal = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
+  const showToast = useToast();
+
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
@@ -102,10 +105,11 @@ const LoginModal = () => {
       await dispatch(login({ email, password }));
 
       toggleCloseModal();
+      showToast("ログインに成功しました")
       navigate("/books");
     } catch (error) {
+      showToast("ログインに失敗しました")
       console.error("ログインに失敗しました", error);
-      console.log("ログインに失敗しました");
     }
   };
 

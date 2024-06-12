@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateChaptersAsync } from "../../store/slice/chaptersSlice";
 import DeleteChapterModal from "./DeleteChapterModal";
 import { FormProvider, useForm } from "react-hook-form";
+import { useToast } from "../../context/ToastContext";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -27,6 +28,7 @@ const EditChapterModal = ({
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.uid);
   const methods = useForm();
+  const showToast = useToast();
 
   const onSubmit = async (data) => {
     const formData = {
@@ -38,8 +40,10 @@ const EditChapterModal = ({
         updateChaptersAsync({ userId, bookId, chapterId, formData })
       ).unwrap();
       toggleCloseEditModal();
+      showToast("チャプターを編集しました")
     } catch (error) {
-      console.error("編集に失敗しました", error);
+      showToast("チャプターの編集に失敗しました")
+      console.error("チャプターの編集に失敗しました", error);
     }
   };
 

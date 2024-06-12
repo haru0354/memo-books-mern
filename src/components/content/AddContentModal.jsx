@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Textarea from "../ui/Textarea";
 import { addContentsAsync } from "../../store/slice/contentsSlice";
 import { FormProvider, useForm } from "react-hook-form";
+import { useToast } from "../../context/ToastContext";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -26,6 +27,7 @@ const AddContentModal = ({ bookId, chapterId }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.uid)
   const methods = useForm();
+  const showToast = useToast();
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
@@ -45,9 +47,11 @@ const AddContentModal = ({ bookId, chapterId }) => {
     try {
       await dispatch(addContentsAsync({userId, bookId, chapterId, formData})).unwrap();
       toggleCloseModal();
+      showToast("メモが追加されました")
       methods.reset();
     } catch (error) {
-      console.error("フォームの送信に失敗しました。", error);
+      showToast("メモの追加に失敗しました")
+      console.error("メモの追加に失敗しました。", error);
     }
   };
 

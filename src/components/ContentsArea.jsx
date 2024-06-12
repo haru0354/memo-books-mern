@@ -13,6 +13,7 @@ import DeleteContentModal from "./content/DeleteContentModal";
 import EditImageButton from "./ui/EditImageButton";
 import { FormProvider, useForm } from "react-hook-form";
 import { splitAndNewLines } from "../lib/splitAndNewLines";
+import { useToast } from "../context/ToastContext";
 
 const tableOfContentsStyle = css`
   width: 90%;
@@ -93,6 +94,7 @@ const ContentsArea = ({ bookId, chapterId }) => {
     return chapter ? chapter.chapter_title : null;
   });
   const methods = useForm();
+  const showToast = useToast();
 
   if (!chapterTitle) {
     return <p>チャプターが見つかりませんでした</p>;
@@ -130,8 +132,10 @@ const ContentsArea = ({ bookId, chapterId }) => {
 
       methods.reset();
       toggleEditContents(contentId);
+      showToast("メモの編集が完了しました")
     } catch (error) {
-      console.error("コンテンツの編集に失敗しました。");
+      showToast("メモの編集に失敗しました")
+      console.error("メモの編集に失敗しました。", error);
     }
   };
 

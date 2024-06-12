@@ -54,10 +54,11 @@ const AddBookModal = () => {
       const response = await dispatch(
         addBookAsync({ userId, formData })
       ).unwrap();
-      showToast("本が追加されました")
       toggleCloseModal();
+      showToast("本が追加されました")
       navigate(`/${response._id}/${response.chapters[0]._id}`);
     } catch (error) {
+      showToast("本の追加に失敗しました")
       console.error("本の追加に失敗しました。", error);
     }
   };

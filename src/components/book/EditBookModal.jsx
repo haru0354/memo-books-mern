@@ -12,6 +12,7 @@ import Button from "../../components/ui/Button";
 import { updateBookAsync } from "../../store/slice/booksSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRef, useState } from "react";
+import { useToast } from "../../context/ToastContext";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -30,6 +31,7 @@ const EditBookModal = ({ bookId, bookTitle }) => {
   const methods = useForm();
   const userId = useSelector((state) => state.user.user.uid);
   const bodyRef = useRef(document.body);
+  const showToast = useToast();
 
   const disableScroll = () => {
     bodyRef.current.style.overflowY = "hidden";
@@ -47,7 +49,9 @@ const EditBookModal = ({ bookId, bookTitle }) => {
     try {
       await dispatch(updateBookAsync({ userId, bookId, formData })).unwrap();
       toggleCloseEditModal();
+      showToast("編集が完了しました")
     } catch (error) {
+      showToast("編集に失敗しました。")
       console.error("編集に失敗しました", error);
     }
   };

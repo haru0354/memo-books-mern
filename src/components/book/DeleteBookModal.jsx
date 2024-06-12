@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBookAsync } from "../../store/slice/booksSlice";
+import { useToast } from "../../context/ToastContext"
 
 const pStyle = css`
   font-weight: 600;
@@ -31,6 +32,7 @@ const DeleteBookModal = ({ bookTitle, bookId, toggleCloseEditModal }) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.uid);
   const bodyRef = useRef(document.body);
+  const showToast = useToast();
 
   const disableScroll = () => {
     bodyRef.current.style.overflowY = "hidden";
@@ -62,8 +64,10 @@ const DeleteBookModal = ({ bookTitle, bookId, toggleCloseEditModal }) => {
 
       toggleCloseEditModal();
       toggleCloseModal();
-    } catch {
-      console.error("本の削除に失敗しました。");
+      showToast("本が削除されました")
+    } catch (error) {
+      showToast("本の削除に失敗しました。")
+      console.error("本の削除に失敗しました。", error);
     }
   };
 

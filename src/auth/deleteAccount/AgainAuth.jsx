@@ -5,6 +5,7 @@ import Button from "../../components/ui/Button";
 import { FormProvider, useForm } from "react-hook-form";
 import { css } from "@emotion/react";
 import { errorMessageStyle, formStyle } from "../../styles/styles";
+import { useToast } from "../../context/ToastContext";
 
 const container = css`
   margin: 0 20px;
@@ -23,19 +24,17 @@ const againAuthText = css`
 const AgainAuth = ({ handleDeleteUser }) => {
   const methods = useForm();
   const dispatch = useDispatch();
+  const showToast = useToast();
   const { status, error } = useSelector((state) => state.user);
 
   const handleAgainAuth = async () => {
     const result = await dispatch(againAuthAsync(password));
     if (againAuthAsync.fulfilled.match(result)) {
-      // トーストの実装に切り替える
-      alert("再認証が成功しました。");
       if (handleDeleteUser) {
         handleDeleteUser();
       }
     } else {
-      // トーストの実装に切り替える
-      alert(result.payload || "再認証に失敗しました。");
+      showToast(result.payload || "再認証に失敗しました。")
     }
   };
 

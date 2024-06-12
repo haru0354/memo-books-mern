@@ -5,6 +5,7 @@ import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteChaptersAsync } from "../../store/slice/chaptersSlice";
+import { useToast } from "../../context/ToastContext";
 
 const pStyle = css`
   font-weight: 600;
@@ -36,6 +37,7 @@ const DeleteChapterModal = ({
   const [isDeleteModalOpen, setIdDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const showToast = useToast();
   const userId = useSelector((state) => state.user.user.uid);
 
   const bodyRef = useRef(document.body);
@@ -73,13 +75,15 @@ const DeleteChapterModal = ({
 
       toggleCloseEditModal();
       toggleCloseModal();
+      showToast("チャプターを削除しました")
       if (response.redirectedUrl) {
         navigate(`/${bookId}/${response.redirectedUrl}`);
       } else {
         navigate(`/${bookId}`);
       }
     } catch (error) {
-      console.error("チャプターの削除に失敗しました。");
+      showToast("チャプターの削除に失敗しました。")
+      console.error("チャプターの削除に失敗しました。", error);
     }
   };
   

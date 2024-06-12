@@ -9,6 +9,7 @@ import AgainAuth from "./AgainAuth";
 import Button from "../../components/ui/Button";
 import { useState } from "react";
 import { css } from "@emotion/react";
+import { useToast } from "../../context/ToastContext";
 
 const centerStyle = css`
   padding-top: 10px;
@@ -31,6 +32,7 @@ const textRed = css`
 const DeleteUser = () => {
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const dispatch = useDispatch();
+  const showToast = useToast();
   const { status, error, againAuth } = useSelector((state) => state.user);
 
   const toggleDeleteModal = () => {
@@ -44,7 +46,10 @@ const DeleteUser = () => {
   };
 
   const handleDeleteUser = () => {
-    dispatch(deleteUserAsync());
+    const result = dispatch(deleteUserAsync());
+    if (deleteUserAsync.fulfilled.match(result)) {
+      showToast("アカウントが削除されました");
+    }
   };
 
   return (
