@@ -9,6 +9,7 @@ const Layout = () => {
   switch (location.pathname) {
     case "/":
     case "/books":
+    case "/setting":  
       variant = "oneColumn";
       break;
     default:
@@ -22,7 +23,10 @@ const Layout = () => {
     showHeader = false;
   }
 
-  if (matchPath({ path: "/books" }, location.pathname)) {
+  if (
+    matchPath("/books", location.pathname) ||
+    matchPath("/setting", location.pathname)
+  ) {
     showHeader = true;
   }
 

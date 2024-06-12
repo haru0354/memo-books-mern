@@ -1,27 +1,29 @@
 import { css } from "@emotion/react";
 
-// 1カラム時のmainタグデザイン
+// 1カラム時のデザイン
 export const main1ColumnStyle = css`
   width: 100%;
   max-width: 1140px;
   margin: 0px auto;
 
   h1 {
-    font-size: 2rem;
+    font-size: 30px;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 80px;
     margin-top: 0;
-  }
-
-  h2 {
-    word-wrap: break-word;
-    padding-top: 2rem;
-    padding-left: 1.7rem;
-    font-size: 1.2rem;
   }
 `;
 
-// 2カラム時のmainタグデザイン
+// 1カラム時のコンテナ
+export const oneColumnContainerStyle = css`
+  background-color: white;
+  margin: 60px 16px;
+  padding: 60px 20px;
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
+`;
+
+// 2カラム時のタグデザイン
 export const main2ColumnStyle = css`
   display: flex;
   background-color: #fffaf1;

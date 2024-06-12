@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../store/slice/booksSlice";
 import { css } from "@emotion/react";
-import { main1ColumnStyle } from "../styles/styles";
+import { main1ColumnStyle, oneColumnContainerStyle } from "../styles/styles";
 import AddBookModal from "../components/book/AddBookModal";
 import EditBookModal from "../components/book/EditBookModal";
-import DeleteUser from "../auth/deleteAccount/DeleteUser";
 
 const bookContainerStyle = css`
   padding: 0 1.8rem;
@@ -83,13 +82,11 @@ const loadingStyle = css`
   text-align: center;
 `;
 
-const containerStyle = css`
-  text-align: center;
-  background-color: white;
-  margin: 60px 16px;
-  padding: 60px 20px;
-  border: 1px solid #d7d7d7;
-  border-radius: 4px;
+const h2Style = css`
+  word-wrap: break-word;
+  padding-top: 2rem;
+  padding-left: 1.7rem;
+  font-size: 1.2rem;
 `;
 
 const Books = () => {
@@ -125,7 +122,7 @@ const Books = () => {
         />
       </Helmet>
       <div css={main1ColumnStyle}>
-        <div css={containerStyle}>
+        <div css={oneColumnContainerStyle}>
           <h1>作成したメモブックノート</h1>
           <div css={BooksAreaStyle}>
             {books.map((book) => (
@@ -139,7 +136,7 @@ const Books = () => {
                 >
                   <div css={bookStyle}>
                     <div css={bookTitleStyle}>
-                      <h2>{book.title}</h2>
+                      <h2 css={h2Style}>{book.title}</h2>
                     </div>
                   </div>
                 </Link>
@@ -154,8 +151,6 @@ const Books = () => {
           </div>
         </div>
       </div>
-      <DeleteUser />
-
     </>
   );
 };

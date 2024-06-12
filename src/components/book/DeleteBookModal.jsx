@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import Button from "../ui/Button";
 import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBookAsync } from "../../store/slice/booksSlice";
 
@@ -29,7 +28,6 @@ const buttonContainerStyle = css`
 
 const DeleteBookModal = ({ bookTitle, bookId, toggleCloseEditModal }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.uid);
   const bodyRef = useRef(document.body);

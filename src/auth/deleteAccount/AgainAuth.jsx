@@ -3,6 +3,22 @@ import { againAuthAsync } from "../../store/slice/userSlice";
 import TextInput from "../../components/ui/TextInput";
 import Button from "../../components/ui/Button";
 import { FormProvider, useForm } from "react-hook-form";
+import { css } from "@emotion/react";
+import { errorMessageStyle, formStyle } from "../../styles/styles";
+
+const container = css`
+  margin: 0 20px;
+  border: 1px dashed gray;
+`;
+
+const addButtonStyle = css`
+  margin: 0 auto;
+`;
+
+const againAuthText = css`
+  margin: 10px 20px;
+  font-size: 14px;
+`;
 
 const AgainAuth = ({ handleDeleteUser }) => {
   const methods = useForm();
@@ -23,9 +39,9 @@ const AgainAuth = ({ handleDeleteUser }) => {
   };
 
   return (
-    <div>
+    <div css={container}>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(handleAgainAuth)}>
+        <form css={formStyle} onSubmit={methods.handleSubmit(handleAgainAuth)}>
           <TextInput
             label="パスワード"
             placeholder="8～12文字で入力してください"
@@ -39,11 +55,14 @@ const AgainAuth = ({ handleDeleteUser }) => {
               {methods.formState.errors.password.message}
             </span>
           )}
-          <Button type="submit" color="blue">
+          <Button type="submit" color="blue" addCss={addButtonStyle}>
             再認証
           </Button>
         </form>
       </FormProvider>
+      <p css={againAuthText}>
+        一定期間「ログインボタンによるログイン」を行っていないと、アカウント所有権の確認に、パスワード入力による再認証が必要となる場合があります。
+      </p>
     </div>
   );
 };

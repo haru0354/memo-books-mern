@@ -147,6 +147,11 @@ const LoginModal = () => {
                   メモブックの一覧
                 </li>
               </Link>
+              <Link to="/setting">
+                <li css={menuTextStyle} onClick={toggleOpenMenu}>
+                  設定
+                </li>
+              </Link>
               <li css={menuTextStyle} onClick={onLogout}>
                 ログアウト
               </li>

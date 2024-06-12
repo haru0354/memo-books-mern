@@ -158,7 +158,7 @@ export const deleteUserAsync = createAsyncThunk(
       return "アカウントが削除されました。";
     } catch (error) {
       if (error.code === "auth/requires-recent-login") {
-        return rejectWithValue("削除するのに再認証が必要となります。再認証ボタンを押してください。");
+        return rejectWithValue("再認証をお願いします。");
       }
 
       return rejectWithValue("アカウントの削除に失敗しました。");
@@ -181,7 +181,7 @@ export const againAuthAsync = createAsyncThunk(
         await user.reauthenticateWithCredential(credential);
         return "再認証に成功しました。";
       } catch (error) {
-        return rejectWithValue("パスワードが一致しませんでした。");
+        return rejectWithValue("再認証に失敗しました。");
       }
     } else {
       return rejectWithValue("再認証でエラーが発生しました。");
