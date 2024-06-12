@@ -12,6 +12,7 @@ const userSlice = createSlice({
     user: null,
     status: "idle",
     error: null,
+    againAuth: false,
   },
   reducers: {
     setUser(state, action) {
@@ -54,6 +55,33 @@ const userSlice = createSlice({
       .addCase(logout.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(deleteUserAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteUserAsync.fulfilled, (state) => {
+        state.status = "succeeded";
+        state.error = null;
+        state.againAuth = false;
+      })
+      .addCase(deleteUserAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+        if (action.payload === "再認証が必要です。") {
+          state.againAuth = true;
+        }
+      })
+      .addCase(againAuthAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(againAuthAsync.fulfilled, (state) => {
+        state.status = "succeeded";
+        state.error = null;
+        state.AgainAuth = false;
+      })
+      .addCase(againAuthAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
       });
   },
 });
@@ -119,5 +147,46 @@ export const logout = createAsyncThunk("user/logout", async () => {
     throw error;
   }
 });
+
+export const deleteUserAsync = createAsyncThunk(
+  'user/deleteUserAsync',
+  async (_, { rejectWithValue }) => {
+    const user = auth.currentUser;
+
+    try {
+      await user.delete();
+      return "アカウントが削除されました。";
+    } catch (error) {
+      if (error.code === "auth/requires-recent-login") {
+        return rejectWithValue("削除するのに再認証が必要となります。再認証ボタンを押してください。");
+      }
+
+      return rejectWithValue("アカウントの削除に失敗しました。");
+    }
+  }
+);
+
+export const againAuthAsync = createAsyncThunk(
+  'user/againAuthAsync',
+  async (password, { rejectWithValue }) => {
+    const user = auth.currentUser;
+
+    if (user && password) {
+      const credential = auth.EmailAuthProvider.credential(
+        user.email,
+        password
+      );
+
+      try {
+        await user.reauthenticateWithCredential(credential);
+        return "再認証に成功しました。";
+      } catch (error) {
+        return rejectWithValue("パスワードが一致しませんでした。");
+      }
+    } else {
+      return rejectWithValue("再認証でエラーが発生しました。");
+    }
+  }
+);
 
 export default userSlice.reducer;

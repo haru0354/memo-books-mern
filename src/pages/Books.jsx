@@ -7,6 +7,7 @@ import { css } from "@emotion/react";
 import { main1ColumnStyle } from "../styles/styles";
 import AddBookModal from "../components/book/AddBookModal";
 import EditBookModal from "../components/book/EditBookModal";
+import DeleteUser from "../auth/deleteAccount/DeleteUser";
 
 const bookContainerStyle = css`
   padding: 0 1.8rem;
@@ -153,6 +154,8 @@ const Books = () => {
           </div>
         </div>
       </div>
+      <DeleteUser />
+
     </>
   );
 };
