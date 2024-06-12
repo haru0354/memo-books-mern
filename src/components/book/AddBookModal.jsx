@@ -13,6 +13,7 @@ import {
 import { FormProvider, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addBookAsync } from "../../store/slice/booksSlice";
+import { useToast } from "../../context/ToastContext";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -28,6 +29,8 @@ const AddBookModal = () => {
   const bodyRef = useRef(document.body);
   const userId = useSelector((state) => state.user.user.uid)
   const dispatch = useDispatch();
+  const showToast = useToast();
+
   const disableScroll = () => {
     bodyRef.current.style.overflowY = "hidden";
   };
@@ -51,7 +54,7 @@ const AddBookModal = () => {
       const response = await dispatch(
         addBookAsync({ userId, formData })
       ).unwrap();
-
+      showToast("本が追加されました")
       toggleCloseModal();
       navigate(`/${response._id}/${response.chapters[0]._id}`);
     } catch (error) {
