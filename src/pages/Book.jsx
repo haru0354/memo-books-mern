@@ -37,12 +37,12 @@ const Book = () => {
   }
 
   return (
-    <main css={main2ColumnStyle}>
+    <div css={main2ColumnStyle}>
       <ChapterList
         bookId={bookId}
       />      
       <AddChapterForm bookId={bookId}/>
-    </main>
+    </div>
   );
 };
 

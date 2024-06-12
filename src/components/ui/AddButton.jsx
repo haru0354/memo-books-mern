@@ -7,6 +7,7 @@ const normalButtonStyle = css`
   width: 100%;
   height: 35px;
   background-color: #e3e3e3;
+  margin-bottom: 40px;
 
   &:hover {
     background-color: #5c5c5c;
@@ -19,19 +20,18 @@ const normalButtonStyle = css`
 `;
 
 const bookButtonStyle = css`
+  position: relative;
   cursor: pointer;
-  font-size: 1.4rem;
-  font-weight: 500;
   width: 180px;
   height: 240px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #e3e3e3;
   border: none;
-  background-color: #e3e3e3;
-  color: black;
-  position: relative;
+  border-bottom-left-radius: 10px;
+  background-color: #9d9b9b;
   transition: all 0.3s ease;
   box-shadow: 0 18px 23px rgba(0, 0, 0, 0.2);
-  border-bottom-left-radius: 10px;
-  margin-right: 4rem;
 
   &:hover {
     transform: translateY(-10px);

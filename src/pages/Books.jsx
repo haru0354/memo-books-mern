@@ -12,6 +12,14 @@ const bookContainerStyle = css`
   padding: 0 1.8rem;
 `;
 
+const addBookContainerStyle = css`
+  background-color: white;
+  padding-bottom: 52px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 4px;
+`;
+
 const bookTitleStyle = css`
   padding-right: 15px;
   text-align: center;
@@ -30,7 +38,7 @@ const bookStyle = css`
   height: 240px;
   margin-bottom: 1rem;
   border: none;
-  color: black;
+  color: rgb(55 65 81);
   background: #f8f9fa;
   position: relative;
   transition: all 0.3s ease;
@@ -70,12 +78,17 @@ const editButtonContainerStyle = css`
   flex-direction: column;
 `;
 
-const addBookContainerStyle = css`
+const loadingStyle = css`
   text-align: center;
 `;
 
-const loadingStyle = css`
-  text-align: center;
+const containerStyle = css`
+  background-color: white;
+  margin: 2rem 0;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border: 1px solid #d7d7d7;
+  border-radius: 4px;
 `;
 
 const Books = () => {
@@ -101,34 +114,36 @@ const Books = () => {
   }
 
   return (
-    <main css={main1ColumnStyle}>
-      <h1>メモブックの一覧</h1>
-      <div css={BooksAreaStyle}>
-        {books.map((book) => (
-          <div css={bookContainerStyle} key={book._id}>
-            <Link
-              to={
-                book.firstChapterId
-                  ? `/${book._id}/${book.firstChapterId}`
-                  : `/${book._id}`
-              }
-            >
-              <div css={bookStyle}>
-                <div css={bookTitleStyle}>
-                  <h2>{book.title}</h2>
+    <div css={main1ColumnStyle}>
+      <div css={containerStyle}>
+        <h1>メモブックの一覧</h1>
+        <div css={BooksAreaStyle}>
+          {books.map((book) => (
+            <div css={bookContainerStyle} key={book._id}>
+              <Link
+                to={
+                  book.firstChapterId
+                    ? `/${book._id}/${book.firstChapterId}`
+                    : `/${book._id}`
+                }
+              >
+                <div css={bookStyle}>
+                  <div css={bookTitleStyle}>
+                    <h2>{book.title}</h2>
+                  </div>
                 </div>
+              </Link>
+              <div css={editButtonContainerStyle}>
+                <EditBookModal bookTitle={book.title} bookId={book._id} />
               </div>
-            </Link>
-            <div css={editButtonContainerStyle}>
-              <EditBookModal bookTitle={book.title} bookId={book._id} />
             </div>
+          ))}
+          <div css={addBookContainerStyle}>
+            <AddBookModal />
           </div>
-        ))}
+        </div>
       </div>
-      <div css={addBookContainerStyle}>
-        <AddBookModal />
-      </div>
-    </main>
+    </div>
   );
 };
 

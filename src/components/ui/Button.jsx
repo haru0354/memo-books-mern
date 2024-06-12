@@ -19,7 +19,7 @@ const buttonStyle = (color) => css`
     : "#FFFFFF"};
 
   &:hover {
-    color: black;
+    color: rgb(55 65 81);
     background-color: white;
     border: 1px solid;
     border-color: ${color === "blue"

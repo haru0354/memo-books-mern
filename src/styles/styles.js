@@ -2,13 +2,16 @@ import { css } from "@emotion/react";
 
 // 1カラム時のmainタグデザイン
 export const main1ColumnStyle = css`
-  width: 1080px;
-  margin: 40px auto;
+  width: 100%;
+  max-width: 1110px;
+  margin: 0px auto;
+  padding: 0 15px;
 
   h1 {
     font-size: 2rem;
     text-align: center;
     margin-bottom: 2rem;
+    margin-top: 0;
   }
 
   h2 {
@@ -22,15 +25,18 @@ export const main1ColumnStyle = css`
 // 2カラム時のmainタグデザイン
 export const main2ColumnStyle = css`
   display: flex;
-  flex: 1;
+  background-color: #fffaf1;
+
 `;
 
 // 2カラム時のライトカラムレイアウト
 export const RightContent = css`
-  flex: 1;
-  max-width: 1000px;
-  margin-left: 80px;
-  padding: 20px;
+  max-width: 1060px;
+  width: 100%;
+  min-height: 100vh;
+  margin-left: 220px;
+  padding-left: 60px;
+  padding-right: 20px;
   background-color: #ffffff;
 
   h1 {

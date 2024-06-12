@@ -6,28 +6,27 @@ import Page404 from "./pages/Page404";
 import Books from "./pages/Books";
 import Book from "./pages/Book";
 import Chapter from "./pages/Chapter";
-import EditBook from "./pages/EditBook";
 import EditChapter from "./pages/EditChapter";
+import Layout from "./components/Layout";
 
 const globalStyles = css`
-  #root {
-    font-family: Inter, sans-serif;
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
+
+  body {
+    font-family: "Noto Sans JP", sans-serif;
+    margin: 0;
+    color: rgb(55 65 81);
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    background-color: #fffaf1;
 
     ul {
       list-style-type: none;
-      padding: 0;
     }
 
     a {
       text-decoration: none;
     }
-  }
-
-  body {
-    margin: 0;
   }
 `;
 
@@ -36,12 +35,14 @@ function App() {
     <BrowserRouter>
       <Global styles={globalStyles} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/books" element={<Books />} />
-        <Route path="/:bookId" element={<Book />} />
-        <Route path="/:bookId/:chapterId" element={<Chapter />} />
-        <Route path="/edit/:bookId/:chapterId" element={<EditChapter />} />
-        <Route path="/*" element={<Page404 />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/books" element={<Books />} />
+          <Route path="/:bookId" element={<Book />} />
+          <Route path="/:bookId/:chapterId" element={<Chapter />} />
+          <Route path="/edit/:bookId/:chapterId" element={<EditChapter />} />
+          <Route path="*" element={<Page404 />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

@@ -44,7 +44,7 @@ const Chapter = () => {
   }
 
   return (
-    <main css={main2ColumnStyle}>
+    <div css={main2ColumnStyle}>
       <ChapterList
         bookId={bookId}
       />
@@ -52,7 +52,7 @@ const Chapter = () => {
         bookId={bookId}
         chapterId={chapterId}
       />
-    </main>
+    </div>
   );
 };
 

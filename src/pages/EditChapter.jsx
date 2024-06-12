@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import chapterApi from "../api/chapter";
 import { Link, useParams } from "react-router-dom";
-import ContentsArea from "../components/ContentsArea";
 import ChapterList from "../components/ChapterList";
 import { RightContent, formStyle, main2ColumnStyle } from "../styles/styles";
 import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
 import TextInput from "../components/ui/TextInput";
-import Textarea from "../components/ui/Textarea";
 
 const divStyle = css`
   margin: 0 auto;
@@ -32,10 +30,6 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
-const deleteButtonAreaStyle = css`
-  text-align: center;
-`;
-
 const EditChapter = () => {
   const [chapter, setChapter] = useState();
   const { chapterId } = useParams();
@@ -58,7 +52,7 @@ const EditChapter = () => {
   }
 
   return (
-    <main css={main2ColumnStyle}>
+    <div css={main2ColumnStyle}>
       <ChapterList chapters={chapter.bookChapters} bookId={bookId} />
       <div css={RightContent}>
         <h1>{chapter.chapter.chapter_title}</h1>
@@ -77,11 +71,8 @@ const EditChapter = () => {
             </div>
           </form>
         </div>
-        <div css={deleteButtonAreaStyle}>
-
-        </div>
       </div>
-    </main>
+    </div>
   );
 };
 export default EditChapter;
