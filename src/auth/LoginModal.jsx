@@ -102,7 +102,7 @@ const LoginModal = () => {
     const { email, password } = data;
 
     try {
-      await dispatch(login({ email, password }));
+      await dispatch(login({ email, password })).unwrap();
 
       toggleCloseModal();
       showToast("ログインに成功しました")

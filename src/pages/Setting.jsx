@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { main1ColumnStyle, oneColumnContainerStyle } from "../styles/styles";
 import DeleteUser from "../auth/deleteAccount/DeleteUser";
+import ChangePassword from "../auth/ChangePassword";
 
 const h2Style = css`
   font-size: 20px;
@@ -8,8 +9,6 @@ const h2Style = css`
   padding-left: 15px;
   padding-bottom: 8px;
 `;
-
-
 
 const Setting = () => {
   return (
@@ -24,6 +23,12 @@ const Setting = () => {
         </p>
         <p>問題がなければ下記よりアカウントの削除を行うことができます。</p>
         <DeleteUser />
+        <h2 css={h2Style}>パスワードの変更</h2>
+        <p>こちらからパスワードの変更を行うことができます。</p>
+        <p>
+          「推測されにくい文字列・定期的なパスワードの変更・使いまわしをしない」これらのことはアカウントのセキュリティを向上させます。
+        </p>
+        <ChangePassword />
       </div>
     </div>
   );

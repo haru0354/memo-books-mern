@@ -95,3 +95,11 @@ export const errorMessageStyle = css`
   color: red;
   text-align: center;
 `;
+
+// フォームのボタンエリア
+export const buttonContainerStyle = css`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-top: 20px;
+`;

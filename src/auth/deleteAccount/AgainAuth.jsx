@@ -27,7 +27,9 @@ const AgainAuth = ({ handleDeleteUser }) => {
   const showToast = useToast();
   const { status, error } = useSelector((state) => state.user);
 
-  const handleAgainAuth = async () => {
+  const handleAgainAuth = async (data) => {
+    const password = data.password;
+    
     const result = await dispatch(againAuthAsync(password));
     if (againAuthAsync.fulfilled.match(result)) {
       if (handleDeleteUser) {
