@@ -15,7 +15,7 @@ export const main1ColumnStyle = css`
   }
 
   h2 {
-    word-wrap: break-word; 
+    word-wrap: break-word;
     padding-top: 2rem;
     padding-left: 1.7rem;
     font-size: 1.2rem;
@@ -26,7 +26,6 @@ export const main1ColumnStyle = css`
 export const main2ColumnStyle = css`
   display: flex;
   background-color: #fffaf1;
-
 `;
 
 // 2カラム時のライトカラムレイアウト
