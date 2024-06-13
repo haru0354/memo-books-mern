@@ -5,7 +5,7 @@ import Button from "../../components/ui/Button";
 import { FormProvider, useForm } from "react-hook-form";
 import { css } from "@emotion/react";
 import { errorMessageStyle, formStyle } from "../../styles/styles";
-import { useToast } from "../../context/ToastContext";
+import useToast from "../../hooks/useToast";
 
 const container = css`
   margin: 20px;

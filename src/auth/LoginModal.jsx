@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
 import AnimationItem from "../lib/AnimationItem";
-import { useToast } from "../context/ToastContext";
+import useToast from "../hooks/useToast";
 
 const formContainerStyle = css`
   width: 100%;

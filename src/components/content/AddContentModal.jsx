@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Textarea from "../ui/Textarea";
 import { addContentsAsync } from "../../store/slice/contentsSlice";
 import { FormProvider, useForm } from "react-hook-form";
-import { useToast } from "../../context/ToastContext";
+import useToast from "../../hooks/useToast";
 
 const buttonContainerStyle = css`
   display: flex;

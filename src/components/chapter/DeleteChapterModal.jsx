@@ -5,7 +5,7 @@ import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteChaptersAsync } from "../../store/slice/chaptersSlice";
-import { useToast } from "../../context/ToastContext";
+import useToast from "../../hooks/useToast";
 
 const pStyle = css`
   font-weight: 600;

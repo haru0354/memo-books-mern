@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formSchema } from "../lib/schema";
-import { useToast } from "../context/ToastContext";
+import useToast from "../hooks/useToast";
 
 const formContainerStyle = css`
   width: 100%;

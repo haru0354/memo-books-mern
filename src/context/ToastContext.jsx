@@ -22,11 +22,7 @@ const ToastStyle = css`
 
 const ToastContext = createContext();
 
-export const useToast = () => {
-  return useContext(ToastContext);
-};
-
-export const ToastProvider = ({ children }) => {
+const ToastProvider = ({ children }) => {
   const [toast, setToast] = useState(null);
 
   const showToast = useCallback((text) => {
@@ -54,3 +50,5 @@ export const ToastProvider = ({ children }) => {
     </ToastContext.Provider>
   );
 };
+
+export { ToastProvider, ToastContext };

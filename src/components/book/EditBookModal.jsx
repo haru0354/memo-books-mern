@@ -12,7 +12,7 @@ import Button from "../../components/ui/Button";
 import { updateBookAsync } from "../../store/slice/booksSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRef, useState } from "react";
-import { useToast } from "../../context/ToastContext";
+import useToast from "../../hooks/useToast";
 
 const buttonContainerStyle = css`
   display: flex;

@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
+import { FormProvider, useForm } from "react-hook-form";
+
+import { changePasswordAsync, logout } from "../store/slice/userSlice";
+import useToast from "../hooks/useToast";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
-import { FormProvider, useForm } from "react-hook-form";
-import { useToast } from "../context/ToastContext";
 import {
   buttonContainerStyle,
   errorMessageStyle,
@@ -11,9 +15,6 @@ import {
   modalBackStyle,
   modalContainerStyle,
 } from "../styles/styles";
-import { useNavigate } from "react-router-dom";
-import { changePasswordAsync, logout } from "../store/slice/userSlice";
-import { useDispatch, useSelector } from "react-redux";
 import AgainAuth from "./deleteAccount/AgainAuth";
 
 const centerStyle = css`

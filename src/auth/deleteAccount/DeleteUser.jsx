@@ -9,8 +9,8 @@ import AgainAuth from "./AgainAuth";
 import Button from "../../components/ui/Button";
 import { useState } from "react";
 import { css } from "@emotion/react";
-import { useToast } from "../../context/ToastContext";
 import { useNavigate } from "react-router-dom";
+import useToast from "../../hooks/useToast";
 
 const centerStyle = css`
   padding-top: 10px;

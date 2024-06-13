@@ -13,7 +13,7 @@ import DeleteContentModal from "./content/DeleteContentModal";
 import EditImageButton from "./ui/EditImageButton";
 import { FormProvider, useForm } from "react-hook-form";
 import { splitAndNewLines } from "../lib/splitAndNewLines";
-import { useToast } from "../context/ToastContext";
+import useToast from "../hooks/useToast";
 
 const tableOfContentsStyle = css`
   width: 90%;

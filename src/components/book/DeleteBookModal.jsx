@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBookAsync } from "../../store/slice/booksSlice";
-import { useToast } from "../../context/ToastContext"
+import useToast from "../../hooks/useToast";
 
 const pStyle = css`
   font-weight: 600;

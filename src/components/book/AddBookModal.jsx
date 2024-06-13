@@ -13,7 +13,7 @@ import {
 import { FormProvider, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addBookAsync } from "../../store/slice/booksSlice";
-import { useToast } from "../../context/ToastContext";
+import useToast from "../../hooks/useToast";
 
 const buttonContainerStyle = css`
   display: flex;

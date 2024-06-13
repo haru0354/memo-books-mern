@@ -7,7 +7,7 @@ import { addChaptersAsync } from "../../store/slice/chaptersSlice";
 import TextInput from "../ui/TextInput";
 import Button from "../ui/Button";
 import { FormProvider, useForm } from "react-hook-form";
-import { useToast } from "../../context/ToastContext";
+import useToast from "../../hooks/useToast";
 
 const formContainerStyle = css`
   margin: 4rem 4rem;
