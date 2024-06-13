@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUserAsync } from "../../store/slice/userSlice";
+import { deleteUserAsync, logout } from "../../store/slice/userSlice";
 import {
   errorMessageStyle,
   modalBackStyle,
@@ -10,6 +10,7 @@ import Button from "../../components/ui/Button";
 import { useState } from "react";
 import { css } from "@emotion/react";
 import { useToast } from "../../context/ToastContext";
+import { useNavigate } from "react-router-dom";
 
 const centerStyle = css`
   padding-top: 10px;
@@ -33,6 +34,7 @@ const DeleteUser = () => {
   const [isDeleteModal, setIsDeleteModal] = useState(false);
   const dispatch = useDispatch();
   const showToast = useToast();
+  const navigate = useNavigate();
   const { status, error, againAuth } = useSelector((state) => state.user);
 
   const toggleDeleteModal = () => {
@@ -45,10 +47,21 @@ const DeleteUser = () => {
     }
   };
 
-  const handleDeleteUser = () => {
-    const result = dispatch(deleteUserAsync()).unwrap();
-    if (deleteUserAsync.fulfilled.match(result)) {
-      showToast("アカウントが削除されました");
+  const handleDeleteUser = async () => {
+    try {
+      const result = await dispatch(deleteUserAsync()).unwrap();
+      if (result === "アカウントが削除されました。") {
+        showToast("アカウントが削除されました");
+        await dispatch(logout()).unwrap();
+        navigate("/");
+      }
+    } catch (error) {
+      if (error === "再認証が必要です") {
+        showToast("再認証が必要です");
+      } else {
+        showToast("アカウントの削除に失敗しました。");
+        console.error("パスワードの変更に失敗しました。", error);
+      }
     }
   };
 

@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { againAuthAsync } from "../../store/slice/userSlice";
 import TextInput from "../../components/ui/TextInput";
 import Button from "../../components/ui/Button";
@@ -8,8 +8,12 @@ import { errorMessageStyle, formStyle } from "../../styles/styles";
 import { useToast } from "../../context/ToastContext";
 
 const container = css`
-  margin: 0 20px;
+  margin: 20px;
   border: 1px dashed gray;
+`;
+
+const addFormStyle = css`
+  margin-bottom: 20px;
 `;
 
 const addButtonStyle = css`
@@ -21,7 +25,7 @@ const againAuthText = css`
   font-size: 14px;
 `;
 
-const AgainAuth = ({ handleDeleteUser }) => {
+const AgainAuth = ({ handleDeleteUser, handleAgainAuthSuccessChangePassword }) => {
   const methods = useForm();
   const dispatch = useDispatch();
   const showToast = useToast();
@@ -29,21 +33,31 @@ const AgainAuth = ({ handleDeleteUser }) => {
 
   const handleAgainAuth = async (data) => {
     const password = data.password;
-    
-    const result = await dispatch(againAuthAsync(password)).unwrap();
-    if (againAuthAsync.fulfilled.match(result)) {
-      if (handleDeleteUser) {
-        handleDeleteUser();
+
+    try {
+      const result = await dispatch(againAuthAsync(password)).unwrap();
+
+      if (result === "再認証に成功しました。") {
+        if (handleDeleteUser) {
+          handleDeleteUser();
+        }
+        if (handleAgainAuthSuccessChangePassword) {
+          handleAgainAuthSuccessChangePassword();
+        }
       }
-    } else {
-      showToast(result.payload || "再認証に失敗しました。")
+    } catch (error) {
+      showToast("再認証に失敗しました。");
+      console.error("再認証に失敗しました。", error);
     }
   };
 
   return (
     <div css={container}>
       <FormProvider {...methods}>
-        <form css={formStyle} onSubmit={methods.handleSubmit(handleAgainAuth)}>
+        <form
+          css={[formStyle, addFormStyle]}
+          onSubmit={methods.handleSubmit(handleAgainAuth)}
+        >
           <TextInput
             label="パスワード"
             placeholder="8～12文字で入力してください"
@@ -62,10 +76,10 @@ const AgainAuth = ({ handleDeleteUser }) => {
           </Button>
         </form>
       </FormProvider>
-      {status === 'loading' && <p>再認証中...</p>}
+      {status === 'loading' && <p>再認証中</p>}
       {error && <p css={errorMessageStyle}>{error}</p>}
       <p css={againAuthText}>
-        一定期間「ログインボタンによるログイン」を行っていないと、アカウント所有権の確認に、パスワード入力による再認証が必要となる場合があります。
+        一定期間「ログインボタンによるログイン」を行っていないと、アカウント所有権の確認に、パスワード入力による再認証が必要となります。
       </p>
     </div>
   );
