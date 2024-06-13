@@ -26,11 +26,11 @@ const Chapter = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchChapters({userId, bookId}));
+    dispatch(fetchChapters({userId, bookId})).unwrap();
   }, [dispatch, bookId]);
 
   useEffect(() => {
-    dispatch(fetchContents({userId, bookId, chapterId }));
+    dispatch(fetchContents({userId, bookId, chapterId })).unwrap();
   }, [dispatch, bookId, chapterId]);
 
   useEffect(() => {

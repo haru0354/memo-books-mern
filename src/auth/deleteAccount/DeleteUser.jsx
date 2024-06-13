@@ -46,7 +46,7 @@ const DeleteUser = () => {
   };
 
   const handleDeleteUser = () => {
-    const result = dispatch(deleteUserAsync());
+    const result = dispatch(deleteUserAsync()).unwrap();
     if (deleteUserAsync.fulfilled.match(result)) {
       showToast("アカウントが削除されました");
     }

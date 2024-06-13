@@ -97,7 +97,7 @@ const Books = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchBooks(userId));
+    dispatch(fetchBooks(userId)).unwrap();
   }, [dispatch]);
 
   useEffect(() => {

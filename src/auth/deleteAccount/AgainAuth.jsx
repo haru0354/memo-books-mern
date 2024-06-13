@@ -30,7 +30,7 @@ const AgainAuth = ({ handleDeleteUser }) => {
   const handleAgainAuth = async (data) => {
     const password = data.password;
     
-    const result = await dispatch(againAuthAsync(password));
+    const result = await dispatch(againAuthAsync(password)).unwrap();
     if (againAuthAsync.fulfilled.match(result)) {
       if (handleDeleteUser) {
         handleDeleteUser();

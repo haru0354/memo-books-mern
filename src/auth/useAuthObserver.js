@@ -17,9 +17,9 @@ const useAuthObserver = () => {
             displayName: user.displayName,
             photoURL: user.photoURL,
           })
-        );
+        ).unwrap();
       } else {
-        dispatch(clearUser());
+        dispatch(clearUser()).unwrap();
       }
     });
 

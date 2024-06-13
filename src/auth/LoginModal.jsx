@@ -114,7 +114,7 @@ const LoginModal = () => {
   };
 
   const onLogout = async () => {
-    await dispatch(logout());
+    await dispatch(logout()).unwrap();
     navigate("/");
   };
 

@@ -51,7 +51,7 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     const { email, password } = data;
     try {
-      await dispatch(createUser({ email, password }));
+      await dispatch(createUser({ email, password })).unwrap();
       showToast("アカウントが作成されました")
       navigate("/books");
     } catch (error) {
