@@ -204,7 +204,7 @@ const ChapterList = ({ bookId }) => {
         </Link>
         <h2 css={bookTitleStyle}>{chapters.bookTitle}</h2>
         <Link to="/books">
-          <p css={booksBackStyle}>本の一覧へ</p>
+          <p css={booksBackStyle}>メモブックの一覧</p>
         </Link>
         <ul css={ulStyles}>
           {chapters.chaptersWithoutContents.map((chapter) => {

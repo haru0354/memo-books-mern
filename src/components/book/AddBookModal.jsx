@@ -55,11 +55,11 @@ const AddBookModal = () => {
         addBookAsync({ userId, formData })
       ).unwrap();
       toggleCloseModal();
-      showToast("本が追加されました")
+      showToast("メモブックが追加されました")
       navigate(`/${response._id}/${response.chapters[0]._id}`);
     } catch (error) {
-      showToast("本の追加に失敗しました")
-      console.error("本の追加に失敗しました。", error);
+      showToast("メモブックの追加に失敗しました")
+      console.error("メモブックの追加に失敗しました。", error);
     }
   };
 
@@ -85,12 +85,12 @@ const AddBookModal = () => {
       {isAddModal && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>
-            <h3>本のフォーム</h3>
+            <h3>メモブックのフォーム</h3>
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
                 <TextInput
-                  label="本のタイトル"
-                  placeholder="本のタイトルを入力してください。"
+                  label="タイトル"
+                  placeholder="タイトルを入力してください。"
                   name="title"
                   required={true}
                   maxLength={18}

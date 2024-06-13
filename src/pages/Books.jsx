@@ -123,7 +123,7 @@ const Books = () => {
       </Helmet>
       <div css={main1ColumnStyle}>
         <div css={oneColumnContainerStyle}>
-          <h1>作成したメモブックノート</h1>
+          <h1>メモブックの一覧</h1>
           <div css={BooksAreaStyle}>
             {books.map((book) => (
               <div css={bookContainerStyle} key={book._id}>
