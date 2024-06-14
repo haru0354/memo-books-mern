@@ -13,7 +13,7 @@ const headerContainer = css`
 `;
 
 const oneColumnAddHeaderContainer = css`
-  border-bottom: 1px solid rgb(55 65 81);
+  border-bottom: 1px solid rgb(215 215 215);
 `;
 
 const headerStyle = css`

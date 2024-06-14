@@ -1,17 +1,5 @@
 # memo-books-mern
 
-topページの構成
-・出来ることの紹介(1カラム)
-・使い道のアイデアを横スクロールで紹介
-・CTAボタン
-・3つの特徴
-・おすすめな人
-・よくある質問(開閉式にする)
-・登録ボタン
-
-
-
-
 MERNスタックでアプリの作成
 
 reactでのアプリはまだなので、Next.jsは使用しない。
@@ -33,27 +21,11 @@ CSSは未使用のを利用する。
 scss,pandaCSS,Bootstrap,materialUIのまだ使用していないのを使う
 
 フロントの作成
-- fontの変更
-- headerの作成
 - TOPページの作成
 - 認証はfirebaseまたはsupabaseを使用する(予定)
-- metaデータの作成
 - robot.txtとsitemap.xmlの作成
 - 画像をメモにアップロード
 
 コメントは英語話者のいる環境でなければ日本語を使うことが多いみたい
 ⇒とりあえずこのアプリは全て日本語を使うようにする。
 
-
-
-
-
-
-
-
-デザイン
-CSS In JS　のemotionを採用。
-
-モーダル
-modal　モーダルのエリア
-modal-container　モーダルのグレー枠

@@ -44,7 +44,7 @@ export const h3Style = css`
   font-size: 1.4rem;
 `
 
-const TwoColumnRightImage = ({
+const TwoColumnTextImage = ({
   title,
   contentTop,
   contentCenter,
@@ -68,4 +68,4 @@ const TwoColumnRightImage = ({
   );
 };
 
-export default TwoColumnRightImage;
+export default TwoColumnTextImage;
