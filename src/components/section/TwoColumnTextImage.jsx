@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 const container = css`
   margin: 60px auto;
-  max-width: 1100px;
+  max-width: 1140px;
   width: 100%;
   padding-bottom: 60px;
   border-bottom: 1px dashed gray;
@@ -10,9 +10,9 @@ const container = css`
 
 const twoColumnContainer = (inversion) => css`
   width: 100%;
-  max-width: 1100px;
+  max-width: 1140px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: center;
   margin-right: auto;
@@ -43,6 +43,9 @@ export const h3Style = css`
   text-align: center;
   font-size: 1.4rem;
 `
+export const imageStyle = css`
+  width:100%;
+`
 
 const TwoColumnTextImage = ({
   title,
@@ -61,7 +64,7 @@ const TwoColumnTextImage = ({
             <p>{contentBottom}</p>
           </div>
           <div css={rightColumn}>
-            <img src="" alt="" width={380} height={260} />
+            <img src="" alt="" width={380} height={260} css={imageStyle}/>
           </div>
         </div>
       </div>

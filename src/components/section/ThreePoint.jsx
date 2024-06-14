@@ -8,7 +8,7 @@ const container = css`
   margin-top: 60px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 1100px;
+  max-width: 1140px;
   width: 100%;
   padding-bottom: 60px;
 
