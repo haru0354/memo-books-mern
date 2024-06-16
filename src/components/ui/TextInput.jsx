@@ -15,7 +15,7 @@ const textInputStyle = css`
   padding: 0 10px;
 `;
 
-const TextInput = ({ label, placeholder, name, value, onChange, required, maxLength, defaultValue }) => {
+const TextInput = ({ label, placeholder, name, value, onChange, required, maxLength, minLength, defaultValue }) => {
   const { register } = useFormContext();
 
   return (
@@ -37,6 +37,10 @@ const TextInput = ({ label, placeholder, name, value, onChange, required, maxLen
           maxLength: maxLength && {
             value: maxLength,
             message: `${label}は最大${maxLength}文字までです。`
+          },
+          minLength: minLength && {
+            value: minLength,
+            message: `${label}は${minLength}文字以上です。`
           }
         })}
       />

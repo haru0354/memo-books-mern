@@ -1,11 +1,12 @@
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 import { memo } from "react";
+import LoginModal from "../auth/LoginModal";
 
 const headerContainer = css`
   width: 100%;
   height: 75px;
-  background-color: white;
+  background-color: #fffdfb;
 
   a {
     color: #374151;
@@ -46,17 +47,6 @@ const twoColumnAddHeaderStyle = css`
 const menuStyle = css`
   display: flex;
   padding-inline-start: 0px;
-
-  li {
-    margin: 10px;
-    padding: 0 10px;
-    list-style-type: none;
-
-    &:hover {
-      background-color: #e3e3e3;
-      color: #374151;
-    }
-  }
 `;
 
 const Header = ({ variant }) => {
@@ -78,12 +68,7 @@ const Header = ({ variant }) => {
           <h1>メモブック</h1>
         </Link>
         <ul css={menuStyle}>
-          <Link to="/books">
-            <li>ログイン</li>
-          </Link>
-          <Link to="/">
-            <li>登録</li>
-          </Link>
+          <li><LoginModal /></li>
         </ul>
       </div>
     </header>
