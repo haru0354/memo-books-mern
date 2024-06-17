@@ -11,6 +11,7 @@ import {
   modalContainerStyle,
 } from "../../styles/styles";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -24,6 +25,7 @@ const AddBookModal = () => {
   const navigate = useNavigate();
   const methods = useForm();
   const bodyRef = useRef(document.body);
+  const userId = useSelector((state) => state.user.user.uid)
 
   const disableScroll = () => {
     bodyRef.current.style.overflowY = "hidden";
@@ -45,11 +47,12 @@ const AddBookModal = () => {
     };
 
     try {
-      const response = await bookApi.post(formData);
+      const response = await bookApi.post(userId, formData);
 
       if (!response || !response._id) {
         throw new Error("フォームの送信に失敗しました。");
       }
+      
       toggleCloseModal();
       navigate(`/${response._id}/${response.chapters[0]._id}`);
     } catch (error) {

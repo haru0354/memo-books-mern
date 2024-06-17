@@ -95,10 +95,11 @@ const Books = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
   const status = useSelector((state) => state.books.status);
+  const userId = useSelector((state) => state.user.user.uid)
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchBooks());
+    dispatch(fetchBooks(userId));
   }, [dispatch]);
 
   useEffect(() => {

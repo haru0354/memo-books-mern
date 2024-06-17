@@ -84,7 +84,7 @@ const LoginModal = () => {
       enableScroll();
     }
   };
-console.log("user(header)",user);
+
   return (
     <>
       {user ? (

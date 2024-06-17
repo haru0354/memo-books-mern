@@ -67,9 +67,9 @@ export const { addContents, deleteContent, updateContents } =
 
 export const fetchContents = createAsyncThunk(
   "contents/fetchContents",
-  async ({ bookId, chapterId }) => {
+  async ({userId, bookId, chapterId }) => {
     try {
-      const data = await contentApi.getAll(bookId, chapterId);
+      const data = await contentApi.getAll(userId, bookId, chapterId);
       return data;
     } catch (error) {
       console.error("コンテンツのフェッチに失敗しました");
@@ -80,9 +80,9 @@ export const fetchContents = createAsyncThunk(
 
 export const fetchContentById = createAsyncThunk(
   "contents/fetchById",
-  async ({ bookId, chapterId, contentId }) => {
+  async ({userId, bookId, chapterId, contentId }) => {
     try {
-      const data = await contentApi.get(bookId, chapterId, contentId);
+      const data = await contentApi.get(userId, bookId, chapterId, contentId);
       return data;
     } catch (error) {
       console.error("指定したIDのコンテンツのフェッチに失敗しました");

@@ -3,7 +3,7 @@ import Button from "../ui/Button";
 import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteBook } from "../../store/slice/booksSlice";
 import bookApi from "../../api/book";
 
@@ -32,6 +32,7 @@ const DeleteBookModal = ({ bookTitle, bookId }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.user.user.uid)
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
@@ -60,7 +61,7 @@ const DeleteBookModal = ({ bookTitle, bookId }) => {
 
 
   const onClickDelete = async () => {
-    const response = await bookApi.delete(bookId);
+    const response = await bookApi.delete(userId, bookId);
     if (response.message === "本の削除に成功しました。") {
       dispatch(deleteBook(response.deletedBookId));
 
