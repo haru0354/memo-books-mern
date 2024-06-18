@@ -10,9 +10,8 @@ import {
   modalBackStyle,
   modalContainerStyle,
 } from "../../styles/styles";
-import chapterApi from "../../api/chapter";
 import { useDispatch, useSelector } from "react-redux";
-import { addChapter } from "../../store/slice/chaptersSlice";
+import { addChaptersAsync } from "../../store/slice/chaptersSlice";
 import { FormProvider, useForm } from "react-hook-form";
 
 const buttonContainerStyle = css`
@@ -43,14 +42,8 @@ const AddChapterModal = ({ bookId }) => {
       chapter_title: data.title,
     };
 
-    try {
-      const response = await chapterApi.post(userId, bookId, formData);
-
-      if (!response || !response._id) {
-        throw new Error("フォームの送信に失敗しました。");
-      }
-
-      dispatch(addChapter(response));
+    try {   
+      const response = await dispatch(addChaptersAsync({userId, bookId, formData})).unwrap();
       toggleAddModal();
       methods.reset();
       navigate(`/${bookId}/${response._id}`);

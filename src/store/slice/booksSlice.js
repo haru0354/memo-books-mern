@@ -12,18 +12,16 @@ const bookSlice = createSlice({
     addBook(state, action) {
       state.books.push(action.payload);
     },
-    deleteBook(state, action) {
-      const deletedBookId = action.payload;
-      state.books = state.books.filter(
-        (book) => book._id !== deletedBookId
-      );
-    },
     updateBook(state, action) {
       const { _id, title } = action.payload;
       const updateBook = state.books.find((book) => book._id === _id);
       if (updateBook) {
         updateBook.title = title;
       }
+    },
+    deleteBook(state, action) {
+      const deletedBookId = action.payload.deletedBookId;
+      state.books = state.books.filter((book) => book._id !== deletedBookId);
     },
   },
   extraReducers: (builder) => {
@@ -57,21 +55,50 @@ const bookSlice = createSlice({
       .addCase(fetchBookById.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(addBookAsync.fulfilled, (state, action) => {
+        state.books.push(action.payload);
+      })
+      .addCase(addBookAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(updateBookAsync.fulfilled, (state, action) => {
+        const { _id, title } = action.payload;
+        const updateBook = state.books.find((book) => book._id === _id);
+        if (updateBook) {
+          updateBook.title = title;
+        }
+      })
+      .addCase(updateBookAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(deleteBookAsync.fulfilled, (state, action) => {
+        const deletedBookId = action.payload.deletedBookId;
+        state.books = state.books.filter((book) => book._id !== deletedBookId);
+      })
+      .addCase(deleteBookAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });
 
 export const { addBook, deleteBook, updateBook } = bookSlice.actions;
 
-export const fetchBooks = createAsyncThunk("books/fetchBooks", async (userId) => {
-  try {
-    const data = await bookApi.getAll(userId);
-    return data;
-  } catch (error) {
-    console.error("本のデータの取得に失敗しました。");
-    throw error;
+export const fetchBooks = createAsyncThunk(
+  "books/fetchBooks",
+  async (userId) => {
+    try {
+      const data = await bookApi.getAll(userId);
+      return data;
+    } catch (error) {
+      console.error("本のデータの取得に失敗しました。");
+      throw error;
+    }
   }
-});
+);
 
 export const fetchBookById = createAsyncThunk(
   "books/fetchBookById",
@@ -86,7 +113,43 @@ export const fetchBookById = createAsyncThunk(
   }
 );
 
+export const addBookAsync = createAsyncThunk(
+  "books/addBookAsync",
+  async ({ userId, formData }) => {
+    try {
+      const data = await bookApi.post(userId, formData);
+      return data;
+    } catch (error) {
+      console.error("本の追加に失敗しました。");
+      throw error;
+    }
+  }
+);
 
+export const updateBookAsync = createAsyncThunk(
+  "books/updateBookAsync ",
+  async ({ userId, bookId, formData }) => {
+    try {
+      const data = await bookApi.patch(userId, bookId, formData);
+      return data;
+    } catch (error) {
+      console.error("本の編集に失敗しました。");
+      throw error;
+    }
+  }
+);
 
+export const deleteBookAsync = createAsyncThunk(
+  "books/deleteBookAsync ",
+  async ({ userId, bookId }) => {
+    try {
+      const data = await bookApi.delete(userId, bookId);
+      return data;
+    } catch (error) {
+      console.error("本の削除に失敗しました。");
+      throw error;
+    }
+  }
+);
 
 export default bookSlice.reducer;

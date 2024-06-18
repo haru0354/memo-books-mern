@@ -3,15 +3,15 @@ import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
 import AddButton from "../ui/AddButton";
 import { css } from "@emotion/react";
-import bookApi from "../../api/book";
 import { useNavigate } from "react-router-dom";
 import {
   formStyle,
   modalBackStyle,
   modalContainerStyle,
 } from "../../styles/styles";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { FormProvider, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { addBookAsync } from "../../store/slice/booksSlice";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -26,7 +26,7 @@ const AddBookModal = () => {
   const methods = useForm();
   const bodyRef = useRef(document.body);
   const userId = useSelector((state) => state.user.user.uid)
-
+  const dispatch = useDispatch();
   const disableScroll = () => {
     bodyRef.current.style.overflowY = "hidden";
   };
@@ -45,18 +45,14 @@ const AddBookModal = () => {
         },
       ],
     };
-
+    
     try {
-      const response = await bookApi.post(userId, formData);
+      const response = await dispatch(addBookAsync({userId, formData})).unwrap()
 
-      if (!response || !response._id) {
-        throw new Error("フォームの送信に失敗しました。");
-      }
-      
       toggleCloseModal();
       navigate(`/${response._id}/${response.chapters[0]._id}`);
     } catch (error) {
-      console.error("フォームの送信に失敗しました。111", error);
+      console.error("本の追加に失敗しました。", error);
     }
   };
 

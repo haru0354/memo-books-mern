@@ -137,5 +137,5 @@ export const deleteContents = async (req, res) => {
   );
 
   await book.save();
-  res.json({ message: "コンテンツの削除に成功しました。" });
+  res.json({ message: "コンテンツの削除に成功しました。", deletedContentsId: contentsId, });
 };

@@ -3,8 +3,7 @@ import Button from "../ui/Button";
 import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContent } from "../../store/slice/contentsSlice";
-import contentApi from "../../api/content";
+import { deleteContentsAsync } from "../../store/slice/contentsSlice";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -21,7 +20,7 @@ const modalAddStyle = css`
   text-align: center;
 `;
 
-const DeleteContentModal = ({ contentTitle, bookId, chapterId, contentId }) => {
+const DeleteContentModal = ({ contentTitle, bookId, chapterId, contentId, toggleEditContents }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.uid)
@@ -53,9 +52,9 @@ const DeleteContentModal = ({ contentTitle, bookId, chapterId, contentId }) => {
 
   const onClickDelete = async () => {
     try {
-      await contentApi.delete(userId, bookId, chapterId, contentId);
-      dispatch(deleteContent(contentId));
+      await dispatch(deleteContentsAsync({userId, bookId, chapterId, contentId})).unwrap();
       toggleCloseModal();
+      toggleEditContents(contentId);
     } catch (error) {
       console.error("コンテンツの削除に失敗しました。");
     }

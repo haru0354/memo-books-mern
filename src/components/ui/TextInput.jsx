@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import React from "react";
 import { useFormContext } from "react-hook-form";
 
 const labelStyle = css`
@@ -15,7 +16,7 @@ const textInputStyle = css`
   padding: 0 10px;
 `;
 
-const TextInput = ({ label, placeholder, name, value, onChange, required, maxLength, minLength, defaultValue }) => {
+const TextInput =  React.forwardRef(({ label, placeholder, name, value, onChange, required, maxLength, minLength, defaultValue }, ref) => {
   const { register } = useFormContext();
 
   return (
@@ -32,6 +33,7 @@ const TextInput = ({ label, placeholder, name, value, onChange, required, maxLen
         value={value}
         onChange={onChange}
         defaultValue={defaultValue}
+        ref={ref} 
         {...register(name, {
           required: required && `${label}の入力は必須です`,
           maxLength: maxLength && {
@@ -46,6 +48,6 @@ const TextInput = ({ label, placeholder, name, value, onChange, required, maxLen
       />
     </>
   );
-};
+});
 
 export default TextInput;

@@ -1,8 +1,4 @@
 import { css } from "@emotion/react";
-import Button from "../ui/Button";
-import { FormProvider, useForm } from "react-hook-form";
-import { formStyle } from "../../styles/styles";
-import TextInput from "../ui/TextInput";
 import SignUp from "../../auth/SignUp";
 
 const heroSection = css`
@@ -13,7 +9,7 @@ const heroContainer = css`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  padding: 20px 0;
+  padding: 40px 0;
   margin: 0px auto;
   max-width: 1140px;
   width: 100%;

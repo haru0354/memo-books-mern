@@ -4,8 +4,7 @@ import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import chapterApi from "../../api/chapter";
-import { deleteChapter } from "../../store/slice/chaptersSlice";
+import { deleteChaptersAsync } from "../../store/slice/chaptersSlice";
 
 const pStyle = css`
   font-weight: 600;
@@ -29,7 +28,7 @@ const deleteButtonStyle = css`
 `;
 
 const DeleteChapterModal = ({
-  toggleAddModal,
+  toggleCloseEditModal,
   chapterTitle,
   bookId,
   chapterId,
@@ -37,16 +36,16 @@ const DeleteChapterModal = ({
   const [isDeleteModalOpen, setIdDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user.uid)
+  const userId = useSelector((state) => state.user.user.uid);
 
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
-    bodyRef.current.style.overflowY = 'hidden';
+    bodyRef.current.style.overflowY = "hidden";
   };
 
   const enableScroll = () => {
-    bodyRef.current.style.overflow = 'auto';
+    bodyRef.current.style.overflow = "auto";
   };
 
   const toggleOpenModal = () => {
@@ -68,31 +67,25 @@ const DeleteChapterModal = ({
 
   const onClickDelete = async () => {
     try {
-      const response = await chapterApi.delete(userId, bookId, chapterId);
-      if (response.deletedChapterId === chapterId) {
-        dispatch(deleteChapter(response.deletedChapterId));
-  
-        toggleCloseModal();
-        toggleAddModal();
-        if (response.redirectedUrl) {
-          navigate(`/${bookId}/${response.redirectedUrl}`);
-        } else {
-          navigate(`/${bookId}`);
-        }
+      const response = await dispatch(
+        deleteChaptersAsync({ userId, bookId, chapterId })
+      ).unwrap();
+
+      toggleCloseEditModal();
+      toggleCloseModal();
+      if (response.redirectedUrl) {
+        navigate(`/${bookId}/${response.redirectedUrl}`);
       } else {
-        console.error("チャプターの削除に失敗しました。");
+        navigate(`/${bookId}`);
       }
     } catch (error) {
       console.error("チャプターの削除に失敗しました。");
     }
   };
+  
   return (
     <>
-      <Button
-        addCss={deleteButtonStyle}
-        color="red"
-        onClick={toggleOpenModal}
-      >
+      <Button addCss={deleteButtonStyle} color="red" onClick={toggleOpenModal}>
         削除
       </Button>
       {isDeleteModalOpen && (

@@ -4,7 +4,10 @@ import { formStyle } from "../styles/styles";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
 import { createUser } from "../store/slice/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { formSchema } from "../lib/schema";
 
 const formContainerStyle = css`
   width: 100%;
@@ -34,14 +37,15 @@ const errorMessageStyle = css`
 `;
 
 const SignUp = () => {
-  const methods = useForm();
+  const methods = useForm({ resolver: zodResolver(formSchema) });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     const { email, password } = data;
     try {
-      dispatch(createUser({ email, password }));
-      console.log("アカウントの作成に成功しました。");
+      await dispatch(createUser({ email, password }));
+      navigate("/books");
     } catch (error) {
       console.error("アカウントの作成に失敗しました。", error);
     }
@@ -68,8 +72,6 @@ const SignUp = () => {
             placeholder="8～12文字で入力してください"
             name="password"
             required={true}
-            maxLength={12}
-            minLength={8}
           />
           {methods.formState.errors.password && (
             <span css={errorMessageStyle}>

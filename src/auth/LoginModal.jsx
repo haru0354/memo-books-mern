@@ -7,11 +7,13 @@ import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
 import TextInput from "../components/ui/TextInput";
 import AuthButton from "../components/ui/AuthButton";
+import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formSchema } from "../lib/schema";
 
 const formContainerStyle = css`
   width: 100%;
   max-width: 300px;
-  height: 350px;
   padding: 20px;
   margin: 0 auto;
   background-color: #fffdfb;
@@ -19,6 +21,7 @@ const formContainerStyle = css`
 `;
 
 const textCenterStyle = css`
+  margin-top: 10px;
   text-align: center;
 `;
 
@@ -38,11 +41,12 @@ const errorMessageStyle = css`
 
 const LoginModal = () => {
   const [isLoginModal, setIsLoginModal] = useState(false);
-  const methods = useForm();
+  const methods = useForm({ resolver: zodResolver(formSchema) });
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-
+  const navigate = useNavigate();
   const bodyRef = useRef(document.body);
+
   const disableScroll = () => {
     bodyRef.current.style.overflowY = "hidden";
   };
@@ -55,17 +59,19 @@ const LoginModal = () => {
     const { email, password } = data;
 
     try {
-      dispatch(login({ email, password }));
+      await dispatch(login({ email, password }));
+
       toggleCloseModal();
-      console.log("ログインに成功しました");
+      navigate("/books");
     } catch (error) {
       console.error("ログインに失敗しました", error);
       console.log("ログインに失敗しました");
     }
   };
 
-  const onLogout = () => {
-    dispatch(logout());
+  const onLogout = async () => {
+    await dispatch(logout());
+    navigate("/");
   };
 
   const toggleOpenModal = () => {
@@ -105,7 +111,6 @@ const LoginModal = () => {
                       label="メールアドレス"
                       placeholder="メールアドレスを入力してください"
                       name="email"
-                      required={true}
                     />
                     {methods.formState.errors.email && (
                       <span css={errorMessageStyle}>
@@ -116,9 +121,6 @@ const LoginModal = () => {
                       label="パスワード"
                       placeholder="8～12文字で入力してください"
                       name="password"
-                      required={true}
-                      maxLength={12}
-                      minLength={8}
                     />
                     {methods.formState.errors.password && (
                       <span css={errorMessageStyle}>
@@ -127,7 +129,7 @@ const LoginModal = () => {
                     )}
                     <div css={textCenterStyle}>
                       <Button type="submit" color="blue">
-                        登録
+                        ログイン
                       </Button>
                       <Button color="gray">googleでログイン</Button>
                     </div>

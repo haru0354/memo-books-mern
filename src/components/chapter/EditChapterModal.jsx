@@ -8,9 +8,8 @@ import {
   modalBackStyle,
   modalContainerStyle,
 } from "../../styles/styles";
-import chapterApi from "../../api/chapter";
 import { useDispatch, useSelector } from "react-redux";
-import { updateChapter } from "../../store/slice/chaptersSlice";
+import { updateChaptersAsync } from "../../store/slice/chaptersSlice";
 import DeleteChapterModal from "./DeleteChapterModal";
 import EditImageButton from "../ui/EditImageButton";
 import { FormProvider, useForm } from "react-hook-form";
@@ -25,16 +24,16 @@ const buttonContainerStyle = css`
 const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
   const [isEditModal, setIsEditModal] = useState(false);
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user.uid)
+  const userId = useSelector((state) => state.user.user.uid);
   const methods = useForm();
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
-    bodyRef.current.style.overflowY = 'hidden';
+    bodyRef.current.style.overflowY = "hidden";
   };
 
   const enableScroll = () => {
-    bodyRef.current.style.overflow = 'auto';
+    bodyRef.current.style.overflow = "auto";
   };
 
   const onSubmit = async (data) => {
@@ -43,10 +42,8 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
     };
 
     try {
-      const response = await chapterApi.patch(userId, bookId, chapterId, formData);
-
-      dispatch(updateChapter(response));
-      toggleCloseModal();
+      await dispatch(updateChaptersAsync({ userId, bookId, chapterId, formData })).unwrap();
+      toggleCloseEditModal();
     } catch (error) {
       console.error("編集に失敗しました", error);
     }
@@ -57,7 +54,7 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
     disableScroll();
   };
 
-  const toggleCloseModal = () => {
+  const toggleCloseEditModal = () => {
     setIsEditModal((prev) => !prev);
     enableScroll();
   };
@@ -87,13 +84,15 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
                   maxLength={16}
                 />
                 {methods.formState.errors.title && (
-                  <p css={errorMessageStyle}>{methods.formState.errors.title.message}</p>
+                  <p css={errorMessageStyle}>
+                    {methods.formState.errors.title.message}
+                  </p>
                 )}
                 <div css={buttonContainerStyle}>
                   <Button type="submit" color="blue">
                     保存する
                   </Button>
-                  <Button color="gray" onClick={toggleCloseModal}>
+                  <Button color="gray" onClick={toggleCloseEditModal}>
                     キャンセル
                   </Button>
                 </div>
@@ -103,7 +102,7 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
               chapterTitle={chapterTitle}
               chapterId={chapterId}
               bookId={bookId}
-              toggleAddModal={toggleCloseModal}
+              toggleCloseEditModal={toggleCloseEditModal}
             />
           </div>
         </div>
