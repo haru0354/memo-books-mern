@@ -18,6 +18,7 @@ const globalStyles = css`
 
   body {
     font-family: "Noto Sans JP", sans-serif;
+    font-size: 16px;
     margin: 0;
     color: rgb(55 65 81);
     display: flex;

@@ -14,7 +14,6 @@ const firstSection = css`
   padding-right: 10px;
   padding-bottom: 30px;
   padding-left: 10px;
-  background-color: #fffdfb;
   overflow-x: hidden;
 `;
 
@@ -42,11 +41,13 @@ const sectionH2Style = css`
 `;
 
 const reasonArea = css`
-  margin: 0 auto;
-  text-align: center;
   width: 100%;
   max-width: 650px;
-  border: 1px solid rgb(215 215 215);
+  margin: 0 auto;
+  padding: 2px;
+  text-align: center;
+  border: 1px dashed gray;
+  border-radius: 4px;
 `;
 
 const Home = () => {
