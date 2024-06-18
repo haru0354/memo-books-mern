@@ -1,3 +1,4 @@
+import path from "path"
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
@@ -8,6 +9,8 @@ import cors from "cors"
 const port = process.env.PORT || 8080;
 const app = express();
 
+app.use(express.static('dist'));
+
 app.use(cors({
   origin: "http://localhost:5173",
 }))
@@ -15,8 +18,13 @@ app.use(cors({
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
+
 app.use('/api', apiRoutes)
 
+app.get('*', (req, res) => {
+  const pathIndex = path.resolve('dist', 'index.html');
+  res.sendFile(pathIndex);
+});
 
 app.use(function(err, req, res, next) {
   if(res.headersSent) {
