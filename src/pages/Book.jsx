@@ -39,7 +39,7 @@ const Book = () => {
   return (
     <>
       <Helmet>
-        <title>{bookTitle}のチャプターの登録ページ | ブックメモ</title>
+        <title>{bookTitle}のチャプターの登録ページ | メモブックノート</title>
         <meta
           name="description"
           content={`${bookTitle}のチャプターの登録をすることが可能です。ブックメモに登録をした本のチャプターを全て削除した時に表示されます。ブックメモでは本にチャプターの登録をして様々なメモを追加して閲覧をすることができます。`}

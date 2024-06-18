@@ -61,7 +61,7 @@ const Hero = () => {
           <p css={textCenterStyle}>
             本のようにチャプターに分け目的別にメモを管理!
           </p>
-          <p css={textCenterStyle}>見たいメモを一瞬で確認ができる</p>
+          <p css={textCenterStyle}>見たいメモを一瞬で確認ができる。</p>
           <p css={textCenterStyle}>20秒で登録して即使える</p>
           <p css={textCenterStyle}>PC・スマホ・タブレット対応の無料アプリ</p>
         </div>

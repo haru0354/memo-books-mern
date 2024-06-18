@@ -7,10 +7,10 @@ import CtaSection from "../components/section/CtaSection";
 import ThreePoint from "../components/section/ThreePoint";
 import QaSection from "../components/section/QaSection";
 import Footer from "../components/Footer";
-import LoginModal from "../auth/LoginModal";
 
 const firstSection = css`
   padding: 60px 10px;
+  background-color: #fffdfb;
 `;
 
 const secondSection = css`
@@ -43,33 +43,33 @@ const reasonArea = css`
 const Home = () => {
   const sliderItems = [
     {
-      imageUrl: "/WS000002.JPG",
-      imageAlt: "imageAlt",
+      imageUrl: "/memo-book-note-list.png",
+      imageAlt: "メモリストのアプリ",
       h3: "メモをアプリで全て管理!!",
       text: "メモを本に登録して、複数のメモを一元管理。",
       text2: "様々なメモを簡単に見つけることができます。",
     },
     {
-      imageUrl: "/WS000002.JPG",
-      imageAlt: "imageAlt",
+      imageUrl: "/study-memo.jpg",
+      imageAlt: "勉強関係のメモ",
       h3: "「勉強」「資格」「仕事」のノート替わりに！！",
       text: "「基本情報」「テストに出やすい項目」などチャプター別に管理。",
       text2:
         "目次機能で1タップで必要なメモを即時閲覧可能なので、学習の効率を高めることができます。",
     },
     {
-      imageUrl: "/WS000002.JPG",
-      imageAlt: "imageAlt",
+      imageUrl: "/trip-memobook.jpg",
+      imageAlt: "趣味の海外旅行のメモ",
       h3: "趣味の利用に！！",
       text: "「旅行」の本で「予定候補地」「行きたい観光地」「費用」などチャプター別にメモ。",
       text2:
         "暇な時間にメモを取り合えずしていき、後で「旅行プランの作成」や「行先の決定」。",
     },
     {
-      imageUrl: "/WS000002.JPG",
-      imageAlt: "imageAlt",
+      imageUrl: "/memo-private.jpg",
+      imageAlt: "プライベートな欲しいものリスト",
       h3: "ちょっとしたメモに!!",
-      text: "特別重要な情報でなくても「後でなんだっけ？」と思うことは結構あります。例えば「興味のあるレストラン」「今すぐ必要でないけどちょっと欲しい物」「気になる本」などなど。",
+      text: "「後でなんだっけ？」と思うことは結構あります。例えば「興味のあるレストラン」「今すぐ必要でないけどちょっと欲しい物」「気になる本」などなど。",
       text2:
         "簡単にメモの追加や削除が即時できるので、ちょっとしたメモとして使っていくこともできます。",
     },
@@ -78,10 +78,12 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>メモブック「本のようにチャプターに分けてメモを保存」</title>
+        <title>
+          フォルダを分けメモする無料のPC・スマホアプリ「メモブックノート」
+        </title>
         <meta
           name="description"
-          content="メモブックでは本のようにチャプターに分けてメモを保存して整理をする無料のwebアプリです。どの端末からでもメモの保存や確認などすることができます。勉強での学習のメモや仕事の管理や欲しい物リストの管理など、あらゆるメモを登録できます。PC・スマホ・タブレットでの利用が可能。"
+          content="本にフォルダ分けし、メモを保存できる無料のwebアプリ。PC・スマホ・android・iphone対応で機種変更もそのままで利用。シンプルで使い方が簡単なアプリです。ビジネス(仕事や創作)・生活費(光熱費・交通費)・勉強・タスク管理と利用方法は様々。"
         ></meta>
       </Helmet>
       <Hero />
@@ -92,6 +94,8 @@ const Home = () => {
           contentTop="メモブックでは単なるメモ帳アプリとは違い、各チャプター別にメモを登録していくことができます。"
           contentCenter="例えば、「勉強」という本を作れば「数学」「英語」「歴史」とチャプターを作成し、各チャプターごとにメモが可能です。"
           contentBottom="そのため、チャプターに分けて登録することで、「メモした内容がどこにあるか一目で分かり」、「必要な時に一瞬でメモの確認」ができます。"
+          imgSrc="/memo-book-note-chapter.jpg"
+          imgAlt="メモブックノートのチャプター機能"
         />
         <TwoColumnTextImage
           inversion={true}
@@ -99,6 +103,8 @@ const Home = () => {
           contentTop="メモブックでは大きな項目として「本」の登録ができ、そこに「チャプター」があります。"
           contentCenter="複数の本が登録可能なため、「勉強」「プライベート」「欲しい物」「旅行」など、様々な本を登録することができます。"
           contentBottom="複数の本を登録し、各本の中に「チャプター」があり、その中に「メモ」があるので、「様々なメモを全てアプリで管理」し「即時に必要なメモの閲覧」ができます。"
+          imgSrc="/memo-book-note-list.jpg"
+          imgAlt="作成したメモブックノート"
         />
       </section>
       <section css={secondSection}>
@@ -118,12 +124,16 @@ const Home = () => {
           contentTop="PCやスマホや紙のノートで、「メモを取ったファイルやノートを探し」、更に「閲覧したい部分をめくって探す」のは、面倒ではありませんか？」"
           contentCenter="メモブックでは「本」や「チャプター」に項目を作成することで、「どの本に何が書かれていて」、「各チャプターにどんなメモが書かれているか」簡単にメモを整理できます。"
           contentBottom="また、「作成したメモは自動で目次が作成」されるので、本を開き必要な目次をクリックで、「探してるメモを即時閲覧」できます。"
+          imgSrc="/memo-book-view.jpg"
+          imgAlt="メモブックノートの目次機能"
         />
         <TwoColumnTextImage
           title="管理によりメモを紛失せず綺麗に保管"
           contentTop="「PCやスマホでメモを取ったがどこか分からない・・・」「ノートにメモを取ったが無くした、ボロボロになってしまった・・・」こんな経験はありませんか？"
           contentCenter="メモブックでは「メモをこのアプリの中で全て管理」できるので、どこにファイルやノートがあるか探す必要はなくなります。"
           contentBottom="また、「ノートのように紛失したり」「ボロボロになってしまう」心配がなく、インターネット環境さえあればアプリにアクセスし、閲覧をすることができます。"
+          imgSrc="/memo-storage.jpg"
+          imgAlt="メモを忘れても思い出せるアプリ"
         />
       </section>
       <section css={firstSection}>
@@ -131,8 +141,8 @@ const Home = () => {
         <ImageSlider items={sliderItems} />
       </section>
       <CtaSection
-        title="30秒で登録して無料で使える"
-        topText="メモブックは「ニックネーム」「emailアドレス」「パスワード」の3つを入力するだけなので、操作に慣れた人なら「30秒ほどでアカウントが作成」されます。"
+        title="20秒で登録して無料で使える"
+        topText="メモブックは「emailアドレス」「パスワード」の2つを入力するだけなので、操作に慣れた人なら「20秒ほどでアカウントが作成」されます。"
         centerText="アカウント作成も利用も「完全無料」なので、費用は一切かからないアプリです。"
         bottomText="まずは下記ボタンよりアカウントを作成し試してみてください。"
         buttonText="今すぐ試してみる"
@@ -158,6 +168,8 @@ const Home = () => {
           contentTop="メモブックを使うことで、「全てのメモの管理」がしやすく、「見たい項目がどこにあるか一目で分かります」。"
           contentCenter="メモを取っても保存したのかを忘れることもあります。また、メモが多いとその時に必要だと思っても、後程忘れてしまって、どんなことを記載したか見たいこともあります。"
           contentBottom="ひとつの項目で「本」を作り「チャプター」分けることで、どこに見たい項目があるのか一目で分かり、かつどこに保存したのかや紛失して見れなくなる心配がありません。"
+          imgSrc="/pc-memo.jpg"
+          imgAlt="メモブックノートのチャプター機能"
         />
         <TwoColumnTextImage
           inversion={true}
@@ -165,12 +177,16 @@ const Home = () => {
           contentTop="学校や資格の勉強となると「頻繁にメモした内容を確認」することも多いです。"
           contentCenter="メモブックでは目次機能によって、即座にメモを閲覧でき、パソコンやスマホをスクロールしたり、ノートをめくったりして「探す無駄な時間を省けます」。"
           contentBottom="チャプターで情報を整理して目次の確認で、勉強中に「あれ何だっけ？」と思っても、即座に確認できます。"
+          imgSrc="/study-memo-book-note.jpg"
+          imgAlt="資格の勉強中のメモするノート"
         />
         <TwoColumnTextImage
           title="インターネットの閲覧をする人"
           contentTop="PCやスマホでよくネットサーフィンをして、「趣味について調べたり」「今日の献立を考えたり」とちょっとした情報を調べる人におすすめです。"
           contentCenter="簡単に登録と閲覧ができるようになっているので、ちょっとした内容をメモして、あとで確認するのに適しています。"
           contentBottom="とりあえず興味の出た「レストラン」「旅行先」や「買い物時に購入予定の物」「趣味の情報」などをぱっとメモをして、必要な後で確認や削除がぱっとできます。"
+          imgSrc="internet-memo.jpg"
+          imgAlt="パソコンでメモする女性"
         />
       </section>
       <section css={firstSection}>
@@ -190,15 +206,19 @@ const Home = () => {
           />
           <QaSection
             title="利用するのに必要なのは何ですか？"
-            text="利用するのに必要なのは、「アカウント」と「端末(PC・スマホ・タブレット)」と「インターネットへのアクセス環境」の3つです。アカウントは「ニックネーム」「email」「パスワード」の3つのみで作成が可能です。"
+            text="利用するのに必要なのは、「アカウント」と「端末(PC・スマホ・タブレット)」と「インターネットへのアクセス環境」の3つです。アカウントは「email」「パスワード」の2つのみで作成が可能です。"
+          />
+          <QaSection
+            title="目次機能とは？"
+            text="メモした内容は自動で目次に追加されます。目次のメモ名をクリックやタップすると、メモのある位置までスクロールします。メモが増えるとスクロールして探したりと大変なことも多いです。即時に見たい項目が確認ができるようになっています。"
           />
         </div>
       </section>
       <CtaSection
         title="「メモブック」を無料で即時利用"
         topText="メモブックは「完全無料で利用できるwebアプリ」です。"
-        centerText="PC・スマホ・タブレットの、androidやiphoneなどの、どの端末でもインターネットに接続できれば利用が可能となっています。"
-        bottomText="登録は「ニックネーム」「emailアドレス」「パスワード」の3つを入力しアカウントを作成すれば、利用ができます。"
+        centerText="「PC・スマホ・タブレット」の、「android・iphone」などの、どの端末でもインターネットに接続できれば利用が可能となっています。"
+        bottomText="登録は「emailアドレス」「パスワード」の2つを入力しアカウントを作成すれば、利用ができます。"
         buttonText="登録して利用"
       />
       <Footer />

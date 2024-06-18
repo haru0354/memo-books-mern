@@ -7,7 +7,7 @@ import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
 import TextInput from "../components/ui/TextInput";
 import AuthButton from "../components/ui/AuthButton";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
 
@@ -39,8 +39,41 @@ const errorMessageStyle = css`
   margin-bottom: 5px;
 `;
 
+const menuContainerStyle = css`
+  position: relative;
+  display: inline-block;
+`;
+
+const menuUlStyle = css`
+  position: absolute;
+  width: 200px;
+  padding-left: 0px;
+  border-top: 1px solid rgb(193 193 193);
+  border-left: 1px solid rgb(193 193 193);
+  border-right: 1px solid rgb(193 193 193);
+  background-color: #fffdfb;
+  top: 100%;
+  right: 0px;
+  z-index: 1;
+`;
+
+const menuTextStyle = css`
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  padding: 4px 0;
+  border-bottom: 1px solid rgb(193 193 193);
+  position: relative;
+
+  &:hover {
+    color: #e3e3e3;
+    background-color: #5c5c5c;
+  }
+`;
+
 const LoginModal = () => {
   const [isLoginModal, setIsLoginModal] = useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const methods = useForm({ resolver: zodResolver(formSchema) });
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
@@ -91,10 +124,29 @@ const LoginModal = () => {
     }
   };
 
+  const toggleOpenMenu = () => {
+    setIsOpenMenu((prev) => !prev);
+  };
+
   return (
     <>
       {user ? (
-        <AuthButton onClick={onLogout}>ログアウト</AuthButton>
+        <div css={menuContainerStyle}>
+          <AuthButton onClick={toggleOpenMenu}>MENU</AuthButton>
+          {isOpenMenu && (
+            <ul css={menuUlStyle}>
+              <Link to="/books">
+                <li css={menuTextStyle} onClick={toggleOpenMenu}>メモブックの一覧</li>
+              </Link>
+              <li css={menuTextStyle} onClick={onLogout}>
+                ログアウト
+              </li>
+              <li css={menuTextStyle} onClick={toggleOpenMenu}>
+                閉じる
+              </li>
+            </ul>
+          )}
+        </div>
       ) : (
         <>
           <AuthButton onClick={toggleOpenModal}>ログイン</AuthButton>

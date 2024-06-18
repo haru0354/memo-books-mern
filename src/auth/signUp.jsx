@@ -52,7 +52,7 @@ const SignUp = () => {
   };
 
   return (
-    <div css={formContainerStyle}>
+    <div css={formContainerStyle} id="form">
       <FormProvider {...methods}>
         <form css={formStyle} onSubmit={methods.handleSubmit(onSubmit)}>
           <span css={FormTextStyle}>アカウント登録</span>

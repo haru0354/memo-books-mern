@@ -19,11 +19,15 @@ const twoColumnContainer = (inversion) => css`
   margin-left: auto;
   margin-top: 4rem;
 
-
   ${inversion &&
   css`
     flex-direction: row-reverse;
   `}
+
+    img {
+      border: 1px solid rgb(203 201 199);
+    }
+
 `;
 
 const leftColumn = css`
@@ -52,6 +56,8 @@ const TwoColumnTextImage = ({
   contentTop,
   contentCenter,
   contentBottom,
+  imgSrc,
+  imgAlt,
   inversion = false,
 }) => {
   return (
@@ -64,7 +70,7 @@ const TwoColumnTextImage = ({
             <p>{contentBottom}</p>
           </div>
           <div css={rightColumn}>
-            <img src="" alt="" width={380} height={260} css={imageStyle}/>
+            <img src={imgSrc} alt={imgAlt} width={380} height={260} css={imageStyle}/>
           </div>
         </div>
       </div>

@@ -3,9 +3,8 @@ import { css } from "@emotion/react";
 // 1カラム時のmainタグデザイン
 export const main1ColumnStyle = css`
   width: 100%;
-  max-width: 1110px;
+  max-width: 1140px;
   margin: 0px auto;
-  padding: 0 15px;
 
   h1 {
     font-size: 2rem;

@@ -52,7 +52,7 @@ const Chapter = () => {
   return (
     <>
       <Helmet>
-        <title>{chapterTitle} | bookMemo</title>
+        <title>{chapterTitle} | メモブックノート</title>
         <meta
           name="description"
           content={`${chapterTitle}中のコンテンツの一覧ページです。チャプターの中には今までに登録したメモが含まれています。様々なメモを登録したり編集や削除などがこのページでは可能です。PC・スマホ・タブレットなどのあらゆる端末なだけでなく、iphoneやandroidのどちらでも利用が可能です。`}

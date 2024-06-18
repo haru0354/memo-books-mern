@@ -19,7 +19,7 @@ import { splitAndNewLines } from "../lib/splitAndNewLines";
 const tableOfContentsStyle = css`
   max-width: 380px;
   margin: 2rem auto;
-  padding: 0.2rem 2rem;
+  padding: 0.2rem 1rem;
   border: 1px solid #cbc9c9;
   border-radius: 4px;
 
@@ -29,10 +29,15 @@ const tableOfContentsStyle = css`
     padding-bottom: 4px;
   }
 
+  ul {
+    padding: 0;
+  }
+
+
   li {
     color: #1168ca;
     margin-right: 0px;
-    margin-bottom: 1rem;
+    margin-bottom: 5px;
     cursor: pointer;
 
     &:hover {
