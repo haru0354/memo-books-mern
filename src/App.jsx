@@ -46,10 +46,14 @@ function App() {
         <ToastProvider>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
+              <Route path="/" element={<Home />} />
               <Route
                 path="/books"
                 element={<ProtectedRoute element={<Books />} />}
+              />
+              <Route
+                path="/setting"
+                element={<ProtectedRoute element={<Setting />} />}
               />
               <Route
                 path="/:bookId"
@@ -58,10 +62,6 @@ function App() {
               <Route
                 path="/:bookId/:chapterId"
                 element={<ProtectedRoute element={<Chapter />} />}
-              />
-              <Route
-                path="/setting"
-                element={<ProtectedRoute element={<Setting />} />}
               />
               <Route path="*" element={<Page404 />} />
             </Route>
