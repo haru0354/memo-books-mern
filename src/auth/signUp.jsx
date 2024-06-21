@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import { FormProvider, useForm } from "react-hook-form";
-import { formStyle } from "../styles/styles";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
 import { createUser } from "../store/slice/userSlice";
@@ -34,6 +33,12 @@ const errorMessageStyle = css`
   font-size: 0.8rem;
   color: red;
   margin-bottom: 5px;
+`;
+
+const formStyle = css`
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 `;
 
 const SignUp = () => {

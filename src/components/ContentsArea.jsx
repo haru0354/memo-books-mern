@@ -8,18 +8,16 @@ import TextInput from "./ui/TextInput";
 import Textarea from "./ui/Textarea";
 import AddContentModal from "./content/AddContentModal";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  updateContentsAsync,
-} from "../store/slice/contentsSlice";
+import { updateContentsAsync } from "../store/slice/contentsSlice";
 import DeleteContentModal from "./content/DeleteContentModal";
 import EditImageButton from "./ui/EditImageButton";
 import { FormProvider, useForm } from "react-hook-form";
 import { splitAndNewLines } from "../lib/splitAndNewLines";
 
 const tableOfContentsStyle = css`
+  width: 90%;
   max-width: 380px;
-  margin: 2rem auto;
-  padding: 0.2rem 1rem;
+  margin: 20px auto;
   border: 1px solid #cbc9c9;
   border-radius: 4px;
 
@@ -31,8 +29,8 @@ const tableOfContentsStyle = css`
 
   ul {
     padding: 0;
+    margin: 0 10px;
   }
-
 
   li {
     color: #1168ca;
@@ -51,9 +49,8 @@ const tableOfContentsStyle = css`
 `;
 
 const contentAreaStyle = css`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  margin: 2rem 0;
+  padding: 1rem;
+  margin: 10px 5px;
   border-bottom: 1px dotted gray;
 `;
 
@@ -68,16 +65,18 @@ const editContainerStyle = css`
 `;
 
 const editButtonContainerStyle = css`
+  max-width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
 const cancelButtonStyle = css`
-  margin: 0 40px;
+  margin: 0 10px;
 `;
 
 const editingButtonContainerStyle = css`
+  width: 100%;
   display: flex;
   justify-content: center;
 `;
@@ -128,7 +127,6 @@ const ContentsArea = ({ bookId, chapterId }) => {
       await dispatch(
         updateContentsAsync({ userId, bookId, chapterId, contentId, formData })
       ).unwrap();
-      
 
       methods.reset();
       toggleEditContents(contentId);

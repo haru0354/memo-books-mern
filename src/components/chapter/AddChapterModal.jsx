@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
@@ -21,30 +21,23 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
-const AddChapterModal = ({ bookId }) => {
-  const [isAddModal, setIsAddModal] = useState(false);
+const AddChapterModal = ({ bookId, toggleCloseAddModal, toggleHumBergerMenu }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user.uid)
+  const userId = useSelector((state) => state.user.user.uid);
   const methods = useForm();
-  const bodyRef = useRef(document.body);
-
-  const disableScroll = () => {
-    bodyRef.current.style.overflowY = "hidden";
-  };
-
-  const enableScroll = () => {
-    bodyRef.current.style.overflow = "auto";
-  };
 
   const onSubmit = async (data) => {
     const formData = {
       chapter_title: data.title,
     };
 
-    try {   
-      const response = await dispatch(addChaptersAsync({userId, bookId, formData})).unwrap();
-      toggleAddModal();
+    try {
+      const response = await dispatch(
+        addChaptersAsync({ userId, bookId, formData })
+      ).unwrap();
+      toggleCloseAddModal();
+      toggleHumBergerMenu();
       methods.reset();
       navigate(`/${bookId}/${response._id}`);
     } catch (error) {
@@ -52,57 +45,35 @@ const AddChapterModal = ({ bookId }) => {
     }
   };
 
-  const toggleAddModal = () => {
-    setIsAddModal((prev) => !prev);
-    disableScroll();
-  };
-
-  const toggleCloseModal = () => {
-    setIsAddModal((prev) => !prev);
-    enableScroll();
-  };
-
-  const closeModal = (e) => {
-    if (e.target === e.currentTarget) {
-      toggleAddModal();
-      enableScroll();
-    }
-  };
-
   return (
     <>
-      <AddButton onClick={toggleAddModal} />
-      {isAddModal && (
-        <div css={modalBackStyle} onClick={closeModal}>
-          <div css={modalContainerStyle}>
-            <h3>チャプターの追加</h3>
-            <FormProvider {...methods}>
-              <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
-                <TextInput
-                  label="チャプター名"
-                  placeholder="チャプター名を入力してください。"
-                  name="title"
-                  required={true}
-                  maxLength={16}
-                />
-                {methods.formState.errors.title && (
-                  <p css={errorMessageStyle}>
-                    {methods.formState.errors.title.message}
-                  </p>
-                )}
-                <div css={buttonContainerStyle}>
-                  <Button type="submit" color="blue">
-                    追加する
-                  </Button>
-                  <Button color="gray" onClick={toggleCloseModal}>
-                    キャンセル
-                  </Button>
-                </div>
-              </form>
-            </FormProvider>
-          </div>
-        </div>
-      )}
+      <div css={modalContainerStyle}>
+        <h3>チャプターの追加</h3>
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
+            <TextInput
+              label="チャプター名"
+              placeholder="チャプター名を入力してください。"
+              name="title"
+              required={true}
+              maxLength={16}
+            />
+            {methods.formState.errors.title && (
+              <p css={errorMessageStyle}>
+                {methods.formState.errors.title.message}
+              </p>
+            )}
+            <div css={buttonContainerStyle}>
+              <Button type="submit" color="blue">
+                追加する
+              </Button>
+              <Button type="button" color="gray" onClick={toggleCloseAddModal}>
+                キャンセル
+              </Button>
+            </div>
+          </form>
+        </FormProvider>
+      </div>
     </>
   );
 };

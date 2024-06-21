@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/slice/userSlice";
 import { FormProvider, useForm } from "react-hook-form";
-import { formStyle, modalBackStyle } from "../styles/styles";
+import { modalBackStyle } from "../styles/styles";
 import { css } from "@emotion/react";
 import Button from "../components/ui/Button";
 import TextInput from "../components/ui/TextInput";
@@ -10,6 +10,7 @@ import AuthButton from "../components/ui/AuthButton";
 import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
+import AnimationItem from "../lib/AnimationItem";
 
 const formContainerStyle = css`
   width: 100%;
@@ -69,6 +70,12 @@ const menuTextStyle = css`
     color: #e3e3e3;
     background-color: #5c5c5c;
   }
+`;
+
+const formStyle = css`
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 `;
 
 const LoginModal = () => {
@@ -134,9 +141,11 @@ const LoginModal = () => {
         <div css={menuContainerStyle}>
           <AuthButton onClick={toggleOpenMenu}>MENU</AuthButton>
           {isOpenMenu && (
-            <ul css={menuUlStyle}>
+            <AnimationItem elType="ul" animation="fadeInOpacity" emotionCss={menuUlStyle} >
               <Link to="/books">
-                <li css={menuTextStyle} onClick={toggleOpenMenu}>メモブックの一覧</li>
+                <li css={menuTextStyle} onClick={toggleOpenMenu}>
+                  メモブックの一覧
+                </li>
               </Link>
               <li css={menuTextStyle} onClick={onLogout}>
                 ログアウト
@@ -144,7 +153,7 @@ const LoginModal = () => {
               <li css={menuTextStyle} onClick={toggleOpenMenu}>
                 閉じる
               </li>
-            </ul>
+            </AnimationItem>
           )}
         </div>
       ) : (

@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import AnimationItem from "../../lib/AnimationItem";
 
 const container = css`
   margin: 60px auto;
@@ -24,10 +25,9 @@ const twoColumnContainer = (inversion) => css`
     flex-direction: row-reverse;
   `}
 
-    img {
-      border: 1px solid rgb(203 201 199);
-    }
-
+  img {
+    border: 1px solid rgb(203 201 199);
+  }
 `;
 
 const leftColumn = css`
@@ -43,15 +43,17 @@ const rightColumn = css`
   margin: 0 auto;
 `;
 
-export const h3Style = css`
+const h3Style = css`
   text-align: center;
   font-size: 1.4rem;
-`
-export const imageStyle = css`
-  width:100%;
-`
+`;
+
+const imageStyle = css`
+  width: 100%;
+`;
 
 const TwoColumnTextImage = ({
+  animationStyle,
   title,
   contentTop,
   contentCenter,
@@ -61,19 +63,25 @@ const TwoColumnTextImage = ({
   inversion = false,
 }) => {
   return (
-      <div css={container}>
-        <h3 css={h3Style}>{title}</h3>
-        <div css={twoColumnContainer(inversion)}>
-          <div css={leftColumn}>
-            <p>{contentTop}</p>
-            <p>{contentCenter}</p>
-            <p>{contentBottom}</p>
-          </div>
-          <div css={rightColumn}>
-            <img src={imgSrc} alt={imgAlt} width={380} height={260} css={imageStyle}/>
-          </div>
+    <AnimationItem elType="div" animation={animationStyle} emotionCss={container}>
+      <h3 css={h3Style}>{title}</h3>
+      <div css={twoColumnContainer(inversion)}>
+        <div css={leftColumn}>
+          <p>{contentTop}</p>
+          <p>{contentCenter}</p>
+          <p>{contentBottom}</p>
+        </div>
+        <div css={rightColumn}>
+          <img
+            src={imgSrc}
+            alt={imgAlt}
+            width={380}
+            height={260}
+            css={imageStyle}
+          />
         </div>
       </div>
+    </AnimationItem>
   );
 };
 

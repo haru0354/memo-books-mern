@@ -12,6 +12,13 @@ const arrowStyle = css`
   right: 20px;
   z-index: 10;
 
+  @media (max-width: 768px) {
+    top: 27%;
+    right: 0px;
+    width: 45px;
+    height: 45px;
+  }
+
   svg {
     position: absolute;
     right: 3px;
@@ -19,6 +26,11 @@ const arrowStyle = css`
     width: 20px;
     height: 20px;
     color: #0e3268;
+
+    @media (max-width: 768px) {
+      width: 35px;
+      height: 35px;
+    }
   }
 `;
 

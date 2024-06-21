@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { fa1, fa2, fa3 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AnimationItem from "../../lib/AnimationItem";
 
 const container = css`
   display: flex;
@@ -79,7 +80,7 @@ const ThreePoint = ({
   thirdTextSecond,
 }) => {
   return (
-    <div css={container}>
+    <AnimationItem elType="div" animation="fadeInDown" emotionCss={container}>
       <div css={firstArea}>
         <FontAwesomeIcon icon={fa1} css={numberStyle} />
         <h3 css={h3Style}>{firstTitle}</h3>
@@ -98,7 +99,7 @@ const ThreePoint = ({
         <p>{thirdText}</p>
         <p>{thirdTextSecond}</p>
       </div>
-    </div>
+    </AnimationItem>
   );
 };
 

@@ -20,29 +20,32 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
+const addFormStyle = css`
+  padding-bottom: 20px;
+`;
+
 const EditBookModal = ({ bookId, bookTitle }) => {
   const [isEditModal, setIsEditModal] = useState(false);
   const dispatch = useDispatch();
   const methods = useForm();
-  const userId = useSelector((state) => state.user.user.uid)
+  const userId = useSelector((state) => state.user.user.uid);
   const bodyRef = useRef(document.body);
-  
+
   const disableScroll = () => {
     bodyRef.current.style.overflowY = "hidden";
   };
 
   const enableScroll = () => {
-    bodyRef.current.style.overflow = 'auto';
+    bodyRef.current.style.overflow = "auto";
   };
 
   const onSubmit = async (data) => {
-
     const formData = {
-      title: data.title
+      title: data.title,
     };
 
     try {
-      await dispatch(updateBookAsync({userId, bookId, formData})).unwrap();
+      await dispatch(updateBookAsync({ userId, bookId, formData })).unwrap();
       toggleCloseEditModal();
     } catch (error) {
       console.error("編集に失敗しました", error);
@@ -61,7 +64,7 @@ const EditBookModal = ({ bookId, bookTitle }) => {
 
   const closeModal = (e) => {
     if (e.target === e.currentTarget) {
-      toggleCloseModal();
+      toggleCloseEditModal();
     }
   };
 
@@ -72,7 +75,7 @@ const EditBookModal = ({ bookId, bookTitle }) => {
       </Button>
       {isEditModal && (
         <div css={modalBackStyle} onClick={closeModal}>
-          <div css={modalContainerStyle}>
+          <div css={[modalContainerStyle, addFormStyle]}>
             <h3>本の編集</h3>
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
@@ -86,9 +89,9 @@ const EditBookModal = ({ bookId, bookTitle }) => {
                 />
                 {methods.formState.errors.title && (
                   <p css={errorMessageStyle}>
-                  {methods.formState.errors.title.message}
-                </p>
-              )}
+                    {methods.formState.errors.title.message}
+                  </p>
+                )}
                 <div css={buttonContainerStyle}>
                   <Button type="submit" color="blue">
                     保存する
@@ -99,7 +102,11 @@ const EditBookModal = ({ bookId, bookTitle }) => {
                 </div>
               </form>
             </FormProvider>
-            <DeleteBookModal bookTitle={bookTitle} bookId={bookId} toggleCloseEditModal={toggleCloseEditModal}/>
+            <DeleteBookModal
+              bookTitle={bookTitle}
+              bookId={bookId}
+              toggleCloseEditModal={toggleCloseEditModal}
+            />
           </div>
         </div>
       )}
