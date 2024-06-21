@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 export const main1ColumnStyle = css`
   width: 100%;
   max-width: 1140px;
+  min-height: calc(100vh - 229px);
   margin: 0px auto;
 
   h1 {

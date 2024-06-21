@@ -4,16 +4,16 @@ import dotenv from "dotenv";
 dotenv.config();
 import "./helpers/db.mjs";
 import apiRoutes from "./api-routes/index.mjs"
-// import cors from "cors"
+import cors from "cors"
 
 const port = process.env.PORT || 8080;
 const app = express();
 
 app.use(express.static('dist'));
 
-// app.use(cors({
-//   origin: process.env.CORS_URL,
-// }))
+app.use(cors({
+  origin: process.env.CORS_URL,
+}))
 
 app.use(express.urlencoded({ extended: true }));
 

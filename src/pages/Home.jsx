@@ -6,7 +6,6 @@ import ImageSlider from "../components/slider/ImageSlider";
 import CtaSection from "../components/section/CtaSection";
 import ThreePoint from "../components/section/ThreePoint";
 import QaSection from "../components/section/QaSection";
-import Footer from "../components/Footer";
 import AnimationItem from "../lib/AnimationItem";
 
 const firstSection = css`
@@ -246,7 +245,6 @@ const Home = () => {
         bottomText="登録は「emailアドレス」「パスワード」の2つを入力しアカウントを作成すれば、利用ができます。"
         buttonText="登録して利用"
       />
-      <Footer />
     </>
   );
 };

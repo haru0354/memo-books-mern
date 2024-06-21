@@ -1,15 +1,17 @@
 import { Outlet, useLocation, matchPath } from "react-router-dom";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const Layout = () => {
   const location = useLocation();
   let variant;
-  let showHeader = true;
+  let showHeaderAndFooter = true;
 
   switch (location.pathname) {
     case "/":
     case "/books":
     case "/setting":  
+    case "/privacypolicy":  
       variant = "oneColumn";
       break;
     default:
@@ -20,22 +22,24 @@ const Layout = () => {
     matchPath("/:bookId/:chapterId", location.pathname) ||
     matchPath("/:bookId", location.pathname)
   ) {
-    showHeader = false;
+    showHeaderAndFooter = false;
   }
 
   if (
     matchPath("/books", location.pathname) ||
-    matchPath("/setting", location.pathname)
+    matchPath("/setting", location.pathname) ||
+    matchPath("/privacypolicy", location.pathname)
   ) {
-    showHeader = true;
+    showHeaderAndFooter = true;
   }
 
   return (
     <>
-      {showHeader && <Header variant={variant} />}
+      {showHeaderAndFooter && <Header variant={variant} />}
       <main>
         <Outlet />
       </main>
+      {showHeaderAndFooter && <Footer />}
     </>
   );
 };

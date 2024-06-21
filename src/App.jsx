@@ -12,6 +12,7 @@ import Page404 from "./pages/Page404";
 import useAuthObserver from "./auth/useAuthObserver";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import Setting from "./pages/Setting";
+import Privacypolicy from "./pages/Privacypolicy";
 
 const globalStyles = css`
   @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
@@ -54,6 +55,10 @@ function App() {
               <Route
                 path="/setting"
                 element={<ProtectedRoute element={<Setting />} />}
+              />
+              <Route
+                path="/privacypolicy"
+                element={<ProtectedRoute element={<Privacypolicy />} />}
               />
               <Route
                 path="/:bookId"
