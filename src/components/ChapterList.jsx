@@ -52,8 +52,9 @@ const sidebarStyles = css`
 `;
 
 const booksBackStyle = css`
-  margin-top: 10px;
-  margin-bottom: 0;
+  margin: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   text-align: center;
 
   &:hover {

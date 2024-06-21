@@ -33,6 +33,7 @@ const globalStyles = css`
 
     a {
       text-decoration: none;
+      color: #589be3;
     }
   }
 `;
