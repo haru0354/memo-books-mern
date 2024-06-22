@@ -6,6 +6,9 @@ public/
 project.json
 .vercel
 
+# 除外(gitに含める)
+!robots.txt
+
 
 # Logs
 logs
