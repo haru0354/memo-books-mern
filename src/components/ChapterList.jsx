@@ -9,6 +9,7 @@ import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { modalBackStyle } from "../styles/styles";
 import AddButton from "./ui/AddButton";
 import EditImageButton from "./ui/EditImageButton";
+import Page404 from "../pages/Page404";
 
 const sidebarStyles = css`
   position: fixed;
@@ -147,6 +148,7 @@ const ChapterList = ({ bookId }) => {
   const [editingChapterId, setEditingChapterId] = useState(null);
   const [editingChapterTitle, setEditingChapterTitle] = useState("");
   const chapters = useSelector((state) => state.chapters.chapters);
+  const chaptersStatus = useSelector((state) => state.chapters.status);
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
@@ -194,6 +196,10 @@ const ChapterList = ({ bookId }) => {
       toggleCloseEditModal();
     }
   };
+
+  if (chaptersStatus === "failed") {
+    return <Page404 />;
+  }
 
   return (
     <>

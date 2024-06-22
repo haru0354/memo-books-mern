@@ -7,6 +7,7 @@ import { css } from "@emotion/react";
 import { main2ColumnStyle } from "../styles/styles";
 import ChapterList from "../components/ChapterList";
 import AddChapterForm from "../components/chapter/AddChapterForm";
+import Page404 from "./Page404";
 
 const loadingStyle = css`
   text-align: center;
@@ -34,6 +35,10 @@ const Book = () => {
 
   if (isLoading || chaptersStatus === "loading") {
     return <p css={loadingStyle}>Loading ...</p>;
+  }
+  
+  if (chaptersStatus === "failed") {
+    return <Page404 />;
   }
 
   return (

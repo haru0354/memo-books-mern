@@ -8,6 +8,7 @@ import { fetchChapters } from "../store/slice/chaptersSlice";
 import { fetchContents } from "../store/slice/contentsSlice";
 import ContentsArea from "../components/ContentsArea";
 import ChapterList from "../components/ChapterList";
+import Page404 from "./Page404";
 
 const loadingStyle = css`
   text-align: center;
@@ -47,6 +48,13 @@ const Chapter = () => {
     contentsStatus === "loading"
   ) {
     return <p css={loadingStyle}>Loading ...</p>;
+  }
+
+  if (
+    chaptersStatus === "failed" ||
+    contentsStatus === "failed"
+  ) {
+    return <Page404 />;
   }
 
   return (

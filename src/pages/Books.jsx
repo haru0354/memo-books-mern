@@ -7,6 +7,7 @@ import { css } from "@emotion/react";
 import { main1ColumnStyle, oneColumnContainerStyle } from "../styles/styles";
 import AddBookModal from "../components/book/AddBookModal";
 import EditBookModal from "../components/book/EditBookModal";
+import Page404 from "./Page404";
 
 const bookContainerStyle = css`
   padding: 0 1.8rem;
