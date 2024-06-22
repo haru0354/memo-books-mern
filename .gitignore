@@ -1,13 +1,19 @@
 # .gitignore
 .env
 build/
-public/
 .env.production
 project.json
 .vercel
 
-# 除外(gitに含める)
-!robots.txt
+
+# 除外する画像ファイル
+public/favicon.ico
+public/study-memo-book-note.jpg
+public/top0.png
+public/top5.png
+public/internet-memo.jpg
+public/logo.png
+public/pc-memo.jpg
 
 
 # Logs
