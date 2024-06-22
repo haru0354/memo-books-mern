@@ -27,6 +27,7 @@ const Privacypolicy = () => {
           name="description"
           content="このページではメモブックノートのプライバシーポリシーや免責事項について記述しています。プライバシーポリシーではどんな情報を収集し、どんな利用をしているかについて説明をしています。免責事項では責任の制限などについての説明が記述されています。"
         />
+        <meta name="robots" content="noindex" />
       </Helmet>
       <div css={main1ColumnStyle}>
         <div css={oneColumnContainerStyle}>

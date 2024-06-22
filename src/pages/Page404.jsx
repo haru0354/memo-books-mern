@@ -21,6 +21,7 @@ const Page404 = () => {
           name="description"
           content="メモブックの404ページです。このページは存在しないか削除された可能性があります。"
         />
+        <meta name="robots" content="noindex" />
       </Helmet>
       <div css={page404Style}>
         <h2>404 Not Found</h2>

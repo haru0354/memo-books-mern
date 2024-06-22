@@ -44,6 +44,7 @@ const Book = () => {
           name="description"
           content={`${bookTitle}のチャプターの登録をすることが可能です。ブックメモに登録をした本のチャプターを全て削除した時に表示されます。ブックメモでは本にチャプターの登録をして様々なメモを追加して閲覧をすることができます。`}
         />
+        <meta name="robots" content="noindex" />
       </Helmet>
       <div css={main2ColumnStyle}>
         <ChapterList bookId={bookId} />

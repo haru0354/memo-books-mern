@@ -57,6 +57,7 @@ const Chapter = () => {
           name="description"
           content={`${chapterTitle}中のコンテンツの一覧ページです。チャプターの中には今までに登録したメモが含まれています。様々なメモを登録したり編集や削除などがこのページでは可能です。PC・スマホ・タブレットなどのあらゆる端末なだけでなく、iphoneやandroidのどちらでも利用が可能です。`}
         />
+        <meta name="robots" content="noindex" />
       </Helmet>
       <div css={main2ColumnStyle}>
         <ChapterList bookId={bookId} />
