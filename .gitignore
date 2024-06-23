@@ -15,6 +15,12 @@ public/internet-memo.jpg
 public/logo.png
 public/pc-memo.jpg
 
+public/convert_webp/study-memo-book-note.webp
+public/convert_webp/top0.webp
+public/convert_webp/top5.webp
+public/convert_webp/internet-memo.webp
+public/convert_webp/logo.webp
+public/convert_webp/pc-memo.webp
 
 # Logs
 logs
