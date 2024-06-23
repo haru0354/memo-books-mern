@@ -39,6 +39,18 @@ const AnimationItem = ({ emotionCss, children, elType, animation, delay }) => {
     },
   };
 
+  const fadeInUp = {
+    hidden: { opacity: 0, y: -50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: delay || 0,
+        duration: 0.8,
+      },
+    },
+  };
+
   const fadeInOpacity = {
     hidden: { opacity: 0, x: 10 },
     visible: {
@@ -67,6 +79,7 @@ const AnimationItem = ({ emotionCss, children, elType, animation, delay }) => {
     fadeInLeft,
     fadeInRight,
     fadeInDown,
+    fadeInUp,
     fadeInOpacity,
     fadeInScale,
   };

@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContentsAsync } from "../../store/slice/contentsSlice";
+import useToast from "../../hooks/useToast";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -24,6 +25,7 @@ const DeleteContentModal = ({ contentTitle, bookId, chapterId, contentId, toggle
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.uid)
+  const showToast = useToast();
   const bodyRef = useRef(document.body);
 
   const disableScroll = () => {
@@ -55,8 +57,10 @@ const DeleteContentModal = ({ contentTitle, bookId, chapterId, contentId, toggle
       await dispatch(deleteContentsAsync({userId, bookId, chapterId, contentId})).unwrap();
       toggleCloseModal();
       toggleEditContents(contentId);
+      showToast("メモが削除されました")
     } catch (error) {
-      console.error("コンテンツの削除に失敗しました。");
+      showToast("メモの削除に失敗しました")
+      console.error("メモの削除に失敗しました。");
     }
   };
 

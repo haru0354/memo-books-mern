@@ -6,7 +6,7 @@ import { fetchChapters } from "../store/slice/chaptersSlice";
 import { css } from "@emotion/react";
 import { main2ColumnStyle } from "../styles/styles";
 import ChapterList from "../components/ChapterList";
-import AddChapterForm from "../components/AddChapterForm";
+import AddChapterForm from "../components/chapter/AddChapterForm";
 
 const loadingStyle = css`
   text-align: center;
@@ -15,13 +15,13 @@ const loadingStyle = css`
 const Book = () => {
   const { bookId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
-
   const dispatch = useDispatch();
   const chaptersStatus = useSelector((state) => state.chapters.status);
   const bookTitle = useSelector((state) => state.chapters.chapters.bookTitle);
+  const userId = useSelector((state) => state.user.user.uid);
 
   useEffect(() => {
-    dispatch(fetchChapters(bookId));
+    dispatch(fetchChapters({ userId, bookId })).unwrap();
   }, [dispatch, bookId]);
 
   useEffect(() => {

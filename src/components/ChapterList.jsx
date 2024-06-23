@@ -52,11 +52,9 @@ const sidebarStyles = css`
 `;
 
 const booksBackStyle = css`
+  margin-top: 10px;
+  margin-bottom: 0;
   text-align: center;
-  margin-top: 0;
-  padding-top: 9px;
-  padding-bottom: 9px;
-  border-bottom: 1px dashed gray;
 
   &:hover {
     background-color: #7e7979;
@@ -65,16 +63,18 @@ const booksBackStyle = css`
 
 const bookTitleStyle = css`
   word-wrap: break-word;
-  padding: 8px;
+  padding: 30px 8px;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-top: 1px solid gray;
   border-bottom: 1px solid gray;
-  margin-top: 30px;
   color: white;
   text-align: center;
 `;
 
 const ulStyles = css`
   padding: 0;
-  padding: 10px 0;
+  margin-top: 5px;
 `;
 
 const liStyles = css`
@@ -130,6 +130,15 @@ const sidebarClosed = css`
   }
 `;
 
+const logoCss = css`
+  width: 100%;
+
+  @media (max-width: 767px) {
+    width: 70%;
+    margin-left: 45px;
+  }
+`;
+
 const ChapterList = ({ bookId }) => {
   const [isHumBergerMenuOpen, setIsHumBergerMenuOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -171,12 +180,12 @@ const ChapterList = ({ bookId }) => {
     setEditingChapterId(chapterId);
     setEditingChapterTitle(chapterTitle);
     setIsEditModalOpen((prev) => !prev);
-    disableScroll()
+    disableScroll();
   };
 
   const toggleCloseEditModal = () => {
     setIsEditModalOpen((prev) => !prev);
-    enableScroll()
+    enableScroll();
   };
 
   const closeEditModal = (e) => {
@@ -190,10 +199,13 @@ const ChapterList = ({ bookId }) => {
       <div
         css={[sidebarStyles, isHumBergerMenuOpen ? sidebarOpen : sidebarClosed]}
       >
+        <Link to="/">
+          <img src="/logo.png" alt="メモブックノート" css={logoCss} />
+        </Link>
+        <h2 css={bookTitleStyle}>{chapters.bookTitle}</h2>
         <Link to="/books">
           <p css={booksBackStyle}>本の一覧へ</p>
         </Link>
-        <h2 css={bookTitleStyle}>{chapters.bookTitle}</h2>
         <ul css={ulStyles}>
           {chapters.chaptersWithoutContents.map((chapter) => {
             return (

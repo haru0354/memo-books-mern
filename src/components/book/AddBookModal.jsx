@@ -5,6 +5,7 @@ import AddButton from "../ui/AddButton";
 import { css } from "@emotion/react";
 import { useNavigate } from "react-router-dom";
 import {
+  errorMessageStyle,
   formStyle,
   modalBackStyle,
   modalContainerStyle,
@@ -12,6 +13,7 @@ import {
 import { FormProvider, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addBookAsync } from "../../store/slice/booksSlice";
+import useToast from "../../hooks/useToast";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -27,6 +29,8 @@ const AddBookModal = () => {
   const bodyRef = useRef(document.body);
   const userId = useSelector((state) => state.user.user.uid)
   const dispatch = useDispatch();
+  const showToast = useToast();
+
   const disableScroll = () => {
     bodyRef.current.style.overflowY = "hidden";
   };
@@ -50,10 +54,11 @@ const AddBookModal = () => {
       const response = await dispatch(
         addBookAsync({ userId, formData })
       ).unwrap();
-
       toggleCloseModal();
+      showToast("本が追加されました")
       navigate(`/${response._id}/${response.chapters[0]._id}`);
     } catch (error) {
+      showToast("本の追加に失敗しました")
       console.error("本の追加に失敗しました。", error);
     }
   };

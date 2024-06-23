@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { addChaptersAsync } from "../../store/slice/chaptersSlice";
 import { FormProvider, useForm } from "react-hook-form";
+import useToast from "../../hooks/useToast";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -26,6 +27,7 @@ const AddChapterModal = ({ bookId, toggleCloseAddModal, toggleHumBergerMenu }) =
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user.uid);
   const methods = useForm();
+  const showToast = useToast();
 
   const onSubmit = async (data) => {
     const formData = {
@@ -38,10 +40,12 @@ const AddChapterModal = ({ bookId, toggleCloseAddModal, toggleHumBergerMenu }) =
       ).unwrap();
       toggleCloseAddModal();
       toggleHumBergerMenu();
+      showToast("チャプターが追加されました")
       methods.reset();
       navigate(`/${bookId}/${response._id}`);
     } catch (error) {
-      console.error("フォームの送信に失敗しました。", error);
+      showToast("チャプターの追加に失敗しました")
+      console.error("チャプターの追加に失敗しました。", error);
     }
   };
 

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formSchema } from "../lib/schema";
+import useToast from "../hooks/useToast";
 
 const formContainerStyle = css`
   width: 100%;
@@ -45,13 +46,16 @@ const SignUp = () => {
   const methods = useForm({ resolver: zodResolver(formSchema) });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const showToast = useToast();
 
   const onSubmit = async (data) => {
     const { email, password } = data;
     try {
-      await dispatch(createUser({ email, password }));
+      await dispatch(createUser({ email, password })).unwrap();
+      showToast("アカウントが作成されました")
       navigate("/books");
     } catch (error) {
+      showToast("アカウントの作成に失敗しました。")
       console.error("アカウントの作成に失敗しました。", error);
     }
   };
