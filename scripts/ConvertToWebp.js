@@ -4,9 +4,9 @@ import sharp from "sharp";
 import { fileURLToPath } from "url";
 
 const ConvertToWebp = async () => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  const appDirectory = path.join(__dirname, "..");
+  const filename = fileURLToPath(import.meta.url);
+  const directoryName = path.dirname(filename);
+  const appDirectory = path.join(directoryName, "..");
 
   const inputDirectory = path.join(appDirectory, "public");
   const outputDirectory = path.join(appDirectory, "public", "convert_webp");
@@ -20,10 +20,13 @@ const ConvertToWebp = async () => {
     return supportedFormats.includes(ext);
   });
 
-  const convertedFileNameList = path.join(__dirname, "ConvertedFileNameList.json");
+  const convertedFileNameList = path.join(
+    __dirname,
+    "ConvertedFileNameList.json"
+  );
 
   let convertedFileNames = [];
-  
+
   //　変換済みのファイル名の一覧を取得
   if (fs.existsSync(convertedFileNameList)) {
     const data = fs.readFileSync(convertedFileNameList);
@@ -31,13 +34,13 @@ const ConvertToWebp = async () => {
   }
 
   //　変換していない画像のファイル名の一覧を抽出
-  const BeforeConvertFileNames = supportedFileNames.filter(
+  const beforeConvertFileNames = supportedFileNames.filter(
     (fileName) => !convertedFileNames.includes(fileName)
   );
 
   try {
     await Promise.all(
-        BeforeConvertFileNames.map(async (fileName) => {
+      beforeConvertFileNames.map(async (fileName) => {
         const inputPath = path.join(inputDirectory, fileName);
         const outputPath = path.join(
           outputDirectory,
@@ -57,7 +60,7 @@ const ConvertToWebp = async () => {
     convertedFileNameList,
     JSON.stringify(convertedFileNames, null, 2)
   );
-  console.log("webpに変換したファイル", BeforeConvertFileNames);
+  console.log("webpに変換したファイル", beforeConvertFileNames);
 };
 
 ConvertToWebp();
