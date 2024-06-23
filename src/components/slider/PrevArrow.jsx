@@ -37,7 +37,7 @@ const arrowStyle = css`
 export const PrevArrow = ({ onClick }) => {
   return (
     <div>
-      <button css={arrowStyle} onClick={onClick}>
+      <button css={arrowStyle} onClick={onClick} title="前に戻るボタン">
         <FontAwesomeIcon icon={faCircleLeft} />
       </button>
     </div>

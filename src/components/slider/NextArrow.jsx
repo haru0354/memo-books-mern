@@ -36,7 +36,7 @@ const arrowStyle = css`
 
 export const NextArrow = ({ onClick }) => {
   return (
-    <button css={arrowStyle} onClick={onClick}>
+    <button css={arrowStyle} onClick={onClick} title="次に進むボタン">
       <FontAwesomeIcon icon={faCircleRight} />
     </button>
   );
