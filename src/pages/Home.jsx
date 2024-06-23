@@ -52,14 +52,14 @@ const reasonArea = css`
 const Home = () => {
   const sliderItems = [
     {
-      imageUrl: "/memo-book-note-list.png",
+      imageUrl: "/convert_webp/memo-book-note-list.webp",
       imageAlt: "メモリストのアプリ",
       h3: "メモをアプリで全て管理!!",
       text: "メモを本に登録して、複数のメモを一元管理。",
       text2: "様々なメモを簡単に見つけることができます。",
     },
     {
-      imageUrl: "/study-memo.jpg",
+      imageUrl: "/convert_webp/study-memo.webp",
       imageAlt: "勉強関係のメモ",
       h3: "「勉強」「資格」「仕事」のノート替わりに！！",
       text: "「基本情報」「テストに出やすい項目」などチャプター別に管理。",
@@ -67,7 +67,7 @@ const Home = () => {
         "目次機能で1タップで必要なメモを即時閲覧可能なので、学習の効率を高めることができます。",
     },
     {
-      imageUrl: "/trip-memobook.jpg",
+      imageUrl: "/convert_webp/trip-memobook.webp",
       imageAlt: "趣味の海外旅行のメモ",
       h3: "趣味の利用に！！",
       text: "「旅行」の本で「予定候補地」「行きたい観光地」「費用」などチャプター別にメモ。",
@@ -75,7 +75,7 @@ const Home = () => {
         "暇な時間にメモを取り合えずしていき、後で「旅行プランの作成」や「行先の決定」。",
     },
     {
-      imageUrl: "/memo-private.jpg",
+      imageUrl: "/convert_webp/memo-private.webp",
       imageAlt: "プライベートな欲しいものリスト",
       h3: "ちょっとしたメモに!!",
       text: "「後でなんだっけ？」と思うことは結構あります。例えば「興味のあるレストラン」「今すぐ必要でないけどちょっと欲しい物」「気になる本」などなど。",
@@ -104,7 +104,7 @@ const Home = () => {
           contentTop="メモブックでは単なるメモ帳アプリとは違い、各チャプター別にメモを登録していくことができます。"
           contentCenter="例えば、「勉強」という本を作れば「数学」「英語」「歴史」とチャプターを作成し、各チャプターごとにメモが可能です。"
           contentBottom="そのため、チャプターに分けて登録することで、「メモした内容がどこにあるか一目で分かり」、「必要な時に一瞬でメモの確認」ができます。"
-          imgSrc="/memo-book-note-chapter.jpg"
+          imgSrc="/convert_webp/memo-book-note-chapter.webp"
           imgAlt="メモブックノートのチャプター機能"
         />
         <TwoColumnTextImage
@@ -114,7 +114,7 @@ const Home = () => {
           contentTop="メモブックでは大きな項目として「本」の登録ができ、そこに「チャプター」があります。"
           contentCenter="複数の本が登録可能なため、「勉強」「プライベート」「欲しい物」「旅行」など、様々な本を登録することができます。"
           contentBottom="複数の本を登録し、各本の中に「チャプター」があり、その中に「メモ」があるので、「様々なメモを全てアプリで管理」し「即時に必要なメモの閲覧」ができます。"
-          imgSrc="/memo-book-note-list.jpg"
+          imgSrc="/convert_webp/memo-book-note-list.webp"
           imgAlt="作成したメモブックノート"
         />
       </section>
@@ -140,7 +140,7 @@ const Home = () => {
           contentTop="PCやスマホや紙のノートで、「メモを取ったファイルやノートを探し」、更に「閲覧したい部分をめくって探す」のは、面倒ではありませんか？」"
           contentCenter="メモブックでは「本」や「チャプター」に項目を作成することで、「どの本に何が書かれていて」、「各チャプターにどんなメモが書かれているか」簡単にメモを整理できます。"
           contentBottom="また、「作成したメモは自動で目次が作成」されるので、本を開き必要な目次をクリックで、「探してるメモを即時閲覧」できます。"
-          imgSrc="/memo-book-view.jpg"
+          imgSrc="/convert_webp/memo-book-view.webp"
           imgAlt="メモブックノートの目次機能"
         />
         <TwoColumnTextImage
@@ -149,7 +149,7 @@ const Home = () => {
           contentTop="「PCやスマホでメモを取ったがどこか分からない・・・」「ノートにメモを取ったが無くした、ボロボロになってしまった・・・」こんな経験はありませんか？"
           contentCenter="メモブックでは「メモをこのアプリの中で全て管理」できるので、どこにファイルやノートがあるか探す必要はなくなります。"
           contentBottom="また、「ノートのように紛失したり」「ボロボロになってしまう」心配がなく、インターネット環境さえあればアプリにアクセスし、閲覧をすることができます。"
-          imgSrc="/memo-storage.jpg"
+          imgSrc="/convert_webp/memo-storage.webp"
           imgAlt="メモを忘れても思い出せるアプリ"
         />
       </section>
@@ -186,7 +186,7 @@ const Home = () => {
           contentTop="メモブックを使うことで、「全てのメモの管理」がしやすく、「見たい項目がどこにあるか一目で分かります」。"
           contentCenter="メモを取っても保存したのかを忘れることもあります。また、メモが多いとその時に必要だと思っても、後程忘れてしまって、どんなことを記載したか見たいこともあります。"
           contentBottom="ひとつの項目で「本」を作り「チャプター」分けることで、どこに見たい項目があるのか一目で分かり、かつどこに保存したのかや紛失して見れなくなる心配がありません。"
-          imgSrc="/pc-memo.jpg"
+          imgSrc="/convert_webp/pc-memo.webp"
           imgAlt="メモブックノートのチャプター機能"
         />
         <TwoColumnTextImage
@@ -196,7 +196,7 @@ const Home = () => {
           contentTop="学校や資格の勉強となると「頻繁にメモした内容を確認」することも多いです。"
           contentCenter="メモブックでは目次機能によって、即座にメモを閲覧でき、パソコンやスマホをスクロールしたり、ノートをめくったりして「探す無駄な時間を省けます」。"
           contentBottom="チャプターで情報を整理して目次の確認で、勉強中に「あれ何だっけ？」と思っても、即座に確認できます。"
-          imgSrc="/study-memo-book-note.jpg"
+          imgSrc="/convert_webp/study-memo-book-note.webp"
           imgAlt="資格の勉強中のメモするノート"
         />
         <TwoColumnTextImage
@@ -205,7 +205,7 @@ const Home = () => {
           contentTop="PCやスマホでよくネットサーフィンをして、「趣味について調べたり」「今日の献立を考えたり」とちょっとした情報を調べる人におすすめです。"
           contentCenter="簡単に登録と閲覧ができるようになっているので、ちょっとした内容をメモして、あとで確認するのに適しています。"
           contentBottom="とりあえず興味の出た「レストラン」「旅行先」や「買い物時に購入予定の物」「趣味の情報」などをぱっとメモをして、必要な後で確認や削除がぱっとできます。"
-          imgSrc="internet-memo.jpg"
+          imgSrc="convert_webp/internet-memo.webp"
           imgAlt="パソコンでメモする女性"
         />
       </section>
