@@ -64,10 +64,10 @@ const DeleteBookModal = ({ bookTitle, bookId, toggleCloseEditModal }) => {
 
       toggleCloseEditModal();
       toggleCloseModal();
-      showToast("本が削除されました")
+      showToast("メモブックが削除されました")
     } catch (error) {
-      showToast("本の削除に失敗しました。")
-      console.error("本の削除に失敗しました。", error);
+      showToast("メモブックの削除に失敗しました。")
+      console.error("メモブックの削除に失敗しました。", error);
     }
   };
 
@@ -82,7 +82,7 @@ const DeleteBookModal = ({ bookTitle, bookId, toggleCloseEditModal }) => {
             <p>「{bookTitle}」を削除しますか？</p>
             <p>削除すると復元することはできません。</p>
 
-            <span css={pStyle}>「本」の中見も全て削除されます。</span>
+            <span css={pStyle}>「メモブック」の中見も全て削除されます。</span>
 
             <div css={buttonContainerStyle}>
               <Button color="red" onClick={onClickDelete}>
