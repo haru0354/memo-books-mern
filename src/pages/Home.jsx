@@ -6,7 +6,6 @@ import ImageSlider from "../components/slider/ImageSlider";
 import CtaSection from "../components/section/CtaSection";
 import ThreePoint from "../components/section/ThreePoint";
 import QaSection from "../components/section/QaSection";
-import Footer from "../components/Footer";
 import AnimationItem from "../lib/AnimationItem";
 
 const firstSection = css`
@@ -14,7 +13,6 @@ const firstSection = css`
   padding-right: 10px;
   padding-bottom: 30px;
   padding-left: 10px;
-  background-color: #fffdfb;
   overflow-x: hidden;
 `;
 
@@ -42,11 +40,13 @@ const sectionH2Style = css`
 `;
 
 const reasonArea = css`
-  margin: 0 auto;
-  text-align: center;
   width: 100%;
   max-width: 650px;
-  border: 1px solid rgb(215 215 215);
+  margin: 0 auto;
+  padding: 2px;
+  text-align: center;
+  border: 1px dashed gray;
+  border-radius: 4px;
 `;
 
 const Home = () => {
@@ -245,7 +245,6 @@ const Home = () => {
         bottomText="登録は「emailアドレス」「パスワード」の2つを入力しアカウントを作成すれば、利用ができます。"
         buttonText="登録して利用"
       />
-      <Footer />
     </>
   );
 };

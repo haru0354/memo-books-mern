@@ -12,12 +12,14 @@ import Page404 from "./pages/Page404";
 import useAuthObserver from "./auth/useAuthObserver";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import Setting from "./pages/Setting";
+import Privacypolicy from "./pages/Privacypolicy";
 
 const globalStyles = css`
   @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
 
   body {
     font-family: "Noto Sans JP", sans-serif;
+    font-size: 16px;
     margin: 0;
     color: rgb(55 65 81);
     display: flex;
@@ -31,6 +33,7 @@ const globalStyles = css`
 
     a {
       text-decoration: none;
+      color: #589be3;
     }
   }
 `;
@@ -45,10 +48,18 @@ function App() {
         <ToastProvider>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
+              <Route path="/" element={<Home />} />
               <Route
                 path="/books"
                 element={<ProtectedRoute element={<Books />} />}
+              />
+              <Route
+                path="/setting"
+                element={<ProtectedRoute element={<Setting />} />}
+              />
+              <Route
+                path="/privacypolicy"
+                element={<ProtectedRoute element={<Privacypolicy />} />}
               />
               <Route
                 path="/:bookId"
@@ -57,10 +68,6 @@ function App() {
               <Route
                 path="/:bookId/:chapterId"
                 element={<ProtectedRoute element={<Chapter />} />}
-              />
-              <Route
-                path="/setting"
-                element={<ProtectedRoute element={<Setting />} />}
               />
               <Route path="*" element={<Page404 />} />
             </Route>
