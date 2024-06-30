@@ -59,7 +59,7 @@ function App() {
               />
               <Route
                 path="/privacypolicy"
-                element={<ProtectedRoute element={<Privacypolicy />} />}
+                element={<Privacypolicy />}
               />
               <Route
                 path="/:bookId"

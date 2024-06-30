@@ -91,7 +91,6 @@ const SignUp = () => {
             <Button type="submit" color="blue">
               登録
             </Button>
-            <Button color="gray">googleでログイン</Button>
           </div>
         </form>
       </FormProvider>

@@ -7,6 +7,7 @@ import { css } from "@emotion/react";
 import { main1ColumnStyle, oneColumnContainerStyle } from "../styles/styles";
 import AddBookModal from "../components/book/AddBookModal";
 import EditBookModal from "../components/book/EditBookModal";
+import Page404 from "./Page404";
 
 const bookContainerStyle = css`
   padding: 0 1.8rem;
@@ -120,6 +121,7 @@ const Books = () => {
           name="description"
           content="登録をしたメモブックの一覧ページです。今までに登録をした本の一覧が表示されます。各本の中にはチャプターやメモの登録か閲覧をすることができます。"
         />
+        <meta name="robots" content="noindex" />
       </Helmet>
       <div css={main1ColumnStyle}>
         <div css={oneColumnContainerStyle}>

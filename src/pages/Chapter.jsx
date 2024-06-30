@@ -8,6 +8,7 @@ import { fetchChapters } from "../store/slice/chaptersSlice";
 import { fetchContents } from "../store/slice/contentsSlice";
 import ContentsArea from "../components/ContentsArea";
 import ChapterList from "../components/ChapterList";
+import Page404 from "./Page404";
 
 const loadingStyle = css`
   text-align: center;
@@ -49,6 +50,13 @@ const Chapter = () => {
     return <p css={loadingStyle}>Loading ...</p>;
   }
 
+  if (
+    chaptersStatus === "failed" ||
+    contentsStatus === "failed"
+  ) {
+    return <Page404 />;
+  }
+
   return (
     <>
       <Helmet>
@@ -57,6 +65,7 @@ const Chapter = () => {
           name="description"
           content={`${chapterTitle}中のコンテンツの一覧ページです。チャプターの中には今までに登録したメモが含まれています。様々なメモを登録したり編集や削除などがこのページでは可能です。PC・スマホ・タブレットなどのあらゆる端末なだけでなく、iphoneやandroidのどちらでも利用が可能です。`}
         />
+        <meta name="robots" content="noindex" />
       </Helmet>
       <div css={main2ColumnStyle}>
         <ChapterList bookId={bookId} />

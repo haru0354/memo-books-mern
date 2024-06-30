@@ -31,9 +31,9 @@ const buttonStyle = (color) => css`
   }
 `;
 
-const Button = ({ children, onClick, color, type, addCss }) => {
+const Button = ({ children, onClick, color, type, addCss, title }) => {
   return (
-    <button type={type} css={[buttonStyle(color), addCss]} onClick={onClick}>
+    <button type={type} css={[buttonStyle(color), addCss]} onClick={onClick} title={title}>
       {children}
     </button>
   );

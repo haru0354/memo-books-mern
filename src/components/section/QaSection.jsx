@@ -39,7 +39,7 @@ const QaSection = ({ title, text }) => {
   return (
     <div css={container} onClick={toggleOpen}>
       <div css={qaStyle}>
-        <Button color="gray" addCss={buttonAddStyle}>
+        <Button color="gray" addCss={buttonAddStyle} title="回答の開閉ボタン">
           {isOpen ? (
             <FontAwesomeIcon icon={faMinus} />
           ) : (

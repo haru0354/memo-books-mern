@@ -11,6 +11,10 @@ const headerContainer = css`
   a {
     color: #374151;
   }
+
+  @media (max-width: 768px) {
+    height: 60px;
+  }
 `;
 
 const oneColumnAddHeaderContainer = css`
@@ -29,6 +33,10 @@ const oneColumnAddHeaderStyle = css`
   margin: 0 auto;
   padding: 0 16px;
   color: rgb(55 65 81);
+
+  @media (max-width: 768px) {
+    height: 60px;
+  }
 `;
 
 const twoColumnAddHeaderStyle = css`
@@ -42,6 +50,16 @@ const twoColumnAddHeaderStyle = css`
 
   a {
     color: #e3e3e3;
+  }
+`;
+
+const imageStyle = css`
+  width: 220px;
+  height: 60px;
+
+  @media (max-width: 768px) {
+    width: 165px;
+    height: 45px;
   }
 `;
 
@@ -61,9 +79,15 @@ const Header = ({ variant }) => {
         ]}
       >
         <Link to="/">
-        <img src="/logo.png" alt="メモブックノート" />
+          <img
+            src="/logo.png"
+            alt="メモブックノート"
+            width={220}
+            height={60}
+            css={imageStyle}
+          />
         </Link>
-          <LoginModal />
+        <LoginModal />
       </div>
     </header>
   );
