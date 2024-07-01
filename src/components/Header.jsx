@@ -80,7 +80,7 @@ const Header = ({ variant }) => {
       >
         <Link to="/">
           <img
-            src="/logo.png"
+            src="/convert_webp/logo.webp"
             alt="メモブックノート"
             width={220}
             height={60}

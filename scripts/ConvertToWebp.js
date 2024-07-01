@@ -1,0 +1,66 @@
+import fs from "fs";
+import path from "path";
+import sharp from "sharp";
+import { fileURLToPath } from "url";
+
+const ConvertToWebp = async () => {
+  const filename = fileURLToPath(import.meta.url);
+  const directoryName = path.dirname(filename);
+  const appDirectory = path.join(directoryName, "..");
+
+  const inputDirectory = path.join(appDirectory, "public");
+  const outputDirectory = path.join(appDirectory, "public", "convert_webp");
+
+  const fileNames = fs.readdirSync(inputDirectory);
+  const supportedFormats = [".jpg", ".jpeg", ".png"];
+
+  //　画像のファイル名の一覧を取得
+  const supportedFileNames = fileNames.filter((fileName) => {
+    const ext = path.extname(fileName).toLowerCase();
+    return supportedFormats.includes(ext);
+  });
+
+  const convertedFileNameList = path.join(
+    __dirname,
+    "ConvertedFileNameList.json"
+  );
+
+  let convertedFileNames = [];
+
+  //　変換済みのファイル名の一覧を取得
+  if (fs.existsSync(convertedFileNameList)) {
+    const data = fs.readFileSync(convertedFileNameList);
+    convertedFileNames = JSON.parse(data);
+  }
+
+  //　変換していない画像のファイル名の一覧を抽出
+  const beforeConvertFileNames = supportedFileNames.filter(
+    (fileName) => !convertedFileNames.includes(fileName)
+  );
+
+  try {
+    await Promise.all(
+      beforeConvertFileNames.map(async (fileName) => {
+        const inputPath = path.join(inputDirectory, fileName);
+        const outputPath = path.join(
+          outputDirectory,
+          `${fileName.replace(/\.(jpe?g|png)$/, ".webp")}`
+        );
+
+        await sharp(inputPath).webp({ quality: 100 }).toFile(outputPath);
+        convertedFileNames.push(fileName);
+      })
+    );
+    console.log("画像の変換に成功しました");
+  } catch (error) {
+    console.log("画像の変換に失敗しました", error);
+  }
+
+  fs.writeFileSync(
+    convertedFileNameList,
+    JSON.stringify(convertedFileNames, null, 2)
+  );
+  console.log("webpに変換したファイル", beforeConvertFileNames);
+};
+
+ConvertToWebp();
