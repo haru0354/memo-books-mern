@@ -34,7 +34,7 @@ app.use(function (err, req, res, next) {
   if (res.headersSent) {
     return next(err);
   }
-  res.status(500).json({ message: "不正なエラーが発生しました。" });
+  res.status(500).json({ message: "不正なエラーが発生しました。", error: err.message });
 });
 
 app.listen(port, () => {
