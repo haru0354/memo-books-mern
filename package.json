@@ -7,9 +7,9 @@
     "start": "node server/app.mjs",
     "dev": "npx concurrently \"npm:dev:api\" \"npm:dev:client\"",
     "dev:api": "nodemon server/app.mjs",
-    "dev:client": "node scripts/ConvertToWebp && vite",
-    "build": "node scripts/ConvertToWebp && vite build",
-    "image": "node scripts/ConvertToWebp",
+    "dev:client": "node scripts/ConvertToWebp.mjs && vite",
+    "build": "node scripts/ConvertToWebp.mjs && vite build",
+    "image": "node scripts/ConvertToWebp.mjs",
     "deploy": "vercel deploy --prod",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
