@@ -1,15 +1,10 @@
 import fs from "fs";
 import path from "path";
 import sharp from "sharp";
-import { fileURLToPath } from "url";
 
 const ConvertToWebp = async () => {
-  const filename = fileURLToPath(import.meta.url);
-  const directoryName = path.dirname(filename);
-  const appDirectory = path.join(directoryName, "..");
-
-  const inputDirectory = path.join(appDirectory, "public");
-  const outputDirectory = path.join(appDirectory, "public", "convert_webp");
+  const inputDirectory = path.join(process.cwd(), "public");
+  const outputDirectory = path.join(process.cwd(), "public", "convert_webp");
 
   const fileNames = fs.readdirSync(inputDirectory);
   const supportedFormats = [".jpg", ".jpeg", ".png"];
@@ -21,7 +16,8 @@ const ConvertToWebp = async () => {
   });
 
   const convertedFileNameList = path.join(
-    __dirname,
+    process.cwd(),
+    "scripts",
     "ConvertedFileNameList.json"
   );
 
