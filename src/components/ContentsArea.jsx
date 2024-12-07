@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { css } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { RightContent, formStyle, errorMessageStyle } from "../styles/styles";
-import React, { useState } from "react";
 import Button from "./ui/Button";
 import TextInput from "./ui/TextInput";
 import Textarea from "./ui/Textarea";
@@ -12,7 +12,7 @@ import { updateContentsAsync } from "../store/slice/contentsSlice";
 import DeleteContentModal from "./content/DeleteContentModal";
 import EditImageButton from "./ui/EditImageButton";
 import { FormProvider, useForm } from "react-hook-form";
-import { splitAndNewLines } from "../lib/splitAndNewLines";
+import SplitAndNewLines from "../lib/SplitAndNewLines";
 import useToast from "../hooks/useToast";
 
 const tableOfContentsStyle = css`
@@ -132,9 +132,9 @@ const ContentsArea = ({ bookId, chapterId }) => {
 
       methods.reset();
       toggleEditContents(contentId);
-      showToast("メモの編集が完了しました")
+      showToast("メモの編集が完了しました");
     } catch (error) {
-      showToast("メモの編集に失敗しました")
+      showToast("メモの編集に失敗しました");
       console.error("メモの編集に失敗しました。", error);
     }
   };
@@ -223,7 +223,7 @@ const ContentsArea = ({ bookId, chapterId }) => {
                     onClick={() => toggleEditContents(content._id)}
                   />
                 </div>
-                {splitAndNewLines(content.content)}
+                <SplitAndNewLines text={content.content} />
               </>
             )}
           </div>
