@@ -6,7 +6,7 @@ import { css } from "@emotion/react";
 import { main2ColumnStyle } from "../styles/styles";
 import { fetchChapters } from "../store/slice/chaptersSlice";
 import { fetchContents } from "../store/slice/contentsSlice";
-import ContentsArea from "../components/ContentsArea";
+import MainContent from "../components/layout/MainContent";
 import Sidebar from "../components/layout/Sidebar";
 import Page404 from "./Page404";
 
@@ -69,7 +69,7 @@ const Chapter = () => {
       </Helmet>
       <div css={main2ColumnStyle}>
         <Sidebar bookId={bookId} />
-        <ContentsArea bookId={bookId} chapterId={chapterId} />
+        <MainContent bookId={bookId} chapterId={chapterId} />
       </div>
     </>
   );
