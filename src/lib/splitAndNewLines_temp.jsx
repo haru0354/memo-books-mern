@@ -1,6 +1,6 @@
 import React from "react";
 
-export const splitAndNewLines = (text) => {
+const SplitAndNewLines = (text) => {
   return text.split("\n").map((line, index) => {
     return (
       <React.Fragment key={index}>
@@ -10,3 +10,5 @@ export const splitAndNewLines = (text) => {
     );
   });
 };
+
+export default SplitAndNewLines
