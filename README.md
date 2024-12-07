@@ -80,7 +80,7 @@ Emotionは縦に伸びて、コードの部分にスクロールしたりと、�
 ## 画像
 
 画像はsharpを使用してwebpに変換したのを利用しています。
-(scripts > ConvertToWebp.mjsを参照)
+(scripts > convertToWebp.mjsを参照)
 
 publicフォルダの画像を変換し、convert_webpフォルダに変換された画像が作られます。
 専用のコマンド(image)として追加をしており、「dev」や「build」コマンド時に実行されます。
