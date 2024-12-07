@@ -7,7 +7,7 @@ import { main2ColumnStyle } from "../styles/styles";
 import { fetchChapters } from "../store/slice/chaptersSlice";
 import { fetchContents } from "../store/slice/contentsSlice";
 import ContentsArea from "../components/ContentsArea";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/layout/Sidebar";
 import Page404 from "./Page404";
 
 const loadingStyle = css`
