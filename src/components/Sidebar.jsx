@@ -141,7 +141,7 @@ const logoCss = css`
   }
 `;
 
-const ChapterList = ({ bookId }) => {
+const Sidebar = ({ bookId }) => {
   const [isHumBergerMenuOpen, setIsHumBergerMenuOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -264,4 +264,4 @@ const ChapterList = ({ bookId }) => {
   );
 };
 
-export default memo(ChapterList);
+export default memo(Sidebar);

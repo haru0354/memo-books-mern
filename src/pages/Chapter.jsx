@@ -7,7 +7,7 @@ import { main2ColumnStyle } from "../styles/styles";
 import { fetchChapters } from "../store/slice/chaptersSlice";
 import { fetchContents } from "../store/slice/contentsSlice";
 import ContentsArea from "../components/ContentsArea";
-import ChapterList from "../components/ChapterList";
+import Sidebar from "../components/Sidebar";
 import Page404 from "./Page404";
 
 const loadingStyle = css`
@@ -68,7 +68,7 @@ const Chapter = () => {
         <meta name="robots" content="noindex" />
       </Helmet>
       <div css={main2ColumnStyle}>
-        <ChapterList bookId={bookId} />
+        <Sidebar bookId={bookId} />
         <ContentsArea bookId={bookId} chapterId={chapterId} />
       </div>
     </>
