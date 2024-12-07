@@ -20,7 +20,7 @@ const Footer = () => {
         <li>
           <Link to="/privacypolicy" css={LinkLiStyle}>プライバシーポリシー</Link>
         </li>
-        <li>&copy;無料で本やメモを作成できるブックメモ</li>
+        <li>&copy;無料で本やメモを作成できるブックメモ</li>aaaa
       </ul>
     </footer>
   );
