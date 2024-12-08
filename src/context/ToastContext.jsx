@@ -1,23 +1,17 @@
+import { createContext, useState, useCallback, useEffect } from "react";
 import { css } from "@emotion/react";
-import {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useEffect,
-} from "react";
 import AnimationItem from "../lib/AnimationItem";
 
 const ToastStyle = css`
-    position: fixed;
-    top: 50px;
-    right: 50px;
-    padding: 10px 20px;
-    border-radius: 4px;
-    opacity: 0.9;
-    background-color: rgb(55 65 81);
-    color: #fffaf1;
-    transition: opacity 0.7s ease;
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  opacity: 0.9;
+  background-color: rgb(55 65 81);
+  color: #fffaf1;
+  transition: opacity 0.7s ease;
 `;
 
 const ToastContext = createContext();
@@ -43,7 +37,11 @@ const ToastProvider = ({ children }) => {
     <ToastContext.Provider value={showToast}>
       {children}
       {toast && (
-        <AnimationItem elType="div" animation="fadeInUp" emotionCss={ToastStyle} >
+        <AnimationItem
+          elType="div"
+          animation="fadeInUp"
+          emotionCss={ToastStyle}
+        >
           {toast.text}
         </AnimationItem>
       )}
