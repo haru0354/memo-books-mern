@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 import { memo } from "react";
-import LoginModal from "../auth/LoginModal";
+import LoginModal from "../../auth/LoginModal"
 
 const headerContainer = css`
   width: 100%;

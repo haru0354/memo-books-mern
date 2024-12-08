@@ -1,9 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { main1ColumnStyle, oneColumnContainerStyle } from "../styles/styles";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
 
 const addTextCenterStyle = css`
   text-align: center;

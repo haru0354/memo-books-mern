@@ -6,8 +6,8 @@ import { css } from "@emotion/react";
 import { main2ColumnStyle } from "../styles/styles";
 import { fetchChapters } from "../store/slice/chaptersSlice";
 import { fetchContents } from "../store/slice/contentsSlice";
-import ContentsArea from "../components/ContentsArea";
-import ChapterList from "../components/ChapterList";
+import MainContent from "../components/layout/MainContent";
+import Sidebar from "../components/layout/Sidebar";
 import Page404 from "./Page404";
 
 const loadingStyle = css`
@@ -68,8 +68,8 @@ const Chapter = () => {
         <meta name="robots" content="noindex" />
       </Helmet>
       <div css={main2ColumnStyle}>
-        <ChapterList bookId={bookId} />
-        <ContentsArea bookId={bookId} chapterId={chapterId} />
+        <Sidebar bookId={bookId} />
+        <MainContent bookId={bookId} chapterId={chapterId} />
       </div>
     </>
   );

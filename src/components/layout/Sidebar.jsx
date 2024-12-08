@@ -1,15 +1,15 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
-import AddChapterModal from "./chapter/AddChapterModal";
-import EditChapterModal from "./chapter/EditChapterModal";
+import AddChapterModal from "../chapter/AddChapterModal";
+import EditChapterModal from "../chapter/EditChapterModal";
 import { memo, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { modalBackStyle } from "../styles/styles";
-import AddButton from "./ui/AddButton";
-import EditImageButton from "./ui/EditImageButton";
-import Page404 from "../pages/Page404";
+import { modalBackStyle } from "../../styles/styles";
+import AddButton from "../ui/AddButton";
+import EditImageButton from "../ui/EditImageButton";
+import Page404 from "../../pages/Page404";
 
 const sidebarStyles = css`
   position: fixed;
@@ -141,7 +141,7 @@ const logoCss = css`
   }
 `;
 
-const ChapterList = ({ bookId }) => {
+const Sidebar = ({ bookId }) => {
   const [isHumBergerMenuOpen, setIsHumBergerMenuOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -264,4 +264,4 @@ const ChapterList = ({ bookId }) => {
   );
 };
 
-export default memo(ChapterList);
+export default memo(Sidebar);

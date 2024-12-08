@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchChapters } from "../store/slice/chaptersSlice";
 import { css } from "@emotion/react";
 import { main2ColumnStyle } from "../styles/styles";
-import ChapterList from "../components/ChapterList";
+import Sidebar from "../components/layout/Sidebar";
 import AddChapterForm from "../components/chapter/AddChapterForm";
 import Page404 from "./Page404";
 
@@ -52,7 +52,7 @@ const Book = () => {
         <meta name="robots" content="noindex" />
       </Helmet>
       <div css={main2ColumnStyle}>
-        <ChapterList bookId={bookId} />
+        <Sidebar bookId={bookId} />
         <AddChapterForm bookId={bookId} />
       </div>
     </>

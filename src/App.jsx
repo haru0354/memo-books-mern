@@ -3,7 +3,7 @@ import { Global, css } from "@emotion/react";
 import "normalize.css";
 import { HelmetProvider } from "react-helmet-async";
 import { ToastProvider } from "./context/ToastContext";
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 import Books from "./pages/Books";
 import Chapter from "./pages/Chapter";

@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 
-const ConvertToWebp = async () => {
+const convertToWebp = async () => {
   const inputDirectory = path.join(process.cwd(), "public");
   const outputDirectory = path.join(process.cwd(), "public", "convert_webp");
 
@@ -18,7 +18,7 @@ const ConvertToWebp = async () => {
   const convertedFileNameList = path.join(
     process.cwd(),
     "scripts",
-    "ConvertedFileNameList.json"
+    "convertedFileNameList.json"
   );
 
   let convertedFileNames = [];
@@ -59,4 +59,4 @@ const ConvertToWebp = async () => {
   console.log("webpに変換したファイル", beforeConvertFileNames);
 };
 
-ConvertToWebp();
+convertToWebp();
