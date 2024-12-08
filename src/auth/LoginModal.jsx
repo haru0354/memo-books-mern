@@ -1,17 +1,17 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/slice/userSlice";
+import { Link, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import { modalBackStyle } from "../styles/styles";
 import { css } from "@emotion/react";
+import { modalBackStyle } from "../styles/styles";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formSchema } from "../lib/schema";
+import useToast from "../hooks/useToast";
+import AnimationItem from "../lib/AnimationItem";
 import Button from "../components/ui/Button";
 import TextInput from "../components/ui/TextInput";
 import AuthButton from "../components/ui/AuthButton";
-import { Link, useNavigate } from "react-router-dom";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema } from "../lib/schema";
-import AnimationItem from "../lib/AnimationItem";
-import useToast from "../hooks/useToast";
 
 const formContainerStyle = css`
   width: 100%;
