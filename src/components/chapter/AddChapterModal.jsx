@@ -1,19 +1,16 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addChaptersAsync } from "../../store/slice/chaptersSlice";
 import { useNavigate } from "react-router-dom";
-import Button from "../ui/Button";
-import TextInput from "../ui/TextInput";
-import AddButton from "../ui/AddButton";
+import { FormProvider, useForm } from "react-hook-form";
 import { css } from "@emotion/react";
 import {
   errorMessageStyle,
   formStyle,
-  modalBackStyle,
   modalContainerStyle,
 } from "../../styles/styles";
-import { useDispatch, useSelector } from "react-redux";
-import { addChaptersAsync } from "../../store/slice/chaptersSlice";
-import { FormProvider, useForm } from "react-hook-form";
 import useToast from "../../hooks/useToast";
+import Button from "../ui/Button";
+import TextInput from "../ui/TextInput";
 
 const buttonContainerStyle = css`
   display: flex;
