@@ -1,16 +1,16 @@
-import Button from "../ui/Button";
-import TextInput from "../ui/TextInput";
+import { useDispatch, useSelector } from "react-redux";
+import { updateChaptersAsync } from "../../store/slice/chaptersSlice";
+import { FormProvider, useForm } from "react-hook-form";
 import { css } from "@emotion/react";
 import {
   errorMessageStyle,
   formStyle,
   modalContainerStyle,
 } from "../../styles/styles";
-import { useDispatch, useSelector } from "react-redux";
-import { updateChaptersAsync } from "../../store/slice/chaptersSlice";
 import DeleteChapterModal from "./DeleteChapterModal";
-import { FormProvider, useForm } from "react-hook-form";
 import useToast from "../../hooks/useToast";
+import Button from "../ui/Button";
+import TextInput from "../ui/TextInput";
 
 const buttonContainerStyle = css`
   display: flex;

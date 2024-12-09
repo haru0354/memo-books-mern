@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
-import Button from "../ui/Button";
-import { css } from "@emotion/react";
-import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteChaptersAsync } from "../../store/slice/chaptersSlice";
+import { useNavigate } from "react-router-dom";
+import { css } from "@emotion/react";
+import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import useToast from "../../hooks/useToast";
+import Button from "../ui/Button";
 
 const pStyle = css`
   font-weight: 600;

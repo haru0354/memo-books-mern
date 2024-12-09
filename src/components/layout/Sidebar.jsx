@@ -1,14 +1,14 @@
+import { memo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { css } from "@emotion/react";
-import AddChapterModal from "../chapter/AddChapterModal";
-import EditChapterModal from "../chapter/EditChapterModal";
-import { memo, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { css } from "@emotion/react";
 import { modalBackStyle } from "../../styles/styles";
 import AddButton from "../ui/AddButton";
 import EditImageButton from "../ui/EditImageButton";
+import AddChapterModal from "../chapter/AddChapterModal";
+import EditChapterModal from "../chapter/EditChapterModal";
 import Page404 from "../../pages/Page404";
 
 const sidebarStyles = css`

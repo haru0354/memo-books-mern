@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
-import Button from "../ui/Button";
-import { css } from "@emotion/react";
-import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContentsAsync } from "../../store/slice/contentsSlice";
+import { css } from "@emotion/react";
+import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import useToast from "../../hooks/useToast";
+import Button from "../ui/Button";
 
 const buttonContainerStyle = css`
   display: flex;

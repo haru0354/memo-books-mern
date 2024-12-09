@@ -1,5 +1,3 @@
-// mongoDBのISO形式の日付を変換
-
 export const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();

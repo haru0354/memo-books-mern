@@ -1,16 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Global, css } from "@emotion/react";
-import "normalize.css";
 import { HelmetProvider } from "react-helmet-async";
 import { ToastProvider } from "./context/ToastContext";
+import { Global, css } from "@emotion/react";
+import "normalize.css";
+import useAuthObserver from "./auth/useAuthObserver";
+import ProtectedRoute from "./auth/ProtectedRoute";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 import Books from "./pages/Books";
 import Chapter from "./pages/Chapter";
 import Book from "./pages/Book";
 import Page404 from "./pages/Page404";
-import useAuthObserver from "./auth/useAuthObserver";
-import ProtectedRoute from "./auth/ProtectedRoute";
 import Setting from "./pages/Setting";
 import Privacypolicy from "./pages/Privacypolicy";
 

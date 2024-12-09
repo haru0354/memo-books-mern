@@ -1,19 +1,23 @@
 import { useState } from "react";
-import { css } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { RightContent, formStyle, errorMessageStyle } from "../../styles/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { updateContentsAsync } from "../../store/slice/contentsSlice";
+import { FormProvider, useForm } from "react-hook-form";
+import { css } from "@emotion/react";
+import {
+  RightContent,
+  formStyle,
+  errorMessageStyle,
+} from "../../styles/styles";
+import useToast from "../../hooks/useToast";
+import SplitAndNewLines from "../../lib/SplitAndNewLines";
 import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
 import Textarea from "../ui/Textarea";
-import AddContentModal from "../content/AddContentModal";
-import { useDispatch, useSelector } from "react-redux";
-import { updateContentsAsync } from "../../store/slice/contentsSlice";
-import DeleteContentModal from "../content/DeleteContentModal";
 import EditImageButton from "../ui/EditImageButton";
-import { FormProvider, useForm } from "react-hook-form";
-import SplitAndNewLines from "../../lib/SplitAndNewLines";
-import useToast from "../../hooks/useToast";
+import AddContentModal from "../content/AddContentModal";
+import DeleteContentModal from "../content/DeleteContentModal";
 
 const tableOfContentsStyle = css`
   width: 90%;

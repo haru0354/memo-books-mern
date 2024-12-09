@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { css } from "@emotion/react";
-import { FormProvider, useForm } from "react-hook-form";
-
 import { changePasswordAsync, logout } from "../store/slice/userSlice";
-import useToast from "../hooks/useToast";
-import TextInput from "../components/ui/TextInput";
-import Button from "../components/ui/Button";
+import { useNavigate } from "react-router-dom";
+import { FormProvider, useForm } from "react-hook-form";
+import { css } from "@emotion/react";
 import {
   buttonContainerStyle,
   errorMessageStyle,
@@ -15,7 +11,10 @@ import {
   modalBackStyle,
   modalContainerStyle,
 } from "../styles/styles";
+import useToast from "../hooks/useToast";
 import AgainAuth from "./deleteAccount/AgainAuth";
+import TextInput from "../components/ui/TextInput";
+import Button from "../components/ui/Button";
 
 const centerStyle = css`
   padding-top: 10px;

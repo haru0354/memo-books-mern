@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
-import Button from "../ui/Button";
 import AnimationItem from "../../lib/AnimationItem";
+import Button from "../ui/Button";
 
 const ctaSection = css`
   padding-top: 60px;

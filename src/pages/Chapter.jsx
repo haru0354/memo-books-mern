@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { css } from "@emotion/react";
-import { main2ColumnStyle } from "../styles/styles";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchChapters } from "../store/slice/chaptersSlice";
 import { fetchContents } from "../store/slice/contentsSlice";
+import { useParams } from "react-router-dom";
+import { css } from "@emotion/react";
+import { main2ColumnStyle } from "../styles/styles";
 import MainContent from "../components/layout/MainContent";
 import Sidebar from "../components/layout/Sidebar";
 import Page404 from "./Page404";
