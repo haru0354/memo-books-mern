@@ -1,16 +1,26 @@
 import Book from "../models/book.mjs";
 import { validationResult } from "express-validator";
+import { verifyToken } from "../helpers/verifyToken.mjs";
+
 
 export const getAllBooks = async (req, res) => {
-  const userId = req.params.userId;
+  const token = req.headers.authorization?.split(" ")[1];
 
-  if (!userId) {
-    return res.status(403).json({ message: "idが付与されていません。" });
+  if (!token) {
+    return res.status(401).json({ message: "idが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.log("トークンの検証に失敗しました", err);
+    return;
   }
 
   const resData = await Book.aggregate([
     {
-      // userIdに一致する本をフィルタリング
       $match: { userId },
     },
     {
