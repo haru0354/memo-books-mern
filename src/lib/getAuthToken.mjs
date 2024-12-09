@@ -13,6 +13,6 @@ export async function getAuthToken() {
     return idToken;
   } catch (error) {
     console.error("IDトークンの取得に失敗しました:", error);
-    return;
+    throw new Error("IDトークンの取得に失敗しました");
   }
 }
