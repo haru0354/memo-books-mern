@@ -5,11 +5,11 @@ const expressUrl = import.meta.env.VITE_EXPRESS_URL;
 const ENDPOINT_URL = `${expressUrl}book`;
 
 const bookApi = {
-  async getAll(userId) {
+  async getAll() {
     try {
       const token = await getAuthToken();
 
-      const result = await axios.get(`${ENDPOINT_URL}/${userId}`, {
+      const result = await axios.get(`${ENDPOINT_URL}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
