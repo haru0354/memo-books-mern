@@ -141,9 +141,9 @@ export const updateBookAsync = createAsyncThunk(
 
 export const deleteBookAsync = createAsyncThunk(
   "books/deleteBookAsync ",
-  async ({ userId, bookId }) => {
+  async ({ bookId }) => {
     try {
-      const data = await bookApi.delete(userId, bookId);
+      const data = await bookApi.delete(bookId);
       return data;
     } catch (error) {
       console.error("本の削除に失敗しました。");

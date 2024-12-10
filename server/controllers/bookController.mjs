@@ -130,8 +130,22 @@ export const updateBook = async (req, res) => {
 };
 
 export const deleteBook = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);    
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.log("トークンの検証に失敗しました", err);
+    return;
+  }
+
   const bookId = req.params.bookId;
-  const userId = req.params.userId;
   const book = await Book.findById(bookId);
 
   if (book.userId !== userId) {

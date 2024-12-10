@@ -27,6 +27,6 @@ bookRouter.patch(
   requestErrorHandler(updateBook)
 );
 
-bookRouter.delete("/:userId/:bookId", requestErrorHandler(deleteBook));
+bookRouter.delete("/:bookId", requestErrorHandler(deleteBook));
 
 export default bookRouter;

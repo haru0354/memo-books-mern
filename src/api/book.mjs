@@ -45,15 +45,11 @@ const bookApi = {
     try {
       const token = await getAuthToken();
 
-      const result = await axios.patch(
-        `${ENDPOINT_URL}/${bookId}`,
-        book,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const result = await axios.patch(`${ENDPOINT_URL}/${bookId}`, book, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       return result.data;
     } catch (error) {
@@ -61,9 +57,21 @@ const bookApi = {
       throw error;
     }
   },
-  async delete(userId, bookId) {
-    const result = await axios.delete(`${ENDPOINT_URL}/${userId}/${bookId}`);
-    return result.data;
+  async delete(bookId) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.delete(`${ENDPOINT_URL}/${bookId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return result.data;
+    } catch (error) {
+      console.error("APIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
 };
 

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteBookAsync } from "../../store/slice/booksSlice";
 import { css } from "@emotion/react";
 import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
@@ -30,7 +30,6 @@ const buttonContainerStyle = css`
 const DeleteBookModal = ({ bookTitle, bookId, toggleCloseEditModal }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user.uid);
   const bodyRef = useRef(document.body);
   const showToast = useToast();
 
@@ -60,8 +59,7 @@ const DeleteBookModal = ({ bookTitle, bookId, toggleCloseEditModal }) => {
 
   const onClickDelete = async () => {
     try {
-      await dispatch(deleteBookAsync({ userId, bookId })).unwrap();
-
+      await dispatch(deleteBookAsync({ bookId })).unwrap();
       toggleCloseEditModal();
       toggleCloseModal();
       showToast("メモブックが削除されました")
