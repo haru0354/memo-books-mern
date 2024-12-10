@@ -29,7 +29,6 @@ const EditBookModal = ({ bookId, bookTitle }) => {
   const [isEditModal, setIsEditModal] = useState(false);
   const dispatch = useDispatch();
   const methods = useForm();
-  const userId = useSelector((state) => state.user.user.uid);
   const bodyRef = useRef(document.body);
   const showToast = useToast();
 
@@ -47,7 +46,7 @@ const EditBookModal = ({ bookId, bookTitle }) => {
     };
 
     try {
-      await dispatch(updateBookAsync({ userId, bookId, formData })).unwrap();
+      await dispatch(updateBookAsync({ bookId, formData })).unwrap();
       toggleCloseEditModal();
       showToast("編集が完了しました")
     } catch (error) {

@@ -41,12 +41,25 @@ const bookApi = {
       throw error;
     }
   },
-  async patch(userId, bookId, book) {
-    const result = await axios.patch(
-      `${ENDPOINT_URL}/${userId}/${bookId}`,
-      book
-    );
-    return result.data;
+  async patch(bookId, book) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.patch(
+        `${ENDPOINT_URL}/${bookId}`,
+        book,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return result.data;
+    } catch (error) {
+      console.error("APIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
   async delete(userId, bookId) {
     const result = await axios.delete(`${ENDPOINT_URL}/${userId}/${bookId}`);

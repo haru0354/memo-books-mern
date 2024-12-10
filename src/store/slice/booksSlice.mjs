@@ -128,9 +128,9 @@ export const addBookAsync = createAsyncThunk(
 
 export const updateBookAsync = createAsyncThunk(
   "books/updateBookAsync ",
-  async ({ userId, bookId, formData }) => {
+  async ({ bookId, formData }) => {
     try {
-      const data = await bookApi.patch(userId, bookId, formData);
+      const data = await bookApi.patch(bookId, formData);
       return data;
     } catch (error) {
       console.error("本の編集に失敗しました。");

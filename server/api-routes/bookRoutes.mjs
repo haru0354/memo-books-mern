@@ -22,7 +22,7 @@ bookRouter.post(
 );
 
 bookRouter.patch(
-  "/:userId/:bookId",
+  "/:bookId",
   body("title").notEmpty().withMessage("タイトルを入力してください。"),
   requestErrorHandler(updateBook)
 );
