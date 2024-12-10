@@ -2,12 +2,11 @@ import Book from "../models/book.mjs";
 import { validationResult } from "express-validator";
 import { verifyToken } from "../helpers/verifyToken.mjs";
 
-
 export const getAllBooks = async (req, res) => {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ message: "idが付与されていません。" });
+    return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
   let userId;
@@ -28,7 +27,7 @@ export const getAllBooks = async (req, res) => {
       $project: {
         _id: 1,
         title: 1,
-        firstChapterId: { $arrayElemAt: ["$chapters._id", 0] }, 
+        firstChapterId: { $arrayElemAt: ["$chapters._id", 0] },
       },
     },
   ]);
@@ -66,10 +65,19 @@ export const addBook = async (req, res) => {
     return res.status(400).json(errs);
   }
 
-  const userId = req.params.userId;
+  const token = req.headers.authorization?.split(" ")[1];
 
-  if (!userId) {
-    return res.status(403).json({ message: "idが付与されていません。" });
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.log("トークンの検証に失敗しました", err);
+    return;
   }
 
   const book = new Book({

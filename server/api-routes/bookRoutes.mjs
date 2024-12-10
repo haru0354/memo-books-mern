@@ -16,7 +16,7 @@ bookRouter.get("/:userId", requestErrorHandler(getAllBooks));
 bookRouter.get("/:userId/:bookId", requestErrorHandler(getBook));
 
 bookRouter.post(
-  "/:userId",
+  "/",
   body("title").notEmpty().withMessage("タイトルを入力してください。"),
   requestErrorHandler(addBook)
 );

@@ -8,7 +8,7 @@ const bookApi = {
   async getAll(userId) {
     try {
       const token = await getAuthToken();
-      
+
       const result = await axios.get(`${ENDPOINT_URL}/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -25,9 +25,21 @@ const bookApi = {
     const result = await axios.get(`${ENDPOINT_URL}/${userId}/${bookId}`);
     return result.data;
   },
-  async post(userId, book) {
-    const result = await axios.post(`${ENDPOINT_URL}/${userId}`, book);
-    return result.data;
+  async post(book) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.post(`${ENDPOINT_URL}`, book, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return result.data;
+    } catch (error) {
+      console.error("APIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
   async patch(userId, bookId, book) {
     const result = await axios.patch(

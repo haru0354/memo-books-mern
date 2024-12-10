@@ -91,7 +91,7 @@ export const fetchBooks = createAsyncThunk(
   "books/fetchBooks",
   async (userId) => {
     try {
-      const data = await bookApi.getAll(userId);
+      const data = await bookApi.getAll(userId);      
       return data;
     } catch (error) {
       console.error("本のデータの取得に失敗しました。");
@@ -115,9 +115,9 @@ export const fetchBookById = createAsyncThunk(
 
 export const addBookAsync = createAsyncThunk(
   "books/addBookAsync",
-  async ({ userId, formData }) => {
+  async ({ formData }) => {
     try {
-      const data = await bookApi.post(userId, formData);
+      const data = await bookApi.post(formData);
       return data;
     } catch (error) {
       console.error("本の追加に失敗しました。");
