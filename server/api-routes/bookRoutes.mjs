@@ -13,7 +13,7 @@ const bookRouter = express.Router();
 
 bookRouter.get("/:userId", requestErrorHandler(getAllBooks));
 
-bookRouter.get("/:userId/:bookId", requestErrorHandler(getBook));
+bookRouter.get("/:bookId", requestErrorHandler(getBook));
 
 bookRouter.post(
   "/",
