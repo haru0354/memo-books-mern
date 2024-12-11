@@ -27,12 +27,24 @@ const chapterApi = {
     );
     return result.data;
   },
-  async post(userId, bookId, chapter) {
-    const result = await axios.post(
-      `${ENDPOINT_URL}/${userId}/${bookId}`,
-      chapter
-    );
-    return result.data;
+  async post(bookId, chapter) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.post(
+        `${ENDPOINT_URL}/${bookId}`,
+        chapter,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return result.data;
+    } catch (error) {
+      console.error("チャプターのAPIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
   async patch(userId, bookId, chapterId, chapter) {
     const result = await axios.patch(

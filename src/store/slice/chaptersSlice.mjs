@@ -94,9 +94,9 @@ export const fetchChapters = createAsyncThunk(
 
 export const addChaptersAsync = createAsyncThunk(
   "chapters/addChaptersAsync",
-  async ({ userId, bookId, formData }) => {
+  async ({ bookId, formData }) => {
     try {
-      const data = await chapterApi.post(userId, bookId, formData);
+      const data = await chapterApi.post(bookId, formData);
       return data;
     } catch (error) {
       console.error("チャプターの追加に失敗しました。");

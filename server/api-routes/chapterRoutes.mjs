@@ -16,7 +16,7 @@ chapterRouter.get("/:bookId", requestErrorHandler(getAllChapters));
 chapterRouter.get("/:userId/:bookId/:chapterId", requestErrorHandler(getChapter));
 
 chapterRouter.post(
-  "/:userId/:bookId/",
+  "/:bookId/",
   body("chapter_title").notEmpty().withMessage("タイトルを入力してください。"),
   requestErrorHandler(addChapter)
 );

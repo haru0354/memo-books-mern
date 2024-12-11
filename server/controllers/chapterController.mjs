@@ -43,11 +43,13 @@ export const getAllChapters = async (req, res) => {
       chapter_title: chapter.chapter_title,
       _id: chapter._id,
     }));
-  
+
     res.json({ bookTitle, chaptersWithoutContents });
   } catch (err) {
     console.error("全てのチャプターを取得するのに失敗しました", err);
-    return res.status(500).json({ message: "全てのチャプターを取得するのに失敗しました。" });
+    return res
+      .status(500)
+      .json({ message: "全てのチャプターを取得するのに失敗しました。" });
   }
 };
 
@@ -81,10 +83,32 @@ export const addChapter = async (req, res) => {
     const errs = errors.array();
     return res.status(400).json(errs);
   }
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
 
   const bookId = req.params.bookId;
-  const userId = req.params.userId;
-  const book = await Book.findOne({ _id: bookId, userId });
+
+  let book;
+  try {
+    book = await Book.findOne({ _id: bookId, userId });
+  } catch (err) {
+    console.error("データベースから本の取得に失敗しました。", err);
+    return res
+      .status(500)
+      .json({ message: "データベースから本の取得に失敗しました。" });
+  }
 
   if (!book) {
     return res
@@ -94,10 +118,18 @@ export const addChapter = async (req, res) => {
 
   const newChapter = { chapter_title: req.body.chapter_title };
   book.chapters.push(newChapter);
-  await book.save();
 
-  const savedChapter = book.chapters[book.chapters.length - 1];
-  res.status(201).json(savedChapter);
+  try {
+    await book.save();
+
+    const savedChapter = book.chapters[book.chapters.length - 1];
+    res.status(201).json(savedChapter);
+  } catch (err) {
+    console.error("チャプターの作成に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "チャプターの作成に失敗しました。" });
+  }
 };
 
 export const updateChapter = async (req, res) => {
