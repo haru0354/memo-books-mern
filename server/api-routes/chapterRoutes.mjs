@@ -13,7 +13,7 @@ const chapterRouter = express.Router();
 
 chapterRouter.get("/:bookId", requestErrorHandler(getAllChapters));
 
-chapterRouter.get("/:userId/:bookId/:chapterId", requestErrorHandler(getChapter));
+chapterRouter.get("/:bookId/:chapterId", requestErrorHandler(getChapter));
 
 chapterRouter.post(
   "/:bookId/",

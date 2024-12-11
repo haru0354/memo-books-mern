@@ -54,9 +54,23 @@ export const getAllChapters = async (req, res) => {
 };
 
 export const getChapter = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
-  const userId = req.params.userId;
 
   const { bookChapters, chapter, error } = await findChapterById(
     userId,
@@ -73,7 +87,14 @@ export const getChapter = async (req, res) => {
     chapter: chapter,
   };
 
-  res.json(responseData);
+  try {
+    res.json(responseData);
+  } catch (err) {
+    console.error("チャプターの取得に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "チャプターの取得に失敗しました。" });
+  }
 };
 
 export const addChapter = async (req, res) => {
