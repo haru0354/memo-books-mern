@@ -22,7 +22,7 @@ chapterRouter.post(
 );
 
 chapterRouter.patch(
-  "/:userId/:bookId/:chapterId",
+  "/:bookId/:chapterId",
   body("chapter_title").notEmpty().withMessage("タイトルを入力してください。"),
   requestErrorHandler(updateChapter)
 );

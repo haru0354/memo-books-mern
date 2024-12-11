@@ -31,8 +31,23 @@ const chapterApi = {
     try {
       const token = await getAuthToken();
 
-      const result = await axios.post(
-        `${ENDPOINT_URL}/${bookId}`,
+      const result = await axios.post(`${ENDPOINT_URL}/${bookId}`, chapter, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return result.data;
+    } catch (error) {
+      console.error("チャプターのAPIリクエストに失敗しました:", error);
+      throw error;
+    }
+  },
+  async patch(bookId, chapterId, chapter) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.patch(
+        `${ENDPOINT_URL}/${bookId}/${chapterId}`,
         chapter,
         {
           headers: {
@@ -45,13 +60,6 @@ const chapterApi = {
       console.error("チャプターのAPIリクエストに失敗しました:", error);
       throw error;
     }
-  },
-  async patch(userId, bookId, chapterId, chapter) {
-    const result = await axios.patch(
-      `${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}`,
-      chapter
-    );
-    return result.data;
   },
   async delete(userId, bookId, chapterId) {
     const result = await axios.delete(

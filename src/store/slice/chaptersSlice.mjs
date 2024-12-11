@@ -107,9 +107,9 @@ export const addChaptersAsync = createAsyncThunk(
 
 export const updateChaptersAsync = createAsyncThunk(
   "chapters/updateChaptersAsync",
-  async ({ userId, bookId, chapterId, formData }) => {
+  async ({ bookId, chapterId, formData }) => {
     try {
-      const data = await chapterApi.patch(userId, bookId, chapterId, formData);
+      const data = await chapterApi.patch(bookId, chapterId, formData);
       return data;
     } catch (error) {
       console.error("チャプターの編集に失敗しました。");

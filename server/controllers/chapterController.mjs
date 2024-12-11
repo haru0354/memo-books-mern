@@ -83,6 +83,7 @@ export const addChapter = async (req, res) => {
     const errs = errors.array();
     return res.status(400).json(errs);
   }
+
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
@@ -140,9 +141,23 @@ export const updateChapter = async (req, res) => {
     return res.status(400).json(errs);
   }
 
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
-  const userId = req.params.userId;
 
   const { chapter, book, error } = await findChapterById(
     userId,
@@ -160,8 +175,15 @@ export const updateChapter = async (req, res) => {
     chapter.chapter_title = newChapterTitle;
   }
 
-  await book.save();
-  res.json(chapter);
+  try {
+    await book.save();
+    res.json(chapter);
+  } catch (err) {
+    console.error("チャプターの編集に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "チャプターの編集に失敗しました。" });
+  }
 };
 
 export const deleteChapter = async (req, res) => {

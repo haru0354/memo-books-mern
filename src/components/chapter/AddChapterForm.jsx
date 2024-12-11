@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addChaptersAsync } from "../../store/slice/chaptersSlice";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
@@ -21,7 +21,6 @@ const AddChapterForm = ({ bookId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const methods = useForm();
-  const userId = useSelector((state) => state.user.user.uid);
   const showToast = useToast();
   const onSubmit = async (data) => {
     const formData = {
@@ -30,7 +29,7 @@ const AddChapterForm = ({ bookId }) => {
 
     try {
       const response = await dispatch(
-        addChaptersAsync({ userId, bookId, formData })
+        addChaptersAsync({ bookId, formData })
       ).unwrap();
       showToast("チャプターが追加されました");
       methods.reset();
