@@ -1,11 +1,35 @@
 import { findChapterById } from "../helpers/findChapterById.mjs";
+import { verifyToken } from "../helpers/verifyToken.mjs";
 import Book from "../models/book.mjs";
 import { validationResult } from "express-validator";
 
 export const getAllChapters = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
-  const userId = req.params.userId;
-  const book = await Book.findOne({ _id: bookId, userId });
+
+  let book;
+  try {
+    book = await Book.findOne({ _id: bookId, userId });
+  } catch (err) {
+    console.error("データベースから本の取得に失敗しました。", err);
+    return res
+      .status(500)
+      .json({ message: "データベースから本の取得に失敗しました。" });
+  }
 
   if (!book) {
     res.status(404).json({ message: "指定した本が見つかりませんでした" });
@@ -14,12 +38,17 @@ export const getAllChapters = async (req, res) => {
   const chapters = book.chapters;
   const bookTitle = book.title;
 
-  const chaptersWithoutContents = chapters.map(chapter => ({
-    chapter_title: chapter.chapter_title,
-    _id: chapter._id
-  }));
-
-  res.json({bookTitle, chaptersWithoutContents});
+  try {
+    const chaptersWithoutContents = chapters.map((chapter) => ({
+      chapter_title: chapter.chapter_title,
+      _id: chapter._id,
+    }));
+  
+    res.json({ bookTitle, chaptersWithoutContents });
+  } catch (err) {
+    console.error("全てのチャプターを取得するのに失敗しました", err);
+    return res.status(500).json({ message: "全てのチャプターを取得するのに失敗しました。" });
+  }
 };
 
 export const getChapter = async (req, res) => {
@@ -83,7 +112,11 @@ export const updateChapter = async (req, res) => {
   const chapterId = req.params.chapterId;
   const userId = req.params.userId;
 
-  const { chapter, book, error } = await findChapterById(userId, bookId, chapterId);
+  const { chapter, book, error } = await findChapterById(
+    userId,
+    bookId,
+    chapterId
+  );
 
   if (error) {
     return res.status(404).json({ message: error });

@@ -27,7 +27,7 @@ const Chapter = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchChapters({userId, bookId})).unwrap();
+    dispatch(fetchChapters({bookId})).unwrap();
   }, [dispatch, bookId]);
 
   useEffect(() => {

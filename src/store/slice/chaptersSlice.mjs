@@ -81,9 +81,9 @@ export const { addChapter, deleteChapter, updateChapter } =
 
 export const fetchChapters = createAsyncThunk(
   "chapters/fetchChapters",
-  async ({ userId, bookId }) => {
+  async ({ bookId }) => {
     try {
-      const data = await chapterApi.getAll(userId, bookId);
+      const data = await chapterApi.getAll(bookId);
       return data;
     } catch (error) {
       console.error("チャプターのデータの取得に失敗しました。");

@@ -11,7 +11,7 @@ import { requestErrorHandler } from "../helpers/requestErrorHandler.mjs";
 
 const chapterRouter = express.Router();
 
-chapterRouter.get("/:userId/:bookId", requestErrorHandler(getAllChapters));
+chapterRouter.get("/:bookId", requestErrorHandler(getAllChapters));
 
 chapterRouter.get("/:userId/:bookId/:chapterId", requestErrorHandler(getChapter));
 
