@@ -61,11 +61,23 @@ const chapterApi = {
       throw error;
     }
   },
-  async delete(userId, bookId, chapterId) {
-    const result = await axios.delete(
-      `${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}`
-    );
-    return result.data;
+  async delete(bookId, chapterId) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.delete(
+        `${ENDPOINT_URL}/${bookId}/${chapterId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return result.data;
+    } catch (error) {
+      console.error("チャプターのAPIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
 };
 

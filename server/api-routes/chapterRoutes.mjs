@@ -27,6 +27,6 @@ chapterRouter.patch(
   requestErrorHandler(updateChapter)
 );
 
-chapterRouter.delete("/:userId/:bookId/:chapterId", requestErrorHandler(deleteChapter));
+chapterRouter.delete("/:bookId/:chapterId", requestErrorHandler(deleteChapter));
 
 export default chapterRouter;

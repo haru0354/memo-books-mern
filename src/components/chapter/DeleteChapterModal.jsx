@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteChaptersAsync } from "../../store/slice/chaptersSlice";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
@@ -38,7 +38,6 @@ const DeleteChapterModal = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const showToast = useToast();
-  const userId = useSelector((state) => state.user.user.uid);
 
   const bodyRef = useRef(document.body);
 
@@ -70,7 +69,7 @@ const DeleteChapterModal = ({
   const onClickDelete = async () => {
     try {
       const response = await dispatch(
-        deleteChaptersAsync({ userId, bookId, chapterId })
+        deleteChaptersAsync({ bookId, chapterId })
       ).unwrap();
 
       toggleCloseEditModal();

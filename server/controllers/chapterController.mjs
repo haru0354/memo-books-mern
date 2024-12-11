@@ -187,9 +187,23 @@ export const updateChapter = async (req, res) => {
 };
 
 export const deleteChapter = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
-  const userId = req.params.userId;
 
   const { book, error } = await findChapterById(userId, bookId, chapterId);
 
@@ -201,16 +215,23 @@ export const deleteChapter = async (req, res) => {
     (chapter) => String(chapter._id) !== chapterId
   );
 
-  await book.save();
+  try {
+    await book.save();
 
-  let redirectedUrl = undefined;
-  if (book.chapters.length) {
-    redirectedUrl = book.chapters[0]._id;
+    let redirectedUrl = undefined;
+    if (book.chapters.length) {
+      redirectedUrl = book.chapters[0]._id;
+    }
+
+    res.json({
+      message: "チャプターを削除しました。",
+      deletedChapterId: chapterId,
+      redirectedUrl: redirectedUrl,
+    });
+  } catch (err) {
+    console.error("チャプターの削除に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "チャプターの削除に失敗しました。" });
   }
-
-  res.json({
-    message: "チャプターを削除しました。",
-    deletedChapterId: chapterId,
-    redirectedUrl: redirectedUrl,
-  });
 };
