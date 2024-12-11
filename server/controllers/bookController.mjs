@@ -1,51 +1,99 @@
 import Book from "../models/book.mjs";
 import { validationResult } from "express-validator";
+import { verifyToken } from "../helpers/verifyToken.mjs";
 
 export const getAllBooks = async (req, res) => {
-  const userId = req.params.userId;
+  const token = req.headers.authorization?.split(" ")[1];
 
-  if (!userId) {
-    return res.status(403).json({ message: "idが付与されていません。" });
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  const resData = await Book.aggregate([
-    {
-      // userIdに一致する本をフィルタリング
-      $match: { userId },
-    },
-    {
-      // 最初のチャプターのIDを取得
-      $project: {
-        _id: 1,
-        title: 1,
-        firstChapterId: { $arrayElemAt: ["$chapters._id", 0] }, 
-      },
-    },
-  ]);
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.log("トークンの検証に失敗しました", err);
+    return res.status(401).json({ message: "無効なトークンです。" });
+  }
 
-  res.json(resData);
+  try {
+    const resData = await Book.aggregate([
+      {
+        $match: { userId },
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          firstChapterId: { $arrayElemAt: ["$chapters._id", 0] },
+        },
+      },
+    ]);
+
+    res.json(resData);
+  } catch (err) {
+    console.error("データベースからの取得に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "データベースからの取得に失敗しました。" });
+  }
 };
 
 export const getBook = async (req, res) => {
-  const bookId = req.params.bookId;
-  const userId = req.params.userId;
+  const token = req.headers.authorization?.split(" ")[1];
 
-  if (!userId) {
-    return res.status(403).json({ message: "idが付与されていません。" });
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  const book = await Book.findOne({ _id: bookId, userId });
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.log("トークンの検証に失敗しました", err);
+    return res.status(401).json({ message: "無効なトークンです。" });
+  }
+
+  const bookId = req.params.bookId;
+
+  let book;
+  try {
+    book = await Book.findOne({ _id: bookId, userId });
+  } catch (err) {
+    console.error("データベースから本の取得に失敗しました。", err);
+    return res
+      .status(500)
+      .json({ message: "データベースから本の取得に失敗しました。" });
+  }
 
   if (!book) {
     return res.status(404).json({ message: "本が見つかりませんでした。" });
   }
 
-  const resData = {
-    title: book.title,
-    _id: book._id,
-  };
+  if (book.userId !== userId) {
+    return res.status(403).json({ message: "権限がありません。" });
+  }
 
-  res.json(resData);
+  try {
+    const resData = {
+      title: book.title,
+      _id: book._id,
+    };
+
+    if (resData.length === 0) {
+      return res.status(404).json({ message: "本が見つかりませんでした。" });
+    }
+
+    res.json(resData);
+  } catch (err) {
+    console.error("データベースから本の取得に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "データベースから本の取得に失敗しました。" });
+  }
 };
 
 export const addBook = async (req, res) => {
@@ -56,21 +104,35 @@ export const addBook = async (req, res) => {
     return res.status(400).json(errs);
   }
 
-  const userId = req.params.userId;
+  const token = req.headers.authorization?.split(" ")[1];
 
-  if (!userId) {
-    return res.status(403).json({ message: "idが付与されていません。" });
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  const book = new Book({
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.log("トークンの検証に失敗しました", err);
+    return res.status(401).json({ message: "無効なトークンです。" });
+  }
+
+  const bookData = {
     userId,
     title: req.body.title,
     chapters: req.body.chapters,
-  });
+  };
 
-  const newBook = await book.save();
-
-  res.status(201).json(newBook);
+  try {
+    const book = new Book(bookData);
+    const newBook = await book.save();
+    res.status(201).json(newBook);
+  } catch (err) {
+    console.error("本の作成に失敗しました", err);
+    return res.status(500).json({ message: "本の作成に失敗しました。" });
+  }
 };
 
 export const updateBook = async (req, res) => {
@@ -81,36 +143,100 @@ export const updateBook = async (req, res) => {
     return res.status(400).json(errs);
   }
 
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.log("トークンの検証に失敗しました", err);
+    return res.status(401).json({ message: "無効なトークンです。" });
+  }
+
   const bookId = req.params.bookId;
-  const userId = req.params.userId;
-  const book = await Book.findOne({ _id: bookId, userId });
+
+  let book;
+  try {
+    book = await Book.findOne({ _id: bookId, userId });
+  } catch (err) {
+    console.error("データベースから本の取得に失敗しました。", err);
+    return res
+      .status(500)
+      .json({ message: "データベースから本の取得に失敗しました。" });
+  }
 
   if (!book) {
     return res.status(404).json({ message: "本が見つかりませんでした。" });
+  }
+
+  if (book.userId !== userId) {
+    return res.status(403).json({ message: "編集する権限がありません。" });
   }
 
   if (req.body.title) {
     book.title = req.body.title;
   }
 
-  await book.save();
-  res.json(book);
+  try {
+    await book.save();
+    res.json(book);
+  } catch (err) {
+    console.error("本の保存に失敗しました。", err);
+    return res.status(500).json({ message: "本の保存に失敗しました。" });
+  }
 };
 
 export const deleteBook = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.log("トークンの検証に失敗しました", err);
+    return res.status(401).json({ message: "無効なトークンです。" });
+  }
+
   const bookId = req.params.bookId;
-  const userId = req.params.userId;
-  const book = await Book.findById(bookId);
+
+  let book;
+  try {
+    book = await Book.findById(bookId);
+  } catch (err) {
+    console.error("データベースから本の取得に失敗しました。", err);
+    return res
+      .status(500)
+      .json({ message: "データベースから本の取得に失敗しました。" });
+  }
+
+  if (!book) {
+    return res.status(404).json({ message: "本が見つかりませんでした。" });
+  }
 
   if (book.userId !== userId) {
     return res.status(403).json({ message: "削除する権限がありません。" });
   }
 
-  const result = await Book.deleteOne({ _id: bookId });
-
-  if (result.deletedCount === 0) {
-    return res.status(404).json({ message: "本が見つかりませんでした" });
+  try {
+    const result = await Book.deleteOne({ _id: bookId });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "本が見つかりませんでした" });
+    }
+    res.json({ message: "本の削除に成功しました。", deletedBookId: bookId });
+  } catch (err) {
+    console.error("削除処理中にエラーが発生しました。", err);
+    return res
+      .status(500)
+      .json({ message: "削除処理中にエラーが発生しました。" });
   }
-
-  res.json({ message: "本の削除に成功しました。", deletedBookId: bookId });
 };

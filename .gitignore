@@ -4,7 +4,7 @@ build/
 .env.production
 project.json
 .vercel
-
+firebase-serviceAccountKey.json
 
 # 除外する画像ファイル
 public/favicon.ico

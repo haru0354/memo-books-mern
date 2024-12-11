@@ -27,7 +27,6 @@ const AddBookModal = () => {
   const navigate = useNavigate();
   const methods = useForm();
   const bodyRef = useRef(document.body);
-  const userId = useSelector((state) => state.user.user.uid)
   const dispatch = useDispatch();
   const showToast = useToast();
 
@@ -52,7 +51,7 @@ const AddBookModal = () => {
 
     try {
       const response = await dispatch(
-        addBookAsync({ userId, formData })
+        addBookAsync({ formData })
       ).unwrap();
       toggleCloseModal();
       showToast("メモブックが追加されました")

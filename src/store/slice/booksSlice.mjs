@@ -89,9 +89,9 @@ export const { addBook, deleteBook, updateBook } = bookSlice.actions;
 
 export const fetchBooks = createAsyncThunk(
   "books/fetchBooks",
-  async (userId) => {
+  async () => {
     try {
-      const data = await bookApi.getAll(userId);
+      const data = await bookApi.getAll();      
       return data;
     } catch (error) {
       console.error("本のデータの取得に失敗しました。");
@@ -115,9 +115,9 @@ export const fetchBookById = createAsyncThunk(
 
 export const addBookAsync = createAsyncThunk(
   "books/addBookAsync",
-  async ({ userId, formData }) => {
+  async ({ formData }) => {
     try {
-      const data = await bookApi.post(userId, formData);
+      const data = await bookApi.post(formData);
       return data;
     } catch (error) {
       console.error("本の追加に失敗しました。");
@@ -128,9 +128,9 @@ export const addBookAsync = createAsyncThunk(
 
 export const updateBookAsync = createAsyncThunk(
   "books/updateBookAsync ",
-  async ({ userId, bookId, formData }) => {
+  async ({ bookId, formData }) => {
     try {
-      const data = await bookApi.patch(userId, bookId, formData);
+      const data = await bookApi.patch(bookId, formData);
       return data;
     } catch (error) {
       console.error("本の編集に失敗しました。");
@@ -141,9 +141,9 @@ export const updateBookAsync = createAsyncThunk(
 
 export const deleteBookAsync = createAsyncThunk(
   "books/deleteBookAsync ",
-  async ({ userId, bookId }) => {
+  async ({ bookId }) => {
     try {
-      const data = await bookApi.delete(userId, bookId);
+      const data = await bookApi.delete(bookId);
       return data;
     } catch (error) {
       console.error("本の削除に失敗しました。");
