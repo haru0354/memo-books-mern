@@ -207,10 +207,24 @@ export const updateContents = async (req, res) => {
 };
 
 export const deleteContents = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
   const contentsId = req.params.contentsId;
-  const userId = req.params.userId;
 
   const { chapter, book, error } = await findContentsById(
     userId,
@@ -227,9 +241,17 @@ export const deleteContents = async (req, res) => {
     (content) => String(content._id) !== contentsId
   );
 
-  await book.save();
-  res.json({
-    message: "コンテンツの削除に成功しました。",
-    deletedContentsId: contentsId,
-  });
+  try {
+    await book.save();
+
+    res.json({
+      message: "コンテンツの削除に成功しました。",
+      deletedContentsId: contentsId,
+    });
+  } catch (err) {
+    console.error("コンテンツの削除に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "コンテンツの削除に失敗しました。" });
+  }
 };

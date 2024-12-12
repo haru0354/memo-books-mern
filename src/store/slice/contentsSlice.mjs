@@ -155,17 +155,12 @@ export const updateContentsAsync = createAsyncThunk(
 
 export const deleteContentsAsync = createAsyncThunk(
   "contents/deleteContentsAsync",
-  async ({ userId, bookId, chapterId, contentId }) => {
+  async ({ bookId, chapterId, contentId }) => {
     try {
-      const data = await contentApi.delete(
-        userId,
-        bookId,
-        chapterId,
-        contentId
-      );
+      const data = await contentApi.delete(bookId, chapterId, contentId);
       return data;
     } catch (error) {
-      console.error("コンテンツの追加に失敗しました");
+      console.error("コンテンツの削除に失敗しました");
       throw error;
     }
   }

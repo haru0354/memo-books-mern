@@ -75,18 +75,30 @@ const contentApi = {
           },
         }
       );
-      
+
       return result.data;
     } catch (error) {
       console.error("コンテンツの編集APIリクエストに失敗しました:", error);
       throw error;
     }
   },
-  async delete(userId, bookId, chapterId, contentsId) {
-    const result = await axios.delete(
-      `${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}/${contentsId}`
-    );
-    return result.data;
+  async delete(bookId, chapterId, contentsId) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.delete(
+        `${ENDPOINT_URL}/${bookId}/${chapterId}/${contentsId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return result.data;
+    } catch (error) {
+      console.error("コンテンツの削除APIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
 };
 

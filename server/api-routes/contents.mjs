@@ -29,6 +29,6 @@ contentsRouter.patch(
   requestErrorHandler(updateContents)
 );
 
-contentsRouter.delete("/:userId/:bookId/:chapterId/:contentsId", requestErrorHandler(deleteContents));
+contentsRouter.delete("/:bookId/:chapterId/:contentsId", requestErrorHandler(deleteContents));
 
 export default contentsRouter;
