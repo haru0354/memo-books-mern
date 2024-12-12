@@ -17,7 +17,7 @@ const bookApi = {
 
       return result.data;
     } catch (error) {
-      console.error("APIリクエストに失敗しました:", error);
+      console.error("全ての本の取得APIリクエストに失敗しました:", error);
       throw error;
     }
   },
@@ -33,7 +33,7 @@ const bookApi = {
       
       return result.data;
     } catch (error) {
-      console.error("APIリクエストに失敗しました:", error);
+      console.error("個別の本の取得APIリクエストに失敗しました:", error);
       throw error;
     }
   },
@@ -49,7 +49,7 @@ const bookApi = {
 
       return result.data;
     } catch (error) {
-      console.error("APIリクエストに失敗しました:", error);
+      console.error("本の追加APIリクエストに失敗しました:", error);
       throw error;
     }
   },
@@ -65,7 +65,7 @@ const bookApi = {
 
       return result.data;
     } catch (error) {
-      console.error("APIリクエストに失敗しました:", error);
+      console.error("本の編集APIリクエストに失敗しました:", error);
       throw error;
     }
   },
@@ -81,7 +81,7 @@ const bookApi = {
 
       return result.data;
     } catch (error) {
-      console.error("APIリクエストに失敗しました:", error);
+      console.error("本の削除APIリクエストに失敗しました:", error);
       throw error;
     }
   },

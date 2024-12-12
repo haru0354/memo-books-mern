@@ -17,7 +17,7 @@ const chapterApi = {
 
       return result.data;
     } catch (error) {
-      console.error("チャプターのAPIリクエストに失敗しました:", error);
+      console.error("全てのチャプターの取得APIリクエストに失敗しました:", error);
       throw error;
     }
   },
@@ -35,7 +35,7 @@ const chapterApi = {
       );
       return result.data;
     } catch (error) {
-      console.error("チャプターのAPIリクエストに失敗しました:", error);
+      console.error("個別チャプターの取得APIリクエストに失敗しました:", error);
       throw error;
     }
   },
@@ -50,7 +50,7 @@ const chapterApi = {
       });
       return result.data;
     } catch (error) {
-      console.error("チャプターのAPIリクエストに失敗しました:", error);
+      console.error("チャプターの追加APIリクエストに失敗しました:", error);
       throw error;
     }
   },
@@ -69,7 +69,7 @@ const chapterApi = {
       );
       return result.data;
     } catch (error) {
-      console.error("チャプターのAPIリクエストに失敗しました:", error);
+      console.error("チャプターの編集APIリクエストに失敗しました:", error);
       throw error;
     }
   },
@@ -87,7 +87,7 @@ const chapterApi = {
       );
       return result.data;
     } catch (error) {
-      console.error("チャプターのAPIリクエストに失敗しました:", error);
+      console.error("チャプターの削除APIリクエストに失敗しました:", error);
       throw error;
     }
   },

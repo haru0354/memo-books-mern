@@ -18,7 +18,7 @@ const contentApi = {
       return result.data;
     } catch (error) {
       console.error(
-        "全てのコンテンツの表示APIリクエストに失敗しました:",
+        "全てのコンテンツの取得APIリクエストに失敗しました:",
         error
       );
       throw error;
@@ -39,7 +39,7 @@ const contentApi = {
 
       return result.data;
     } catch (error) {
-      console.error("個別コンテンツの表示APIリクエストに失敗しました:", error);
+      console.error("個別コンテンツの取得APIリクエストに失敗しました:", error);
       throw error;
     }
   },
