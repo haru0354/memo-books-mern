@@ -22,7 +22,7 @@ const Book = () => {
   const userId = useSelector((state) => state.user.user.uid);
 
   useEffect(() => {
-    dispatch(fetchChapters({ userId, bookId })).unwrap();
+    dispatch(fetchChapters({ bookId })).unwrap();
   }, [dispatch, bookId]);
 
   useEffect(() => {

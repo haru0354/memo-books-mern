@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addChaptersAsync } from "../../store/slice/chaptersSlice";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
@@ -22,7 +22,6 @@ const buttonContainerStyle = css`
 const AddChapterModal = ({ bookId, toggleCloseAddModal, toggleHumBergerMenu }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user.uid);
   const methods = useForm();
   const showToast = useToast();
 
@@ -33,7 +32,7 @@ const AddChapterModal = ({ bookId, toggleCloseAddModal, toggleHumBergerMenu }) =
 
     try {
       const response = await dispatch(
-        addChaptersAsync({ userId, bookId, formData })
+        addChaptersAsync({ bookId, formData })
       ).unwrap();
       toggleCloseAddModal();
       toggleHumBergerMenu();

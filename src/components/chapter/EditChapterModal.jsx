@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateChaptersAsync } from "../../store/slice/chaptersSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { css } from "@emotion/react";
@@ -26,7 +26,6 @@ const EditChapterModal = ({
   toggleCloseEditModal,
 }) => {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user.uid);
   const methods = useForm();
   const showToast = useToast();
 
@@ -37,7 +36,7 @@ const EditChapterModal = ({
 
     try {
       await dispatch(
-        updateChaptersAsync({ userId, bookId, chapterId, formData })
+        updateChaptersAsync({ bookId, chapterId, formData })
       ).unwrap();
       toggleCloseEditModal();
       showToast("チャプターを編集しました")

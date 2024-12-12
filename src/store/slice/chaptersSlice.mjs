@@ -81,9 +81,9 @@ export const { addChapter, deleteChapter, updateChapter } =
 
 export const fetchChapters = createAsyncThunk(
   "chapters/fetchChapters",
-  async ({ userId, bookId }) => {
+  async ({ bookId }) => {
     try {
-      const data = await chapterApi.getAll(userId, bookId);
+      const data = await chapterApi.getAll(bookId);
       return data;
     } catch (error) {
       console.error("チャプターのデータの取得に失敗しました。");
@@ -94,9 +94,9 @@ export const fetchChapters = createAsyncThunk(
 
 export const addChaptersAsync = createAsyncThunk(
   "chapters/addChaptersAsync",
-  async ({ userId, bookId, formData }) => {
+  async ({ bookId, formData }) => {
     try {
-      const data = await chapterApi.post(userId, bookId, formData);
+      const data = await chapterApi.post(bookId, formData);
       return data;
     } catch (error) {
       console.error("チャプターの追加に失敗しました。");
@@ -107,9 +107,9 @@ export const addChaptersAsync = createAsyncThunk(
 
 export const updateChaptersAsync = createAsyncThunk(
   "chapters/updateChaptersAsync",
-  async ({ userId, bookId, chapterId, formData }) => {
+  async ({ bookId, chapterId, formData }) => {
     try {
-      const data = await chapterApi.patch(userId, bookId, chapterId, formData);
+      const data = await chapterApi.patch(bookId, chapterId, formData);
       return data;
     } catch (error) {
       console.error("チャプターの編集に失敗しました。");
@@ -120,9 +120,9 @@ export const updateChaptersAsync = createAsyncThunk(
 
 export const deleteChaptersAsync = createAsyncThunk(
   "chapters/deleteChaptersAsync",
-  async ({ userId, bookId, chapterId }) => {
+  async ({ bookId, chapterId }) => {
     try {
-      const data = await chapterApi.delete(userId, bookId, chapterId);
+      const data = await chapterApi.delete(bookId, chapterId);
       return data;
     } catch (error) {
       console.error("チャプターの編集に失敗しました。");

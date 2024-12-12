@@ -1,11 +1,35 @@
 import { findChapterById } from "../helpers/findChapterById.mjs";
+import { verifyToken } from "../helpers/verifyToken.mjs";
 import Book from "../models/book.mjs";
 import { validationResult } from "express-validator";
 
 export const getAllChapters = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
-  const userId = req.params.userId;
-  const book = await Book.findOne({ _id: bookId, userId });
+
+  let book;
+  try {
+    book = await Book.findOne({ _id: bookId, userId });
+  } catch (err) {
+    console.error("データベースから本の取得に失敗しました。", err);
+    return res
+      .status(500)
+      .json({ message: "データベースから本の取得に失敗しました。" });
+  }
 
   if (!book) {
     res.status(404).json({ message: "指定した本が見つかりませんでした" });
@@ -14,18 +38,39 @@ export const getAllChapters = async (req, res) => {
   const chapters = book.chapters;
   const bookTitle = book.title;
 
-  const chaptersWithoutContents = chapters.map(chapter => ({
-    chapter_title: chapter.chapter_title,
-    _id: chapter._id
-  }));
+  try {
+    const chaptersWithoutContents = chapters.map((chapter) => ({
+      chapter_title: chapter.chapter_title,
+      _id: chapter._id,
+    }));
 
-  res.json({bookTitle, chaptersWithoutContents});
+    res.json({ bookTitle, chaptersWithoutContents });
+  } catch (err) {
+    console.error("全てのチャプターを取得するのに失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "全てのチャプターを取得するのに失敗しました。" });
+  }
 };
 
 export const getChapter = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
-  const userId = req.params.userId;
 
   const { bookChapters, chapter, error } = await findChapterById(
     userId,
@@ -42,7 +87,14 @@ export const getChapter = async (req, res) => {
     chapter: chapter,
   };
 
-  res.json(responseData);
+  try {
+    res.json(responseData);
+  } catch (err) {
+    console.error("チャプターの取得に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "チャプターの取得に失敗しました。" });
+  }
 };
 
 export const addChapter = async (req, res) => {
@@ -53,9 +105,32 @@ export const addChapter = async (req, res) => {
     return res.status(400).json(errs);
   }
 
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
-  const userId = req.params.userId;
-  const book = await Book.findOne({ _id: bookId, userId });
+
+  let book;
+  try {
+    book = await Book.findOne({ _id: bookId, userId });
+  } catch (err) {
+    console.error("データベースから本の取得に失敗しました。", err);
+    return res
+      .status(500)
+      .json({ message: "データベースから本の取得に失敗しました。" });
+  }
 
   if (!book) {
     return res
@@ -65,10 +140,18 @@ export const addChapter = async (req, res) => {
 
   const newChapter = { chapter_title: req.body.chapter_title };
   book.chapters.push(newChapter);
-  await book.save();
 
-  const savedChapter = book.chapters[book.chapters.length - 1];
-  res.status(201).json(savedChapter);
+  try {
+    await book.save();
+
+    const savedChapter = book.chapters[book.chapters.length - 1];
+    res.status(201).json(savedChapter);
+  } catch (err) {
+    console.error("チャプターの作成に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "チャプターの作成に失敗しました。" });
+  }
 };
 
 export const updateChapter = async (req, res) => {
@@ -79,11 +162,29 @@ export const updateChapter = async (req, res) => {
     return res.status(400).json(errs);
   }
 
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
-  const userId = req.params.userId;
 
-  const { chapter, book, error } = await findChapterById(userId, bookId, chapterId);
+  const { chapter, book, error } = await findChapterById(
+    userId,
+    bookId,
+    chapterId
+  );
 
   if (error) {
     return res.status(404).json({ message: error });
@@ -95,14 +196,35 @@ export const updateChapter = async (req, res) => {
     chapter.chapter_title = newChapterTitle;
   }
 
-  await book.save();
-  res.json(chapter);
+  try {
+    await book.save();
+    res.json(chapter);
+  } catch (err) {
+    console.error("チャプターの編集に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "チャプターの編集に失敗しました。" });
+  }
 };
 
 export const deleteChapter = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
-  const userId = req.params.userId;
 
   const { book, error } = await findChapterById(userId, bookId, chapterId);
 
@@ -114,16 +236,23 @@ export const deleteChapter = async (req, res) => {
     (chapter) => String(chapter._id) !== chapterId
   );
 
-  await book.save();
+  try {
+    await book.save();
 
-  let redirectedUrl = undefined;
-  if (book.chapters.length) {
-    redirectedUrl = book.chapters[0]._id;
+    let redirectedUrl = undefined;
+    if (book.chapters.length) {
+      redirectedUrl = book.chapters[0]._id;
+    }
+
+    res.json({
+      message: "チャプターを削除しました。",
+      deletedChapterId: chapterId,
+      redirectedUrl: redirectedUrl,
+    });
+  } catch (err) {
+    console.error("チャプターの削除に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "チャプターの削除に失敗しました。" });
   }
-
-  res.json({
-    message: "チャプターを削除しました。",
-    deletedChapterId: chapterId,
-    redirectedUrl: redirectedUrl,
-  });
 };
