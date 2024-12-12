@@ -89,7 +89,7 @@ const contentsSlice = createSlice({
       .addCase(deleteContentsAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-      })
+      });
   },
 });
 
@@ -137,10 +137,9 @@ export const addContentsAsync = createAsyncThunk(
 
 export const updateContentsAsync = createAsyncThunk(
   "contents/updateContentsAsync",
-  async ({ userId, bookId, chapterId, contentId, formData }) => {
+  async ({ bookId, chapterId, contentId, formData }) => {
     try {
       const data = await contentApi.patch(
-        userId,
         bookId,
         chapterId,
         contentId,
@@ -148,7 +147,7 @@ export const updateContentsAsync = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      console.error("コンテンツの追加に失敗しました");
+      console.error("コンテンツの編集に失敗しました");
       throw error;
     }
   }

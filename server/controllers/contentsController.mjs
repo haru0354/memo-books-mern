@@ -137,7 +137,7 @@ export const addContents = async (req, res) => {
     await book.save();
 
     const savedContents = chapter.contents[chapter.contents.length - 1];
-    
+
     res.status(201).json(savedContents);
   } catch (err) {
     console.error("コンテンツの作成に失敗しました", err);
@@ -155,10 +155,24 @@ export const updateContents = async (req, res) => {
     return res.status(400).json(errs);
   }
 
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
   const contentsId = req.params.contentsId;
-  const userId = req.params.userId;
 
   const { contents, book, error } = await findContentsById(
     userId,
@@ -181,8 +195,15 @@ export const updateContents = async (req, res) => {
     contents.content = content;
   }
 
-  await book.save();
-  res.status(200).json(contents);
+  try {
+    await book.save();
+    res.status(200).json(contents);
+  } catch (err) {
+    console.error("コンテンツの編集に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "コンテンツの編集に失敗しました。" });
+  }
 };
 
 export const deleteContents = async (req, res) => {

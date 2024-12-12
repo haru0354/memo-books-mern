@@ -17,7 +17,10 @@ const contentApi = {
 
       return result.data;
     } catch (error) {
-      console.error("全てのコンテンツの表示APIリクエストに失敗しました:", error);
+      console.error(
+        "全てのコンテンツの表示APIリクエストに失敗しました:",
+        error
+      );
       throw error;
     }
   },
@@ -59,12 +62,25 @@ const contentApi = {
       throw error;
     }
   },
-  async patch(userId, bookId, chapterId, contentsId, contents) {
-    const result = await axios.patch(
-      `${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}/${contentsId}`,
-      contents
-    );
-    return result.data;
+  async patch(bookId, chapterId, contentsId, contents) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.patch(
+        `${ENDPOINT_URL}/${bookId}/${chapterId}/${contentsId}`,
+        contents,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      
+      return result.data;
+    } catch (error) {
+      console.error("コンテンツの編集APIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
   async delete(userId, bookId, chapterId, contentsId) {
     const result = await axios.delete(

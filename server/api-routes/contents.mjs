@@ -23,7 +23,7 @@ contentsRouter.post(
 );
 
 contentsRouter.patch(
-  "/:userId/:bookId/:chapterId/:contentsId",
+  "/:bookId/:chapterId/:contentsId",
   body("heading_title").optional().notEmpty(),
   body("content").optional().notEmpty(),
   requestErrorHandler(updateContents)
