@@ -17,7 +17,7 @@ const contentApi = {
 
       return result.data;
     } catch (error) {
-      console.error("コンテンツのAPIリクエストに失敗しました:", error);
+      console.error("全てのコンテンツの表示APIリクエストに失敗しました:", error);
       throw error;
     }
   },
@@ -36,16 +36,28 @@ const contentApi = {
 
       return result.data;
     } catch (error) {
-      console.error("コンテンツのAPIリクエストに失敗しました:", error);
+      console.error("個別コンテンツの表示APIリクエストに失敗しました:", error);
       throw error;
     }
   },
-  async post(userId, bookId, chapterId, contents) {
-    const result = await axios.post(
-      `${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}`,
-      contents
-    );
-    return result.data;
+  async post(bookId, chapterId, contents) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.post(
+        `${ENDPOINT_URL}/${bookId}/${chapterId}`,
+        contents,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return result.data;
+    } catch (error) {
+      console.error("コンテンツの追加APIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
   async patch(userId, bookId, chapterId, contentsId, contents) {
     const result = await axios.patch(

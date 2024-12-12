@@ -16,7 +16,7 @@ contentsRouter.get("/:bookId/:chapterId", requestErrorHandler(getAllContents));
 contentsRouter.get("/:bookId/:chapterId/:contentsId", requestErrorHandler(getContents));
 
 contentsRouter.post(
-  "/:userId/:bookId/:chapterId",
+  "/:bookId/:chapterId",
   body("heading_title").notEmpty().withMessage("タイトルを入力してください。"),
   body("content").notEmpty().withMessage("記載するコンテンツを入力してください。"),
   requestErrorHandler(addContents)

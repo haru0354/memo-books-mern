@@ -90,9 +90,23 @@ export const addContents = async (req, res) => {
     return res.status(400).json(errs);
   }
 
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
-  const userId = req.params.userId;
 
   const { chapter, book, error } = await findChapterById(
     userId,
@@ -118,10 +132,19 @@ export const addContents = async (req, res) => {
   };
 
   chapter.contents.push(newContents);
-  await book.save();
 
-  const savedContents = chapter.contents[chapter.contents.length - 1];
-  res.status(201).json(savedContents);
+  try {
+    await book.save();
+
+    const savedContents = chapter.contents[chapter.contents.length - 1];
+    
+    res.status(201).json(savedContents);
+  } catch (err) {
+    console.error("コンテンツの作成に失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "コンテンツの作成に失敗しました。" });
+  }
 };
 
 export const updateContents = async (req, res) => {

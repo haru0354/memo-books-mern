@@ -124,9 +124,9 @@ export const fetchContentById = createAsyncThunk(
 
 export const addContentsAsync = createAsyncThunk(
   "contents/addContentAsync",
-  async ({ userId, bookId, chapterId, formData }) => {
+  async ({ bookId, chapterId, formData }) => {
     try {
-      const data = await contentApi.post(userId, bookId, chapterId, formData);
+      const data = await contentApi.post(bookId, chapterId, formData);
       return data;
     } catch (error) {
       console.error("コンテンツの追加に失敗しました");
