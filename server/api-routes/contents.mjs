@@ -11,7 +11,7 @@ import { requestErrorHandler } from "../helpers/requestErrorHandler.mjs";
 
 const contentsRouter = express.Router();
 
-contentsRouter.get("/:userId/:bookId/:chapterId", requestErrorHandler(getAllContents));
+contentsRouter.get("/:bookId/:chapterId", requestErrorHandler(getAllContents));
 
 contentsRouter.get("/:userId/:bookId/:chapterId/:contentsId", requestErrorHandler(getContents));
 

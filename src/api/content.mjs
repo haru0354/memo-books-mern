@@ -1,12 +1,28 @@
 import axios from "axios";
+import { getAuthToken } from "../lib/getAuthToken.mjs";
 
 const expressUrl = import.meta.env.VITE_EXPRESS_URL;
 const ENDPOINT_URL = `${expressUrl}contents`;
 
 const contentApi = {
-  async getAll(userId, bookId, chapterId) {
-    const result = await axios.get(`${ENDPOINT_URL}/${userId}/${bookId}/${chapterId} `);
-    return result.data;
+  async getAll(bookId, chapterId) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.get(
+        `${ENDPOINT_URL}/${bookId}/${chapterId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return result.data;
+    } catch (error) {
+      console.error("コンテンツのAPIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
   async get(userId, bookId, chapterId, contentsId) {
     const result = await axios.get(

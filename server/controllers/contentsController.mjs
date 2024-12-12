@@ -1,11 +1,26 @@
 import { findChapterById } from "../helpers/findChapterById.mjs";
 import { findContentsById } from "../helpers/findContentsById.mjs";
 import { validationResult } from "express-validator";
+import { verifyToken } from "../helpers/verifyToken.mjs";
 
 export const getAllContents = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
-  const userId = req.params.userId;
 
   const { chapter, error } = await findChapterById(userId, bookId, chapterId);
 
@@ -14,7 +29,7 @@ export const getAllContents = async (req, res) => {
   }
 
   const contents = chapter.contents;
-  const chapterTitle = chapter.chapter_title
+  const chapterTitle = chapter.chapter_title;
 
   res.json({contents, chapterTitle});
 };
@@ -51,7 +66,11 @@ export const addContents = async (req, res) => {
   const chapterId = req.params.chapterId;
   const userId = req.params.userId;
 
-  const { chapter, book, error } = await findChapterById(userId, bookId, chapterId);
+  const { chapter, book, error } = await findChapterById(
+    userId,
+    bookId,
+    chapterId
+  );
 
   if (error) {
     res.status(404).json({ message: error });
@@ -137,5 +156,8 @@ export const deleteContents = async (req, res) => {
   );
 
   await book.save();
-  res.json({ message: "コンテンツの削除に成功しました。", deletedContentsId: contentsId, });
+  res.json({
+    message: "コンテンツの削除に成功しました。",
+    deletedContentsId: contentsId,
+  });
 };

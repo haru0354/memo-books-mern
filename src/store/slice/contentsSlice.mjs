@@ -98,9 +98,9 @@ export const { addContents, deleteContent, updateContents } =
 
 export const fetchContents = createAsyncThunk(
   "contents/fetchContents",
-  async ({ userId, bookId, chapterId }) => {
+  async ({ bookId, chapterId }) => {
     try {
-      const data = await contentApi.getAll(userId, bookId, chapterId);
+      const data = await contentApi.getAll(bookId, chapterId);
       return data;
     } catch (error) {
       console.error("コンテンツのフェッチに失敗しました");
