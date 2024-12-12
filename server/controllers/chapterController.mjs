@@ -1,7 +1,7 @@
 import { findChapterById } from "../helpers/findChapterById.mjs";
-import { verifyToken } from "../helpers/verifyToken.mjs";
-import Book from "../models/book.mjs";
+import { verifyTokenAndGetUserId } from "../helpers/verifyTokenAndGetUserId.mjs";
 import { validationResult } from "express-validator";
+import Book from "../models/book.mjs";
 
 export const getAllChapters = async (req, res) => {
   const token = req.headers.authorization?.split(" ")[1];
@@ -10,15 +10,7 @@ export const getAllChapters = async (req, res) => {
     return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  let userId;
-  try {
-    const decodedToken = await verifyToken(token);
-    userId = decodedToken.uid;
-  } catch (err) {
-    console.error("トークンの検証に失敗しました", err.name);
-    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
-  }
-
+  const userId = await verifyTokenAndGetUserId(token);
   const bookId = req.params.bookId;
 
   let book;
@@ -60,15 +52,7 @@ export const getChapter = async (req, res) => {
     return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  let userId;
-  try {
-    const decodedToken = await verifyToken(token);
-    userId = decodedToken.uid;
-  } catch (err) {
-    console.error("トークンの検証に失敗しました", err.name);
-    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
-  }
-
+  const userId = await verifyTokenAndGetUserId(token);
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
 
@@ -111,15 +95,7 @@ export const addChapter = async (req, res) => {
     return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  let userId;
-  try {
-    const decodedToken = await verifyToken(token);
-    userId = decodedToken.uid;
-  } catch (err) {
-    console.error("トークンの検証に失敗しました", err.name);
-    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
-  }
-
+  const userId = await verifyTokenAndGetUserId(token);
   const bookId = req.params.bookId;
 
   let book;
@@ -168,15 +144,7 @@ export const updateChapter = async (req, res) => {
     return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  let userId;
-  try {
-    const decodedToken = await verifyToken(token);
-    userId = decodedToken.uid;
-  } catch (err) {
-    console.error("トークンの検証に失敗しました", err.name);
-    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
-  }
-
+  const userId = await verifyTokenAndGetUserId(token);
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
 
@@ -214,15 +182,7 @@ export const deleteChapter = async (req, res) => {
     return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  let userId;
-  try {
-    const decodedToken = await verifyToken(token);
-    userId = decodedToken.uid;
-  } catch (err) {
-    console.error("トークンの検証に失敗しました", err.name);
-    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
-  }
-
+  const userId = await verifyTokenAndGetUserId(token);
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
 
