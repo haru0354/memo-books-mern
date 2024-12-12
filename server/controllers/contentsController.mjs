@@ -31,14 +31,35 @@ export const getAllContents = async (req, res) => {
   const contents = chapter.contents;
   const chapterTitle = chapter.chapter_title;
 
-  res.json({contents, chapterTitle});
+  try {
+    res.json({ contents, chapterTitle });
+  } catch (err) {
+    console.error("全てのコンテンツを取得するのに失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "全てのコンテンツを取得するのに失敗しました。" });
+  }
 };
 
 export const getContents = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "トークンが付与されていません。" });
+  }
+
+  let userId;
+  try {
+    const decodedToken = await verifyToken(token);
+    userId = decodedToken.uid;
+  } catch (err) {
+    console.error("トークンの検証に失敗しました", err.name);
+    return res.status(401).json({ message: "トークンの検証に失敗しました。" });
+  }
+
   const bookId = req.params.bookId;
   const chapterId = req.params.chapterId;
   const contentsId = req.params.contentsId;
-  const userId = req.params.userId;
 
   const { contents, error } = await findContentsById(
     userId,
@@ -51,7 +72,14 @@ export const getContents = async (req, res) => {
     return res.status(404).json({ message: error });
   }
 
-  res.json(contents);
+  try {
+    res.json(contents);
+  } catch (err) {
+    console.error("個別のコンテンツを取得するのに失敗しました", err);
+    return res
+      .status(500)
+      .json({ message: "個別のコンテンツを取得するのに失敗しました。" });
+  }
 };
 
 export const addContents = async (req, res) => {

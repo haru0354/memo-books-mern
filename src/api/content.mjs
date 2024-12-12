@@ -9,8 +9,24 @@ const contentApi = {
     try {
       const token = await getAuthToken();
 
+      const result = await axios.get(`${ENDPOINT_URL}/${bookId}/${chapterId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return result.data;
+    } catch (error) {
+      console.error("コンテンツのAPIリクエストに失敗しました:", error);
+      throw error;
+    }
+  },
+  async get(bookId, chapterId, contentsId) {
+    try {
+      const token = await getAuthToken();
+
       const result = await axios.get(
-        `${ENDPOINT_URL}/${bookId}/${chapterId}`,
+        `${ENDPOINT_URL}/${bookId}/${chapterId}/${contentsId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -23,12 +39,6 @@ const contentApi = {
       console.error("コンテンツのAPIリクエストに失敗しました:", error);
       throw error;
     }
-  },
-  async get(userId, bookId, chapterId, contentsId) {
-    const result = await axios.get(
-      `${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}/${contentsId}`
-    );
-    return result.data;
   },
   async post(userId, bookId, chapterId, contents) {
     const result = await axios.post(

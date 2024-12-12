@@ -13,7 +13,7 @@ const contentsRouter = express.Router();
 
 contentsRouter.get("/:bookId/:chapterId", requestErrorHandler(getAllContents));
 
-contentsRouter.get("/:userId/:bookId/:chapterId/:contentsId", requestErrorHandler(getContents));
+contentsRouter.get("/:bookId/:chapterId/:contentsId", requestErrorHandler(getContents));
 
 contentsRouter.post(
   "/:userId/:bookId/:chapterId",

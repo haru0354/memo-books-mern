@@ -111,9 +111,9 @@ export const fetchContents = createAsyncThunk(
 
 export const fetchContentById = createAsyncThunk(
   "contents/fetchById",
-  async ({ userId, bookId, chapterId, contentId }) => {
+  async ({ bookId, chapterId, contentId }) => {
     try {
-      const data = await contentApi.get(userId, bookId, chapterId, contentId);
+      const data = await contentApi.get(bookId, chapterId, contentId);
       return data;
     } catch (error) {
       console.error("指定したIDのコンテンツのフェッチに失敗しました");
