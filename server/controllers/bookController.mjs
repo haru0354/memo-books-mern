@@ -1,22 +1,15 @@
 import Book from "../models/book.mjs";
 import { validationResult } from "express-validator";
-import { verifyToken } from "../helpers/verifyToken.mjs";
+import { verifyTokenAndGetUserId } from "../helpers/verifyTokenAndGetUserId.mjs";
 
 export const getAllBooks = async (req, res) => {
   const token = req.headers.authorization?.split(" ")[1];
-
+  
   if (!token) {
     return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  let userId;
-  try {
-    const decodedToken = await verifyToken(token);
-    userId = decodedToken.uid;
-  } catch (err) {
-    console.log("トークンの検証に失敗しました", err);
-    return res.status(401).json({ message: "無効なトークンです。" });
-  }
+  const userId = await verifyTokenAndGetUserId(token);
 
   try {
     const resData = await Book.aggregate([
@@ -48,15 +41,7 @@ export const getBook = async (req, res) => {
     return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  let userId;
-  try {
-    const decodedToken = await verifyToken(token);
-    userId = decodedToken.uid;
-  } catch (err) {
-    console.log("トークンの検証に失敗しました", err);
-    return res.status(401).json({ message: "無効なトークンです。" });
-  }
-
+  const userId = await verifyTokenAndGetUserId(token);
   const bookId = req.params.bookId;
 
   let book;
@@ -110,14 +95,7 @@ export const addBook = async (req, res) => {
     return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  let userId;
-  try {
-    const decodedToken = await verifyToken(token);
-    userId = decodedToken.uid;
-  } catch (err) {
-    console.log("トークンの検証に失敗しました", err);
-    return res.status(401).json({ message: "無効なトークンです。" });
-  }
+  const userId = await verifyTokenAndGetUserId(token);
 
   const bookData = {
     userId,
@@ -149,15 +127,7 @@ export const updateBook = async (req, res) => {
     return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  let userId;
-  try {
-    const decodedToken = await verifyToken(token);
-    userId = decodedToken.uid;
-  } catch (err) {
-    console.log("トークンの検証に失敗しました", err);
-    return res.status(401).json({ message: "無効なトークンです。" });
-  }
-
+  const userId = await verifyTokenAndGetUserId(token);
   const bookId = req.params.bookId;
 
   let book;
@@ -198,15 +168,7 @@ export const deleteBook = async (req, res) => {
     return res.status(401).json({ message: "トークンが付与されていません。" });
   }
 
-  let userId;
-  try {
-    const decodedToken = await verifyToken(token);
-    userId = decodedToken.uid;
-  } catch (err) {
-    console.log("トークンの検証に失敗しました", err);
-    return res.status(401).json({ message: "無効なトークンです。" });
-  }
-
+  const userId = await verifyTokenAndGetUserId(token);
   const bookId = req.params.bookId;
 
   let book;

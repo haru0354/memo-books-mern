@@ -1,38 +1,104 @@
 import axios from "axios";
+import { getAuthToken } from "../lib/getAuthToken.mjs";
 
 const expressUrl = import.meta.env.VITE_EXPRESS_URL;
 const ENDPOINT_URL = `${expressUrl}contents`;
 
 const contentApi = {
-  async getAll(userId, bookId, chapterId) {
-    const result = await axios.get(`${ENDPOINT_URL}/${userId}/${bookId}/${chapterId} `);
-    return result.data;
+  async getAll(bookId, chapterId) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.get(`${ENDPOINT_URL}/${bookId}/${chapterId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return result.data;
+    } catch (error) {
+      console.error(
+        "全てのコンテンツの取得APIリクエストに失敗しました:",
+        error
+      );
+      throw error;
+    }
   },
-  async get(userId, bookId, chapterId, contentsId) {
-    const result = await axios.get(
-      `${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}/${contentsId}`
-    );
-    return result.data;
+  async get(bookId, chapterId, contentsId) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.get(
+        `${ENDPOINT_URL}/${bookId}/${chapterId}/${contentsId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return result.data;
+    } catch (error) {
+      console.error("個別コンテンツの取得APIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
-  async post(userId, bookId, chapterId, contents) {
-    const result = await axios.post(
-      `${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}`,
-      contents
-    );
-    return result.data;
+  async post(bookId, chapterId, contents) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.post(
+        `${ENDPOINT_URL}/${bookId}/${chapterId}`,
+        contents,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return result.data;
+    } catch (error) {
+      console.error("コンテンツの追加APIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
-  async patch(userId, bookId, chapterId, contentsId, contents) {
-    const result = await axios.patch(
-      `${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}/${contentsId}`,
-      contents
-    );
-    return result.data;
+  async patch(bookId, chapterId, contentsId, contents) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.patch(
+        `${ENDPOINT_URL}/${bookId}/${chapterId}/${contentsId}`,
+        contents,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return result.data;
+    } catch (error) {
+      console.error("コンテンツの編集APIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
-  async delete(userId, bookId, chapterId, contentsId) {
-    const result = await axios.delete(
-      `${ENDPOINT_URL}/${userId}/${bookId}/${chapterId}/${contentsId}`
-    );
-    return result.data;
+  async delete(bookId, chapterId, contentsId) {
+    try {
+      const token = await getAuthToken();
+
+      const result = await axios.delete(
+        `${ENDPOINT_URL}/${bookId}/${chapterId}/${contentsId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return result.data;
+    } catch (error) {
+      console.error("コンテンツの削除APIリクエストに失敗しました:", error);
+      throw error;
+    }
   },
 };
 

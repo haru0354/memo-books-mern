@@ -89,7 +89,7 @@ const contentsSlice = createSlice({
       .addCase(deleteContentsAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-      })
+      });
   },
 });
 
@@ -98,9 +98,9 @@ export const { addContents, deleteContent, updateContents } =
 
 export const fetchContents = createAsyncThunk(
   "contents/fetchContents",
-  async ({ userId, bookId, chapterId }) => {
+  async ({ bookId, chapterId }) => {
     try {
-      const data = await contentApi.getAll(userId, bookId, chapterId);
+      const data = await contentApi.getAll(bookId, chapterId);
       return data;
     } catch (error) {
       console.error("コンテンツのフェッチに失敗しました");
@@ -111,9 +111,9 @@ export const fetchContents = createAsyncThunk(
 
 export const fetchContentById = createAsyncThunk(
   "contents/fetchById",
-  async ({ userId, bookId, chapterId, contentId }) => {
+  async ({ bookId, chapterId, contentId }) => {
     try {
-      const data = await contentApi.get(userId, bookId, chapterId, contentId);
+      const data = await contentApi.get(bookId, chapterId, contentId);
       return data;
     } catch (error) {
       console.error("指定したIDのコンテンツのフェッチに失敗しました");
@@ -124,9 +124,9 @@ export const fetchContentById = createAsyncThunk(
 
 export const addContentsAsync = createAsyncThunk(
   "contents/addContentAsync",
-  async ({ userId, bookId, chapterId, formData }) => {
+  async ({ bookId, chapterId, formData }) => {
     try {
-      const data = await contentApi.post(userId, bookId, chapterId, formData);
+      const data = await contentApi.post(bookId, chapterId, formData);
       return data;
     } catch (error) {
       console.error("コンテンツの追加に失敗しました");
@@ -137,10 +137,9 @@ export const addContentsAsync = createAsyncThunk(
 
 export const updateContentsAsync = createAsyncThunk(
   "contents/updateContentsAsync",
-  async ({ userId, bookId, chapterId, contentId, formData }) => {
+  async ({ bookId, chapterId, contentId, formData }) => {
     try {
       const data = await contentApi.patch(
-        userId,
         bookId,
         chapterId,
         contentId,
@@ -148,7 +147,7 @@ export const updateContentsAsync = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      console.error("コンテンツの追加に失敗しました");
+      console.error("コンテンツの編集に失敗しました");
       throw error;
     }
   }
@@ -156,17 +155,12 @@ export const updateContentsAsync = createAsyncThunk(
 
 export const deleteContentsAsync = createAsyncThunk(
   "contents/deleteContentsAsync",
-  async ({ userId, bookId, chapterId, contentId }) => {
+  async ({ bookId, chapterId, contentId }) => {
     try {
-      const data = await contentApi.delete(
-        userId,
-        bookId,
-        chapterId,
-        contentId
-      );
+      const data = await contentApi.delete(bookId, chapterId, contentId);
       return data;
     } catch (error) {
-      console.error("コンテンツの追加に失敗しました");
+      console.error("コンテンツの削除に失敗しました");
       throw error;
     }
   }

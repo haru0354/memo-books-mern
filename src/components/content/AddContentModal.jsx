@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addContentsAsync } from "../../store/slice/contentsSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { css } from "@emotion/react";
@@ -25,7 +25,6 @@ const buttonContainerStyle = css`
 const AddContentModal = ({ bookId, chapterId }) => {
   const [isAddModal, setIsAddModal] = useState(false);
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user.uid)
   const methods = useForm();
   const showToast = useToast();
   const bodyRef = useRef(document.body);
@@ -45,7 +44,7 @@ const AddContentModal = ({ bookId, chapterId }) => {
     };
 
     try {
-      await dispatch(addContentsAsync({userId, bookId, chapterId, formData})).unwrap();
+      await dispatch(addContentsAsync({bookId, chapterId, formData})).unwrap();
       toggleCloseModal();
       showToast("メモが追加されました")
       methods.reset();

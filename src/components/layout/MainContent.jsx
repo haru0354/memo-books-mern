@@ -89,7 +89,6 @@ const editingButtonContainerStyle = css`
 const MainContent = ({ bookId, chapterId }) => {
   const [editingContentId, setEditingContentId] = useState(null);
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user.uid);
   const contents = useSelector((state) => state.contents.contents);
   const chapterTitle = useSelector((state) => {
     const chapter = state.chapters.chapters.chaptersWithoutContents.find(
@@ -131,7 +130,7 @@ const MainContent = ({ bookId, chapterId }) => {
 
     try {
       await dispatch(
-        updateContentsAsync({ userId, bookId, chapterId, contentId, formData })
+        updateContentsAsync({ bookId, chapterId, contentId, formData })
       ).unwrap();
 
       methods.reset();

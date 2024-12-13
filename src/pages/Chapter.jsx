@@ -21,7 +21,6 @@ const Chapter = () => {
   const dispatch = useDispatch();
   const chaptersStatus = useSelector((state) => state.chapters.status);
   const contentsStatus = useSelector((state) => state.contents.status);
-  const userId = useSelector((state) => state.user.user.uid)
   const chapterTitle = useSelector(
     (state) => state.contents.contents.chapterTitle
   );
@@ -31,7 +30,7 @@ const Chapter = () => {
   }, [dispatch, bookId]);
 
   useEffect(() => {
-    dispatch(fetchContents({userId, bookId, chapterId })).unwrap();
+    dispatch(fetchContents({bookId, chapterId })).unwrap();
   }, [dispatch, bookId, chapterId]);
 
   useEffect(() => {

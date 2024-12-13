@@ -11,24 +11,24 @@ import { requestErrorHandler } from "../helpers/requestErrorHandler.mjs";
 
 const contentsRouter = express.Router();
 
-contentsRouter.get("/:userId/:bookId/:chapterId", requestErrorHandler(getAllContents));
+contentsRouter.get("/:bookId/:chapterId", requestErrorHandler(getAllContents));
 
-contentsRouter.get("/:userId/:bookId/:chapterId/:contentsId", requestErrorHandler(getContents));
+contentsRouter.get("/:bookId/:chapterId/:contentsId", requestErrorHandler(getContents));
 
 contentsRouter.post(
-  "/:userId/:bookId/:chapterId",
+  "/:bookId/:chapterId",
   body("heading_title").notEmpty().withMessage("タイトルを入力してください。"),
   body("content").notEmpty().withMessage("記載するコンテンツを入力してください。"),
   requestErrorHandler(addContents)
 );
 
 contentsRouter.patch(
-  "/:userId/:bookId/:chapterId/:contentsId",
+  "/:bookId/:chapterId/:contentsId",
   body("heading_title").optional().notEmpty(),
   body("content").optional().notEmpty(),
   requestErrorHandler(updateContents)
 );
 
-contentsRouter.delete("/:userId/:bookId/:chapterId/:contentsId", requestErrorHandler(deleteContents));
+contentsRouter.delete("/:bookId/:chapterId/:contentsId", requestErrorHandler(deleteContents));
 
 export default contentsRouter;
