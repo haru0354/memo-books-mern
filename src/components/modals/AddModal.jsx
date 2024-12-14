@@ -2,13 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import {
   formStyle,
-  modalBackStyle,
-  modalContainerStyle,
 } from "../../styles/styles";
 import { FormProvider, useForm } from "react-hook-form";
 import useToast from "../../hooks/useToast";
 import Button from "../ui/Button";
 import AddButton from "../ui/AddButton";
+import Modal from "./Modal";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -39,12 +38,6 @@ const AddModal = ({ title, onAdd, inputForm, isBook = false }) => {
     setIsModalOpen((prev) => !prev);
   };
 
-  const closeModal = (e) => {
-    if (e.target === e.currentTarget) {
-      toggleModal();
-    }
-  };
-
   const onSubmit = async (data) => {
     try {
       await onAdd(data, methods);
@@ -59,26 +52,22 @@ const AddModal = ({ title, onAdd, inputForm, isBook = false }) => {
   return (
     <>
       <AddButton isBook={isBook} onClick={toggleModal} />
-      {isModalOpen && (
-        <div css={modalBackStyle} onClick={closeModal}>
-          <div css={modalContainerStyle}>
-            <h3>メモブックのフォーム</h3>
-            <FormProvider {...methods}>
-              <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
-                 {inputForm(methods)}
-                <div css={buttonContainerStyle}>
-                  <Button type="submit" color="blue">
-                    追加する
-                  </Button>
-                  <Button type="button" color="gray" onClick={toggleModal}>
-                    キャンセル
-                  </Button>
-                </div>
-              </form>
-            </FormProvider>
-          </div>
-        </div>
-      )}
+      <Modal isOpen={isModalOpen} onClose={toggleModal}>
+        <h3>メモブックのフォーム</h3>
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
+            {inputForm(methods)}
+            <div css={buttonContainerStyle}>
+              <Button type="submit" color="blue">
+                追加する
+              </Button>
+              <Button type="button" color="gray" onClick={toggleModal}>
+                キャンセル
+              </Button>
+            </div>
+          </form>
+        </FormProvider>
+      </Modal>
     </>
   );
 };
