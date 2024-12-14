@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { css } from "@emotion/react";
-import { modalBackStyle, modalContainerStyle } from "../../styles/styles";
 import useToast from "../../hooks/useToast";
 import Button from "../ui/Button";
+import Modal from "./Modal";
 
 const infoTitleStyle = css`
   font-weight: 600;
@@ -27,29 +27,9 @@ const deleteButtonStyle = css`
 
 const DeleteModal = ({ onDelete, deleteTitle, infoTitle }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-  const bodyRef = useRef(document.body);
   const showToast = useToast();
 
-  useEffect(() => {
-    if (isDeleteModalOpen) {
-      bodyRef.current.style.overflowY = "hidden";
-    } else {
-      bodyRef.current.style.overflow = "auto";
-    }
-
-    return () => {
-      bodyRef.current.style.overflow = "auto";
-    };
-  }, [isDeleteModalOpen]);
-
   const toggleModal = () => setIsDeleteModalOpen((prev) => !prev);
-
-  const closeModal = (e) => {
-    if (e.target === e.currentTarget) {
-      toggleModal();
-    }
-  };
 
   const onClickDelete = async () => {
     try {
@@ -67,9 +47,8 @@ const DeleteModal = ({ onDelete, deleteTitle, infoTitle }) => {
       <Button addCss={deleteButtonStyle} color="red" onClick={toggleModal}>
         削除
       </Button>
-      {isDeleteModalOpen && (
-        <div css={[modalBackStyle]} onClick={closeModal}>
-          <div css={[modalContainerStyle, modalAddStyle]}>
+      <Modal isOpen={isDeleteModalOpen} onClose={toggleModal}>
+        <div css={modalAddStyle}>
             <p>「{deleteTitle}」を削除しますか？</p>
             <p>削除すると復元することはできません。</p>
             {infoTitle && (
@@ -86,8 +65,7 @@ const DeleteModal = ({ onDelete, deleteTitle, infoTitle }) => {
               </Button>
             </div>
           </div>
-        </div>
-      )}
+          </Modal>
     </>
   );
 };
