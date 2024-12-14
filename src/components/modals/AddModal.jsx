@@ -17,7 +17,7 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
-const AddModal = ({ title, onAdd, inputForm }) => {
+const AddModal = ({ title, onAdd, inputForm, isBook = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const methods = useForm();
   const bodyRef = useRef(document.body);
@@ -47,7 +47,7 @@ const AddModal = ({ title, onAdd, inputForm }) => {
 
   const onSubmit = async (data) => {
     try {
-      await onAdd(data);
+      await onAdd(data, methods);
       toggleModal();
       showToast(`${title}が追加されました`);
     } catch (error) {
@@ -58,7 +58,7 @@ const AddModal = ({ title, onAdd, inputForm }) => {
 
   return (
     <>
-      <AddButton isBook={true} onClick={toggleModal} />
+      <AddButton isBook={isBook} onClick={toggleModal} />
       {isModalOpen && (
         <div css={modalBackStyle} onClick={closeModal}>
           <div css={modalContainerStyle}>

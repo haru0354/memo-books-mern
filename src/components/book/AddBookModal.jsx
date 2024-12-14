@@ -47,7 +47,7 @@ const AddBookModal = () => {
     );
   };
 
-  return <AddModal onAdd={onAdd} inputForm={inputForm} title="メモブック" />;
+  return <AddModal onAdd={onAdd} inputForm={inputForm} title="メモブック" isBook={true} />;
 };
 
 export default AddBookModal;
