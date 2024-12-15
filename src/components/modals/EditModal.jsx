@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { formStyle } from "../../styles/styles";
 import useToast from "../../hooks/useToast";
 import Button from "../../components/ui/Button";
+import Modal from "./Modal";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -23,7 +24,7 @@ const EditModal = ({ title, onEdit, inputForm, DeleteModal }) => {
 
   const onSubmit = async (data) => {
     try {
-      await onEdit(data, methods);
+      await onEdit(data);
       toggleModal();
       showToast(`${title}の編集が完了しました`);
     } catch (error) {
@@ -38,7 +39,7 @@ const EditModal = ({ title, onEdit, inputForm, DeleteModal }) => {
         編集
       </Button>
       <Modal isOpen={isEditModalOpen} onClose={toggleModal}>
-        <h3>本の編集</h3>
+        <h3>メモブックの編集</h3>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
             {inputForm(methods)}
