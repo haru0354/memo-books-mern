@@ -1,123 +1,60 @@
-import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addContentsAsync } from "../../store/slice/contentsSlice";
-import { FormProvider, useForm } from "react-hook-form";
-import { css } from "@emotion/react";
-import {
-  errorMessageStyle,
-  formStyle,
-  modalBackStyle,
-  modalContainerStyle,
-} from "../../styles/styles";
-import useToast from "../../hooks/useToast";
+import { errorMessageStyle } from "../../styles/styles";
 import Textarea from "../ui/Textarea";
-import Button from "../ui/Button";
 import TextInput from "../ui/TextInput";
-import AddButton from "../ui/AddButton";
-
-const buttonContainerStyle = css`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  margin-top: 20px;
-`;
+import AddModal from "../modals/AddModal";
 
 const AddContentModal = ({ bookId, chapterId }) => {
-  const [isAddModal, setIsAddModal] = useState(false);
   const dispatch = useDispatch();
-  const methods = useForm();
-  const showToast = useToast();
-  const bodyRef = useRef(document.body);
 
-  const disableScroll = () => {
-    bodyRef.current.style.overflowY = 'hidden';
-  };
-
-  const enableScroll = () => {
-    bodyRef.current.style.overflow = 'auto';
-  };
-
-  const onSubmit = async (data) => {
+  const onAdd = async (data, methods) => {
     const formData = {
       heading_title: data.title,
       content: data.content,
     };
 
     try {
-      await dispatch(addContentsAsync({bookId, chapterId, formData})).unwrap();
-      toggleCloseModal();
-      showToast("メモが追加されました")
+      await dispatch(
+        addContentsAsync({ bookId, chapterId, formData })
+      ).unwrap();
       methods.reset();
     } catch (error) {
-      showToast("メモの追加に失敗しました")
       console.error("メモの追加に失敗しました。", error);
     }
   };
 
-  const toggleOpenModal = () => {
-    setIsAddModal((prev) => !prev);
-    disableScroll();
+  const inputForm = (methods) => {
+    return (
+      <>
+        <TextInput
+          label="タイトル"
+          placeholder="タイトルを入力してください。"
+          name="title"
+          required={true}
+          maxLength={25}
+        />
+        <Textarea
+          label="コンテンツ"
+          placeholder="コンテンツを入力してください。"
+          name="content"
+          required={true}
+        />
+        {methods.formState.errors.title && (
+          <p css={errorMessageStyle}>
+            {methods.formState.errors.title.message}
+          </p>
+        )}
+        {methods.formState.errors.content && (
+          <p css={errorMessageStyle}>
+            {methods.formState.errors.content.message}
+          </p>
+        )}
+      </>
+    );
   };
 
-  const toggleCloseModal = () => {
-    setIsAddModal((prev) => !prev);
-    enableScroll();
-  };
-
-  const closeModal = (e) => {
-    if (e.target === e.currentTarget) {
-      toggleCloseModal();
-    }
-  };
-
-
-  return (
-    <>
-      <AddButton onClick={toggleOpenModal} />
-      {isAddModal && (
-        <div css={modalBackStyle} onClick={closeModal}>
-          <div css={modalContainerStyle}>
-            <h3>コンテンツの追加</h3>
-            <FormProvider {...methods}>
-              <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
-                <TextInput
-                  label="タイトル"
-                  placeholder="タイトルを入力してください。"
-                  name="title"
-                  required={true}
-                  maxLength={25}
-                />
-                <Textarea
-                  label="コンテンツ"
-                  placeholder="コンテンツを入力してください。"
-                  name="content"
-                  required={true}
-                />
-                {methods.formState.errors.title && (
-                  <p css={errorMessageStyle}>
-                    {methods.formState.errors.title.message}
-                  </p>
-                )}
-                {methods.formState.errors.content && (
-                  <p css={errorMessageStyle}>
-                    {methods.formState.errors.content.message}
-                  </p>
-                )}
-                <div css={buttonContainerStyle}>
-                  <Button type="submit" color="blue">
-                    追加する
-                  </Button>
-                  <Button color="gray" onClick={toggleCloseModal}>
-                    キャンセル
-                  </Button>
-                </div>
-              </form>
-            </FormProvider>
-          </div>
-        </div>
-      )}
-    </>
-  );
+  return <AddModal onAdd={onAdd} inputForm={inputForm} title="コンテンツ" />;
 };
 
 export default AddContentModal;

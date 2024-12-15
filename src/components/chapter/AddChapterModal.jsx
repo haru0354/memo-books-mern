@@ -1,31 +1,15 @@
 import { useDispatch } from "react-redux";
 import { addChaptersAsync } from "../../store/slice/chaptersSlice";
 import { useNavigate } from "react-router-dom";
-import { FormProvider, useForm } from "react-hook-form";
-import { css } from "@emotion/react";
-import {
-  errorMessageStyle,
-  formStyle,
-  modalContainerStyle,
-} from "../../styles/styles";
-import useToast from "../../hooks/useToast";
-import Button from "../ui/Button";
+import { errorMessageStyle } from "../../styles/styles";
 import TextInput from "../ui/TextInput";
+import AddModal from "../modals/AddModal";
 
-const buttonContainerStyle = css`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  margin-top: 20px;
-`;
-
-const AddChapterModal = ({ bookId, toggleCloseAddModal, toggleHumBergerMenu }) => {
+const AddChapterModal = ({ bookId, toggleHumBergerMenu }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const methods = useForm();
-  const showToast = useToast();
 
-  const onSubmit = async (data) => {
+  const onAdd = async (data, methods) => {
     const formData = {
       chapter_title: data.title,
     };
@@ -34,47 +18,40 @@ const AddChapterModal = ({ bookId, toggleCloseAddModal, toggleHumBergerMenu }) =
       const response = await dispatch(
         addChaptersAsync({ bookId, formData })
       ).unwrap();
-      toggleCloseAddModal();
       toggleHumBergerMenu();
-      showToast("チャプターが追加されました")
       methods.reset();
       navigate(`/${bookId}/${response._id}`);
     } catch (error) {
-      showToast("チャプターの追加に失敗しました")
       console.error("チャプターの追加に失敗しました。", error);
     }
   };
 
+  const inputForm = (methods) => {
+    return (
+      <>
+        <TextInput
+          label="チャプター名"
+          placeholder="チャプター名を入力してください。"
+          name="title"
+          required={true}
+          maxLength={25}
+        />
+        {methods.formState.errors.title && (
+          <p css={errorMessageStyle}>
+            {methods.formState.errors.title.message}
+          </p>
+        )}
+      </>
+    );
+  };
+
   return (
-    <>
-      <div css={modalContainerStyle}>
-        <h3>チャプターの追加</h3>
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
-            <TextInput
-              label="チャプター名"
-              placeholder="チャプター名を入力してください。"
-              name="title"
-              required={true}
-              maxLength={16}
-            />
-            {methods.formState.errors.title && (
-              <p css={errorMessageStyle}>
-                {methods.formState.errors.title.message}
-              </p>
-            )}
-            <div css={buttonContainerStyle}>
-              <Button type="submit" color="blue">
-                追加する
-              </Button>
-              <Button type="button" color="gray" onClick={toggleCloseAddModal}>
-                キャンセル
-              </Button>
-            </div>
-          </form>
-        </FormProvider>
-      </div>
-    </>
+    <AddModal
+      onAdd={onAdd}
+      inputForm={inputForm}
+      title="チャプター"
+      isBook={false}
+    />
   );
 };
 
