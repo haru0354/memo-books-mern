@@ -143,7 +143,6 @@ const logoCss = css`
 
 const Sidebar = ({ bookId }) => {
   const [isHumBergerMenuOpen, setIsHumBergerMenuOpen] = useState(false);
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingChapterId, setEditingChapterId] = useState(null);
   const [editingChapterTitle, setEditingChapterTitle] = useState("");
@@ -161,22 +160,6 @@ const Sidebar = ({ bookId }) => {
 
   const toggleHumBergerMenu = () => {
     setIsHumBergerMenuOpen((prev) => !prev);
-  };
-
-  const toggleOpenAddModal = () => {
-    setIsAddModalOpen((prev) => !prev);
-    disableScroll();
-  };
-
-  const toggleCloseAddModal = () => {
-    setIsAddModalOpen((prev) => !prev);
-    enableScroll();
-  };
-
-  const closeAddModal = (e) => {
-    if (e.target === e.currentTarget) {
-      toggleCloseAddModal();
-    }
   };
 
   const toggleOpenEditModal = (chapterId, chapterTitle) => {
@@ -229,7 +212,10 @@ const Sidebar = ({ bookId }) => {
             );
           })}
         </ul>
-        <AddButton onClick={toggleOpenAddModal} />
+        <AddChapterModal
+          bookId={bookId}
+          toggleHumBergerMenu={toggleHumBergerMenu}
+        />
       </div>
       <button css={hamburgerButtonStyle} onClick={toggleHumBergerMenu}>
         {isHumBergerMenuOpen ? (
@@ -241,15 +227,6 @@ const Sidebar = ({ bookId }) => {
           </>
         )}
       </button>
-      {isAddModalOpen && (
-        <div css={modalBackStyle} onClick={closeAddModal}>
-          <AddChapterModal
-            bookId={bookId}
-            toggleCloseAddModal={toggleCloseAddModal}
-            toggleHumBergerMenu={toggleHumBergerMenu}
-          />
-        </div>
-      )}
       {isEditModalOpen && (
         <div css={modalBackStyle} onClick={closeEditModal}>
           <EditChapterModal

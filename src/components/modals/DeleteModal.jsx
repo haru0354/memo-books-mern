@@ -49,23 +49,23 @@ const DeleteModal = ({ onDelete, deleteTitle, infoTitle }) => {
       </Button>
       <Modal isOpen={isDeleteModalOpen} onClose={toggleModal}>
         <div css={modalAddStyle}>
-            <p>「{deleteTitle}」を削除しますか？</p>
-            <p>削除すると復元することはできません。</p>
-            {infoTitle && (
-              <span css={infoTitleStyle}>
-                「{infoTitle}」の中見も全て削除されます。
-              </span>
-            )}
-            <div css={buttonContainerStyle}>
-              <Button color="red" onClick={onClickDelete}>
-                削除
-              </Button>
-              <Button color="gray" onClick={toggleModal}>
-                キャンセル
-              </Button>
-            </div>
+          <p>「{deleteTitle}」を削除しますか？</p>
+          <p>削除すると復元することはできません。</p>
+          {infoTitle && (
+            <span css={infoTitleStyle}>
+              「{infoTitle}」の中見も全て削除されます。
+            </span>
+          )}
+          <div css={buttonContainerStyle}>
+            <Button color="red" onClick={onClickDelete}>
+              削除
+            </Button>
+            <Button color="gray" onClick={toggleModal}>
+              キャンセル
+            </Button>
           </div>
-          </Modal>
+        </div>
+      </Modal>
     </>
   );
 };

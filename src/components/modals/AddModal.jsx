@@ -1,8 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { css } from "@emotion/react";
-import {
-  formStyle,
-} from "../../styles/styles";
+import { formStyle } from "../../styles/styles";
 import { FormProvider, useForm } from "react-hook-form";
 import useToast from "../../hooks/useToast";
 import Button from "../ui/Button";
@@ -19,20 +17,7 @@ const buttonContainerStyle = css`
 const AddModal = ({ title, onAdd, inputForm, isBook = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const methods = useForm();
-  const bodyRef = useRef(document.body);
   const showToast = useToast();
-
-  useEffect(() => {
-    if (isModalOpen) {
-      bodyRef.current.style.overflowY = "hidden";
-    } else {
-      bodyRef.current.style.overflow = "auto";
-    }
-
-    return () => {
-      bodyRef.current.style.overflow = "auto";
-    };
-  }, [isModalOpen]);
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
