@@ -5,6 +5,7 @@ import { formStyle } from "../../styles/styles";
 import useToast from "../../hooks/useToast";
 import Button from "../../components/ui/Button";
 import Modal from "./Modal";
+import EditImageButton from "../ui/EditImageButton";
 
 const buttonContainerStyle = css`
   display: flex;
@@ -13,7 +14,13 @@ const buttonContainerStyle = css`
   margin-top: 20px;
 `;
 
-const EditModal = ({ title, onEdit, inputForm, DeleteModal }) => {
+const EditModal = ({
+  title,
+  onEdit,
+  inputForm,
+  DeleteModal,
+  iconDesign = false,
+}) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const methods = useForm();
   const showToast = useToast();
@@ -35,11 +42,17 @@ const EditModal = ({ title, onEdit, inputForm, DeleteModal }) => {
 
   return (
     <>
-      <Button color="blue" onClick={toggleModal}>
-        編集
-      </Button>
+      {iconDesign ? (
+        <EditImageButton color="blue" onClick={toggleModal}>
+          編集
+        </EditImageButton>
+      ) : (
+        <Button color="blue" onClick={toggleModal}>
+          編集
+        </Button>
+      )}
       <Modal isOpen={isEditModalOpen} onClose={toggleModal}>
-        <h3>メモブックの編集</h3>
+        <h3>編集フォーム</h3>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
             {inputForm(methods)}

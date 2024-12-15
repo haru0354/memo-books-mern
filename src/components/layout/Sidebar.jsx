@@ -1,12 +1,9 @@
-import { memo, useRef, useState } from "react";
+import { memo, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { css } from "@emotion/react";
-import { modalBackStyle } from "../../styles/styles";
-import AddButton from "../ui/AddButton";
-import EditImageButton from "../ui/EditImageButton";
 import AddChapterModal from "../chapter/AddChapterModal";
 import EditChapterModal from "../chapter/EditChapterModal";
 import Page404 from "../../pages/Page404";
@@ -143,41 +140,11 @@ const logoCss = css`
 
 const Sidebar = ({ bookId }) => {
   const [isHumBergerMenuOpen, setIsHumBergerMenuOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editingChapterId, setEditingChapterId] = useState(null);
-  const [editingChapterTitle, setEditingChapterTitle] = useState("");
   const chapters = useSelector((state) => state.chapters.chapters);
   const chaptersStatus = useSelector((state) => state.chapters.status);
-  const bodyRef = useRef(document.body);
-
-  const disableScroll = () => {
-    bodyRef.current.style.overflowY = "hidden";
-  };
-
-  const enableScroll = () => {
-    bodyRef.current.style.overflow = "auto";
-  };
 
   const toggleHumBergerMenu = () => {
     setIsHumBergerMenuOpen((prev) => !prev);
-  };
-
-  const toggleOpenEditModal = (chapterId, chapterTitle) => {
-    setEditingChapterId(chapterId);
-    setEditingChapterTitle(chapterTitle);
-    setIsEditModalOpen((prev) => !prev);
-    disableScroll();
-  };
-
-  const toggleCloseEditModal = () => {
-    setIsEditModalOpen((prev) => !prev);
-    enableScroll();
-  };
-
-  const closeEditModal = (e) => {
-    if (e.target === e.currentTarget) {
-      toggleCloseEditModal();
-    }
   };
 
   if (chaptersStatus === "failed") {
@@ -203,10 +170,10 @@ const Sidebar = ({ bookId }) => {
                 <Link to={`/${bookId}/${chapter._id}`} css={linkStyles}>
                   {chapter.chapter_title}
                 </Link>
-                <EditImageButton
-                  onClick={() =>
-                    toggleOpenEditModal(chapter._id, chapter.chapter_title)
-                  }
+                <EditChapterModal
+                  bookId={bookId}
+                  chapterId={chapter._id}
+                  chapterTitle={chapter.chapter_title}
                 />
               </li>
             );
@@ -227,16 +194,6 @@ const Sidebar = ({ bookId }) => {
           </>
         )}
       </button>
-      {isEditModalOpen && (
-        <div css={modalBackStyle} onClick={closeEditModal}>
-          <EditChapterModal
-            bookId={bookId}
-            chapterId={editingChapterId}
-            chapterTitle={editingChapterTitle}
-            toggleCloseEditModal={toggleCloseEditModal}
-          />
-        </div>
-      )}
     </>
   );
 };
