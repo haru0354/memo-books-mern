@@ -38,7 +38,7 @@ const AddModal = ({ title, onAdd, inputForm, isBook = false }) => {
     <>
       <AddButton isBook={isBook} onClick={toggleModal} />
       <Modal isOpen={isModalOpen} onClose={toggleModal}>
-        <h3>メモブックのフォーム</h3>
+        <h3>追加フォーム</h3>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
             {inputForm(methods)}

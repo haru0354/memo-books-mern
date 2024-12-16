@@ -3,12 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteChaptersAsync } from "../../store/slice/chaptersSlice";
 import DeleteModal from "../modals/DeleteModal";
 
-const DeleteChapterModal = ({
-  toggleCloseEditModal,
-  chapterTitle,
-  bookId,
-  chapterId,
-}) => {
+const DeleteChapterModal = ({ chapterTitle, bookId, chapterId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,8 +12,6 @@ const DeleteChapterModal = ({
       const response = await dispatch(
         deleteChaptersAsync({ bookId, chapterId })
       ).unwrap();
-
-      toggleCloseEditModal();
 
       if (response.redirectedUrl) {
         navigate(`/${bookId}/${response.redirectedUrl}`);
