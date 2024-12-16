@@ -7,6 +7,7 @@ import { css } from "@emotion/react";
 import { modalBackStyle } from "../styles/styles";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
+import { errorMessageStyle } from "../styles/styles";
 import useToast from "../hooks/useToast";
 import AnimationItem from "../lib/AnimationItem";
 import Button from "../components/ui/Button";
@@ -27,18 +28,12 @@ const textCenterStyle = css`
   text-align: center;
 `;
 
-const FormTextStyle = css`
+const formTextStyle = css`
   text-align: center;
   margin-bottom: 20px;
   padding-bottom: 4px;
   border-bottom: 1px dashed gray;
   font-weight: 600;
-`;
-
-const errorMessageStyle = css`
-  font-size: 0.8rem;
-  color: red;
-  margin-bottom: 5px;
 `;
 
 const menuContainerStyle = css`
@@ -105,10 +100,10 @@ const LoginModal = () => {
       await dispatch(login({ email, password })).unwrap();
 
       toggleCloseModal();
-      showToast("ログインに成功しました")
+      showToast("ログインに成功しました");
       navigate("/books");
     } catch (error) {
-      showToast("ログインに失敗しました")
+      showToast("ログインに失敗しました");
       console.error("ログインに失敗しました", error);
     }
   };
@@ -145,7 +140,11 @@ const LoginModal = () => {
         <div css={menuContainerStyle}>
           <AuthButton onClick={toggleOpenMenu}>MENU</AuthButton>
           {isOpenMenu && (
-            <AnimationItem elType="ul" animation="fadeInOpacity" emotionCss={menuUlStyle} >
+            <AnimationItem
+              elType="ul"
+              animation="fadeInOpacity"
+              emotionCss={menuUlStyle}
+            >
               <Link to="/books">
                 <li css={menuTextStyle} onClick={toggleOpenMenu}>
                   メモブックの一覧
@@ -176,22 +175,23 @@ const LoginModal = () => {
                     onSubmit={methods.handleSubmit(onSubmit)}
                     css={formStyle}
                   >
-                    <span css={FormTextStyle}>ログイン</span>
+                    <span css={formTextStyle}>ログイン</span>
                     <TextInput
                       label="メールアドレス"
                       placeholder="メールアドレスを入力してください"
                       name="email"
+                    />
+                    <TextInput
+                      type="password"
+                      label="パスワード"
+                      placeholder="8～12文字で入力してください"
+                      name="password"
                     />
                     {methods.formState.errors.email && (
                       <span css={errorMessageStyle}>
                         {methods.formState.errors.email.message}
                       </span>
                     )}
-                    <TextInput
-                      label="パスワード"
-                      placeholder="8～12文字で入力してください"
-                      name="password"
-                    />
                     {methods.formState.errors.password && (
                       <span css={errorMessageStyle}>
                         {methods.formState.errors.password.message}
