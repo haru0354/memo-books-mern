@@ -3,7 +3,7 @@ import { createUser } from "../store/slice/userSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
 import useToast from "../hooks/useToast";
 import TextInput from "../components/ui/TextInput";
@@ -19,6 +19,7 @@ const formContainerStyle = css`
 `;
 
 const textCenterStyle = css`
+  margin-top: 15px;
   text-align: center;
 `;
 
@@ -52,10 +53,10 @@ const SignUp = () => {
     const { email, password } = data;
     try {
       await dispatch(createUser({ email, password })).unwrap();
-      showToast("アカウントが作成されました")
+      showToast("アカウントが作成されました");
       navigate("/books");
     } catch (error) {
-      showToast("アカウントの作成に失敗しました。")
+      showToast("アカウントの作成に失敗しました。");
       console.error("アカウントの作成に失敗しました。", error);
     }
   };
