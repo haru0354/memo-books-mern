@@ -11,10 +11,10 @@ const ctaSection = css`
 `;
 
 const ctaContainer = css`
-  text-align: center;
-  padding: 40px;
-  margin: 0px auto;
   max-width: 700px;
+  margin: 0px auto;
+  padding: 40px;
+  text-align: center;
   border: 1px solid #25448b;
   border-radius: 4px;
   background-color: #fffdfb;
@@ -29,21 +29,27 @@ const sectionH2Style = css`
 `;
 
 const CtaSection = ({ title, topText, centerText, bottomText, buttonText }) => {
-    const scrollToForm = () => {
-      const formSection = document.getElementById("form");
-      if (formSection) {
-        formSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    };
+  const scrollToForm = () => {
+    const formSection = document.getElementById("form");
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <section css={ctaSection}>
-      <AnimationItem elType="div" animation="fadeInScale" emotionCss={ctaContainer} >
+      <AnimationItem
+        elType="div"
+        animation="fadeInScale"
+        emotionCss={ctaContainer}
+      >
         <h2 css={sectionH2Style}>{title}</h2>
         <p>{topText}</p>
         <p>{centerText}</p>
         <p>{bottomText}</p>
-        <Button onClick={scrollToForm} color="blue">{buttonText}</Button>
+        <Button onClick={scrollToForm} color="blue">
+          {buttonText}
+        </Button>
       </AnimationItem>
     </section>
   );

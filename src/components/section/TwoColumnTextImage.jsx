@@ -2,20 +2,20 @@ import { css } from "@emotion/react";
 import AnimationItem from "../../lib/AnimationItem";
 
 const container = css`
-  margin: 60px auto;
   max-width: 1140px;
   width: 100%;
+  margin: 60px auto;
   padding-bottom: 60px;
   border-bottom: 1px dashed gray;
 `;
 
 const twoColumnContainer = (inversion) => css`
-  width: 100%;
-  max-width: 1140px;
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: center;
+  max-width: 1140px;
+  width: 100%;
   margin-right: auto;
   margin-left: auto;
   margin-top: 4rem;
@@ -31,15 +31,15 @@ const twoColumnContainer = (inversion) => css`
 `;
 
 const leftColumn = css`
-  width: 100%;
   max-width: 450px;
+  width: 100%;
   margin: 0 auto;
 `;
 
 const rightColumn = css`
-  width: 100%;
   max-width: 380px;
   max-height: 300px;
+  width: 100%;
   margin: 0 auto;
 `;
 
