@@ -24,7 +24,7 @@ export const oneColumnContainerStyle = css`
   border-radius: 4px;
 `;
 
-// 2カラム時のタグデザイン
+// 2カラム時のデザイン
 export const main2ColumnStyle = css`
   display: flex;
   background-color: #fffaf1;
@@ -97,7 +97,6 @@ export const errorMessageStyle = css`
   text-align: center;
 `;
 
-// フォームのボタンエリア
 export const buttonContainerStyle = css`
   display: flex;
   justify-content: space-between;

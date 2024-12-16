@@ -1,18 +1,10 @@
 import { useState } from "react";
-import { css } from "@emotion/react";
-import { formStyle } from "../../styles/styles";
+import { formStyle, buttonContainerStyle } from "../../styles/styles";
 import { FormProvider, useForm } from "react-hook-form";
 import useToast from "../../hooks/useToast";
 import Button from "../ui/Button";
 import AddButton from "../ui/AddButton";
 import Modal from "./Modal";
-
-const buttonContainerStyle = css`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  margin-top: 20px;
-`;
 
 const AddModal = ({ title, onAdd, inputForm, isBook = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { css } from "@emotion/react";
+import { buttonContainerStyle } from "../../styles/styles";
 import useToast from "../../hooks/useToast";
 import Button from "../ui/Button";
 import Modal from "./Modal";
@@ -7,13 +8,6 @@ import Modal from "./Modal";
 const infoTitleStyle = css`
   font-weight: 600;
   color: red;
-`;
-
-const buttonContainerStyle = css`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  margin-top: 20px;
 `;
 
 const modalAddStyle = css`
