@@ -2,20 +2,21 @@ import { useDispatch } from "react-redux";
 import { createUser } from "../store/slice/userSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { css } from "@emotion/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
+import { css } from "@emotion/react";
+import { errorMessageStyle } from "../styles/styles.mjs";
 import useToast from "../hooks/useToast";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
 
 const formContainerStyle = css`
-  width: 100%;
   max-width: 300px;
-  padding: 20px;
+  width: 100%;
   margin: 0 auto;
-  background-color: #fffdfb;
+  padding: 20px;
   border-radius: 4px;
+  background-color: #fffdfb;
 `;
 
 const textCenterStyle = css`
@@ -24,17 +25,11 @@ const textCenterStyle = css`
 `;
 
 const FormTextStyle = css`
-  text-align: center;
   margin-bottom: 1rem;
   padding-bottom: 4px;
-  border-bottom: 1px dashed gray;
+  text-align: center;
   font-weight: 600;
-`;
-
-const errorMessageStyle = css`
-  font-size: 0.8rem;
-  color: red;
-  margin-bottom: 5px;
+  border-bottom: 1px dashed gray;
 `;
 
 const formStyle = css`
@@ -72,17 +67,18 @@ const SignUp = () => {
             name="email"
             required={true}
           />
-          {methods.formState.errors.email && (
-            <span css={errorMessageStyle}>
-              {methods.formState.errors.email.message}
-            </span>
-          )}
           <TextInput
+          type="password"
             label="パスワード"
             placeholder="8～12文字で入力してください"
             name="password"
             required={true}
           />
+          {methods.formState.errors.email && (
+            <span css={errorMessageStyle}>
+              {methods.formState.errors.email.message}
+            </span>
+          )}
           {methods.formState.errors.password && (
             <span css={errorMessageStyle}>
               {methods.formState.errors.password.message}

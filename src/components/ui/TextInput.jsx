@@ -16,38 +16,54 @@ const textInputStyle = css`
   padding: 0 10px;
 `;
 
-const TextInput =  React.forwardRef(({ label, placeholder, name, value, onChange, required, maxLength, minLength, defaultValue }, ref) => {
-  const { register } = useFormContext();
+const TextInput = React.forwardRef(
+  (
+    {
+      label,
+      type = "text",
+      placeholder,
+      name,
+      value,
+      onChange,
+      required,
+      maxLength,
+      minLength,
+      defaultValue,
+    },
+    ref
+  ) => {
+    const { register } = useFormContext();
 
-  return (
-    <>
-      <label css={labelStyle} htmlFor={label}>
-        {label}
-      </label>
-      <input
-        type="text"
-        css={textInputStyle}
-        id={label}
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        defaultValue={defaultValue}
-        ref={ref} 
-        {...register(name, {
-          required: required && `${label}の入力は必須です`,
-          maxLength: maxLength && {
-            value: maxLength,
-            message: `${label}は最大${maxLength}文字までです。`
-          },
-          minLength: minLength && {
-            value: minLength,
-            message: `${label}は${minLength}文字以上です。`
-          }
-        })}
-      />
-    </>
-  );
-});
+    return (
+      <>
+        <label css={labelStyle} htmlFor={label}>
+          {label}
+        </label>
+        <input
+          type={type}
+          css={textInputStyle}
+          id={label}
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          defaultValue={defaultValue}
+          ref={ref}
+          {...register(name, {
+            required: required && `${label}の入力は必須です`,
+            maxLength: maxLength && {
+              value: maxLength,
+              message: `${label}は最大${maxLength}文字までです。`,
+            },
+            minLength: minLength && {
+              value: minLength,
+              message: `${label}は${minLength}文字以上です。`,
+            },
+          })}
+        />
+      </>
+    );
+  }
+);
 
 export default TextInput;
