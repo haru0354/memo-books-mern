@@ -10,6 +10,10 @@ const infoTitleStyle = css`
   color: red;
 `;
 
+const textBoldStyle = css`
+  font-weight: 600;
+`;
+
 const modalAddStyle = css`
   text-align: center;
 `;
@@ -43,7 +47,9 @@ const DeleteModal = ({ onDelete, deleteTitle, infoTitle }) => {
       </Button>
       <Modal isOpen={isDeleteModalOpen} onClose={toggleModal}>
         <div css={modalAddStyle}>
-          <p>「{deleteTitle}」を削除しますか？</p>
+          <p>
+            「<span css={textBoldStyle}>{deleteTitle}</span>」を削除しますか？
+          </p>
           <p>削除すると復元することはできません。</p>
           {infoTitle && (
             <span css={infoTitleStyle}>
