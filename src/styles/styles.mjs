@@ -88,7 +88,7 @@ export const formStyle = css`
   display: flex;
   flex-direction: column;
   text-align: left;
-  margin: 20px 20px;
+  margin: 5px 20px;
 `;
 
 // フォームのエラーメッセージ
