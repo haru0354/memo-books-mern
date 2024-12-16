@@ -19,7 +19,6 @@ const Book = () => {
   const dispatch = useDispatch();
   const chaptersStatus = useSelector((state) => state.chapters.status);
   const bookTitle = useSelector((state) => state.chapters.chapters.bookTitle);
-  const userId = useSelector((state) => state.user.user.uid);
 
   useEffect(() => {
     dispatch(fetchChapters({ bookId })).unwrap();
@@ -36,7 +35,7 @@ const Book = () => {
   if (isLoading || chaptersStatus === "loading") {
     return <p css={loadingStyle}>Loading ...</p>;
   }
-  
+
   if (chaptersStatus === "failed") {
     return <Page404 />;
   }
@@ -44,10 +43,17 @@ const Book = () => {
   return (
     <>
       <Helmet>
-        <title>{bookTitle}のチャプターの登録ページ | メモブックノート</title>
+        <title>
+          {bookTitle
+            ? `${bookTitle}のチャプターの登録ページ | メモブックノート`
+            : "本が見つかりませんでした | メモブックノート"}
+          | メモブックノート
+        </title>
         <meta
           name="description"
-          content={`${bookTitle}のチャプターの登録をすることが可能です。ブックメモに登録をした本のチャプターを全て削除した時に表示されます。ブックメモでは本にチャプターの登録をして様々なメモを追加して閲覧をすることができます。`}
+          content={
+            "チャプターの登録をすることが可能です。ブックメモに登録をした本のチャプターを全て削除した時に表示されます。ブックメモでは本にチャプターの登録をして様々なメモを追加して閲覧をすることができます。"
+          }
         />
         <meta name="robots" content="noindex" />
       </Helmet>

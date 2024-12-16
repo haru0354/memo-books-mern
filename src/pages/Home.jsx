@@ -93,7 +93,7 @@ const Home = () => {
         <meta
           name="description"
           content="本にフォルダ分けし、メモを保存できる無料のwebアプリ。PC・スマホ・android・iphone対応で機種変更もそのままで利用。シンプルで使い方が簡単なアプリです。ビジネス(仕事や創作)・生活費(光熱費・交通費)・勉強・タスク管理と利用方法は様々。"
-        ></meta>
+        />
       </Helmet>
       <Hero />
       <section css={firstSection}>

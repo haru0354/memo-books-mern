@@ -26,11 +26,11 @@ const Chapter = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchChapters({bookId})).unwrap();
+    dispatch(fetchChapters({ bookId })).unwrap();
   }, [dispatch, bookId]);
 
   useEffect(() => {
-    dispatch(fetchContents({bookId, chapterId })).unwrap();
+    dispatch(fetchContents({ bookId, chapterId })).unwrap();
   }, [dispatch, bookId, chapterId]);
 
   useEffect(() => {
@@ -49,20 +49,23 @@ const Chapter = () => {
     return <p css={loadingStyle}>Loading ...</p>;
   }
 
-  if (
-    chaptersStatus === "failed" ||
-    contentsStatus === "failed"
-  ) {
+  if (chaptersStatus === "failed" || contentsStatus === "failed") {
     return <Page404 />;
   }
 
   return (
     <>
       <Helmet>
-        <title>{chapterTitle} | メモブックノート</title>
+        <title>
+          {chapterTitle
+            ? `${chapterTitle} | メモブックノート`
+            : "チャプターが見つかりません | メモブックノート"}
+        </title>
         <meta
           name="description"
-          content={`${chapterTitle}中のコンテンツの一覧ページです。チャプターの中には今までに登録したメモが含まれています。様々なメモを登録したり編集や削除などがこのページでは可能です。PC・スマホ・タブレットなどのあらゆる端末なだけでなく、iphoneやandroidのどちらでも利用が可能です。`}
+          content={
+            "コンテンツの一覧ページです。チャプターの中には今までに登録したメモが含まれています。様々なメモを登録したり編集や削除などがこのページでは可能です。PC・スマホ・タブレットなどのあらゆる端末なだけでなく、iphoneやandroidのどちらでも利用が可能です。"
+          }
         />
         <meta name="robots" content="noindex" />
       </Helmet>
