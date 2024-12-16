@@ -20,8 +20,8 @@ import AddContentModal from "../content/AddContentModal";
 import DeleteContentModal from "../content/DeleteContentModal";
 
 const tableOfContentsStyle = css`
-  width: 90%;
   max-width: 380px;
+  width: 90%;
   margin: 20px auto;
   border: 1px solid #cbc9c9;
   border-radius: 4px;
@@ -33,8 +33,8 @@ const tableOfContentsStyle = css`
   }
 
   ul {
-    padding: 0;
     margin: 0 10px;
+    padding: 0;
   }
 
   li {
@@ -54,8 +54,8 @@ const tableOfContentsStyle = css`
 `;
 
 const contentAreaStyle = css`
-  padding: 1rem;
   margin: 10px 5px;
+  padding: 1rem;
   border-bottom: 1px dotted gray;
 `;
 
@@ -70,10 +70,10 @@ const editContainerStyle = css`
 `;
 
 const editButtonContainerStyle = css`
-  max-width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 100%;
 `;
 
 const cancelButtonStyle = css`
