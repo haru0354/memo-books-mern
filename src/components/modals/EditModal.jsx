@@ -1,18 +1,10 @@
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { css } from "@emotion/react";
-import { formStyle } from "../../styles/styles";
+import { formStyle, buttonContainerStyle } from "../../styles/styles";
 import useToast from "../../hooks/useToast";
 import Button from "../../components/ui/Button";
 import Modal from "./Modal";
 import EditImageButton from "../ui/EditImageButton";
-
-const buttonContainerStyle = css`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  margin-top: 20px;
-`;
 
 const EditModal = ({
   title,

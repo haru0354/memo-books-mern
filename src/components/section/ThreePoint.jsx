@@ -6,11 +6,11 @@ import AnimationItem from "../../lib/AnimationItem";
 const container = css`
   display: flex;
   flex-wrap: wrap;
+  max-width: 1140px;
+  width: 100%;
   margin-top: 60px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 1140px;
-  width: 100%;
   padding-bottom: 60px;
 
   svg {
@@ -48,8 +48,8 @@ const firstArea = css`
 
 const secondArea = css`
   position: relative;
-  width: 100%;
   max-width: 320px;
+  width: 100%;
   padding: 40px 10px;
   margin: 20px auto;
   border: 1px solid rgb(193 193 193);
@@ -59,8 +59,8 @@ const secondArea = css`
 
 const thirdArea = css`
   position: relative;
-  width: 100%;
   max-width: 320px;
+  width: 100%;
   padding: 40px 10px;
   margin: 20px auto;
   border: 1px solid rgb(193 193 193);

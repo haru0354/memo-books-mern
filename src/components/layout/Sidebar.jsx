@@ -62,18 +62,18 @@ const booksBackStyle = css`
 
 const bookTitleStyle = css`
   word-wrap: break-word;
-  padding: 30px 8px;
   margin-top: 0;
   margin-bottom: 0;
+  padding: 30px 8px;
+  text-align: center;
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
   color: white;
-  text-align: center;
 `;
 
 const ulStyles = css`
-  padding: 0;
   margin-top: 5px;
+  padding: 0;
 `;
 
 const liStyles = css`
@@ -98,13 +98,13 @@ const hamburgerButtonStyle = css`
   cursor: pointer;
   top: 0px;
   left: 0px;
-  z-index: 20;
   width: 50px;
   height: 50px;
-  background-color: #5c5c5c;
-  color: #e3e3e3;
   border: none;
   border-radius: 4px;
+  color: #e3e3e3;
+  background-color: #5c5c5c;
+  z-index: 20;
 
   @media (min-width: 768px) {
     display: none;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { css } from "@emotion/react";
+import { buttonContainerStyle } from "../../styles/styles";
 import useToast from "../../hooks/useToast";
 import Button from "../ui/Button";
 import Modal from "./Modal";
@@ -9,11 +10,8 @@ const infoTitleStyle = css`
   color: red;
 `;
 
-const buttonContainerStyle = css`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  margin-top: 20px;
+const textBoldStyle = css`
+  font-weight: 600;
 `;
 
 const modalAddStyle = css`
@@ -49,7 +47,9 @@ const DeleteModal = ({ onDelete, deleteTitle, infoTitle }) => {
       </Button>
       <Modal isOpen={isDeleteModalOpen} onClose={toggleModal}>
         <div css={modalAddStyle}>
-          <p>「{deleteTitle}」を削除しますか？</p>
+          <p>
+            「<span css={textBoldStyle}>{deleteTitle}</span>」を削除しますか？
+          </p>
           <p>削除すると復元することはできません。</p>
           {infoTitle && (
             <span css={infoTitleStyle}>

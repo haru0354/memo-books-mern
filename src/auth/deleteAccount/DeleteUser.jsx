@@ -5,6 +5,7 @@ import {
   errorMessageStyle,
   modalBackStyle,
   modalContainerStyle,
+  buttonContainerStyle,
 } from "../../styles/styles";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
@@ -16,13 +17,6 @@ const centerStyle = css`
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
-`;
-
-const buttonContainerStyle = css`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  margin-top: 20px;
 `;
 
 const textRed = css`

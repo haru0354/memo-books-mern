@@ -41,8 +41,8 @@ const oneColumnAddHeaderStyle = css`
 
 const twoColumnAddHeaderStyle = css`
   position: fixed;
-  width: 100%;
   max-width: 1300px;
+  width: 100%;
   padding-left: 1rem;
   padding-right: 2rem;
   color: #ffffe9;

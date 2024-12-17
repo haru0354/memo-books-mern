@@ -1,10 +1,10 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/slice/userSlice";
-import { Link, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { css } from "@emotion/react";
-import { modalBackStyle } from "../styles/styles";
+import { buttonContainerStyle, formStyle, errorMessageStyle } from "../styles/styles";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
 import useToast from "../hooks/useToast";
@@ -12,33 +12,15 @@ import AnimationItem from "../lib/AnimationItem";
 import Button from "../components/ui/Button";
 import TextInput from "../components/ui/TextInput";
 import AuthButton from "../components/ui/AuthButton";
+import Modal from "../components/modals/Modal";
 
-const formContainerStyle = css`
-  width: 100%;
-  max-width: 300px;
-  padding: 20px;
-  margin: 0 auto;
-  background-color: #fffdfb;
-  border-radius: 4px;
-`;
-
-const textCenterStyle = css`
+const formTextStyle = css`
+  text-align: center;
   margin-top: 10px;
-  text-align: center;
-`;
-
-const FormTextStyle = css`
-  text-align: center;
   margin-bottom: 20px;
   padding-bottom: 4px;
   border-bottom: 1px dashed gray;
   font-weight: 600;
-`;
-
-const errorMessageStyle = css`
-  font-size: 0.8rem;
-  color: red;
-  margin-bottom: 5px;
 `;
 
 const menuContainerStyle = css`
@@ -73,30 +55,14 @@ const menuTextStyle = css`
   }
 `;
 
-const formStyle = css`
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-`;
-
 const LoginModal = () => {
-  const [isLoginModal, setIsLoginModal] = useState(false);
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const methods = useForm({ resolver: zodResolver(formSchema) });
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const showToast = useToast();
-
-  const bodyRef = useRef(document.body);
-
-  const disableScroll = () => {
-    bodyRef.current.style.overflowY = "hidden";
-  };
-
-  const enableScroll = () => {
-    bodyRef.current.style.overflow = "auto";
-  };
 
   const onSubmit = async (data) => {
     const { email, password } = data;
@@ -104,11 +70,11 @@ const LoginModal = () => {
     try {
       await dispatch(login({ email, password })).unwrap();
 
-      toggleCloseModal();
-      showToast("ログインに成功しました")
+      toggleModal();
+      showToast("ログインに成功しました");
       navigate("/books");
     } catch (error) {
-      showToast("ログインに失敗しました")
+      showToast("ログインに失敗しました");
       console.error("ログインに失敗しました", error);
     }
   };
@@ -118,48 +84,39 @@ const LoginModal = () => {
     navigate("/");
   };
 
-  const toggleOpenModal = () => {
-    setIsLoginModal((prev) => !prev);
-    disableScroll();
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
   };
 
-  const toggleCloseModal = () => {
-    setIsLoginModal((prev) => !prev);
-    enableScroll();
-  };
-
-  const closeModal = (e) => {
-    if (e.target === e.currentTarget) {
-      toggleCloseModal();
-      enableScroll();
-    }
-  };
-
-  const toggleOpenMenu = () => {
-    setIsOpenMenu((prev) => !prev);
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
   };
 
   return (
     <>
       {user ? (
         <div css={menuContainerStyle}>
-          <AuthButton onClick={toggleOpenMenu}>MENU</AuthButton>
-          {isOpenMenu && (
-            <AnimationItem elType="ul" animation="fadeInOpacity" emotionCss={menuUlStyle} >
+          <AuthButton onClick={toggleMenu}>MENU</AuthButton>
+          {isMenuOpen && (
+            <AnimationItem
+              elType="ul"
+              animation="fadeInOpacity"
+              emotionCss={menuUlStyle}
+            >
               <Link to="/books">
-                <li css={menuTextStyle} onClick={toggleOpenMenu}>
+                <li css={menuTextStyle} onClick={toggleMenu}>
                   メモブックの一覧
                 </li>
               </Link>
               <Link to="/setting">
-                <li css={menuTextStyle} onClick={toggleOpenMenu}>
+                <li css={menuTextStyle} onClick={toggleMenu}>
                   設定
                 </li>
               </Link>
               <li css={menuTextStyle} onClick={onLogout}>
                 ログアウト
               </li>
-              <li css={menuTextStyle} onClick={toggleOpenMenu}>
+              <li css={menuTextStyle} onClick={toggleMenu}>
                 閉じる
               </li>
             </AnimationItem>
@@ -167,47 +124,41 @@ const LoginModal = () => {
         </div>
       ) : (
         <>
-          <AuthButton onClick={toggleOpenModal}>ログイン</AuthButton>
-          {isLoginModal && (
-            <div css={modalBackStyle} onClick={closeModal}>
-              <div css={formContainerStyle}>
-                <FormProvider {...methods}>
-                  <form
-                    onSubmit={methods.handleSubmit(onSubmit)}
-                    css={formStyle}
-                  >
-                    <span css={FormTextStyle}>ログイン</span>
-                    <TextInput
-                      label="メールアドレス"
-                      placeholder="メールアドレスを入力してください"
-                      name="email"
-                    />
-                    {methods.formState.errors.email && (
-                      <span css={errorMessageStyle}>
-                        {methods.formState.errors.email.message}
-                      </span>
-                    )}
-                    <TextInput
-                      label="パスワード"
-                      placeholder="8～12文字で入力してください"
-                      name="password"
-                    />
-                    {methods.formState.errors.password && (
-                      <span css={errorMessageStyle}>
-                        {methods.formState.errors.password.message}
-                      </span>
-                    )}
-                    <div css={textCenterStyle}>
-                      <Button type="submit" color="blue">
-                        ログイン
-                      </Button>
-                      <Button color="gray">googleでログイン</Button>
-                    </div>
-                  </form>
-                </FormProvider>
-              </div>
-            </div>
-          )}
+          <AuthButton onClick={toggleModal}>ログイン</AuthButton>
+          <Modal isOpen={isModalOpen} onClose={toggleModal}>
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
+                <span css={formTextStyle}>ログイン</span>
+                <TextInput
+                  label="ログインメールアドレス"
+                  placeholder="メールアドレスを入力してください"
+                  name="email"
+                />
+                <TextInput
+                  type="password"
+                  label="ログインパスワード"
+                  placeholder="8～12文字で入力してください"
+                  name="password"
+                />
+                {methods.formState.errors.email && (
+                  <span css={errorMessageStyle}>
+                    {methods.formState.errors.email.message}
+                  </span>
+                )}
+                {methods.formState.errors.password && (
+                  <span css={errorMessageStyle}>
+                    {methods.formState.errors.password.message}
+                  </span>
+                )}
+                <div css={buttonContainerStyle}>
+                  <Button type="submit" color="blue">
+                    ログイン
+                  </Button>
+                  <Button color="gray">googleでログイン</Button>
+                </div>
+              </form>
+            </FormProvider>
+          </Modal>
         </>
       )}
     </>
