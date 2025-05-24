@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
 import { updateChaptersAsync } from "../../store/slice/chaptersSlice";
-import { errorMessageStyle } from "../../styles/styles";
 import TextInput from "../ui/TextInput";
 import DeleteChapterModal from "./DeleteChapterModal";
 import EditModal from "../modals/EditModal";
@@ -22,23 +21,16 @@ const EditChapterModal = ({ bookId, chapterId, chapterTitle }) => {
     }
   };
 
-  const inputForm = (methods) => {
+  const inputForm = () => {
     return (
-      <>
-        <TextInput
-          label="チャプター名"
-          placeholder="チャプター名を入力してください。"
-          name="title"
-          defaultValue={chapterTitle}
-          required={true}
-          maxLength={16}
-        />
-        {methods.formState.errors.title && (
-          <p css={errorMessageStyle}>
-            {methods.formState.errors.title.message}
-          </p>
-        )}
-      </>
+      <TextInput
+        label="チャプター名"
+        placeholder="チャプター名を入力してください。"
+        name="title"
+        defaultValue={chapterTitle}
+        required={true}
+        maxLength={16}
+      />
     );
   };
 
