@@ -4,13 +4,14 @@ import { useFormContext } from "react-hook-form";
 import { errorMessageStyle } from "../../styles/styles";
 
 const labelStyle = css`
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 600;
 `;
 
 const textInputStyle = css`
   max-width: 100%;
   height: 40px;
+  margin-bottom: 10px;
   border: 1px solid rgb(185 184 184);
   border-radius: 4px;
   padding: 0 10px;

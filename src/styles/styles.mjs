@@ -93,7 +93,8 @@ export const formStyle = css`
 // フォームのエラーメッセージ
 export const errorMessageStyle = css`
   font-size: 0.9rem;
-  margin: 6px 0;
+  margin-top: 0px;
+  margin-bottom: 10px;
   color: red;
 `;
 
