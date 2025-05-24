@@ -66,7 +66,7 @@ const AddButton = ({ onClick, addCss, isBook = false }) => {
   const buttonStyle = isBook ? bookButtonStyle : normalButtonStyle;
 
   return (
-    <button css={[buttonStyle, addCss]} onClick={onClick}>
+    <button type="button" css={[buttonStyle, addCss]} onClick={onClick}>
       {isBook ? "「本の追加」" : <FontAwesomeIcon icon={faPlus} />}
     </button>
   );

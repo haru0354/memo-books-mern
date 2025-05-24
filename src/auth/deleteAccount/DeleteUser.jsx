@@ -62,7 +62,7 @@ const DeleteUser = () => {
   return (
     <>
       <div css={centerStyle}>
-        <Button onClick={toggleDeleteModal} color="red">
+        <Button type="button" onClick={toggleDeleteModal} color="red">
           アカウントの削除
         </Button>
       </div>
@@ -75,10 +75,10 @@ const DeleteUser = () => {
               <AgainAuth handleDeleteUser={handleDeleteUser} />
             ) : (
               <div css={buttonContainerStyle}>
-                <Button color="red" onClick={handleDeleteUser}>
+                <Button type="submit"color="red" onClick={handleDeleteUser}>
                   アカウント削除
                 </Button>
-                <Button color="gray" onClick={toggleDeleteModal}>
+                <Button type="button"color="gray" onClick={toggleDeleteModal}>
                   キャンセル
                 </Button>
               </div>

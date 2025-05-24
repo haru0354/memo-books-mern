@@ -74,7 +74,7 @@ const ChangePassword = () => {
   return (
     <>
       <div css={centerStyle}>
-        <Button color="blue" onClick={toggleChangePasswordModal}>
+        <Button type="button" color="blue" onClick={toggleChangePasswordModal}>
           パスワードの変更
         </Button>
       </div>

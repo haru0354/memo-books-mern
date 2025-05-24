@@ -47,7 +47,7 @@ const CtaSection = ({ title, topText, centerText, bottomText, buttonText }) => {
         <p>{topText}</p>
         <p>{centerText}</p>
         <p>{bottomText}</p>
-        <Button onClick={scrollToForm} color="blue">
+        <Button type="button" onClick={scrollToForm} color="blue">
           {buttonText}
         </Button>
       </AnimationItem>

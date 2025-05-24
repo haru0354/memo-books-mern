@@ -42,7 +42,7 @@ const DeleteModal = ({ onDelete, deleteTitle, infoTitle }) => {
 
   return (
     <>
-      <Button addCss={deleteButtonStyle} color="red" onClick={toggleModal}>
+      <Button type="button" addCss={deleteButtonStyle} color="red" onClick={toggleModal}>
         削除
       </Button>
       <Modal isOpen={isDeleteModalOpen} onClose={toggleModal}>
@@ -57,10 +57,10 @@ const DeleteModal = ({ onDelete, deleteTitle, infoTitle }) => {
             </span>
           )}
           <div css={buttonContainerStyle}>
-            <Button color="red" onClick={onClickDelete}>
+            <Button type="submit" color="red" onClick={onClickDelete}>
               削除
             </Button>
-            <Button color="gray" onClick={toggleModal}>
+            <Button type="button" color="gray" onClick={toggleModal}>
               キャンセル
             </Button>
           </div>

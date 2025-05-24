@@ -35,11 +35,11 @@ const EditModal = ({
   return (
     <>
       {iconDesign ? (
-        <EditImageButton color="blue" onClick={toggleModal}>
+        <EditImageButton type="button" color="blue" onClick={toggleModal}>
           編集
         </EditImageButton>
       ) : (
-        <Button color="blue" onClick={toggleModal}>
+        <Button type="button" color="blue" onClick={toggleModal}>
           編集
         </Button>
       )}
@@ -52,7 +52,7 @@ const EditModal = ({
               <Button type="submit" color="blue">
                 保存する
               </Button>
-              <Button color="gray" onClick={toggleModal}>
+              <Button type="button" color="gray" onClick={toggleModal}>
                 キャンセル
               </Button>
             </div>

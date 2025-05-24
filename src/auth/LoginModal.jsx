@@ -154,7 +154,7 @@ const LoginModal = () => {
                   <Button type="submit" color="blue">
                     ログイン
                   </Button>
-                  <Button color="gray">googleでログイン</Button>
+                  <Button type="submit" color="gray">googleでログイン</Button>
                 </div>
               </form>
             </FormProvider>
