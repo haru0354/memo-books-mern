@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
 import { updateBookAsync } from "../../store/slice/booksSlice";
-import { errorMessageStyle } from "../../styles/styles";
 import TextInput from "../ui/TextInput";
 import EditModal from "../modals/EditModal";
 import DeleteBookModal from "./DeleteBookModal";
@@ -20,23 +19,16 @@ const EditBookModal = ({ bookId, bookTitle }) => {
     }
   };
 
-  const inputForm = (methods) => {
+  const inputForm = () => {
     return (
-      <>
-        <TextInput
-          label="タイトル"
-          placeholder="タイトルを入力してください。"
-          name="title"
-          required={true}
-          maxLength={18}
-          defaultValue={bookTitle}
-        />
-        {methods.formState.errors.title && (
-          <p css={errorMessageStyle}>
-            {methods.formState.errors.title.message}
-          </p>
-        )}
-      </>
+      <TextInput
+        label="タイトル"
+        placeholder="タイトルを入力してください。"
+        name="title"
+        required={true}
+        maxLength={18}
+        defaultValue={bookTitle}
+      />
     );
   };
 

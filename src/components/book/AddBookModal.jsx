@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { addBookAsync } from "../../store/slice/booksSlice";
 import { useNavigate } from "react-router-dom";
-import { errorMessageStyle } from "../../styles/styles";
 import TextInput from "../ui/TextInput";
 import AddModal from "../modals/AddModal";
 
@@ -28,26 +27,26 @@ const AddBookModal = () => {
     }
   };
 
-  const inputForm = (methods) => {
+  const inputForm = () => {
     return (
-      <>
-        <TextInput
-          label="タイトル"
-          placeholder="タイトルを入力してください。"
-          name="title"
-          required={true}
-          maxLength={18}
-        />
-        {methods.formState.errors.title && (
-          <p css={errorMessageStyle}>
-            {methods.formState.errors.title.message}
-          </p>
-        )}
-      </>
+      <TextInput
+        label="タイトル"
+        placeholder="タイトルを入力してください。"
+        name="title"
+        required={true}
+        maxLength={18}
+      />
     );
   };
 
-  return <AddModal onAdd={onAdd} inputForm={inputForm} title="メモブック" isBook={true} />;
+  return (
+    <AddModal
+      onAdd={onAdd}
+      inputForm={inputForm}
+      title="メモブック"
+      isBook={true}
+    />
+  );
 };
 
 export default AddBookModal;
