@@ -140,16 +140,6 @@ const LoginModal = () => {
                   placeholder="8～12文字で入力してください"
                   name="password"
                 />
-                {methods.formState.errors.email && (
-                  <span css={errorMessageStyle}>
-                    {methods.formState.errors.email.message}
-                  </span>
-                )}
-                {methods.formState.errors.password && (
-                  <span css={errorMessageStyle}>
-                    {methods.formState.errors.password.message}
-                  </span>
-                )}
                 <div css={buttonContainerStyle}>
                   <Button type="submit" color="blue">
                     ログイン

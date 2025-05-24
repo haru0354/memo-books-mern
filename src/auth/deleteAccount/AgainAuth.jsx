@@ -66,11 +66,6 @@ const AgainAuth = ({ handleDeleteUser, handleAgainAuthSuccessChangePassword }) =
             maxLength={12}
             minLength={8}
           />
-          {methods.formState.errors.password && (
-            <span css={errorMessageStyle}>
-              {methods.formState.errors.password.message}
-            </span>
-          )}
           <Button type="submit" color="blue" addCss={addButtonStyle}>
             再認証
           </Button>

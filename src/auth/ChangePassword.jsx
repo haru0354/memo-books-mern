@@ -98,11 +98,6 @@ const ChangePassword = () => {
                     maxLength={12}
                     minLength={8}
                   />
-                  {methods.formState.errors.password && (
-                    <span css={errorMessageStyle}>
-                      {methods.formState.errors.password.message}
-                    </span>
-                  )}
                   {error && <p css={errorMessageStyle}>{error}</p>}
                   <div css={buttonContainerStyle}>
                     <Button type="submit" color="blue">

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
 import { css } from "@emotion/react";
-import { errorMessageStyle } from "../styles/styles.mjs";
 import useToast from "../hooks/useToast";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
@@ -74,16 +73,6 @@ const SignUp = () => {
             name="password"
             required={true}
           />
-          {methods.formState.errors.email && (
-            <span css={errorMessageStyle}>
-              {methods.formState.errors.email.message}
-            </span>
-          )}
-          {methods.formState.errors.password && (
-            <span css={errorMessageStyle}>
-              {methods.formState.errors.password.message}
-            </span>
-          )}
           <div css={textCenterStyle}>
             <Button type="submit" color="blue">
               登録
