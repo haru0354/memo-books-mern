@@ -50,7 +50,6 @@ export const RightContent = css`
     margin: 0;
     padding-left: 0px;
     padding-right: 0px;
-
   }
 `;
 
@@ -93,8 +92,9 @@ export const formStyle = css`
 
 // フォームのエラーメッセージ
 export const errorMessageStyle = css`
+  font-size: 0.9rem;
+  margin: 6px 0;
   color: red;
-  text-align: center;
 `;
 
 export const buttonContainerStyle = css`
