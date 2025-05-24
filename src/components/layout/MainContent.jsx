@@ -8,7 +8,6 @@ import { css } from "@emotion/react";
 import {
   RightContent,
   formStyle,
-  errorMessageStyle,
 } from "../../styles/styles";
 import useToast from "../../hooks/useToast";
 import SplitAndNewLines from "../../lib/SplitAndNewLines";
@@ -185,16 +184,6 @@ const MainContent = ({ bookId, chapterId }) => {
                       defaultValue={content.content}
                       required={true}
                     />
-                    {methods.formState.errors.title && (
-                      <p css={errorMessageStyle}>
-                        {methods.formState.errors.title.message}
-                      </p>
-                    )}
-                    {methods.formState.errors.content && (
-                      <p css={errorMessageStyle}>
-                        {methods.formState.errors.content.message}
-                      </p>
-                    )}
                     <div css={editingButtonContainerStyle}>
                       <Button type="submit" color="blue">
                         保存
