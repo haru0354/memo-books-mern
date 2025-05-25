@@ -70,6 +70,7 @@ const SignUp = () => {
           <form css={formStyle} onSubmit={methods.handleSubmit(onSubmit)}>
             <span css={FormTextStyle}>アカウント登録</span>
             <TextInput
+              type="email"
               label="メールアドレス"
               placeholder="メールアドレスを入力してください"
               name="email"

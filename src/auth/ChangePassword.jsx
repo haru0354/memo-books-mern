@@ -92,6 +92,7 @@ const ChangePassword = () => {
                 >
                   <TextInput
                     label="パスワード"
+                    type="password"
                     name="password"
                     placeholder="8～12文字で入力してください"
                     required={true}

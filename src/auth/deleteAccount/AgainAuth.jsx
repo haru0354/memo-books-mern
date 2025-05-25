@@ -64,6 +64,7 @@ const AgainAuth = ({
           <TextInput
             label="パスワード"
             placeholder="8～12文字で入力してください"
+            type="password"
             name="password"
             required={true}
             maxLength={12}
