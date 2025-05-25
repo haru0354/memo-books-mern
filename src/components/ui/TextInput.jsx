@@ -11,10 +11,14 @@ const labelStyle = css`
 const textInputStyle = css`
   max-width: 100%;
   height: 40px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   border: 1px solid rgb(185 184 184);
   border-radius: 4px;
   padding: 0 10px;
+`;
+
+const errorBorderStyle = css`
+  border: 1px solid red;
 `;
 
 const TextInput = React.forwardRef(
@@ -45,7 +49,7 @@ const TextInput = React.forwardRef(
         </label>
         <input
           type={type}
-          css={textInputStyle}
+          css={[textInputStyle, errors[name] && errorBorderStyle]}
           id={label}
           name={name}
           placeholder={placeholder}

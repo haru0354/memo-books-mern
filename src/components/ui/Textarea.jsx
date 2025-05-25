@@ -17,6 +17,10 @@ const textareaStyle = css`
   padding: 10px;
 `;
 
+const errorBorderStyle = css`
+  border: 1px solid red;
+`;
+
 const Textarea = ({
   label,
   name,
@@ -38,7 +42,7 @@ const Textarea = ({
         {label}
       </label>
       <TextareaAutosize
-        css={textareaStyle}
+        css={[textareaStyle, errors[name] && errorBorderStyle]}
         id={label}
         name={name}
         placeholder={placeholder}
