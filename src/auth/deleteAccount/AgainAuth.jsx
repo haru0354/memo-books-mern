@@ -25,7 +25,10 @@ const againAuthText = css`
   font-size: 14px;
 `;
 
-const AgainAuth = ({ handleDeleteUser, handleAgainAuthSuccessChangePassword }) => {
+const AgainAuth = ({
+  handleDeleteUser,
+  handleAgainAuthSuccessChangePassword,
+}) => {
   const methods = useForm();
   const dispatch = useDispatch();
   const showToast = useToast();
@@ -61,25 +64,21 @@ const AgainAuth = ({ handleDeleteUser, handleAgainAuthSuccessChangePassword }) =
           <TextInput
             label="パスワード"
             placeholder="8～12文字で入力してください"
+            type="password"
             name="password"
             required={true}
             maxLength={12}
             minLength={8}
           />
-          {methods.formState.errors.password && (
-            <span css={errorMessageStyle}>
-              {methods.formState.errors.password.message}
-            </span>
-          )}
-          <Button type="submit" color="blue" addCss={addButtonStyle}>
+          <Button type="submit" color="red" addCss={addButtonStyle}>
             再認証
           </Button>
         </form>
       </FormProvider>
-      {status === 'loading' && <p>再認証中</p>}
+      {status === "loading" && <p>再認証中</p>}
       {error && <p css={errorMessageStyle}>{error}</p>}
       <p css={againAuthText}>
-        一定期間「ログインボタンによるログイン」を行っていないと、アカウント所有権の確認に、パスワード入力による再認証が必要となります。
+        アカウントの所有者確認の為、パスワードを入力してください。
       </p>
     </div>
   );

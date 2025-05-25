@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { useFormContext } from "react-hook-form";
+import { errorMessageStyle } from "../../styles/styles";
 import TextareaAutosize from "react-textarea-autosize";
 
 const labelStyle = css`
@@ -9,12 +10,15 @@ const labelStyle = css`
 
 const textareaStyle = css`
   max-width: 100%;
-  font-size: 0.9rem;
   height: 800px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: 1px solid rgb(185 184 184);
   border-radius: 4px;
   padding: 10px;
+`;
+
+const errorBorderStyle = css`
+  border: 1px solid red;
 `;
 
 const Textarea = ({
@@ -27,7 +31,10 @@ const Textarea = ({
   defaultValue,
   maxLength,
 }) => {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <>
@@ -35,7 +42,7 @@ const Textarea = ({
         {label}
       </label>
       <TextareaAutosize
-        css={textareaStyle}
+        css={[textareaStyle, errors[name] && errorBorderStyle]}
         id={label}
         name={name}
         placeholder={placeholder}
@@ -52,6 +59,7 @@ const Textarea = ({
         minRows={10}
         maxRows={18}
       />
+      {errors[name] && <p css={errorMessageStyle}>{errors[name].message}</p>}
     </>
   );
 };

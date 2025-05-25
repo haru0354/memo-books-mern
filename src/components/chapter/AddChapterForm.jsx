@@ -3,7 +3,7 @@ import { addChaptersAsync } from "../../store/slice/chaptersSlice";
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
 import { formStyle } from "../../styles/styles";
-import { RightContent, errorMessageStyle } from "../../styles/styles";
+import { RightContent } from "../../styles/styles";
 import { FormProvider, useForm } from "react-hook-form";
 import useToast from "../../hooks/useToast";
 import TextInput from "../ui/TextInput";
@@ -57,11 +57,6 @@ const AddChapterForm = ({ bookId }) => {
               required={true}
               maxLength={16}
             />
-            {methods.formState.errors.title && (
-              <p css={errorMessageStyle}>
-                {methods.formState.errors.title.message}
-              </p>
-            )}
             <Button type="submit" color="blue">
               追加する
             </Button>

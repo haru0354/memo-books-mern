@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
 import { addContentsAsync } from "../../store/slice/contentsSlice";
-import { errorMessageStyle } from "../../styles/styles";
 import Textarea from "../ui/Textarea";
 import TextInput from "../ui/TextInput";
 import AddModal from "../modals/AddModal";
@@ -24,7 +23,7 @@ const AddContentModal = ({ bookId, chapterId }) => {
     }
   };
 
-  const inputForm = (methods) => {
+  const inputForm = () => {
     return (
       <>
         <TextInput
@@ -40,16 +39,6 @@ const AddContentModal = ({ bookId, chapterId }) => {
           name="content"
           required={true}
         />
-        {methods.formState.errors.title && (
-          <p css={errorMessageStyle}>
-            {methods.formState.errors.title.message}
-          </p>
-        )}
-        {methods.formState.errors.content && (
-          <p css={errorMessageStyle}>
-            {methods.formState.errors.content.message}
-          </p>
-        )}
       </>
     );
   };

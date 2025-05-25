@@ -24,7 +24,7 @@ const buttonStyle = css`
 const EditImageButton = ({ onClick }) => {
   return (
     <>
-      <button onClick={onClick} css={buttonStyle}>
+      <button type="button" onClick={onClick} css={buttonStyle}>
         <FontAwesomeIcon icon={faPenToSquare} />
       </button>
     </>

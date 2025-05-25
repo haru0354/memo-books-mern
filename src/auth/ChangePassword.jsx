@@ -74,7 +74,7 @@ const ChangePassword = () => {
   return (
     <>
       <div css={centerStyle}>
-        <Button color="blue" onClick={toggleChangePasswordModal}>
+        <Button type="button" color="blue" onClick={toggleChangePasswordModal}>
           パスワードの変更
         </Button>
       </div>
@@ -92,17 +92,13 @@ const ChangePassword = () => {
                 >
                   <TextInput
                     label="パスワード"
+                    type="password"
                     name="password"
                     placeholder="8～12文字で入力してください"
                     required={true}
                     maxLength={12}
                     minLength={8}
                   />
-                  {methods.formState.errors.password && (
-                    <span css={errorMessageStyle}>
-                      {methods.formState.errors.password.message}
-                    </span>
-                  )}
                   {error && <p css={errorMessageStyle}>{error}</p>}
                   <div css={buttonContainerStyle}>
                     <Button type="submit" color="blue">

@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { addChaptersAsync } from "../../store/slice/chaptersSlice";
 import { useNavigate } from "react-router-dom";
-import { errorMessageStyle } from "../../styles/styles";
 import TextInput from "../ui/TextInput";
 import AddModal from "../modals/AddModal";
 
@@ -26,22 +25,15 @@ const AddChapterModal = ({ bookId, toggleHumBergerMenu }) => {
     }
   };
 
-  const inputForm = (methods) => {
+  const inputForm = () => {
     return (
-      <>
-        <TextInput
-          label="チャプター名"
-          placeholder="チャプター名を入力してください。"
-          name="title"
-          required={true}
-          maxLength={25}
-        />
-        {methods.formState.errors.title && (
-          <p css={errorMessageStyle}>
-            {methods.formState.errors.title.message}
-          </p>
-        )}
-      </>
+      <TextInput
+        label="チャプター名"
+        placeholder="チャプター名を入力してください。"
+        name="title"
+        required={true}
+        maxLength={25}
+      />
     );
   };
 

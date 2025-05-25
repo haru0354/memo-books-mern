@@ -1,11 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../store/slice/userSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
 import { css } from "@emotion/react";
-import { errorMessageStyle } from "../styles/styles.mjs";
 import useToast from "../hooks/useToast";
 import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
@@ -43,6 +42,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const showToast = useToast();
+  const user = useSelector((state) => state.user.user);
 
   const onSubmit = async (data) => {
     const { email, password } = data;
@@ -58,39 +58,39 @@ const SignUp = () => {
 
   return (
     <div css={formContainerStyle} id="form">
-      <FormProvider {...methods}>
-        <form css={formStyle} onSubmit={methods.handleSubmit(onSubmit)}>
-          <span css={FormTextStyle}>アカウント登録</span>
-          <TextInput
-            label="メールアドレス"
-            placeholder="メールアドレスを入力してください"
-            name="email"
-            required={true}
-          />
-          <TextInput
-          type="password"
-            label="パスワード"
-            placeholder="8～12文字で入力してください"
-            name="password"
-            required={true}
-          />
-          {methods.formState.errors.email && (
-            <span css={errorMessageStyle}>
-              {methods.formState.errors.email.message}
-            </span>
-          )}
-          {methods.formState.errors.password && (
-            <span css={errorMessageStyle}>
-              {methods.formState.errors.password.message}
-            </span>
-          )}
-          <div css={textCenterStyle}>
-            <Button type="submit" color="blue">
-              登録
-            </Button>
-          </div>
-        </form>
-      </FormProvider>
+      {user ? (
+        <div css={textCenterStyle}>
+          <p>すでにログイン中です。</p>
+          <Button color="blue" onClick={() => navigate("/books")}>
+            メモブックの一覧へ
+          </Button>
+        </div>
+      ) : (
+        <FormProvider {...methods}>
+          <form css={formStyle} onSubmit={methods.handleSubmit(onSubmit)}>
+            <span css={FormTextStyle}>アカウント登録</span>
+            <TextInput
+              type="email"
+              label="メールアドレス"
+              placeholder="メールアドレスを入力してください"
+              name="email"
+              required={true}
+            />
+            <TextInput
+              type="password"
+              label="パスワード"
+              placeholder="8～12文字で入力してください"
+              name="password"
+              required={true}
+            />
+            <div css={textCenterStyle}>
+              <Button type="submit" color="blue">
+                登録
+              </Button>
+            </div>
+          </form>
+        </FormProvider>
+      )}
     </div>
   );
 };

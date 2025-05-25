@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/slice/userSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { css } from "@emotion/react";
-import { buttonContainerStyle, formStyle, errorMessageStyle } from "../styles/styles";
+import {
+  buttonContainerStyle,
+  formStyle,
+  errorMessageStyle,
+} from "../styles/styles";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
 import useToast from "../hooks/useToast";
@@ -130,31 +134,24 @@ const LoginModal = () => {
               <form onSubmit={methods.handleSubmit(onSubmit)} css={formStyle}>
                 <span css={formTextStyle}>ログイン</span>
                 <TextInput
-                  label="ログインメールアドレス"
+                  type="email"
+                  label="メールアドレス"
                   placeholder="メールアドレスを入力してください"
                   name="email"
                 />
                 <TextInput
                   type="password"
-                  label="ログインパスワード"
+                  label="パスワード"
                   placeholder="8～12文字で入力してください"
                   name="password"
                 />
-                {methods.formState.errors.email && (
-                  <span css={errorMessageStyle}>
-                    {methods.formState.errors.email.message}
-                  </span>
-                )}
-                {methods.formState.errors.password && (
-                  <span css={errorMessageStyle}>
-                    {methods.formState.errors.password.message}
-                  </span>
-                )}
                 <div css={buttonContainerStyle}>
                   <Button type="submit" color="blue">
                     ログイン
                   </Button>
-                  <Button color="gray">googleでログイン</Button>
+                  <Button type="submit" color="gray">
+                    googleでログイン
+                  </Button>
                 </div>
               </form>
             </FormProvider>

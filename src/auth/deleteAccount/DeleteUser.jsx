@@ -62,7 +62,7 @@ const DeleteUser = () => {
   return (
     <>
       <div css={centerStyle}>
-        <Button onClick={toggleDeleteModal} color="red">
+        <Button type="button" onClick={toggleDeleteModal} color="red">
           アカウントの削除
         </Button>
       </div>
@@ -71,18 +71,10 @@ const DeleteUser = () => {
           <div css={[modalContainerStyle, centerStyle]}>
             <p css={textRed}>「アカウントを本当に削除しますか？」</p>
             <p>削除するとデータの復元をすることはできません。</p>
-            {againAuth ? (
-              <AgainAuth handleDeleteUser={handleDeleteUser} />
-            ) : (
-              <div css={buttonContainerStyle}>
-                <Button color="red" onClick={handleDeleteUser}>
-                  アカウント削除
-                </Button>
-                <Button color="gray" onClick={toggleDeleteModal}>
-                  キャンセル
-                </Button>
-              </div>
-            )}
+            <AgainAuth handleDeleteUser={handleDeleteUser} />
+            <Button type="button" color="gray" onClick={toggleDeleteModal}>
+              キャンセル
+            </Button>
             {status === "loading" && <p>削除中</p>}
             {error && <p css={errorMessageStyle}>{error}</p>}
           </div>
