@@ -19,8 +19,8 @@
 
 そのため、私自信が使いやすいアプリを目的に作成しています。
 
-下記 URL にアップロードしていますので下記ページをご覧ください。
-URL：https://www.memo-book-note.com/
+下記 URL にデプロイしていますのでご覧ください。
+URL：https://www.memo-books-note.com/
 
 ## 主な機能
 
