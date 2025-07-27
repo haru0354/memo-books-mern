@@ -6,6 +6,7 @@ export const main1ColumnStyle = css`
   max-width: 1140px;
   min-height: calc(100vh - 229px);
   margin: 0px auto;
+  padding: 60px 20px;
 
   h1 {
     font-size: 30px;
@@ -18,7 +19,6 @@ export const main1ColumnStyle = css`
 // 1カラム時のコンテナ
 export const oneColumnContainerStyle = css`
   background-color: white;
-  margin: 60px 16px;
   padding: 60px 20px;
   border: 1px solid #d7d7d7;
   border-radius: 4px;

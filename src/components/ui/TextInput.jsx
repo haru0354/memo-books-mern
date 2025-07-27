@@ -3,18 +3,24 @@ import { css } from "@emotion/react";
 import { useFormContext } from "react-hook-form";
 import { errorMessageStyle } from "../../styles/styles";
 
+const textInputContainer = css`
+  width: 100%;
+`;
+
 const labelStyle = css`
+  width: 100%;
   font-size: 0.9rem;
   font-weight: 600;
 `;
 
 const textInputStyle = css`
-  max-width: 100%;
+  width: 100%;
   height: 40px;
   margin-bottom: 6px;
   border: 1px solid rgb(185 184 184);
   border-radius: 4px;
   padding: 0 10px;
+  box-sizing: border-box;
 `;
 
 const errorBorderStyle = css`
@@ -43,7 +49,7 @@ const TextInput = React.forwardRef(
     } = useFormContext();
 
     return (
-      <>
+      <div css={textInputContainer}>
         <label css={labelStyle} htmlFor={label}>
           {label}
         </label>
@@ -70,7 +76,7 @@ const TextInput = React.forwardRef(
           })}
         />
         {errors[name] && <p css={errorMessageStyle}>{errors[name].message}</p>}
-      </>
+      </div>
     );
   }
 );
