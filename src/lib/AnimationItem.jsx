@@ -74,6 +74,21 @@ const AnimationItem = ({ emotionCss, children, elType, animation, delay }) => {
       },
     },
   };
+  
+  const slideMaskDown = {
+    hidden: {
+      clipPath: "inset(0% 0% 100% 0%)",
+      opacity: 0,
+    },
+    visible: {
+      clipPath: "inset(0% 0% 0% 0%)",
+      opacity: 1,
+      transition: {
+        duration: 1.6,
+        ease: "easeOut",
+      },
+    },
+  };
 
   const animations = {
     fadeInLeft,
@@ -82,6 +97,7 @@ const AnimationItem = ({ emotionCss, children, elType, animation, delay }) => {
     fadeInUp,
     fadeInOpacity,
     fadeInScale,
+    slideMaskDown,
   };
 
   return (
