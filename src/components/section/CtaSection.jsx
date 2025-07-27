@@ -3,11 +3,12 @@ import AnimationItem from "../../lib/AnimationItem";
 import Button from "../ui/Button";
 
 const ctaSection = css`
-  padding-top: 60px;
-  padding-bottom: 60px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 60px 20px;
   background-color: #25448b;
+
+  @media (max-width: 768px) {
+    padding: 20px 10px;
+  }
 `;
 
 const ctaContainer = css`
@@ -18,6 +19,10 @@ const ctaContainer = css`
   border: 1px solid #25448b;
   border-radius: 4px;
   background-color: #fffdfb;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const sectionH2Style = css`
