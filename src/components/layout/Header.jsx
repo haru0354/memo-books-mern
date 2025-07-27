@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
-import LoginModal from "../../auth/LoginModal"
+import LoginModal from "../../auth/LoginModal";
 
 const headerContainer = css`
   width: 100%;
@@ -31,7 +31,7 @@ const oneColumnAddHeaderStyle = css`
   max-width: 1108px;
   height: 75px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 10px;
   color: rgb(55 65 81);
 
   @media (max-width: 768px) {
@@ -58,8 +58,8 @@ const imageStyle = css`
   height: 60px;
 
   @media (max-width: 768px) {
-    width: 165px;
-    height: 45px;
+    width: 130px;
+    height: 36px;
   }
 `;
 
