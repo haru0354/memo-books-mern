@@ -19,6 +19,9 @@ const heroContainer = css`
   padding: 40px 10px;
 
   @media (max-width: 768px) {
+    padding-top: 10px;
+    padding-bottom: 20px;
+
     flex-direction: column;
   }
 `;

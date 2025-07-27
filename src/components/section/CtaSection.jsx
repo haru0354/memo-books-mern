@@ -21,7 +21,7 @@ const ctaContainer = css`
   background-color: #fffdfb;
 
   @media (max-width: 768px) {
-    padding: 20px;
+    padding: 20px 10px;
   }
 `;
 
