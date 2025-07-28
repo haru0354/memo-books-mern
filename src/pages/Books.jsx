@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../store/slice/booksSlice";
 import { css } from "@emotion/react";
-import { main1ColumnStyle, oneColumnContainerStyle } from "../styles/styles";
+import { main1ColumnStyle } from "../styles/styles";
 import AddBookModal from "../components/book/AddBookModal";
 import EditBookModal from "../components/book/EditBookModal";
 
@@ -122,32 +122,30 @@ const Books = () => {
         <meta name="robots" content="noindex" />
       </Helmet>
       <div css={main1ColumnStyle}>
-        <div css={oneColumnContainerStyle}>
-          <h1>メモブックの一覧</h1>
-          <div css={BooksAreaStyle}>
-            {books.map((book) => (
-              <div css={bookContainerStyle} key={book._id}>
-                <Link
-                  to={
-                    book.firstChapterId
-                      ? `/${book._id}/${book.firstChapterId}`
-                      : `/${book._id}`
-                  }
-                >
-                  <div css={bookStyle}>
-                    <div css={bookTitleStyle}>
-                      <h2 css={h2Style}>{book.title}</h2>
-                    </div>
+        <h1>メモブックの一覧</h1>
+        <div css={BooksAreaStyle}>
+          {books.map((book) => (
+            <div css={bookContainerStyle} key={book._id}>
+              <Link
+                to={
+                  book.firstChapterId
+                    ? `/${book._id}/${book.firstChapterId}`
+                    : `/${book._id}`
+                }
+              >
+                <div css={bookStyle}>
+                  <div css={bookTitleStyle}>
+                    <h2 css={h2Style}>{book.title}</h2>
                   </div>
-                </Link>
-                <div css={editButtonContainerStyle}>
-                  <EditBookModal bookTitle={book.title} bookId={book._id} />
                 </div>
+              </Link>
+              <div css={editButtonContainerStyle}>
+                <EditBookModal bookTitle={book.title} bookId={book._id} />
               </div>
-            ))}
-            <div css={addBookContainerStyle}>
-              <AddBookModal />
             </div>
+          ))}
+          <div css={addBookContainerStyle}>
+            <AddBookModal />
           </div>
         </div>
       </div>
