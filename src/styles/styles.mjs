@@ -35,8 +35,8 @@ export const RightContent = css`
   max-width: 1060px;
   width: 100%;
   min-height: 100vh;
-  margin-left: 220px;
-  padding-left: 60px;
+  margin-left: 200px;
+  padding-left: 100px;
   padding-right: 20px;
   background-color: #ffffff;
 
