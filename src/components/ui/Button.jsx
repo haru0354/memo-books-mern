@@ -10,7 +10,6 @@ const getBackgroundColor = (color) => {
   return colorMap[color] || "#FFFFFF";
 };
 
-
 const buttonStyle = (color) => css`
   cursor: pointer;
   width: 180px;
@@ -33,7 +32,12 @@ const buttonStyle = (color) => css`
 
 const Button = ({ children, onClick, color, type, addCss, title }) => {
   return (
-    <button type={type} css={[buttonStyle(color), addCss]} onClick={onClick} title={title}>
+    <button
+      type={type}
+      css={[buttonStyle(color), addCss]}
+      onClick={onClick}
+      title={title}
+    >
       {children}
     </button>
   );

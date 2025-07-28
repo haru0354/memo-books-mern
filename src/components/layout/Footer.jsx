@@ -3,10 +3,17 @@ import { Link } from "react-router-dom";
 
 const footerStyle = css`
   font-size: 13px;
-  padding: 1px;
   color: #e3e3e3;
   background-color: #5c5c5c;
   text-align: center;
+`;
+
+const ulStyle = css`
+  margin: 0px;
+  padding: 10px;
+  @media (max-width: 768px) {
+    margin: 0px;
+  }
 `;
 
 const LinkLiStyle = css`
@@ -16,9 +23,11 @@ const LinkLiStyle = css`
 const Footer = () => {
   return (
     <footer css={footerStyle}>
-      <ul>
+      <ul css={ulStyle}>
         <li>
-          <Link to="/privacypolicy" css={LinkLiStyle}>プライバシーポリシー</Link>
+          <Link to="/privacypolicy" css={LinkLiStyle}>
+            プライバシーポリシー
+          </Link>
         </li>
         <li>&copy;無料で本やメモを作成できるブックメモ</li>
       </ul>

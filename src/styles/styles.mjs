@@ -65,6 +65,7 @@ export const modalBackStyle = css`
   height: 100%;
   background-color: rgb(156 163 175 / 65%);
   z-index: 1000;
+  padding: 0 10px;
 `;
 
 export const modalContainerStyle = css`

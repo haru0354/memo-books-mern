@@ -17,6 +17,12 @@ import Privacypolicy from "./pages/Privacypolicy";
 const globalStyles = css`
   @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
 
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
   body {
     font-family: "Noto Sans JP", sans-serif;
     font-size: 16px;

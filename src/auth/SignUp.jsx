@@ -10,31 +10,45 @@ import TextInput from "../components/ui/TextInput";
 import Button from "../components/ui/Button";
 
 const formContainerStyle = css`
-  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  margin: 0 auto;
+`;
+
+const formStyle = css`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  max-width: 340px;
+  width: 100%;
   padding: 20px;
   border-radius: 4px;
   background-color: #fffdfb;
 `;
 
 const textCenterStyle = css`
-  margin-top: 15px;
-  text-align: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
-const FormTextStyle = css`
-  margin-bottom: 1rem;
-  padding-bottom: 4px;
+const FormTitleStyle = css`
+  width: 100%;
   text-align: center;
   font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 4px;
   border-bottom: 1px dashed gray;
 `;
 
-const formStyle = css`
-  display: flex;
-  flex-direction: column;
-  text-align: left;
+const createButtonStyle = css`
+  display: block;
+  padding-right: 60px;
+  padding-left: 60px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const SignUp = () => {
@@ -68,7 +82,7 @@ const SignUp = () => {
       ) : (
         <FormProvider {...methods}>
           <form css={formStyle} onSubmit={methods.handleSubmit(onSubmit)}>
-            <span css={FormTextStyle}>アカウント登録</span>
+            <span css={FormTitleStyle}>アカウント登録</span>
             <TextInput
               type="email"
               label="メールアドレス"
@@ -83,11 +97,9 @@ const SignUp = () => {
               name="password"
               required={true}
             />
-            <div css={textCenterStyle}>
-              <Button type="submit" color="blue">
-                登録
-              </Button>
-            </div>
+            <Button type="submit" color="blue" addCss={createButtonStyle}>
+              登録
+            </Button>
           </form>
         </FormProvider>
       )}

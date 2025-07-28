@@ -5,10 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateContentsAsync } from "../../store/slice/contentsSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { css } from "@emotion/react";
-import {
-  RightContent,
-  formStyle,
-} from "../../styles/styles";
+import { RightContent, formStyle } from "../../styles/styles";
 import useToast from "../../hooks/useToast";
 import SplitAndNewLines from "../../lib/SplitAndNewLines";
 import Button from "../ui/Button";
@@ -17,6 +14,7 @@ import Textarea from "../ui/Textarea";
 import EditImageButton from "../ui/EditImageButton";
 import AddContentModal from "../content/AddContentModal";
 import DeleteContentModal from "../content/DeleteContentModal";
+import AnimationItem from "../../lib/AnimationItem";
 
 const tableOfContentsStyle = css`
   max-width: 380px;
@@ -142,7 +140,12 @@ const MainContent = ({ bookId, chapterId }) => {
   };
 
   return (
-    <div css={RightContent}>
+    <AnimationItem
+      elType="div"
+      animation="slideMaskDown"
+      emotionCss={RightContent}
+      key={chapterId}
+    >
       <h1>{chapterTitle}</h1>
       <div css={tableOfContentsStyle}>
         <p>目次</p>
@@ -222,7 +225,7 @@ const MainContent = ({ bookId, chapterId }) => {
         );
       })}
       <AddContentModal bookId={bookId} chapterId={chapterId} />
-    </div>
+    </AnimationItem>
   );
 };
 

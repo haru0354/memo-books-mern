@@ -3,31 +3,33 @@ import SignUp from "../../auth/SignUp";
 import AnimationItem from "../../lib/AnimationItem";
 
 const heroSection = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   background-color: #99bff7;
 `;
 
 const heroContainer = css`
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: space-around;
   max-width: 1140px;
   width: 100%;
-  margin: 0px auto;
-  padding: 40px 0;
-  text-align: center;
+  padding: 40px 10px;
+
+  @media (max-width: 768px) {
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+    flex-direction: column;
+  }
 `;
 
 const hero = css`
-  max-width: 360px;
   width: 100%;
-  padding: 40px;
-  border-radius: 4px;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media (max-width: 768px) {
-    padding-top: 0px;
-  }
+  text-align: center;
+  margin-bottom: 20px;
 `;
 
 const Hero = () => {
