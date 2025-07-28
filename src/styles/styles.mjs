@@ -11,7 +11,7 @@ export const main1ColumnStyle = css`
   h1 {
     font-size: 30px;
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
     margin-top: 0;
   }
 `;

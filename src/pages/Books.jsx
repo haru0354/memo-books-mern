@@ -9,12 +9,11 @@ import AddBookModal from "../components/book/AddBookModal";
 import EditBookModal from "../components/book/EditBookModal";
 
 const bookContainerStyle = css`
-  padding: 0 1.8rem;
+  padding: 0 1.6rem;
 `;
 
 const addBookContainerStyle = css`
-  background-color: white;
-  padding-bottom: 52px;
+  padding-top: 25px;
   padding-left: 25px;
   padding-right: 25px;
   border-radius: 4px;
@@ -26,8 +25,9 @@ const bookTitleStyle = css`
 `;
 
 const BooksAreaStyle = css`
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   margin: 0 auto;
@@ -89,6 +89,40 @@ const h2Style = css`
   font-size: 1.2rem;
 `;
 
+const scrollStyle = css`
+  position: relative;
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  margin: 20px 0;
+  padding: 2rem 1rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.15);
+  border: 2px solid #c9b79c;
+
+  &::-webkit-scrollbar {
+    height: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #e0d8c9;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #b59d7c;
+    border-radius: 10px;
+    border: 2px solid #e0d8c9;
+  }
+
+  @media (max-width: 960px) {
+    margin: 20px 0;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+  }
+`;
+
 const Books = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
@@ -111,6 +145,20 @@ const Books = () => {
     return <p css={loadingStyle}>Loading ...</p>;
   }
 
+  // AddBookModal を最後の1つとして追加
+  const booksWithAdd = [...books, { _id: "add", isAdd: true }];
+
+  // 4つずつ分割
+  const chunkArray = (array, chunkSize) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+      result.push(array.slice(i, i + chunkSize));
+    }
+    return result;
+  };
+
+  const chunkedBooks = chunkArray(booksWithAdd, 4);
+
   return (
     <>
       <Helmet>
@@ -124,29 +172,36 @@ const Books = () => {
       <div css={main1ColumnStyle}>
         <h1>メモブックの一覧</h1>
         <div css={BooksAreaStyle}>
-          {books.map((book) => (
-            <div css={bookContainerStyle} key={book._id}>
-              <Link
-                to={
-                  book.firstChapterId
-                    ? `/${book._id}/${book.firstChapterId}`
-                    : `/${book._id}`
-                }
-              >
-                <div css={bookStyle}>
-                  <div css={bookTitleStyle}>
-                    <h2 css={h2Style}>{book.title}</h2>
+          {chunkedBooks.map((row, index) => (
+            <div css={scrollStyle} key={index}>
+              {row.map((book) =>
+                book.isAdd ? (
+                  <div css={addBookContainerStyle} key="add">
+                    <AddBookModal />
                   </div>
-                </div>
-              </Link>
-              <div css={editButtonContainerStyle}>
-                <EditBookModal bookTitle={book.title} bookId={book._id} />
-              </div>
+                ) : (
+                  <div css={bookContainerStyle} key={book._id}>
+                    <Link
+                      to={
+                        book.firstChapterId
+                          ? `/${book._id}/${book.firstChapterId}`
+                          : `/${book._id}`
+                      }
+                    >
+                      <div css={bookStyle}>
+                        <div css={bookTitleStyle}>
+                          <h2 css={h2Style}>{book.title}</h2>
+                        </div>
+                      </div>
+                    </Link>
+                    <div css={editButtonContainerStyle}>
+                      <EditBookModal bookTitle={book.title} bookId={book._id} />
+                    </div>
+                  </div>
+                )
+              )}
             </div>
           ))}
-          <div css={addBookContainerStyle}>
-            <AddBookModal />
-          </div>
         </div>
       </div>
     </>
