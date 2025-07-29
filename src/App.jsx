@@ -5,8 +5,8 @@ import { Global, css } from "@emotion/react";
 import "normalize.css";
 
 import useAuthObserver from "./auth/useAuthObserver";
-import PublicRoute from "./auth/PublicRoute";
-import ProtectedRoute from "./auth/ProtectedRoute";
+import PublicRoute from "./routes/PublicRoute";
+import ProtectedRoute from "./routes/ProtectedRoute";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 import Books from "./pages/Books";
