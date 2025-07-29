@@ -3,7 +3,9 @@ import { HelmetProvider } from "react-helmet-async";
 import { ToastProvider } from "./context/ToastContext";
 import { Global, css } from "@emotion/react";
 import "normalize.css";
+
 import useAuthObserver from "./auth/useAuthObserver";
+import PublicRoute from "./auth/PublicRoute";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
@@ -54,7 +56,7 @@ function App() {
         <ToastProvider>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<PublicRoute element={<Home />} />} />
               <Route
                 path="/books"
                 element={<ProtectedRoute element={<Books />} />}
@@ -63,10 +65,7 @@ function App() {
                 path="/setting"
                 element={<ProtectedRoute element={<Setting />} />}
               />
-              <Route
-                path="/privacypolicy"
-                element={<Privacypolicy />}
-              />
+              <Route path="/privacypolicy" element={<Privacypolicy />} />
               <Route
                 path="/:bookId"
                 element={<ProtectedRoute element={<Book />} />}

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ element }) => {
+const PublicRoute = ({ element }) => {
   const user = useSelector((state) => state.user.user);
   const userStatus = useSelector((state) => state.user.status);
 
@@ -9,11 +9,11 @@ const ProtectedRoute = ({ element }) => {
     return <div>Loading...</div>;
   }
 
-  if (userStatus === "failed" || !user) {
-    return <Navigate to="/" />;
+  if (user) {
+    return <Navigate to="/books" replace />;
   }
 
   return element;
 };
 
-export default ProtectedRoute;
+export default PublicRoute;
