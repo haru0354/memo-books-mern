@@ -4,11 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/slice/userSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { css } from "@emotion/react";
-import {
-  buttonContainerStyle,
-  formStyle,
-  errorMessageStyle,
-} from "../styles/styles";
+import { buttonContainerStyle, formStyle } from "../styles/styles";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../lib/schema";
 import useToast from "../hooks/useToast";
@@ -59,6 +55,12 @@ const menuTextStyle = css`
   }
 `;
 
+const loginButtonContainerStyle = css`
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-right: auto;
+  margin-left: auto;
+`;
 const LoginModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -135,22 +137,19 @@ const LoginModal = () => {
                 <span css={formTextStyle}>ログイン</span>
                 <TextInput
                   type="email"
-                  label="メールアドレス"
+                  label="ログイン用メールアドレス"
                   placeholder="メールアドレスを入力してください"
                   name="email"
                 />
                 <TextInput
                   type="password"
-                  label="パスワード"
+                  label="登録済みパスワード"
                   placeholder="8～12文字で入力してください"
                   name="password"
                 />
-                <div css={buttonContainerStyle}>
+                <div css={loginButtonContainerStyle}>
                   <Button type="submit" color="blue">
                     ログイン
-                  </Button>
-                  <Button type="submit" color="gray">
-                    googleでログイン
                   </Button>
                 </div>
               </form>

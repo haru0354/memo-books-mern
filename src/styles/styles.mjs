@@ -6,11 +6,12 @@ export const main1ColumnStyle = css`
   max-width: 1140px;
   min-height: calc(100vh - 229px);
   margin: 0px auto;
+  padding: 60px 20px;
 
   h1 {
     font-size: 30px;
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
     margin-top: 0;
   }
 `;
@@ -18,7 +19,6 @@ export const main1ColumnStyle = css`
 // 1カラム時のコンテナ
 export const oneColumnContainerStyle = css`
   background-color: white;
-  margin: 60px 16px;
   padding: 60px 20px;
   border: 1px solid #d7d7d7;
   border-radius: 4px;
@@ -35,8 +35,8 @@ export const RightContent = css`
   max-width: 1060px;
   width: 100%;
   min-height: 100vh;
-  margin-left: 220px;
-  padding-left: 60px;
+  margin-left: 200px;
+  padding-left: 100px;
   padding-right: 20px;
   background-color: #ffffff;
 
@@ -65,7 +65,6 @@ export const modalBackStyle = css`
   height: 100%;
   background-color: rgb(156 163 175 / 65%);
   z-index: 1000;
-  padding: 0 10px;
 `;
 
 export const modalContainerStyle = css`
