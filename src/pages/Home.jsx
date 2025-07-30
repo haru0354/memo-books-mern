@@ -7,6 +7,7 @@ import CtaSection from "../components/section/CtaSection";
 import ThreePoint from "../components/section/ThreePoint";
 import QaSection from "../components/section/QaSection";
 import AnimationItem from "../lib/AnimationItem";
+import BackToTopButton from "../components/ui/BackToButton";
 
 const firstSection = css`
   padding-top: 60px;
@@ -245,6 +246,7 @@ const Home = () => {
         bottomText="登録は「emailアドレス」「パスワード」の2つを入力しアカウントを作成すれば、利用ができます。"
         buttonText="登録して利用"
       />
+      <BackToTopButton>アカウント登録</BackToTopButton>
     </>
   );
 };

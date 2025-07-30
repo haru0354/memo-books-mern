@@ -24,7 +24,7 @@ const buttonStyle = css`
   }
 `;
 
-const BackToTopButton = () => {
+const BackToTopButton = ({children}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const BackToTopButton = () => {
     <>
       {isVisible && (
         <button onClick={backToTop} type="button" css={buttonStyle}>
-          トップへ戻る
+          {children}
         </button>
       )}
     </>

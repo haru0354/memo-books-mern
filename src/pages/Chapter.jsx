@@ -73,7 +73,7 @@ const Chapter = () => {
       <div css={main2ColumnStyle}>
         <Sidebar bookId={bookId} />
         <MainContent bookId={bookId} chapterId={chapterId} />
-        <BackToTopButton />
+        <BackToTopButton>トップへ戻る</BackToTopButton>
       </div>
     </>
   );
