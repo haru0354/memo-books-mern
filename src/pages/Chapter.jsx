@@ -8,6 +8,7 @@ import { css } from "@emotion/react";
 import { main2ColumnStyle } from "../styles/styles";
 import MainContent from "../components/layout/MainContent";
 import Sidebar from "../components/layout/Sidebar";
+import BackToTopButton from "../components/ui/BackToButton";
 import Page404 from "./Page404";
 
 const loadingStyle = css`
@@ -72,6 +73,7 @@ const Chapter = () => {
       <div css={main2ColumnStyle}>
         <Sidebar bookId={bookId} />
         <MainContent bookId={bookId} chapterId={chapterId} />
+        <BackToTopButton />
       </div>
     </>
   );
