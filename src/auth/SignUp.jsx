@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createUser } from "../store/slice/userSlice";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -27,12 +27,6 @@ const formStyle = css`
   background-color: #fffdfb;
 `;
 
-const textCenterStyle = css`
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
 const FormTitleStyle = css`
   width: 100%;
   text-align: center;
@@ -56,7 +50,6 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const showToast = useToast();
-  const user = useSelector((state) => state.user.user);
 
   const onSubmit = async (data) => {
     const { email, password } = data;
@@ -72,37 +65,28 @@ const SignUp = () => {
 
   return (
     <div css={formContainerStyle} id="form">
-      {user ? (
-        <div css={textCenterStyle}>
-          <p>すでにログイン中です。</p>
-          <Button color="blue" onClick={() => navigate("/books")}>
-            メモブックの一覧へ
+      <FormProvider {...methods}>
+        <form css={formStyle} onSubmit={methods.handleSubmit(onSubmit)}>
+          <span css={FormTitleStyle}>アカウント登録</span>
+          <TextInput
+            type="email"
+            label="メールアドレス"
+            placeholder="メールアドレスを入力してください"
+            name="email"
+            required={true}
+          />
+          <TextInput
+            type="password"
+            label="パスワード"
+            placeholder="8～12文字で入力してください"
+            name="password"
+            required={true}
+          />
+          <Button type="submit" color="blue" addCss={createButtonStyle}>
+            登録
           </Button>
-        </div>
-      ) : (
-        <FormProvider {...methods}>
-          <form css={formStyle} onSubmit={methods.handleSubmit(onSubmit)}>
-            <span css={FormTitleStyle}>アカウント登録</span>
-            <TextInput
-              type="email"
-              label="メールアドレス"
-              placeholder="メールアドレスを入力してください"
-              name="email"
-              required={true}
-            />
-            <TextInput
-              type="password"
-              label="パスワード"
-              placeholder="8～12文字で入力してください"
-              name="password"
-              required={true}
-            />
-            <Button type="submit" color="blue" addCss={createButtonStyle}>
-              登録
-            </Button>
-          </form>
-        </FormProvider>
-      )}
+        </form>
+      </FormProvider>
     </div>
   );
 };

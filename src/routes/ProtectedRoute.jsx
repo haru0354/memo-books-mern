@@ -5,13 +5,13 @@ const ProtectedRoute = ({ element }) => {
   const user = useSelector((state) => state.user.user);
   const userStatus = useSelector((state) => state.user.status);
 
-    if (userStatus === "idle") {
-        return <div>Loading...</div>; 
-    }
+  if (userStatus === "idle") {
+    return <div>Loading...</div>;
+  }
 
-    if (userStatus === "failed" || !user) {
-        return <Navigate to="/" />;
-    }
+  if (userStatus === "failed" || !user) {
+    return <Navigate to="/" />;
+  }
 
   return element;
 };

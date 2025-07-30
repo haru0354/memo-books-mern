@@ -166,7 +166,7 @@ const Sidebar = ({ bookId }) => {
         <ul css={ulStyles}>
           {chapters.chaptersWithoutContents.map((chapter) => {
             return (
-              <li css={liStyles} key={chapter._id}>
+              <li css={liStyles} key={chapter._id} onClick={toggleHumBergerMenu}>
                 <Link to={`/${bookId}/${chapter._id}`} css={linkStyles}>
                   {chapter.chapter_title}
                 </Link>
